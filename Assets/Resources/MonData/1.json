@@ -1,0 +1,15 @@
+{
+  "key": 1,
+  "name": "Charmander",
+  "stage": 1,
+  "family" : [
+    2,
+    3
+  ],
+  "requiredType": "fire",
+  "tags": [
+    "fireType",
+    "tailed",
+    "fanged"
+  ]
+}

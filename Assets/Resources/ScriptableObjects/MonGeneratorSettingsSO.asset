@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736997b25a73e834f88b2ff13b728211, type: 3}
+  m_Name: MonGeneratorSettingsSO
+  m_EditorClassIdentifier: 
+  monoTypingChance: 0.25
+  familyProfiles:
+  - {fileID: 11400000, guid: 2a7065220e37dc84384c71b64b3ac8fd, type: 2}
+  - {fileID: 11400000, guid: de9dee2f9556da4448adb6996cf3bafa, type: 2}
+  - {fileID: 11400000, guid: f01a88042b359fc4bab26eb9484d9c17, type: 2}

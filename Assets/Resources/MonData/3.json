@@ -1,0 +1,18 @@
+{
+  "key": 3,
+  "name": "Charizard",
+  "stage": 3,
+  "family" : [
+    1,
+    2
+  ],
+  "requiredType": "fire",
+  "tags": [
+    "fireType",
+    "tailed",
+    "fanged",
+    "dragonLike",
+    "flying",
+    "winged"
+  ]
+}

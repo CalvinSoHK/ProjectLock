@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5049501a8cc4b549b67d974b9cc3741, type: 3}
+  m_Name: OneStage-BulkFamily
+  m_EditorClassIdentifier: Assembly-CSharp:MonGeneration:MonGenFamilyProfileSO
+  familyProfileName: OneStage-BulkFamily
+  profiles:
+  - {fileID: 11400000, guid: 0e9e6c768675eb748b2914f73d2467e5, type: 2}
+  statTotalAverage: 500
+  hpAverage: 100
+  defAverage: 80
+  spDefAverage: 80
+  atkAverage: 80
+  spAtkAverage: 80
+  speedAverage: 70
+  statTotal_stddev: 100
+  hpWeight_stddev: 20
+  defWeight_stddev: 15
+  spDefWeight_stddev: 15
+  atkWeight_stddev: 15
+  spAtkWeight_stddev: 15
+  speedWeight_stddev: 12.5

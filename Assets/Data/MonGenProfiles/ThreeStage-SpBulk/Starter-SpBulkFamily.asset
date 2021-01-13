@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5049501a8cc4b549b67d974b9cc3741, type: 3}
+  m_Name: Starter-SpBulkFamily
+  m_EditorClassIdentifier: Assembly-CSharp:MonGeneration:MonGenFamilyProfileSO
+  familyProfileName: Starter-SpBulkFamily
+  profiles:
+  - {fileID: 11400000, guid: 7f0fa13ac8bde7a4d9ee80146be6c550, type: 2}
+  - {fileID: 11400000, guid: 8215ab77c522c1b448d88cd45ce3f09d, type: 2}
+  - {fileID: 11400000, guid: 5eeeaea710d90c546bcd5ae5b61bf284, type: 2}
+  statTotalAverage: 500
+  hpAverage: 100
+  defAverage: 80
+  spDefAverage: 80
+  atkAverage: 80
+  spAtkAverage: 80
+  speedAverage: 70
+  statTotal_stddev: 100
+  hpWeight_stddev: 20
+  defWeight_stddev: 15
+  spDefWeight_stddev: 15
+  atkWeight_stddev: 15
+  spAtkWeight_stddev: 15
+  speedWeight_stddev: 12.5
