@@ -3208,6 +3208,7 @@ MonoBehaviour:
     catchRate: 0
     weight: 0
     exp_gain: 0
+    teachableMoves: []
 --- !u!1 &1673985478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3658,6 +3659,7 @@ MonoBehaviour:
     catchRate: 0
     weight: 0
     exp_gain: 0
+    teachableMoves: []
 --- !u!1 &1816992163
 GameObject:
   m_ObjectHideFlags: 0
@@ -4104,6 +4106,7 @@ MonoBehaviour:
     catchRate: 0
     weight: 0
     exp_gain: 0
+    teachableMoves: []
 --- !u!1 &1974201179
 GameObject:
   m_ObjectHideFlags: 0
