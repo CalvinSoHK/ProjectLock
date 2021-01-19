@@ -10,23 +10,54 @@ public enum BattleState {START,PLAYERTURN,ENEMYTURN,ESCAPED,WON,LOST}
 public class BattleSystem: MonoBehaviour
 {
 
+    [SerializeField] DialogueTexts dialogueText;
+    
     public BattleState state;
+    int currentAction;
+    public int currentMove;
+    
+    public GameObject pokemon1;
+    public DisplayMonInfo displayinfo;
     void Start()
     {
         state = BattleState.START;
+        Debug.Log(DisplayMonInfo.hp);
         Initialize();
     }
 
+    void Update()
+    {
+        if (state == BattleState.PLAYERTURN)
+        {
+            moveSelection();
+        }
+    }
+    //
     void Initialize()
     {
         //Instantiate Player/Enemy pokemons
         //Set curHP
         //Set curLVL
-        state = BattleState.PLAYERTURN;
+
+        //Decide who goes first based on speed
+
+        //if ((player)speed > (enemy)speed)
+        Debug.Log("Initlaizing");
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerAction();
+        } /* else
+        {
+            state = BattleState.ENEMYTURN;
+            PlayerAction();
+        }*/
+
     }
     void PlayerAction()
     {
         //Player turn
+        Debug.Log("SelectMove");
+
     }
 
     public void PlayerRun()
@@ -54,6 +85,32 @@ public class BattleSystem: MonoBehaviour
         {
             return;
         }
+
+        switch (currentMove)
+        {
+            case 0:
+                Debug.Log("skill 1");
+                //
+                //BattleTurn()
+                //Use skill 1
+                break;
+            case 1:
+                Debug.Log("skill 2");
+                //Use skill 2
+                break;
+            case 2:
+                Debug.Log("skill 3");
+                //Use skill 3
+                break;
+            case 3:
+                Debug.Log("skill 4");
+                //Use skill 4
+                break;
+            default:
+                break;
+        }
+
+
         //Deal damage
         bool isDead = false;
         //Check if enemy dead -> state = won
@@ -67,6 +124,7 @@ public class BattleSystem: MonoBehaviour
             EnemyAction();
         }
     }
+
 
     public void PlayerItem()
     {
@@ -93,6 +151,20 @@ public class BattleSystem: MonoBehaviour
 
     }
 
+    void BattleTurn()
+    {
+        //Check conditionals
+
+
+        //Check if attack has priority
+        //Then do damage
+        //if (player.speed > enemy.speed)
+        {
+            
+        }
+
+    }
+
     void EndBattle()
     {
         if(state == BattleState.WON)
@@ -108,5 +180,43 @@ public class BattleSystem: MonoBehaviour
     void Escaped()
     {
         //text = "Player ran away"
+    }
+
+    void moveSelection()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (currentMove < 3) //max moves - 1
+            {
+                ++currentMove;
+            } 
+        } 
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (currentMove > 0)
+                {
+                    --currentMove;
+                }
+            }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (currentMove < 2)
+                {
+                    currentMove += 2;
+                }
+            } else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (currentMove > 1)
+                {
+                    currentMove -= 2;
+                }
+            }
+        
+        dialogueText.updateMoveSelection(currentMove);
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            PlayerAttack();
+        }
     }
 }
