@@ -62,4 +62,25 @@ public class MonStats
     {
 
     }
+    public int GetStat(MonStatType requestedStat)
+    {
+        switch (requestedStat)
+        {
+            case MonStatType.HP:
+                return hp;
+            case MonStatType.DEF:
+                return def;
+            case MonStatType.SPDEF:
+                return spDef;
+            case MonStatType.ATK:
+                return atk;
+            case MonStatType.SPATK:
+                return spAtk;
+            case MonStatType.SPEED:
+                return speed;
+            default:
+                Debug.LogError("Requested invalid stat: " + requestedStat);
+                return hp;
+        }
+    }
 }

@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mon.Individual;
+using Mon.MonGeneration;
+using Mon.Enums;
 
 ///<Summary>
 ///BattleSystem for the player
@@ -16,14 +18,18 @@ public class BattleSystem: MonoBehaviour
     int currentAction;
     public int currentMove;
     
-    public GameObject pokemon1;
-    public DisplayMonInfo displayinfo;
+    public MonObject pokemon1;
     void Start()
     {
         state = BattleState.START;
-        Debug.Log(DisplayMonInfo.hp);
+        pokemon1 = new MonObject();
+        MonBaseStats teststats = new MonBaseStats(100, 100, 100, 100, 100, 100);
+        pokemon1.monStats = new MonStats(teststats);
+        Debug.Log(pokemon1.monStats.GetStat(MonStatType.HP));
         Initialize();
     }
+
+
 
     void Update()
     {
@@ -32,7 +38,6 @@ public class BattleSystem: MonoBehaviour
             moveSelection();
         }
     }
-    //
     void Initialize()
     {
         //Instantiate Player/Enemy pokemons
