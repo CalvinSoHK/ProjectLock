@@ -94,7 +94,7 @@ public class BattleSystem: MonoBehaviour
     //choosing skill before battleTurn()
     public void PlayerAttack()
     {
-        if (state != BattleState.PLAYERTURN)
+        if (state != BattleState.PLAYERTURN) //Set to BATTLEPHASE
         {
             return;
         }
@@ -154,27 +154,29 @@ public class BattleSystem: MonoBehaviour
         }
 
     }
-
-    public void playerAttack()
-    {
-        
-    }
-
-    public void PlayerItem()
-    {
-        if (state != BattleState.PLAYERTURN)
-        {
-            return;
-        }
-        //Use item
-    }
-
+    
     void battleTurn()
     {
         //Check conditionals
 
+        //What if 
 
         //Check if attack has priority
+        /*
+        if (playerskill.priority > enemyskill.priority)
+        {
+            PlayerAttack();
+            EnemyAttack();
+        } else if (playerskill.priority < enemyskill.priority)
+        {
+            EnemyAttack();
+            PlayerAttack();
+        } else 
+        {
+            break;
+        }
+        */
+
         //Then do damage
         if (mon1.monStats.GetStat(MonStatType.SPEED) > mon2.monStats.GetStat(MonStatType.SPEED))
         {
@@ -204,6 +206,16 @@ public class BattleSystem: MonoBehaviour
     void Escaped()
     {
         //text = "Player ran away"
+    }
+
+
+    public void PlayerItem()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+        //Use item
     }
 
     void moveSelection()
