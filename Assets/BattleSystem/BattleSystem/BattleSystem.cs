@@ -4,11 +4,12 @@ using UnityEngine;
 using Mon.Individual;
 using Mon.MonGeneration;
 using Mon.Enums;
+using Mon.Moves;
 
+public enum BattleState {START,PLAYERTURN,BATTLEPHASE,ESCAPED,WON,LOST}
 ///<Summary>
-///BattleSystem for the player
+///BattleSystem for the battle encounters
 ///</Summary>
-public enum BattleState {START,PLAYERTURN,ENEMYTURN,ESCAPED,WON,LOST}
 public class BattleSystem: MonoBehaviour
 {
 
@@ -18,14 +19,19 @@ public class BattleSystem: MonoBehaviour
     int currentAction;
     public int currentMove;
     
-    public MonObject pokemon1;
+    public MonObject mon1;
+    public MonObject mon2;
+ 
     void Start()
     {
         state = BattleState.START;
-        pokemon1 = new MonObject();
-        MonBaseStats teststats = new MonBaseStats(100, 100, 100, 100, 100, 100);
-        pokemon1.monStats = new MonStats(teststats);
-        Debug.Log(pokemon1.monStats.GetStat(MonStatType.HP));
+        mon1 = new MonObject();
+        mon2 = new MonObject();
+        MonBaseStats teststats1 = new MonBaseStats(100, 100, 100, 100, 100, 100);
+        MonBaseStats teststats2 = new MonBaseStats(100, 100, 100, 100, 100, 110);
+        mon1.monStats = new MonStats(teststats1);
+        mon2.monStats = new MonStats(teststats2);
+        Debug.Log(mon1.monStats.GetStat(MonStatType.HP));
         Initialize();
     }
 
@@ -80,10 +86,12 @@ public class BattleSystem: MonoBehaviour
             Escaped();
         } else
         {
-            state = BattleState.ENEMYTURN;
+            //state = BattleState.ENEMYTURN;
             EnemyAction();
         }
     }
+
+    //choosing skill before battleTurn()
     public void PlayerAttack()
     {
         if (state != BattleState.PLAYERTURN)
@@ -125,21 +133,12 @@ public class BattleSystem: MonoBehaviour
             EndBattle();
         } else
         {
-            state = BattleState.ENEMYTURN;
+            //state = BattleState.ENEMYTURN;
             EnemyAction();
         }
     }
 
-
-    public void PlayerItem()
-    {
-        if (state != BattleState.PLAYERTURN)
-        {
-            return;
-        }
-        //Use item
-    }
-
+    //Choosing skill before battleTurn()
     void EnemyAction()
     {
         bool isDead = false;
@@ -156,18 +155,38 @@ public class BattleSystem: MonoBehaviour
 
     }
 
-    void BattleTurn()
+    public void playerAttack()
+    {
+        
+    }
+
+    public void PlayerItem()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+        //Use item
+    }
+
+    void battleTurn()
     {
         //Check conditionals
 
 
         //Check if attack has priority
         //Then do damage
-        //if (player.speed > enemy.speed)
+        if (mon1.monStats.GetStat(MonStatType.SPEED) > mon2.monStats.GetStat(MonStatType.SPEED))
         {
-            
+            PlayerAttack();
+            Debug.Log("Enemy Uses skill");
+        } else
+        {
+            Debug.Log("Enemy uses skill");
+            PlayerAttack();
+            //enemyAttack();
         }
-
+       
     }
 
     void EndBattle()
@@ -221,7 +240,7 @@ public class BattleSystem: MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            PlayerAttack();
+            battleTurn();
         }
     }
 }
