@@ -18,9 +18,16 @@ public class BattleSystem: MonoBehaviour
     public BattleState state;
     int currentAction;
     public int currentMove;
+    public int enemyMove;
     
     public MonObject mon1;
     public MonObject mon2;
+
+    //TODO
+    //Change curHP when switching mons?
+    //Set curHP when entering battle instead
+    int mon1curHP;
+    int mon2curHP;
  
     void Start()
     {
@@ -28,10 +35,12 @@ public class BattleSystem: MonoBehaviour
         mon1 = new MonObject();
         mon2 = new MonObject();
         MonBaseStats teststats1 = new MonBaseStats(100, 100, 100, 100, 100, 100);
-        MonBaseStats teststats2 = new MonBaseStats(100, 100, 100, 100, 100, 110);
+        MonBaseStats teststats2 = new MonBaseStats(80, 100, 100, 100, 100, 110);
         mon1.monStats = new MonStats(teststats1);
         mon2.monStats = new MonStats(teststats2);
         Debug.Log(mon1.monStats.GetStat(MonStatType.HP));
+        mon1curHP = mon1.monStats.GetStat(MonStatType.HP);
+        mon2curHP = mon2.monStats.GetStat(MonStatType.HP);
         Initialize();
     }
 
@@ -52,16 +61,11 @@ public class BattleSystem: MonoBehaviour
 
         //Decide who goes first based on speed
 
-        //if ((player)speed > (enemy)speed)
         Debug.Log("Initlaizing");
         {
             state = BattleState.PLAYERTURN;
             PlayerAction();
-        } /* else
-        {
-            state = BattleState.ENEMYTURN;
-            PlayerAction();
-        }*/
+        }
 
     }
     void PlayerAction()
@@ -87,11 +91,14 @@ public class BattleSystem: MonoBehaviour
         } else
         {
             //state = BattleState.ENEMYTURN;
-            EnemyAction();
+            enemyAttack();
         }
     }
 
-    //choosing skill before battleTurn()
+    /// <summary>
+    /// Takes move chosen in moveSelection()
+    /// Deals damage to enemy
+    /// </summary>
     public void PlayerAttack()
     {
         if (state != BattleState.PLAYERTURN) //Set to BATTLEPHASE
@@ -103,7 +110,7 @@ public class BattleSystem: MonoBehaviour
         {
             case 0:
                 Debug.Log("skill 1");
-                //
+                dealDamage(50, "Attack 1");
                 //BattleTurn()
                 //Use skill 1
                 break;
@@ -122,37 +129,29 @@ public class BattleSystem: MonoBehaviour
             default:
                 break;
         }
-
-
-        //Deal damage
-        bool isDead = false;
-        //Check if enemy dead -> state = won
-        if (isDead)
-        {
-            state = BattleState.WON; //Win state
-            EndBattle();
-        } else
-        {
-            //state = BattleState.ENEMYTURN;
-            EnemyAction();
-        }
     }
 
     //Choosing skill before battleTurn()
-    void EnemyAction()
+    void enemyAttack()
     {
-        bool isDead = false;
-        //Check if player dead -> state = lost
-        if (isDead)
+        enemyMove = Random.Range(0, 3);
+        switch (enemyMove)
         {
-            state = BattleState.LOST;
-            EndBattle();
-        } else
-        {
-            state = BattleState.PLAYERTURN;
-            PlayerAction();
+            case 0:
+                Debug.Log("Enemy skill 1");
+                break;
+            case 1:
+                Debug.Log("Enemy skill 2");
+                break;
+            case 2:
+                Debug.Log("Enemy skill 3");
+                break;
+            case 3:
+                Debug.Log("Enemy skill 4");
+                break;
+            default:
+                break;
         }
-
     }
     
     void battleTurn()
@@ -177,17 +176,23 @@ public class BattleSystem: MonoBehaviour
         }
         */
 
-        //Then do damage
         if (mon1.monStats.GetStat(MonStatType.SPEED) > mon2.monStats.GetStat(MonStatType.SPEED))
         {
             PlayerAttack();
-            Debug.Log("Enemy Uses skill");
+            // Check ifAlive()
+            Debug.Log("Enemy Uses skill (Goes second)");
+            enemyAttack();
+            //Deal Damage
         } else
         {
-            Debug.Log("Enemy uses skill");
+            Debug.Log("Enemy uses skill (Goes first)");
             PlayerAttack();
-            //enemyAttack();
+            Debug.Log(mon2curHP);
+            enemyAttack();
         }
+
+
+
        
     }
 
@@ -216,6 +221,36 @@ public class BattleSystem: MonoBehaviour
             return;
         }
         //Use item
+    }
+
+    void dealDamage(int damage, string name)
+    {
+        Debug.Log("User does " +damage+" damage with" + name);
+        //Check whether dead
+        mon2curHP -= damage;
+    }
+
+    void isAlive()
+    {
+        //if (mon2curHP == 0)
+        //{
+        //    return false;
+        //}
+        //else
+        //{
+        //    return true;
+        //}
+
+        if (mon1curHP <= 0)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        if (mon2curHP <= 0)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
     }
 
     void moveSelection()
