@@ -1,25 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Mon.Enums;
 using Mon.Individual;
 using Mon.MonGeneration;
-using Mon.Enums;
-using Mon.Moves;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
-public enum BattleState {START,PLAYERTURN,BATTLEPHASE,ESCAPED,WON,LOST}
+public enum BattleState { START, PLAYERTURN, BATTLEPHASE, ESCAPED, WON, LOST }
 ///<Summary>
 ///BattleSystem for the battle encounters
 ///</Summary>
-public class BattleSystem: MonoBehaviour
+public class BattleSystem : MonoBehaviour
 {
 
     [SerializeField] DialogueTexts dialogueText;
-    
+
     public BattleState state;
     int currentAction;
     public int currentMove;
     public int enemyMove;
-    
+
     public MonObject mon1;
     public MonObject mon2;
 
@@ -28,19 +27,27 @@ public class BattleSystem: MonoBehaviour
     //Set curHP when entering battle instead
     int mon1curHP;
     int mon2curHP;
- 
+    int mon1maxHP;
+    int mon2maxHP;
+
+    public Image mon1hpbar;
+    public Image mon2hpbar;
+
     void Start()
     {
         state = BattleState.START;
         mon1 = new MonObject();
         mon2 = new MonObject();
+        //MonBaseStats(HP, - , - , - , - , speed)
         MonBaseStats teststats1 = new MonBaseStats(100, 100, 100, 100, 100, 100);
         MonBaseStats teststats2 = new MonBaseStats(80, 100, 100, 100, 100, 110);
         mon1.monStats = new MonStats(teststats1);
         mon2.monStats = new MonStats(teststats2);
         Debug.Log(mon1.monStats.GetStat(MonStatType.HP));
-        mon1curHP = mon1.monStats.GetStat(MonStatType.HP);
-        mon2curHP = mon2.monStats.GetStat(MonStatType.HP);
+        mon1maxHP = mon1.monStats.GetStat(MonStatType.HP);
+        mon2maxHP = mon2.monStats.GetStat(MonStatType.HP);
+        mon1curHP = mon1maxHP;
+        mon2curHP = mon2maxHP;
         Initialize();
     }
 
@@ -52,6 +59,12 @@ public class BattleSystem: MonoBehaviour
         {
             moveSelection();
         }
+
+/*        if (Input.GetKey(KeyCode.Space))
+        {
+            dialogueText.enableDialogueText(true);
+            dialogueText.enableMoveSelector(false);
+        }*/
     }
     void Initialize()
     {
@@ -84,11 +97,12 @@ public class BattleSystem: MonoBehaviour
         //Chance to escape
         bool canEscape = true;
 
-        if(canEscape)
+        if (canEscape)
         {
             state = BattleState.ESCAPED;
             Escaped();
-        } else
+        }
+        else
         {
             //state = BattleState.ENEMYTURN;
             enemyAttack();
@@ -109,13 +123,13 @@ public class BattleSystem: MonoBehaviour
         switch (currentMove)
         {
             case 0:
-                Debug.Log("skill 1");
+                Debug.Log("Player skill 1");
+                //dealDamage((attackPower + formula))
                 dealDamage(50, "Attack 1");
-                //BattleTurn()
                 //Use skill 1
                 break;
             case 1:
-                Debug.Log("skill 2");
+                Debug.Log("player skill 2");
                 //Use skill 2
                 break;
             case 2:
@@ -153,7 +167,7 @@ public class BattleSystem: MonoBehaviour
                 break;
         }
     }
-    
+
     void battleTurn()
     {
         //Check conditionals
@@ -179,31 +193,39 @@ public class BattleSystem: MonoBehaviour
         if (mon1.monStats.GetStat(MonStatType.SPEED) > mon2.monStats.GetStat(MonStatType.SPEED))
         {
             PlayerAttack();
+            isAlive();
             // Check ifAlive()
             Debug.Log("Enemy Uses skill (Goes second)");
             enemyAttack();
+            isAlive();
             //Deal Damage
-        } else
+        }
+        else
         {
             Debug.Log("Enemy uses skill (Goes first)");
+            enemyAttack();
+            isAlive();
             PlayerAttack();
             Debug.Log(mon2curHP);
-            enemyAttack();
+            isAlive();
         }
 
 
 
-       
+
     }
 
     void EndBattle()
     {
-        if(state == BattleState.WON)
+        if (state == BattleState.WON)
         {
+            Debug.Log("Won");
             //EXP up
             //Money
-        } else if (state == BattleState.LOST)
+        }
+        else if (state == BattleState.LOST)
         {
+            Debug.Log("Lost");
             //Game over
         }
     }
@@ -225,33 +247,30 @@ public class BattleSystem: MonoBehaviour
 
     void dealDamage(int damage, string name)
     {
-        Debug.Log("User does " +damage+" damage with" + name);
+        Debug.Log("User does " + damage + " damage with" + name);
         //Check whether dead
         mon2curHP -= damage;
+        Debug.Log((float)mon2curHP / mon2maxHP);
+        mon2hpbar.fillAmount = (float)mon2curHP / mon2maxHP;
+
     }
 
     void isAlive()
     {
-        //if (mon2curHP == 0)
-        //{
-        //    return false;
-        //}
-        //else
-        //{
-        //    return true;
-        //}
-
         if (mon1curHP <= 0)
         {
+            //Check if player1 has pokemon
             state = BattleState.LOST;
             EndBattle();
         }
         if (mon2curHP <= 0)
         {
-            state = BattleState.LOST;
+            //Check if player2 has pokemon
+            state = BattleState.WON;
             EndBattle();
         }
     }
+
 
     void moveSelection()
     {
@@ -260,29 +279,30 @@ public class BattleSystem: MonoBehaviour
             if (currentMove < 3) //max moves - 1
             {
                 ++currentMove;
-            } 
-        } 
+            }
+        }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (currentMove > 0)
             {
-                if (currentMove > 0)
-                {
-                    --currentMove;
-                }
+                --currentMove;
             }
+        }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentMove < 2)
             {
-                if (currentMove < 2)
-                {
-                    currentMove += 2;
-                }
-            } else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if (currentMove > 1)
-                {
-                    currentMove -= 2;
-                }
+                currentMove += 2;
             }
-        
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (currentMove > 1)
+            {
+                currentMove -= 2;
+            }
+        }
+
         dialogueText.updateMoveSelection(currentMove);
 
         if (Input.GetKeyDown(KeyCode.Return))
