@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mon.Enums;
-using Mon.Individual;
 using Mon.MonGeneration;
 
 public class BSstatemanager : MonoBehaviour

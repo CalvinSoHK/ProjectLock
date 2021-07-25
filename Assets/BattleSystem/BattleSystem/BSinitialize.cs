@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mon.Enums;
-using Mon.Individual;
 using Mon.MonGeneration;
 
 public class BSinitialize : BSstate
