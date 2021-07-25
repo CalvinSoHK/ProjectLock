@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using World;
 
 namespace Core
 {
@@ -40,5 +42,56 @@ namespace Core
 
         [SerializeField]
         public EncounterManager encounterManager;
+
+        [SerializeField]
+        public WorldManager worldManager;
+
+        /// <summary>
+        /// Moves player to found point in scene with scene name
+        /// </summary>
+        /// <param name="key"></param>
+        public void TeleportToPoint(string sceneName, int key)
+        {
+            Scene scene = SceneManager.GetSceneByName(sceneName);
+            //Check if scene returned was a valid scene (as in it is in the loaded hierarchy)
+            if (scene.IsValid())
+            {
+                //Check root game objects for the ScenePoints object.
+                GameObject[] objects = scene.GetRootGameObjects();
+                GameObject target = null;
+                foreach(GameObject obj in objects)
+                {
+                    if (obj.name.Equals("ScenePoints"))
+                    {
+                        target = obj;
+                        break;
+                    }
+                }
+
+                //If we have a ScenePoints Object
+                if(target != null)
+                {
+                    //Find all the teleport points under the ScenePoints obj
+                    TeleportPoint[] points = target.transform.GetComponentsInChildren<TeleportPoint>();
+                    foreach(TeleportPoint point in points)
+                    {
+                        //If this is the key we want teleport here
+                        if(point.key == key)
+                        {
+                            point.TeleportHere(player.gameObject);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("CoreManager error: There is no ScenePoints object in the scene: " + sceneName);
+                }
+            }
+            else
+            {
+                Debug.LogError("CoreManager error: Attempted to teleport to a point in a scene that isn't loaded: " + sceneName);
+            }
+        }
     }
 }

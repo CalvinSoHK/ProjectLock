@@ -19,7 +19,6 @@ namespace Utility
         public T LoadJSON(string path)
         {
             TextAsset jsonObj = Resources.Load<TextAsset>(path);
-            Debug.Log("Path is : " + path);
             return JsonUtility.FromJson<T>(jsonObj.text);
         }
 
