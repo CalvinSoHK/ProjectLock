@@ -24,6 +24,12 @@ namespace Mon.MonData
         }
 
         /// <summary>
+        /// mon stats 
+        /// </summary>
+
+        public MonStats monStats;
+
+        /// <summary>
         /// Appends to the monData dictionary
         /// If the key is already in the dictionary, it will fail.
         /// Returns true if it succeeds, false otherwise.
