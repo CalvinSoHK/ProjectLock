@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Ai decision tree. Happens at the beginning
+/// </summary>
 public class BSaiTurn : BSstate
 {
     float itemTreshhold = .30f;
@@ -83,6 +87,7 @@ public class BSaiTurn : BSstate
 
     }
 
+    //Checking for AI health threshhold
     bool HealthTreshhold()
     {
         if (((float) manager.mon2curHP / manager.mon2maxHP) < itemTreshhold)

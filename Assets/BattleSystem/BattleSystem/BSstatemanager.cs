@@ -20,9 +20,6 @@ public class BSstatemanager : MonoBehaviour
 
     public int aicurrentAction;
 
-    public MonObject mon1;
-    public MonObject mon2;
-
     public MonsterSO monster1;
     public MonsterSO monster2;
 
