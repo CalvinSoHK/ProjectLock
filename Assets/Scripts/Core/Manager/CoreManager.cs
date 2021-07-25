@@ -32,7 +32,7 @@ namespace Core
         public PlayerController player;
 
         [SerializeField]
-        public PlayerCamera camera;
+        public CameraManager camera;
 
         [Header("Managers")]
         [SerializeField]
