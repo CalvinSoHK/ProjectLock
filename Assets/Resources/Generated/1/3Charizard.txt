@@ -1,0 +1,24 @@
+{
+    "ID": 3,
+    "generationID": 1,
+    "name": "Charizard",
+    "stage": 3,
+    "next_evoID": 0,
+    "prev_evoID": 2,
+    "primaryType": 2,
+    "secondaryType": 5,
+    "growthType": 2,
+    "baseStats": {
+        "hp": 80,
+        "def": 58,
+        "spDef": 69,
+        "atk": 69,
+        "spAtk": 60,
+        "speed": 58,
+        "statTotal": 394
+    },
+    "catchRate": 0.0,
+    "weight": 0.0,
+    "exp_gain": 0.0,
+    "teachableMoves": []
+}

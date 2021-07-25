@@ -1,0 +1,24 @@
+{
+    "ID": 1,
+    "generationID": 1,
+    "name": "Charmander",
+    "stage": 1,
+    "next_evoID": 2,
+    "prev_evoID": 0,
+    "primaryType": 2,
+    "secondaryType": 0,
+    "growthType": 2,
+    "baseStats": {
+        "hp": 44,
+        "def": 33,
+        "spDef": 37,
+        "atk": 37,
+        "spAtk": 29,
+        "speed": 48,
+        "statTotal": 228
+    },
+    "catchRate": 0.0,
+    "weight": 0.0,
+    "exp_gain": 0.0,
+    "teachableMoves": []
+}
