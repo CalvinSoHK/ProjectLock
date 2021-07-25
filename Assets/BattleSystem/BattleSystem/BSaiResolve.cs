@@ -28,13 +28,13 @@ public class BSaiResolve : BSstate
                 if (manager.aicurrentAction == 0)
                 {
                     DealDamage(10);
-                    manager.dialogueText.dialogueTexts.text = $"Ai uses {manager.aicurrentAction}!";
+                    manager.dialogueText.dialogueTexts.text = $"{manager.monster2.name} uses {manager.aicurrentAction}!";
                     manager.aiHasGone = true;
                 } 
                 else if (manager.aicurrentAction == 1)
                 {
                     HealthPotion(50);
-                    manager.dialogueText.dialogueTexts.text = $"Ai uses {manager.aicurrentAction}!";
+                    manager.dialogueText.dialogueTexts.text = $"{manager.monster2.name} uses {manager.aicurrentAction} heal!";
                     manager.aiHasGone = true;
                 }
                 else if (manager.aiHasGone)
@@ -80,7 +80,6 @@ public class BSaiResolve : BSstate
         if (manager.mon1curHP <= 0)
         {
             Debug.Log("AI wins");
-
             manager.dialogueText.enableDialogueText(false);
             manager.ChangeState(new BSlost(manager));
         }
@@ -90,9 +89,16 @@ public class BSaiResolve : BSstate
     {
         Debug.Log($"Ai heals for {heal}");
         manager.aihealthpots -= 1;
-        manager.mon2curHP += heal;
-        manager.mon1hpbar.fillAmount = (float)manager.mon1curHP / manager.mon1maxHP;
-        manager.mon1hpText.text = $"Health: {manager.mon1curHP} / {manager.mon1maxHP}";
+        if (manager.mon2curHP + heal > manager.mon2maxHP)
+        {
+            manager.mon2curHP = manager.mon2maxHP;
+        }
+        else
+        {
+            manager.mon2curHP += heal;
+        }
+        manager.mon2hpbar.fillAmount = (float)manager.mon2curHP / manager.mon2maxHP;
+        manager.mon2hpText.text = $"Health: {manager.mon2curHP} / {manager.mon2maxHP}";
     }
 }
     

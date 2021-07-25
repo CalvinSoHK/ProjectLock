@@ -26,25 +26,26 @@ public class BSplayerResolve : BSstate
                 if (manager.currentAction == 0)
                 {
                     DealDamage(20);
-                    manager.dialogueText.dialogueTexts.text = $"Player uses {manager.currentMove}!";
+                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentMove}!";
                     manager.playerHasGone = true;
                 }
                 else if (manager.currentAction == 1)
                 {
                     //use item
-                    manager.dialogueText.dialogueTexts.text = $"Player uses {manager.currentAction}!";
+                    HealthPotion(50);
+                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentAction}!";
                     manager.playerHasGone = true;
                 }
                 else if (manager.currentAction == 2)
                 {
                     //swap
-                    manager.dialogueText.dialogueTexts.text = $"Player uses {manager.currentAction}!";
+                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentAction}!";
                     manager.playerHasGone = true;
                 }
                 else if (manager.currentAction == 3)
                 {
                     //escape
-                    manager.dialogueText.dialogueTexts.text = $"Player uses {manager.currentAction}!"; ;
+                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentAction}!"; ;
                     manager.ChangeState(new BSinitialize(manager));
                 }
             }
@@ -79,6 +80,7 @@ public class BSplayerResolve : BSstate
         DeathCheck();
     }
 
+    // TODO check if has remaining pokemon
     void DeathCheck()
     {
         if (manager.mon2curHP <= 0)
@@ -87,6 +89,21 @@ public class BSplayerResolve : BSstate
             manager.dialogueText.enableDialogueText(false);
             manager.ChangeState(new BSwon(manager));
         }
+    }
+
+    void HealthPotion(int heal)
+    {
+        Debug.Log($"Player heals for {heal}");
+        manager.playerhealthpots -= 1;
+        if (manager.mon1curHP + heal > manager.mon1maxHP)
+        {
+            manager.mon1curHP = manager.mon1maxHP;
+        } else
+        {
+            manager.mon1curHP += heal;
+        }
+        manager.mon1hpbar.fillAmount = (float)manager.mon1curHP / manager.mon1maxHP;
+        manager.mon1hpText.text = $"Health: {manager.mon1curHP} / {manager.mon1maxHP}";
     }
 
 }

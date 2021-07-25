@@ -23,6 +23,9 @@ public class BSstatemanager : MonoBehaviour
     public MonObject mon1;
     public MonObject mon2;
 
+    public MonsterSO monster1;
+    public MonsterSO monster2;
+
     public int mon1curHP;
     public int mon2curHP;
     public int mon1maxHP;
@@ -38,6 +41,8 @@ public class BSstatemanager : MonoBehaviour
     public bool aiHasGone;
 
     public int aihealthpots;
+    public int playerhealthpots;
+
 
     // Start is called before the first frame update
     void Start()

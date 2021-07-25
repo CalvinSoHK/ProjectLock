@@ -23,20 +23,25 @@ public class BSprioritycheck : BSstate
         if (manager.currentAction == 0 && manager.aicurrentAction == 0)
         {
             moveCheck();
-        } 
+        }
         else if (manager.currentAction == 0 && manager.aicurrentAction == 1)
         {
             manager.playerPriority = false;
             manager.ChangeState(new BSaiResolve(manager));
-        } 
+        }
+        else if (manager.currentAction == 0 && manager.aicurrentAction == 2)
+        {
+            manager.playerPriority = false;
+            manager.ChangeState(new BSaiResolve(manager));
+        }
         else if (manager.currentAction == 1)
         {
             itemCheck();
-        } 
+        }
         else if (manager.currentAction == 2)
         {
             swapCheck();
-        } 
+        }
         else if (manager.currentAction == 3)
         {
             escapeCheck();
@@ -57,7 +62,7 @@ public class BSprioritycheck : BSstate
         // If (skill priority > skill priority)
 
         // if Player > ai speed
-        if (manager.mon1.monStats.GetStat(MonStatType.SPEED) >= manager.mon2.monStats.GetStat(MonStatType.SPEED))
+        if (manager.monster1.speed >= manager.monster2.speed)
         {
             //player goes first
             manager.playerPriority = true;

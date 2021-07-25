@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class BattleHealthManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public GameObject health;
+    
+    public void SetHP(float monHealth)
     {
-        
+        health.transform.localScale = new Vector3(monHealth, 1f);
     }
 }

@@ -72,7 +72,8 @@ public class BSaiTurn : BSstate
         else if (!HealthTreshhold() && !HaveCondition()) 
         {
             //Check swap
-            Debug.Log("Swap");
+            Debug.Log("Check Swap");
+            //manager.aicurrentAction = 2;
             manager.aicurrentAction = 0;
         }
         else
