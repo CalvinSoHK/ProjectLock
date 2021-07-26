@@ -45,6 +45,18 @@ namespace Core.Player
 
         Rigidbody rb;
 
+        private void OnEnable()
+        {
+            WorldManager.OnSceneStartLoad += DisableInput;
+            WorldManager.OnSceneLoadedAfterFadeIn += EnableInput;
+        }
+
+        private void OnDisable()
+        {
+            WorldManager.OnSceneStartLoad -= DisableInput;
+            WorldManager.OnSceneLoadedAfterFadeIn -= EnableInput;
+        }
+
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -70,14 +82,18 @@ namespace Core.Player
         /// </summary>
         private void UpdateState()
         {
-            if (moveVector.magnitude != 0)
+            //Only updates if it isn't disabled.
+            if(state != PlayerControllerState.Disabled)
             {
-                state = PlayerControllerState.Moving;
-            }
-            else
-            {
-                state = PlayerControllerState.Idle;
-            }
+                if (moveVector.magnitude != 0)
+                {
+                    state = PlayerControllerState.Moving;
+                }
+                else
+                {
+                    state = PlayerControllerState.Idle;
+                }
+            }          
         }
 
         private void FireStateEvents()
@@ -90,8 +106,14 @@ namespace Core.Player
 
         private void GetInputMoveVec()
         {
-            moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
+            if(state != PlayerControllerState.Disabled)
+            {
+                moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            }
+            else
+            {
+                moveVector = Vector3.zero;
+            }
 
         }
 
@@ -125,8 +147,30 @@ namespace Core.Player
 
         private enum PlayerControllerState
         {
+            Disabled,
             Idle,
             Moving
+        }
+
+        /// <summary>
+        /// Sets the controller state
+        /// </summary>
+        /// <param name="_state"></param>
+        private void SetControllerState(PlayerControllerState _state)
+        {
+            state = _state;
+        }
+
+        private void DisableInput()
+        {
+            SetControllerState(PlayerControllerState.Disabled);
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        private void EnableInput()
+        {
+            SetControllerState(PlayerControllerState.Idle);
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 }
