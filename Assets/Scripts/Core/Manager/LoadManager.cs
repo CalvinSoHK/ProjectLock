@@ -11,16 +11,16 @@ public class LoadManager : MonoBehaviour
     public const int tick = 100;
     public async Task LoadLoadingScreen()
     {
-        Core.CoreManager.Instance.camera.GetComponent<Camera>().enabled = false;
         AsyncOpHelper opHelper = new AsyncOpHelper();
         await opHelper.CompleteAsyncOp(SceneManager.LoadSceneAsync(LoadSceneName), tick);
+        Core.CoreManager.Instance.camera.GetComponent<Camera>().enabled = false;
         await Task.Delay(1000);
     }
 
     public async Task UnloadLoadingScreen()
     {
-        AsyncOpHelper opHelper = new AsyncOpHelper();
-        await opHelper.CompleteAsyncOp(SceneManager.UnloadSceneAsync(LoadSceneName), tick);
         Core.CoreManager.Instance.camera.GetComponent<Camera>().enabled = true;
+        AsyncOpHelper opHelper = new AsyncOpHelper();
+        await opHelper.CompleteAsyncOp(SceneManager.UnloadSceneAsync(LoadSceneName), tick);      
     }
 }

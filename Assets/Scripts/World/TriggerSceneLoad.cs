@@ -62,14 +62,20 @@ namespace World
             WorldManager.OnSceneStartLoad += FireOnLoadSceneStart;
             if (loadMode == LoadSceneMode.Single)
             {
-                WorldManager.OnSceneLoadedBeforeFadeIn += () => CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
+                WorldManager.OnSceneLoadedBeforeFadeIn += Teleport;
             }
 
             bool result = await CoreManager.Instance.worldManager.LoadScene(targetSceneName, loadMode);
+            WorldManager.OnSceneLoadedBeforeFadeIn -= Teleport;
             if (!result)
             {
                 throw new System.Exception("Unable to load scene: " + gameObject.name);
             }
+        }
+
+        private void Teleport()
+        {
+            CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
         }
 
         /// <summary>

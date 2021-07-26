@@ -23,6 +23,14 @@ namespace Core.Player
         [SerializeField]
         [Tooltip("Empty transform that denotes feet of character.")]
         Transform playerFeet;
+
+        /// <summary>
+        /// PlayerFeet is the transform at the bottom of the character model.
+        /// Useful for moving character around
+        /// </summary>
+        [HideInInspector]
+        public Transform PlayerFeet { get { return playerFeet; } }
+
         [SerializeField]
         LayerMask walkableMask;
         float checkDistance = 1.25f;

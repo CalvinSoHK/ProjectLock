@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Core.Player;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,7 +19,18 @@ namespace World
 
         public void TeleportHere(GameObject obj)
         {
-            obj.transform.position = transform.position;
+            //Get player feet
+            PlayerController controller = obj.GetComponent<PlayerController>();
+            Transform playerFeet;
+            if (controller)
+            {
+                playerFeet = controller.PlayerFeet;
+            }
+            else
+            {
+                throw new System.Exception("TeleportPoint Error: Attempted to teleport object that does not have PlayerController: " + obj.name);
+            }
+            obj.transform.position = transform.position + (obj.transform.position - playerFeet.position);
             OnTeleportEvent?.Invoke();
         }
     }
