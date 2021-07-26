@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HealingCenter.unity
     guid: aed7092f74db08e408f20a861aea5984
+  - enabled: 1
+    path: Assets/Scenes/LoadingScreen.unity
+    guid: 81994b2ae44bab64a841b4e7137dcc59
   m_configObjects: {}

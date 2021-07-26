@@ -20,7 +20,7 @@ public class WorldManager : MonoBehaviour
     /// </summary>
     private List<string> loadedScenes = new List<string>();
 
-    public delegate void  OnWorldManagerEvent();
+    public delegate void OnWorldManagerEvent();
 
     /// <summary>
     /// Event that is invoked when the scene is a valid load and is about to be loaded.
@@ -28,9 +28,15 @@ public class WorldManager : MonoBehaviour
     public static OnWorldManagerEvent OnSceneStartLoad;
 
     /// <summary>
-    /// Event that is invoked when the scene is a valid load and is finished loading.
+    /// Event that is invoked when the scene is a valid load, finished loading, and is about to fade in.
     /// </summary>
-    public static OnWorldManagerEvent OnSceneLoaded;
+    public static OnWorldManagerEvent OnSceneLoadedBeforeFadeIn;
+
+
+    /// <summary>
+    /// Event that is invoked when the scene is a valid load, finished loading, and has finished fading in.
+    /// </summary>
+    public static OnWorldManagerEvent OnSceneLoadedAfterFadeIn;
 
     /// <summary>
     /// Event that is invoked when the scene is a valid unload and is about to be unloaded.
@@ -105,8 +111,32 @@ public class WorldManager : MonoBehaviour
         {
             OnSceneStartLoad?.Invoke();
 
+            //We want to use additive so loading screen remains. Manually remove all other scenes here first.
+            if(loadSceneMode == LoadSceneMode.Single)
+            {
+                await Core.CoreManager.Instance.loadManager.LoadLoadingScreen();
+
+                //Find all scenes that aren't loading screen
+                List<string> targetList = new List<string>();
+                for(int i = 0; i < SceneManager.sceneCount; i++)
+                {
+                    Scene scene = SceneManager.GetSceneAt(i);
+                    if (!scene.name.Equals(LoadManager.LoadSceneName))
+                    {
+                        targetList.Add(scene.name);
+                    }
+                }
+
+                //Unload all those scenes
+                foreach(string name in targetList)
+                {
+                    SceneManager.UnloadSceneAsync(name);
+                }
+
+            }
+
             AsyncOpHelper asyncOpHelper = new AsyncOpHelper();
-            bool result = await asyncOpHelper.CompleteAsyncOp(SceneManager.LoadSceneAsync(sceneName, loadSceneMode), delayTick);
+            bool result = await asyncOpHelper.CompleteAsyncOp(SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive), delayTick);
             
             //If it correctly loaded scene
             if (result)
@@ -118,7 +148,11 @@ public class WorldManager : MonoBehaviour
 
                 AddSceneToList(sceneName);
 
-                OnSceneLoaded?.Invoke();
+                OnSceneLoadedBeforeFadeIn?.Invoke();
+
+                await Core.CoreManager.Instance.loadManager.UnloadLoadingScreen();
+
+                OnSceneLoadedAfterFadeIn?.Invoke();
             }
             
             return result;

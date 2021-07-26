@@ -46,6 +46,9 @@ namespace Core
         [SerializeField]
         public WorldManager worldManager;
 
+        [SerializeField]
+        public LoadManager loadManager;
+
         /// <summary>
         /// Moves player to found point in scene with scene name
         /// </summary>

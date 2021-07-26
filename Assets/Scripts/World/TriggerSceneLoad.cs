@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Core;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 namespace World
 {
@@ -54,22 +55,20 @@ namespace World
         }
 
         /// <summary>
-        /// Loads scene
+        /// Loads scene, teleports you to the target point after scene is loaded before fade in
         /// </summary>
         private async void LoadScene()
         {
             WorldManager.OnSceneStartLoad += FireOnLoadSceneStart;
+            if (loadMode == LoadSceneMode.Single)
+            {
+                WorldManager.OnSceneLoadedBeforeFadeIn += () => CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
+            }
+
             bool result = await CoreManager.Instance.worldManager.LoadScene(targetSceneName, loadMode);
             if (!result)
             {
                 throw new System.Exception("Unable to load scene: " + gameObject.name);
-            }
-            else
-            {
-                if(loadMode == LoadSceneMode.Single)
-                {
-                    CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
-                }
             }
         }
 
@@ -81,7 +80,7 @@ namespace World
         {
             OnLoadSceneStart?.Invoke();
             WorldManager.OnSceneStartLoad -= FireOnLoadSceneStart;
-            WorldManager.OnSceneLoaded += FireOnLoadSceneFinish;
+            WorldManager.OnSceneLoadedAfterFadeIn += FireOnLoadSceneFinish;
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace World
         private void FireOnLoadSceneFinish()
         {
             OnLoadSceneFinish?.Invoke();
-            WorldManager.OnSceneLoaded -= FireOnLoadSceneFinish;
+            WorldManager.OnSceneLoadedAfterFadeIn -= FireOnLoadSceneFinish;
         }
     }
 }
