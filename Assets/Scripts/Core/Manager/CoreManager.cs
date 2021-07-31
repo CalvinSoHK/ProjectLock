@@ -1,4 +1,6 @@
 ﻿using Core.Player;
+using Core.World;
+using Core.Dialogue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +50,9 @@ namespace Core
 
         [SerializeField]
         public LoadManager loadManager;
+
+        [SerializeField]
+        public DialogueManager dialogueManager;
 
         /// <summary>
         /// Moves player to found point in scene with scene name

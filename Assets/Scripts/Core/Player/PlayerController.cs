@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.World;
+using System.Threading.Tasks;
 
 namespace Core.Player
 {
@@ -161,16 +163,18 @@ namespace Core.Player
             state = _state;
         }
 
-        private void DisableInput()
+        private Task DisableInput()
         {
             SetControllerState(PlayerControllerState.Disabled);
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            return Task.CompletedTask;
         }
 
-        private void EnableInput()
+        private Task EnableInput()
         {
             SetControllerState(PlayerControllerState.Idle);
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+            return Task.CompletedTask;
         }
     }
 }

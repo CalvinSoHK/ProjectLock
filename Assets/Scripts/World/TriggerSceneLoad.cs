@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 using Core;
 using UnityEngine.Events;
 using System.Threading.Tasks;
+using Core.World;
 
-namespace World
+namespace World.Event
 {
     /// <summary>
     /// Triggers scene load on entering this trigger collider
@@ -73,29 +74,32 @@ namespace World
             }
         }
 
-        private void Teleport()
+        private Task Teleport()
         {
             CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Fires on load scene start, unsubscribes self.
         /// Subscribes the finish event.
         /// </summary>
-        private void FireOnLoadSceneStart()
+        private Task FireOnLoadSceneStart()
         {
             OnLoadSceneStart?.Invoke();
             WorldManager.OnSceneStartLoad -= FireOnLoadSceneStart;
             WorldManager.OnSceneLoadedAfterFadeIn += FireOnLoadSceneFinish;
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Fires on load scene finish, unsubscribes self.
         /// </summary>
-        private void FireOnLoadSceneFinish()
+        private Task FireOnLoadSceneFinish()
         {
             OnLoadSceneFinish?.Invoke();
             WorldManager.OnSceneLoadedAfterFadeIn -= FireOnLoadSceneFinish;
+            return Task.CompletedTask;
         }
     }
 }
