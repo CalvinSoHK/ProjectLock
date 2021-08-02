@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Mon.Enums;
-using Mon.MonGeneration;
-
 public class BSstatemanager : MonoBehaviour
 {
     private BSstate currentState;
-
+    public HealthManager healthManager;
+    public DamageManager damageManager;
     public DialogueTexts dialogueText;
+    public ItemManager itemManager;
+    public ConditionMananger conditionManager;
 
     public int currentMove;
     public int currentAction;
@@ -22,16 +22,11 @@ public class BSstatemanager : MonoBehaviour
     public MonsterSO monster1;
     public MonsterSO monster2;
 
+
     public int mon1curHP;
     public int mon2curHP;
     public int mon1maxHP;
     public int mon2maxHP;
-
-    public Image mon1hpbar;
-    public Image mon2hpbar;
-    public Text mon1hpText;
-    public Text mon2hpText;
-    public float hpShrinkSpeed;
 
     public bool playerHasGone;
     public bool aiHasGone;
@@ -39,6 +34,8 @@ public class BSstatemanager : MonoBehaviour
     public int aihealthpots;
     public int playerhealthpots;
 
+    //Testing Condition
+    public bool isPoisoned = true;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +50,7 @@ public class BSstatemanager : MonoBehaviour
 
     }
 
-   public void ChangeState(BSstate newState)
+    public void ChangeState(BSstate newState)
     {
         if (currentState != null)
         {
@@ -63,4 +60,7 @@ public class BSstatemanager : MonoBehaviour
         currentState = newState;
         currentState.Enter();
     }
+
 }
+
+

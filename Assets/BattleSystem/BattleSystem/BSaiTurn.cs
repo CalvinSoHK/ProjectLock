@@ -87,10 +87,13 @@ public class BSaiTurn : BSstate
 
     }
 
-    //Checking for AI health threshhold
+    /// <summary>
+    /// Checking for Ai Health threshold to use heal
+    /// </summary>
+    /// <returns></returns>
     bool HealthTreshhold()
     {
-        if (((float) manager.mon2curHP / manager.mon2maxHP) < itemTreshhold)
+        if (((float) manager.healthManager.aiCurHP / manager.mon2maxHP) < itemTreshhold)
         {
             return true;
         }

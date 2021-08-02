@@ -7,7 +7,6 @@ using UnityEngine;
 public class BSaiResolve : BSstate
 {
 
-
     public BSaiResolve(BSstatemanager theManager) : base(theManager)
     {
 
@@ -29,13 +28,14 @@ public class BSaiResolve : BSstate
 
                 if (manager.aicurrentAction == 0)
                 {
-                    DealDamage(10);
+                    manager.damageManager.DealDamage(manager.monster1, 10);
+                    //DeathCheck();
                     manager.dialogueText.dialogueTexts.text = $"{manager.monster2.name} uses {manager.aicurrentAction}!";
                     manager.aiHasGone = true;
-                } 
+                }
                 else if (manager.aicurrentAction == 1)
                 {
-                    HealthPotion(50);
+                    manager.itemManager.UseItem(manager.monster2);
                     manager.dialogueText.dialogueTexts.text = $"{manager.monster2.name} uses {manager.aicurrentAction} heal!";
                     manager.aiHasGone = true;
                 }
@@ -56,27 +56,24 @@ public class BSaiResolve : BSstate
                 manager.ChangeState(new BSplayerResolve(manager));
             }
         }
-        else if (manager.aiHasGone && manager.playerPriority)
+        else if (manager.aiHasGone && manager.playerPriority) //Both AI and Player has gone --> restart
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                manager.ChangeState(new BSplayerTurn(manager));
-                manager.dialogueText.enableDialogueText(false);
+                //manager.ChangeState(new BSplayerTurn(manager));
+                //manager.dialogueText.enableDialogueText(false);
+                manager.ChangeState(new BSpostResolve(manager));
             }
         }
     }
 
 
 
-    void DealDamage(int damage)
-    {
-        //Debug.Log($"Ai deals {damage} damage");
-        manager.mon1curHP -= damage;       
-        manager.mon1hpbar.fillAmount = (float)manager.mon1curHP / manager.mon1maxHP;
-        manager.mon1hpText.text = $"Health: {manager.mon1curHP} / {manager.mon1maxHP}";
-        DeathCheck();
-    }
 
+
+    /// <summary>
+    /// Checks if players mon is still alive
+    /// </summary>
     void DeathCheck()
     {
         if (manager.mon1curHP <= 0)
@@ -87,20 +84,5 @@ public class BSaiResolve : BSstate
         }
     }
 
-    void HealthPotion(int heal)
-    {
-        Debug.Log($"Ai heals for {heal}");
-        manager.aihealthpots -= 1;
-        if (manager.mon2curHP + heal > manager.mon2maxHP)
-        {
-            manager.mon2curHP = manager.mon2maxHP;
-        }
-        else
-        {
-            manager.mon2curHP += heal;
-        }
-        manager.mon2hpbar.fillAmount = (float)manager.mon2curHP / manager.mon2maxHP;
-        manager.mon2hpText.text = $"Health: {manager.mon2curHP} / {manager.mon2maxHP}";
-    }
 }
     

@@ -82,7 +82,14 @@ public class BSplayerTurn : BSstate
                 isMove = true;
             } else if (manager.currentAction == 1) //Item
             {
-                manager.ChangeState(new BSaiTurn(manager));
+                if(manager.playerhealthpots > 0)
+                {
+                    manager.ChangeState(new BSaiTurn(manager));
+                }
+                else
+                {
+                    Debug.Log("No Healing Pots Remaining");
+                }
             } else if (manager.currentAction == 2) //Swap
             {
                 manager.ChangeState(new BSaiTurn(manager));

@@ -25,14 +25,15 @@ public class BSplayerResolve : BSstate
             {
                 if (manager.currentAction == 0)
                 {
-                    DealDamage(20);
+                    manager.damageManager.DealDamage(manager.monster2, 30);
+                    //DeathCheck();
                     manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentMove}!";
                     manager.playerHasGone = true;
                 }
                 else if (manager.currentAction == 1)
                 {
                     //use item
-                    HealthPotion(50);
+                    manager.itemManager.UseItem(manager.monster1);
                     manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentAction}!";
                     manager.playerHasGone = true;
                 }
@@ -65,22 +66,22 @@ public class BSplayerResolve : BSstate
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                manager.ChangeState(new BSplayerTurn(manager));
-                manager.dialogueText.enableDialogueText(false);
+                manager.ChangeState(new BSpostResolve(manager));
+                //manager.dialogueText.enableDialogueText(false);
             }
         }
     }
 
-    void DealDamage(int damage)
+    public override void Leave()
     {
-        //Debug.Log($"Player deals {damage} damage");
-        manager.mon2curHP -= damage;
-        manager.mon2hpbar.fillAmount = (float) manager.mon2curHP / manager.mon2maxHP;
-        manager.mon2hpText.text = $"Health: {manager.mon2curHP} / {manager.mon2maxHP}";
-        DeathCheck();
+        base.Leave();
     }
 
+
     // TODO check if has remaining pokemon
+    /// <summary>
+    /// Checks if AI mon is still alive
+    /// </summary>
     void DeathCheck()
     {
         if (manager.mon2curHP <= 0)
@@ -91,19 +92,5 @@ public class BSplayerResolve : BSstate
         }
     }
 
-    void HealthPotion(int heal)
-    {
-        Debug.Log($"Player heals for {heal}");
-        manager.playerhealthpots -= 1;
-        if (manager.mon1curHP + heal > manager.mon1maxHP)
-        {
-            manager.mon1curHP = manager.mon1maxHP;
-        } else
-        {
-            manager.mon1curHP += heal;
-        }
-        manager.mon1hpbar.fillAmount = (float)manager.mon1curHP / manager.mon1maxHP;
-        manager.mon1hpText.text = $"Health: {manager.mon1curHP} / {manager.mon1maxHP}";
-    }
 
 }
