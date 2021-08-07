@@ -138,7 +138,7 @@ namespace Core.World
                     //Unload all those scenes
                     foreach (string name in targetList)
                     {
-                        SceneManager.UnloadSceneAsync(name);
+                        await UnloadScene(name);
                     }
 
                 }
@@ -149,16 +149,11 @@ namespace Core.World
                 //If it correctly loaded scene
                 if (result)
                 {
-                    if (loadSceneMode == LoadSceneMode.Single)
-                    {
-                        ClearSceneList();
-                    }
-
                     AddSceneToList(sceneName);
 
                     await delegateHelper.RunAsyncDelegate(OnSceneLoadedBeforeFadeIn, sceneName);
 
-                    await Core.CoreManager.Instance.loadManager.UnloadLoadingScreen();
+                    await CoreManager.Instance.loadManager.UnloadLoadingScreen();
 
                     await delegateHelper.RunAsyncDelegate(OnSceneLoadedAfterFadeIn, sceneName);
                 }

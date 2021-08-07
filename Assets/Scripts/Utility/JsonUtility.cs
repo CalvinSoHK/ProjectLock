@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Core.AddressableSystem;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,27 +20,11 @@ namespace Utility
         /// <returns></returns>
         public async Task<T> LoadJSON(string path)
         {
-            ResourceRequest request = Resources.LoadAsync<TextAsset>(path);
-            while(!request.isDone)
-            {
-                await Task.Delay(10);
-            }
-#if DEBUG_ENABLED
-            Debug.Log("Completed request. Status: " + request.isDone);
-#endif
-            TextAsset jsonObj = (TextAsset)request.asset;
-#if DEBUG_ENABLED
-            Debug.Log("Loading path: " + path + " as object: " + jsonObj);
-#endif
-            if(jsonObj == null)
-            {
-                throw new System.Exception("JsonUtility: Failed to load json at path: " 
-                    + path 
-                    + " as type: " 
-                    + typeof(T).ToString());
-            }
+            AddressablesManager addressManager = Core.CoreManager.Instance.addressablesManager;
 
-            return JsonUtility.FromJson<T>(jsonObj.text);
+            TextAsset asset = await addressManager.LoadAddressable<TextAsset>(path, false);
+
+            return JsonUtility.FromJson<T>(asset.text);
         }
 
         /// <summary>

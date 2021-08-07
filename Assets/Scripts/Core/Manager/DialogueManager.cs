@@ -57,7 +57,7 @@ namespace Core.Dialogue
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene scene = SceneManager.GetSceneAt(i);
-                LoadDialogueDict(scene.name);
+                RegisterSceneDialogue(scene.name);
             }
         }
 
@@ -71,10 +71,8 @@ namespace Core.Dialogue
 #if DEBUG_ENABLED
             Debug.Log("DialogueManager: Loading scene: " + sceneName);
 #endif
-            string loadPath = StaticPaths.DialoguePath + "/" + sceneName + ".txt";
-
             JsonUtility<SceneDialogueObjectJSON> jsonUtility = new JsonUtility<SceneDialogueObjectJSON>();
-            SceneDialogueObjectJSON jsonObj = await jsonUtility.LoadJSON(loadPath);
+            SceneDialogueObjectJSON jsonObj = await jsonUtility.LoadJSON(CreatePath(sceneName));
             SceneDialogueObject sceneObj = new SceneDialogueObject(jsonObj);
 
             return sceneObj;
@@ -87,6 +85,9 @@ namespace Core.Dialogue
         {
             if (!dialogueDict.ContainsKey(sceneName))
             {
+#if DEBUG_ENABLED
+                Debug.Log("DialogueManager: Registering scene: " + sceneName);
+#endif
                 //Load dialogue dict
                 SceneDialogueObject sceneDict = await LoadDialogueDict(sceneName);
 
@@ -105,10 +106,18 @@ namespace Core.Dialogue
         private async Task UnregisterSceneDialogue(string sceneName)
         {
             SceneDialogueObject sceneDict;
-            if(dialogueDict.TryGetValue(sceneName, out sceneDict))
+#if DEBUG_ENABLED
+            Debug.Log("DialogueManager: Dict contains key: " + dialogueDict.ContainsKey(sceneName));
+#endif
+
+            if (dialogueDict.TryGetValue(sceneName, out sceneDict))
             {
+#if DEBUG_ENABLED
+                Debug.Log("DialogueManager: Unregistering scene: " + sceneName);
+#endif
                 //Remove that scene's dialogue
                 dialogueDict.Remove(sceneName);
+                CoreManager.Instance.addressablesManager.ReleaseAddressable(CreatePath(sceneName));
             }
             else
             {
@@ -123,6 +132,16 @@ namespace Core.Dialogue
         private void ClearDict()
         {
             dialogueDict.Clear();
+        }
+
+        /// <summary>
+        /// Creates the right path with scenename
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private string CreatePath(string sceneName)
+        {
+            return StaticPaths.DialoguePath + "/" + sceneName;
         }
     }
 }

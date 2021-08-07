@@ -24,11 +24,14 @@ namespace Utility
         /// <param name="targetDelegate"></param>
         public async Task RunAsyncDelegate(Del1 targetDelegate, T input)
         {
-            var delegateTasks = targetDelegate.GetInvocationList();
-            foreach (Delegate del in delegateTasks)
+            if (targetDelegate != null)
             {
-                Del1 task = (Del1)del;
-                await task.Invoke(input);
+                var delegateTasks = targetDelegate.GetInvocationList();
+                foreach (Delegate del in delegateTasks)
+                {
+                    Del1 task = (Del1)del;
+                    await task.Invoke(input);
+                }
             }
         }
     }

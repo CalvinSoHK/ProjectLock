@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using World;
+using Core.AddressableSystem;
 
 namespace Core
 {
@@ -53,6 +54,9 @@ namespace Core
 
         [SerializeField]
         public DialogueManager dialogueManager;
+
+        [SerializeField]
+        public AddressablesManager addressablesManager;
 
         /// <summary>
         /// Moves player to found point in scene with scene name

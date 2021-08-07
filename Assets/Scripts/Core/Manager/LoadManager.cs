@@ -12,9 +12,9 @@ public class LoadManager : MonoBehaviour
     public async Task LoadLoadingScreen()
     {
         AsyncOpHelper opHelper = new AsyncOpHelper();
-        await opHelper.CompleteAsyncOp(SceneManager.LoadSceneAsync(LoadSceneName), tick);
+        await opHelper.CompleteAsyncOp(SceneManager.LoadSceneAsync(LoadSceneName, LoadSceneMode.Additive), tick);
         Core.CoreManager.Instance.camera.GetComponent<Camera>().enabled = false;
-        await Task.Delay(1000);
+        //await Task.Delay(1000);
     }
 
     public async Task UnloadLoadingScreen()
