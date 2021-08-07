@@ -49,14 +49,14 @@ namespace Core.Player
 
         private void OnEnable()
         {
-            WorldManager.OnSceneStartLoad += DisableInput;
-            WorldManager.OnSceneLoadedAfterFadeIn += EnableInput;
+            WorldManager.OnSceneStartLoad += DisableInputOnScene;
+            WorldManager.OnSceneLoadedAfterFadeIn += EnableInputOnScene;
         }
 
         private void OnDisable()
         {
-            WorldManager.OnSceneStartLoad -= DisableInput;
-            WorldManager.OnSceneLoadedAfterFadeIn -= EnableInput;
+            WorldManager.OnSceneStartLoad -= DisableInputOnScene;
+            WorldManager.OnSceneLoadedAfterFadeIn -= EnableInputOnScene;
         }
 
         private void Start()
@@ -163,6 +163,10 @@ namespace Core.Player
             state = _state;
         }
 
+        /// <summary>
+        /// Disable input task
+        /// </summary>
+        /// <returns></returns>
         private Task DisableInput()
         {
             SetControllerState(PlayerControllerState.Disabled);
@@ -170,11 +174,35 @@ namespace Core.Player
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Enable input task
+        /// </summary>
+        /// <returns></returns>
         private Task EnableInput()
         {
             SetControllerState(PlayerControllerState.Idle);
             rb.constraints = RigidbodyConstraints.FreezeRotation;
             return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Disable input call to be used with scene load events.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private async Task DisableInputOnScene(string sceneName)
+        {
+            await DisableInput();
+        }
+
+        /// <summary>
+        /// Enable input call to be used with scene load events.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private async Task EnableInputOnScene(string sceneName)
+        {
+            await EnableInput();
         }
     }
 }

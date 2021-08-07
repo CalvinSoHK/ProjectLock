@@ -22,7 +22,7 @@ namespace Utility
         /// Runs a delegate as async, waiting for all appended tasks to complete.
         /// </summary>
         /// <param name="targetDelegate"></param>
-        public async void RunAsyncDelegate(Del1 targetDelegate, T input)
+        public async Task RunAsyncDelegate(Del1 targetDelegate, T input)
         {
             var delegateTasks = targetDelegate.GetInvocationList();
             foreach (Delegate del in delegateTasks)

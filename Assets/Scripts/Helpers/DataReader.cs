@@ -2,6 +2,7 @@
 using Mon.MonData;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -12,13 +13,13 @@ namespace Mon.MonGeneration
     /// </summary>
     public class DataReader
     {
-        public BaseMon ParseData(string fileName)
+        public async Task<BaseMon> ParseData(string fileName)
         {
             string filePath = "MonData/" + fileName.Replace(".json", "");
 
             Utility.JsonUtility<BaseMonJSON> jsonReader = new Utility.JsonUtility<BaseMonJSON>();
 
-            BaseMonJSON baseMonJSON = jsonReader.LoadJSON(filePath);
+            BaseMonJSON baseMonJSON = await jsonReader.LoadJSON(filePath);
 
             BaseMon baseMon = new BaseMon(
                 baseMonJSON.name,

@@ -44,6 +44,6 @@ public class DialogueEvent : MonoBehaviour
     {
         Core.Dialogue.DialogueManager.OnPreDialogueFire += FireBefore;
         Core.Dialogue.DialogueManager.OnAfterDialogueFire += FireAfter;
-        Core.CoreManager.Instance.dialogueManager.FireDialogue(dialogueID);
+        //Core.CoreManager.Instance.dialogueManager.FireDialogue(dialogueID);
     }
 }

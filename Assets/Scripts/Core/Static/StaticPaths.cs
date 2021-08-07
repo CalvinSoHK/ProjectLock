@@ -21,4 +21,9 @@ public static class StaticPaths
     /// NOTE: Doesn't need Resources because it is assumed in Resources.Load
     /// </summary>
     public const string GenerationCount = "ScriptableObjects/MonGenerationCount";
+
+    /// <summary>
+    /// Path to load dialogue from
+    /// </summary>
+    public const string DialoguePath = "Dialogue";
 }

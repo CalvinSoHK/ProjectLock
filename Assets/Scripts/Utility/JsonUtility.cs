@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Utility
@@ -16,9 +17,28 @@ namespace Utility
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public T LoadJSON(string path)
+        public async Task<T> LoadJSON(string path)
         {
-            TextAsset jsonObj = Resources.Load<TextAsset>(path);
+            ResourceRequest request = Resources.LoadAsync<TextAsset>(path);
+            while(!request.isDone)
+            {
+                await Task.Delay(10);
+            }
+#if DEBUG_ENABLED
+            Debug.Log("Completed request. Status: " + request.isDone);
+#endif
+            TextAsset jsonObj = (TextAsset)request.asset;
+#if DEBUG_ENABLED
+            Debug.Log("Loading path: " + path + " as object: " + jsonObj);
+#endif
+            if(jsonObj == null)
+            {
+                throw new System.Exception("JsonUtility: Failed to load json at path: " 
+                    + path 
+                    + " as type: " 
+                    + typeof(T).ToString());
+            }
+
             return JsonUtility.FromJson<T>(jsonObj.text);
         }
 

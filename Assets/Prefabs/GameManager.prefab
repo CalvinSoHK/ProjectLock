@@ -455,6 +455,7 @@ MonoBehaviour:
   encounterManager: {fileID: 2868099203904102602}
   worldManager: {fileID: 2868099203242575252}
   loadManager: {fileID: 1506079767057621588}
+  dialogueManager: {fileID: 7888493634771396010}
 --- !u!1 &4667333670595547235
 GameObject:
   m_ObjectHideFlags: 0

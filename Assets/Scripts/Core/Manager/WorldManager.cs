@@ -29,33 +29,33 @@ namespace Core.World
         /// <summary>
         /// Event that is invoked when the scene is a valid load and is about to be loaded.
         /// </summary>
-        public static AsyncDelegate.Del OnSceneStartLoad;
+        public static AsyncDelegateT<string>.Del1 OnSceneStartLoad;
 
         /// <summary>
         /// Event that is invoked when the scene is a valid load, finished loading, and is about to fade in.
         /// </summary>
-        public static AsyncDelegate.Del OnSceneLoadedBeforeFadeIn;
+        public static AsyncDelegateT<string>.Del1 OnSceneLoadedBeforeFadeIn;
 
 
         /// <summary>
         /// Event that is invoked when the scene is a valid load, finished loading, and has finished fading in.
         /// </summary>
-        public static AsyncDelegate.Del OnSceneLoadedAfterFadeIn;
+        public static AsyncDelegateT<string>.Del1 OnSceneLoadedAfterFadeIn;
 
         /// <summary>
         /// Event that is invoked when the scene is a valid unload and is about to be unloaded.
         /// </summary>
-        public static AsyncDelegate.Del OnSceneStartUnload;
+        public static AsyncDelegateT<string>.Del1 OnSceneStartUnload;
 
         /// <summary>
         /// Event that is invoked when the scene is a valid unload and is about to be unloaded.
         /// </summary>
-        public static AsyncDelegate.Del OnSceneUnloaded;
+        public static AsyncDelegateT<string>.Del1 OnSceneUnloaded;
 
         /// <summary>
         /// Helps run the AsyncDelegates.
         /// </summary>
-        AsyncDelegate delegateHelper = new AsyncDelegate();
+        AsyncDelegateT<string> delegateHelper = new AsyncDelegateT<string>();
 
         private void Start()
         {
@@ -117,7 +117,7 @@ namespace Core.World
             //Check that we don't already have that scene loaded.
             if (IsValidLoad(sceneName))
             {
-                await delegateHelper.RunAsyncDelegate(OnSceneStartLoad);
+                await delegateHelper.RunAsyncDelegate(OnSceneStartLoad, sceneName);
 
                 //We want to use additive so loading screen remains. Manually remove all other scenes here first.
                 if (loadSceneMode == LoadSceneMode.Single)
@@ -156,11 +156,11 @@ namespace Core.World
 
                     AddSceneToList(sceneName);
 
-                    await delegateHelper.RunAsyncDelegate(OnSceneLoadedBeforeFadeIn);
+                    await delegateHelper.RunAsyncDelegate(OnSceneLoadedBeforeFadeIn, sceneName);
 
                     await Core.CoreManager.Instance.loadManager.UnloadLoadingScreen();
 
-                    await delegateHelper.RunAsyncDelegate(OnSceneLoadedAfterFadeIn);
+                    await delegateHelper.RunAsyncDelegate(OnSceneLoadedAfterFadeIn, sceneName);
                 }
 
                 return result;
@@ -184,7 +184,7 @@ namespace Core.World
             //Check that it's valid to unload this scene
             if (IsValidUnload(sceneName))
             {
-                await delegateHelper.RunAsyncDelegate(OnSceneStartUnload);
+                await delegateHelper.RunAsyncDelegate(OnSceneStartUnload, sceneName);
 
                 AsyncOpHelper asyncOpHelper = new AsyncOpHelper();
                 bool result = await asyncOpHelper.CompleteAsyncOp(SceneManager.UnloadSceneAsync(sceneName), delayTick);
@@ -194,7 +194,7 @@ namespace Core.World
                 {
                     RemoveSceneFromList(sceneName);
 
-                    await delegateHelper.RunAsyncDelegate(OnSceneUnloaded);
+                    await delegateHelper.RunAsyncDelegate(OnSceneUnloaded, sceneName);
                 }
 
                 return result;

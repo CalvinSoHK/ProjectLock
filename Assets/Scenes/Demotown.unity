@@ -2304,6 +2304,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1348989015}
     m_Modifications:
+    - target: {fileID: 7296114070446533104, guid: f6094ac9aece10f42988b0786bb13cbf,
+        type: 3}
+      propertyPath: targetSceneName
+      value: Demotown_HealingCenter
+      objectReference: {fileID: 0}
     - target: {fileID: 7296114070705908899, guid: f6094ac9aece10f42988b0786bb13cbf,
         type: 3}
       propertyPath: m_Name

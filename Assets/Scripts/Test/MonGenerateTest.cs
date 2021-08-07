@@ -17,9 +17,7 @@ public class MonGenerateTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        baseMon = dataReader.ParseData("1");
-        Debug.Log(baseMon.name);
-        generatedMon = monGenerator.TranslateMon(baseMon);      
+        MonGenerate();
     }
 
     private void Update()
@@ -29,5 +27,12 @@ public class MonGenerateTest : MonoBehaviour
             Debug.Log("Regenerate");
             generatedMon = monGenerator.TranslateMon(baseMon);
         }
+    }
+
+    private async void MonGenerate()
+    {
+        baseMon = await dataReader.ParseData("1");
+        Debug.Log(baseMon.name);
+        generatedMon = monGenerator.TranslateMon(baseMon);
     }
 }

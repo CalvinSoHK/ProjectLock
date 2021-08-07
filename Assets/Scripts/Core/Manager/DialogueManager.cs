@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Utility;
 
 namespace Core.Dialogue
 {
@@ -24,32 +27,93 @@ namespace Core.Dialogue
         /// Second string is the dialogueID for a given object.
         /// Third string is the dialogueObject itself.
         /// </summary>
-        private Dictionary<string, Dictionary<string, DialogueObject>> dialogueDict;
+        private Dictionary<string, SceneDialogueObject> dialogueDict = new Dictionary<string, SceneDialogueObject>();
 
         private void OnEnable()
         {
-            //Core.World.WorldManager.OnSceneStartLoad += 
+            Core.World.WorldManager.OnSceneStartLoad += RegisterSceneDialogue;
+            Core.World.WorldManager.OnSceneStartUnload += UnregisterSceneDialogue;
         }
 
         private void OnDisable()
         {
-            
+            Core.World.WorldManager.OnSceneStartLoad -= RegisterSceneDialogue;
+            Core.World.WorldManager.OnSceneStartUnload -= UnregisterSceneDialogue;
+        }
+
+        /// <summary>
+        /// Preloads data.
+        /// </summary>
+        private void Start()
+        {
+            PreloadData();
+        }
+
+        /// <summary>
+        /// Preloads data. Helpful when we start in editor in different scenes.
+        /// </summary>
+        private void PreloadData()
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                LoadDialogueDict(scene.name);
+            }
+        }
+
+        /// <summary>
+        /// Loads and constructs dialogue dict given a scene name.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private async Task<SceneDialogueObject> LoadDialogueDict(string sceneName)
+        {
+#if DEBUG_ENABLED
+            Debug.Log("DialogueManager: Loading scene: " + sceneName);
+#endif
+            string loadPath = StaticPaths.DialoguePath + "/" + sceneName + ".txt";
+
+            JsonUtility<SceneDialogueObjectJSON> jsonUtility = new JsonUtility<SceneDialogueObjectJSON>();
+            SceneDialogueObjectJSON jsonObj = await jsonUtility.LoadJSON(loadPath);
+            SceneDialogueObject sceneObj = new SceneDialogueObject(jsonObj);
+
+            return sceneObj;
         }
 
         /// <summary>
         /// Registers the dialogue for a given scene when loaded.
         /// </summary>
-        private void RegisterSceneDialogue()
+        private async Task RegisterSceneDialogue(string sceneName)
         {
+            if (!dialogueDict.ContainsKey(sceneName))
+            {
+                //Load dialogue dict
+                SceneDialogueObject sceneDict = await LoadDialogueDict(sceneName);
 
+                dialogueDict.Add(sceneName, sceneDict);
+            }
+            else
+            {
+                throw new System.Exception("Dialogue Manager Error: " +
+                    "Attempting to register dialogue from scene that is already registered: " + sceneName);
+            }
         }
 
         /// <summary>
         /// Unregisters the dialogue for a given scene when unloaded.
         /// </summary>
-        private void UnregisterSceneDialogue()
+        private async Task UnregisterSceneDialogue(string sceneName)
         {
-            
+            SceneDialogueObject sceneDict;
+            if(dialogueDict.TryGetValue(sceneName, out sceneDict))
+            {
+                //Remove that scene's dialogue
+                dialogueDict.Remove(sceneName);
+            }
+            else
+            {
+                throw new System.Exception("Dialogue Manager Error: Trying to unregister dialogue for scene: " + sceneName);
+            }
         }
 
         /// <summary>
@@ -59,15 +123,6 @@ namespace Core.Dialogue
         private void ClearDict()
         {
             dialogueDict.Clear();
-        }
-
-        /// <summary>
-        /// Fires a given dialogue ID.
-        /// </summary>
-        /// <param name="dialogueID"></param>
-        public void FireDialogue(string dialogueID)
-        {
-
         }
     }
 }

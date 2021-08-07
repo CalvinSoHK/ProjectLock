@@ -88,7 +88,7 @@ namespace Mon.MonData
         /// <summary>
         /// Loads data from JSON files into dex
         /// </summary>
-        public void LoadDex()
+        public async void LoadDex()
         {
             //Clear in case we have any data.
             monDict.Clear();
@@ -121,7 +121,7 @@ namespace Mon.MonData
                     {
                         throw new System.Exception("MonDex Error: Load path for base mon has too many segments separated by '.' at: " + checkPath + file.Name);
                     }
-                    GeneratedMon mon = jsonUtility.LoadJSON(loadPath + "/" + separatedFile[0]);
+                    GeneratedMon mon = await jsonUtility.LoadJSON(loadPath + "/" + separatedFile[0]);
                     monDict.Add(mon.ID, mon);
                     dexLength++;
                 }

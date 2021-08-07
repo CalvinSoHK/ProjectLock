@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Core.Dialogue
 {
+    [System.Serializable]
     /// <summary>
     /// Dialogue object.
     /// </summary>
@@ -23,5 +24,15 @@ namespace Core.Dialogue
         /// The dialogue text.
         /// </summary>
         public string dialogueText;
+
+        /// <summary>
+        /// Whether or not there is a next dialogue point
+        /// </summary>
+        public bool hasNext;
+
+        /// <summary>
+        /// ID of the next dialogue part. Only uses this if hasNext is true.
+        /// </summary>
+        public string dialogueNextID;
     }
 }

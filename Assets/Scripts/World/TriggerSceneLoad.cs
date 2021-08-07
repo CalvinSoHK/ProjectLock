@@ -74,8 +74,21 @@ namespace World.Event
             }
         }
 
-        private Task Teleport()
+        /// <summary>
+        /// Calls CoreManager to teleport to the target point.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private Task Teleport(string sceneName)
         {
+            if(!sceneName.Equals(targetSceneName))
+            {
+                throw new System.Exception(
+                    "Teleport is not teleporting to the same target scene that was loaded. SceneName: " 
+                    + sceneName + 
+                    " Target Scene Name: " 
+                    + targetSceneName);
+            }
             CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
             return Task.CompletedTask;
         }
@@ -84,7 +97,7 @@ namespace World.Event
         /// Fires on load scene start, unsubscribes self.
         /// Subscribes the finish event.
         /// </summary>
-        private Task FireOnLoadSceneStart()
+        private Task FireOnLoadSceneStart(string sceneName)
         {
             OnLoadSceneStart?.Invoke();
             WorldManager.OnSceneStartLoad -= FireOnLoadSceneStart;
@@ -95,7 +108,7 @@ namespace World.Event
         /// <summary>
         /// Fires on load scene finish, unsubscribes self.
         /// </summary>
-        private Task FireOnLoadSceneFinish()
+        private Task FireOnLoadSceneFinish(string sceneName)
         {
             OnLoadSceneFinish?.Invoke();
             WorldManager.OnSceneLoadedAfterFadeIn -= FireOnLoadSceneFinish;

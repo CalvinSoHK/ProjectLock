@@ -147,7 +147,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.ProjectNuzlocke
-    Standalone: com.Company.ProductName
+    Standalone: com.DefaultCompany.ProjectNuzlocke
   buildNumber:
     Standalone: 0
     iPhone: 0

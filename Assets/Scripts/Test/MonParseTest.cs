@@ -10,7 +10,12 @@ public class MonParseTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BaseMon mon = dataReader.ParseData("01_dat");
+        ParseTest();
+    }
+
+    private async void ParseTest()
+    {
+        BaseMon mon = await dataReader.ParseData("01_dat");
         Debug.Log(mon.name);
     }
 }

@@ -1,0 +1,19 @@
+{
+    "sceneName": "Demotown",
+    "dialogueObjects": [
+        {
+            "dialogueID": "demotown_healingcenter_1",
+            "speakerName": "Dr. Cho",
+            "dialogueText": "Welcome to the healing center!",
+            "hasNext": true,
+            "dialogueNextID": "demotown_healingcenter_2"
+        },
+        {
+            "dialogueID": "demotown_healingcenter_2",
+            "speakerName": "Dr. Cho",
+            "dialogueText": "I can't help yet cause I haven't graduated!",
+            "hasNext": false,
+            "dialogueNextID": ""
+        }
+    ]
+}
