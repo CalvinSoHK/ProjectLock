@@ -16,10 +16,9 @@ namespace Core.Dialogue
         /// Delegate event for dialogue manager.
         /// </summary>
         /// <param name="dialogueID"></param>
-        public delegate void DialogueEvent(string dialogueID);
-        public static DialogueEvent OnPreDialogueFire;
+        public delegate void DialogueEvent(DialogueObject obj);
         public static DialogueEvent OnDialogueFire;
-        public static DialogueEvent OnAfterDialogueFire;
+        public static DialogueEvent OnDialogueAfterFire;
 
         /// <summary>
         /// Contains all the DialogueObjects in a given instance.
@@ -142,6 +141,44 @@ namespace Core.Dialogue
         private string CreatePath(string sceneName)
         {
             return StaticPaths.DialoguePath + "/" + sceneName;
+        }
+
+        /// <summary>
+        /// Grabs a dialogue object
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <param name="dialogueID"></param>
+        /// <returns></returns>
+        public DialogueObject GrabDialogueObject(string sceneName, string dialogueID)
+        {
+            SceneDialogueObject obj;
+            if (dialogueDict.TryGetValue(sceneName, out obj))
+            {
+                return obj.GetDialogueObject(dialogueID);
+            }
+            else
+            {
+                throw new System.Exception("DialogueManager Error: Attempting to fire dialogue event on dialogueID from invalid scene: " + sceneName);
+            }
+        }
+
+        /// <summary>
+        /// Fires dialogue event with given dialogue ID
+        /// </summary>
+        /// <param name="dialogueID"></param>
+        public void FireDialogueEvent(string sceneName, string dialogueID)
+        {
+            OnDialogueFire?.Invoke(GrabDialogueObject(sceneName, dialogueID));
+        }
+
+        /// <summary>
+        /// Fires the after dialogue event.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <param name="dialogueID"></param>
+        public void FireAfterDialogueEvent(string sceneName, string dialogueID)
+        {
+            OnDialogueAfterFire?.Invoke(GrabDialogueObject(sceneName, dialogueID));
         }
     }
 }

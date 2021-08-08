@@ -16,6 +16,11 @@ namespace Core.Dialogue
         public string dialogueID;
 
         /// <summary>
+        /// Scene name this dialogue is from
+        /// </summary>
+        public string sceneName;
+
+        /// <summary>
         /// Name of the speaker for this dialogue.
         /// </summary>
         public string speakerName;

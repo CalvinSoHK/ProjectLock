@@ -37,6 +37,12 @@ namespace Core
         public PlayerController player;
 
         [SerializeField]
+        public PlayerInteract interact;
+
+        [SerializeField]
+        public PlayerInputMap inputMap;
+
+        [SerializeField]
         public CameraManager camera;
 
         [Header("Managers")]

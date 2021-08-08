@@ -21,6 +21,13 @@ namespace Core.Player
             stillDrag = 10;
         Vector3 moveVector = Vector3.zero;
 
+        [Header("Rotation")]
+        Vector3 targetRot = Vector3.zero;
+        [SerializeField]
+        float maxRadiansDelta = 0.5f;
+        [SerializeField]
+        float maxMagnitudeDelta = 1f;
+
         [Header("Stickiness")]
         [SerializeField]
         [Tooltip("Empty transform that denotes feet of character.")]
@@ -68,6 +75,7 @@ namespace Core.Player
         void Update()
         {
             GetInputMoveVec();
+            CalculateRot();
             ControlDrag();
             UpdateState();
         }
@@ -131,8 +139,17 @@ namespace Core.Player
             }
         }
 
+        /// <summary>
+        /// Calculates the rotation the character should have.
+        /// </summary>
+        private void CalculateRot()
+        {
+            //targetRot
+        }
+
         private void ApplyForce()
         {
+            transform.LookAt(transform.position + moveVector, Vector3.up);
             rb.AddForce(moveVector.normalized * baseMoveSpeed * groundMultiplier, ForceMode.Impulse);
         }
 
@@ -167,7 +184,7 @@ namespace Core.Player
         /// Disable input task
         /// </summary>
         /// <returns></returns>
-        private Task DisableInput()
+        public Task DisableInput()
         {
             SetControllerState(PlayerControllerState.Disabled);
             rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -178,7 +195,7 @@ namespace Core.Player
         /// Enable input task
         /// </summary>
         /// <returns></returns>
-        private Task EnableInput()
+        public Task EnableInput()
         {
             SetControllerState(PlayerControllerState.Idle);
             rb.constraints = RigidbodyConstraints.FreezeRotation;

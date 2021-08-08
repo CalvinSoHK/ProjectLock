@@ -44,5 +44,20 @@ namespace Core.Dialogue
                 }             
             }
         }
+
+        /// <summary>
+        /// Grabs dialogue object given dialogue ID
+        /// </summary>
+        /// <param name="dialogueID"></param>
+        /// <returns></returns>
+        public DialogueObject GetDialogueObject(string dialogueID)
+        {
+            DialogueObject result;
+            if(dialogueObjects.TryGetValue(dialogueID, out result))
+            {
+                return result;
+            }
+            throw new System.Exception("SceneDialogueObject Error: Attempting to look up invalid dialogueID: " + dialogueID);
+        }
     }
 }

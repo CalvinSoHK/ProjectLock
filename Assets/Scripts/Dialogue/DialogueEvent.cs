@@ -1,49 +1,56 @@
+using Core.Dialogue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// Contains ID for what dialogue this entity has.
-/// </summary>
-public class DialogueEvent : MonoBehaviour
+namespace World
 {
-    [SerializeField]
-    private string dialogueID = "NULL";
-
-    [SerializeField]
-    UnityEvent BeforeDialogueFire;
-
-    [SerializeField]
-    UnityEvent AfterDialogueFire;
-
     /// <summary>
-    /// Fires the before dialogue event.
-    /// Unsubscribes afterwards.
+    /// Contains ID for what dialogue this entity has.
     /// </summary>
-    private void FireBefore(string dialogueID)
+    public class DialogueEvent : MonoBehaviour
     {
-        BeforeDialogueFire?.Invoke();
-        Core.Dialogue.DialogueManager.OnPreDialogueFire -= FireBefore;
-    }
+        [SerializeField]
+        private string dialogueID = "NULL",
+            sceneName = "";
 
-    /// <summary>
-    /// Fires the after dialogue event.
-    /// Unsubscribes afterwards.
-    /// </summary>
-    private void FireAfter(string dialogueID)
-    {
-        AfterDialogueFire?.Invoke();
-        Core.Dialogue.DialogueManager.OnAfterDialogueFire -= FireAfter;
-    }
+        [SerializeField]
+        UnityEvent OnDialogueFire;
 
-    /// <summary>
-    /// Fires this dialogue event
-    /// </summary>
-    public void FireDialogue()
-    {
-        Core.Dialogue.DialogueManager.OnPreDialogueFire += FireBefore;
-        Core.Dialogue.DialogueManager.OnAfterDialogueFire += FireAfter;
-        //Core.CoreManager.Instance.dialogueManager.FireDialogue(dialogueID);
+        [SerializeField]
+        UnityEvent OnDialogueAfterFire;
+
+        /// <summary>
+        /// Fires this dialogue event
+        /// </summary>
+        public void FireDialogue()
+        {
+            DialogueManager.OnDialogueFire += FireOnDialogue;
+            DialogueManager.OnDialogueAfterFire += FireOnDialogueAfter;
+            Core.CoreManager.Instance.dialogueManager.FireDialogueEvent(sceneName, dialogueID);
+        }
+
+        /// <summary>
+        /// Fires the OnDialogueFire unity events.
+        /// </summary>
+        /// <param name="obj"></param>
+        private void FireOnDialogue(DialogueObject obj)
+        {
+            Core.CoreManager.Instance.interact.DisableInteract();
+            OnDialogueFire?.Invoke();
+            DialogueManager.OnDialogueFire -= FireOnDialogue;
+        }
+
+        /// <summary>
+        /// Fires the OnDialogueAfter unity events.
+        /// </summary>
+        /// <param name="obj"></param>
+        private void FireOnDialogueAfter(DialogueObject obj)
+        {
+            Core.CoreManager.Instance.interact.EnableInteract();
+            OnDialogueAfterFire?.Invoke();
+            DialogueManager.OnDialogueAfterFire -= FireOnDialogueAfter;
+        }
     }
 }
