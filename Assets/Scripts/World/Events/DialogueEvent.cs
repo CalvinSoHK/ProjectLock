@@ -1,31 +1,24 @@
 using Core.Dialogue;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace World
+namespace World.Event
 {
     /// <summary>
     /// Contains ID for what dialogue this entity has.
     /// </summary>
-    public class DialogueEvent : MonoBehaviour
+    public class DialogueEvent : BaseEvent
     {
         [SerializeField]
         private string dialogueID = "NULL",
             sceneName = "";
 
-        [SerializeField]
-        UnityEvent OnDialogueFire;
-
-        [SerializeField]
-        UnityEvent OnDialogueAfterFire;
-
         /// <summary>
-        /// Fires this dialogue event
+        /// Fires this dialogue event as a normal dialogue event.
+        /// Will re-enable player interact at the end of dialogue.
         /// </summary>
         public void FireDialogue()
         {
+            OnBeforeEventFire?.Invoke();
             DialogueManager.OnDialogueFire += FireOnDialogue;
             DialogueManager.OnDialogueAfterFire += FireOnDialogueAfter;
             Core.CoreManager.Instance.dialogueManager.FireDialogueEvent(sceneName, dialogueID);
@@ -38,7 +31,7 @@ namespace World
         private void FireOnDialogue(DialogueObject obj)
         {
             Core.CoreManager.Instance.interact.DisableInteract();
-            OnDialogueFire?.Invoke();
+            OnEventFire?.Invoke();
             DialogueManager.OnDialogueFire -= FireOnDialogue;
         }
 
@@ -49,7 +42,7 @@ namespace World
         private void FireOnDialogueAfter(DialogueObject obj)
         {
             Core.CoreManager.Instance.interact.EnableInteract();
-            OnDialogueAfterFire?.Invoke();
+            OnAfterEventFire?.Invoke();
             DialogueManager.OnDialogueAfterFire -= FireOnDialogueAfter;
         }
     }

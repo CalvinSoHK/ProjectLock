@@ -437,6 +437,8 @@ GameObject:
   - component: {fileID: 463609654}
   - component: {fileID: 463609658}
   - component: {fileID: 463609659}
+  - component: {fileID: 463609660}
+  - component: {fileID: 463609661}
   m_Layer: 6
   m_Name: Nurse
   m_TagString: Untagged
@@ -563,14 +565,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5145edb8f2c0ae8449473c71577923e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnBeforeEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAfterEventFire:
+    m_PersistentCalls:
+      m_Calls: []
   dialogueID: demotown_healingcenter_1
   sceneName: Demotown_HealingCenter
-  OnDialogueFire:
+--- !u!114 &463609660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463609653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd7352a6b3ee5048ad0c0e1ccf9325d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBeforeEventFire:
     m_PersistentCalls:
       m_Calls: []
-  OnDialogueAfterFire:
+  OnEventFire:
     m_PersistentCalls:
       m_Calls: []
+  OnAfterEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnConfirm:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 463609661}
+        m_TargetAssemblyTypeName: World.HealTrigger, Assembly-CSharp
+        m_MethodName: HealPlayerParty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeny:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &463609661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463609653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 310b963a7c73d864fb66f31781542687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &522755861
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,26 +887,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,
-        type: 3}
-      propertyPath: party.Array.data[0].baseMon.ID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,
-        type: 3}
-      propertyPath: party.Array.data[0].stats.level
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,
-        type: 3}
-      propertyPath: party.Array.data[0].baseMon.generationID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,
-        type: 3}
-      propertyPath: party.Array.data[0].battleObj.monStats.level
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5023eb6124a3bad40b628e8e59aab62e, type: 3}

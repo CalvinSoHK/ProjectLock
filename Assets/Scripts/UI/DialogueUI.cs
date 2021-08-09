@@ -10,7 +10,7 @@ namespace UI.Overworld
     /// <summary>
     /// Manages dialogue UI
     /// </summary>
-    public class DialogueUI : MonoBehaviour
+    public class DialogueUI : BaseUI
     {
         [SerializeField]
         TextMeshProUGUI textMesh;
@@ -20,15 +20,12 @@ namespace UI.Overworld
 
         DialogueObject curObj;
 
-        private enum DialogueUIState
-        {
-            Off,
-            Printing,
-            Displaying
-        }
+        public delegate void DialogueEvent();
 
-        private DialogueUIState state = DialogueUIState.Off;
-
+        /// <summary>
+        /// Requests confirm UI to come up
+        /// </summary>
+        public static DialogueEvent OnConfirmRequest;
 
         private void OnEnable()
         {
@@ -42,51 +39,52 @@ namespace UI.Overworld
             DialogueManager.OnDialogueAfterFire -= DialogueOff;
         }
 
-        private void Update()
+        protected override void HandlePrintingState()
         {
-            HandleState(state);
+            speakerText.text = curObj.speakerName;
+            textMesh.text = curObj.dialogueText;
+            ChangeState(UIState.Displaying);
         }
 
-        /// <summary>
-        /// Handles UI states
-        /// </summary>
-        /// <param name="_state"></param>
-        private void HandleState(DialogueUIState _state)
+        protected override void HandleDisplayState()
         {
-            switch (_state)
+            if (Input.GetKeyDown(Core.CoreManager.Instance.inputMap.interactKey))
             {
-                case DialogueUIState.Printing:
-                    speakerText.text = curObj.speakerName;
-                    textMesh.text = curObj.dialogueText;
-                    ChangeState(DialogueUIState.Displaying);
-                    break;
-                case DialogueUIState.Displaying:
-                    if (Input.GetKeyDown(Core.CoreManager.Instance.inputMap.interactKey))
-                    {
-                        //If it has next, display next
-                        if (curObj.hasNext)
-                        {
-                            curObj = Core.CoreManager.Instance.dialogueManager.GrabDialogueObject(curObj.sceneName, curObj.dialogueNextID);
-                            ChangeState(DialogueUIState.Printing);
-                        }
-                        else
-                        {
-                            Core.CoreManager.Instance.dialogueManager.FireAfterDialogueEvent(curObj.sceneName, curObj.dialogueID);
-                        }
-                    }
-                    break;
-                default:
-                    break;
+                // If it has a request confirmation, subscribe releveant events and invoke it
+                if (curObj.requestConfirm)
+                {
+                    ConfirmUI.Confirm += AfterConfirmEvent;
+                    ConfirmUI.Deny += AfterConfirmEvent;
+                    OnConfirmRequest?.Invoke();
+                }
+                else if (curObj.hasNext) //If it has next, display next
+                {
+                    curObj = Core.CoreManager.Instance.dialogueManager.GrabDialogueObject(curObj.sceneName, curObj.dialogueNextID);
+                    ChangeState(UIState.Printing);
+                }
+                else
+                {
+                    AfterDialogueEvent();
+                }
             }
         }
 
         /// <summary>
-        /// Changes internal UI state
+        /// Does AfterDialogueEvent as well as cleans up UI subscriptions
         /// </summary>
-        /// <param name="_state"></param>
-        private void ChangeState(DialogueUIState _state)
+        private void AfterConfirmEvent()
         {
-            state = _state;
+            ConfirmUI.Confirm -= AfterConfirmEvent;
+            ConfirmUI.Deny -= AfterConfirmEvent;
+            AfterDialogueEvent();
+        }
+
+        /// <summary>
+        /// Fires after dialogue event with inputs
+        /// </summary>
+        private void AfterDialogueEvent()
+        {
+            Core.CoreManager.Instance.dialogueManager.FireAfterDialogueEvent(curObj.sceneName, curObj.dialogueID);
         }
 
         /// <summary>
@@ -96,7 +94,7 @@ namespace UI.Overworld
         /// <param name="obj"></param>
         private void DialogueOn(DialogueObject obj)
         {
-            state = DialogueUIState.Printing;
+            state = UIState.Printing;
             curObj = obj;
             SetUIActive(true);
             Core.CoreManager.Instance.player.DisableInput();
@@ -109,23 +107,11 @@ namespace UI.Overworld
         /// <param name="obj"></param>
         private void DialogueOff(DialogueObject obj)
         {
-            state = DialogueUIState.Off;
+            state = UIState.Off;
             curObj = null;
             textMesh.text = "";
             SetUIActive(false);
             Core.CoreManager.Instance.player.EnableInput();
-        }
-
-        /// <summary>
-        /// Sets all children to active state
-        /// </summary>
-        /// <param name="active"></param>
-        private void SetUIActive(bool active)
-        {
-            for(int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).gameObject.SetActive(active);
-            }
-        }
+        }      
     }
 }

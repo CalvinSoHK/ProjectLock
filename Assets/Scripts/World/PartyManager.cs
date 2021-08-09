@@ -17,6 +17,13 @@ namespace World
         [SerializeField]
         private MonIndObj[] party = new MonIndObj[6];
 
+        /// <summary>
+        /// Max party size in the game.
+        /// NOTE: May need to move this variable somewhere else.
+        /// This is only getting from magic number set in this script.
+        /// </summary>
+        public int PartySize { get { return party.Length;} }
+
         private void Start()
         {
             StartCoroutine(LoadMonsWhenReady());
@@ -61,7 +68,6 @@ namespace World
         {
             if(party[index] != null && party[index].baseMon.ID != 0 && party[index].baseMon.generationID != 0)
             {
-                Debug.Log("Index: " + index);
                 return true;
             }
             return false;

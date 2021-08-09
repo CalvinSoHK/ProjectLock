@@ -63,7 +63,8 @@ namespace Mon.MonData
             baseMon = mon;
             stats = new MonStats(baseMon.baseStats);
             stats.SetToLevel(level);
-            battleObj = new MonBattleObj(stats, new Dictionary<string, string>());
+            battleObj = new MonBattleObj(new MonStats(baseMon.baseStats), new Dictionary<string, string>());
+            battleObj.monStats.MatchStatsTo(stats);
         }
 
         /// <summary>
