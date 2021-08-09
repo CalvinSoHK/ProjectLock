@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.World;
+using System.Threading.Tasks;
 
 namespace Core.Player
 {
@@ -19,10 +21,25 @@ namespace Core.Player
             stillDrag = 10;
         Vector3 moveVector = Vector3.zero;
 
+        [Header("Rotation")]
+        Vector3 targetRot = Vector3.zero;
+        [SerializeField]
+        float maxRadiansDelta = 0.5f;
+        [SerializeField]
+        float maxMagnitudeDelta = 1f;
+
         [Header("Stickiness")]
         [SerializeField]
         [Tooltip("Empty transform that denotes feet of character.")]
         Transform playerFeet;
+
+        /// <summary>
+        /// PlayerFeet is the transform at the bottom of the character model.
+        /// Useful for moving character around
+        /// </summary>
+        [HideInInspector]
+        public Transform PlayerFeet { get { return playerFeet; } }
+
         [SerializeField]
         LayerMask walkableMask;
         float checkDistance = 1.25f;
@@ -37,6 +54,18 @@ namespace Core.Player
 
         Rigidbody rb;
 
+        private void OnEnable()
+        {
+            WorldManager.OnSceneStartLoad += DisableInputOnScene;
+            WorldManager.OnSceneLoadedAfterFadeIn += EnableInputOnScene;
+        }
+
+        private void OnDisable()
+        {
+            WorldManager.OnSceneStartLoad -= DisableInputOnScene;
+            WorldManager.OnSceneLoadedAfterFadeIn -= EnableInputOnScene;
+        }
+
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -46,6 +75,7 @@ namespace Core.Player
         void Update()
         {
             GetInputMoveVec();
+            CalculateRot();
             ControlDrag();
             UpdateState();
         }
@@ -62,14 +92,18 @@ namespace Core.Player
         /// </summary>
         private void UpdateState()
         {
-            if (moveVector.magnitude != 0)
+            //Only updates if it isn't disabled.
+            if(state != PlayerControllerState.Disabled)
             {
-                state = PlayerControllerState.Moving;
-            }
-            else
-            {
-                state = PlayerControllerState.Idle;
-            }
+                if (moveVector.magnitude != 0)
+                {
+                    state = PlayerControllerState.Moving;
+                }
+                else
+                {
+                    state = PlayerControllerState.Idle;
+                }
+            }          
         }
 
         private void FireStateEvents()
@@ -82,8 +116,14 @@ namespace Core.Player
 
         private void GetInputMoveVec()
         {
-            moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
+            if(state != PlayerControllerState.Disabled)
+            {
+                moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            }
+            else
+            {
+                moveVector = Vector3.zero;
+            }
 
         }
 
@@ -99,8 +139,17 @@ namespace Core.Player
             }
         }
 
+        /// <summary>
+        /// Calculates the rotation the character should have.
+        /// </summary>
+        private void CalculateRot()
+        {
+            //targetRot
+        }
+
         private void ApplyForce()
         {
+            transform.LookAt(transform.position + moveVector, Vector3.up);
             rb.AddForce(moveVector.normalized * baseMoveSpeed * groundMultiplier, ForceMode.Impulse);
         }
 
@@ -117,8 +166,60 @@ namespace Core.Player
 
         private enum PlayerControllerState
         {
+            Disabled,
             Idle,
             Moving
+        }
+
+        /// <summary>
+        /// Sets the controller state
+        /// </summary>
+        /// <param name="_state"></param>
+        private void SetControllerState(PlayerControllerState _state)
+        {
+            state = _state;
+        }
+
+        /// <summary>
+        /// Disable input task
+        /// </summary>
+        /// <returns></returns>
+        public Task DisableInput()
+        {
+            SetControllerState(PlayerControllerState.Disabled);
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Enable input task
+        /// </summary>
+        /// <returns></returns>
+        public Task EnableInput()
+        {
+            SetControllerState(PlayerControllerState.Idle);
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Disable input call to be used with scene load events.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private async Task DisableInputOnScene(string sceneName)
+        {
+            await DisableInput();
+        }
+
+        /// <summary>
+        /// Enable input call to be used with scene load events.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private async Task EnableInputOnScene(string sceneName)
+        {
+            await EnableInput();
         }
     }
 }

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  m_GroupName: Dialogue
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3663bcfd180c4064cb0090a39d5bd887
+  m_SerializeEntries:
+  - m_GUID: 07dc3b360a075e448b3922d37d8bdee0
+    m_Address: Dialogue/Demotown
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialogue
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cb0114d6ebca033498cfeaaaff0c08d6
+    m_Address: Dialogue/Demotown_HealingCenter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialogue
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9e03d39bbd93a8046bc2171680c75d57, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e34e29c2d9c23d646a932bf935b3e75d, type: 2}
+    - {fileID: 11400000, guid: 1ce5a56034900714087d5ee0bdafc36c, type: 2}

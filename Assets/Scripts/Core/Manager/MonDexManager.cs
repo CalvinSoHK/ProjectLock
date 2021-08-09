@@ -13,6 +13,9 @@ namespace Core
     {
         private MonDex monDex = new MonDex();
 
+        private bool dexReady = false;
+        public bool DexReady { get { return dexReady; } }
+
         private void Start()
         {
             InitDex(1);
@@ -22,10 +25,11 @@ namespace Core
         /// Initializes and loads the mondex with given generation ID;
         /// </summary>
         /// <param name="generationID"></param>
-        public void InitDex(int generationID)
+        public async void InitDex(int generationID)
         {
             monDex.generationID = generationID;
-            monDex.LoadDex();
+            await monDex.LoadDex();
+            dexReady = true;
         }
 
         /// <summary>

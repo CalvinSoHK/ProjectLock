@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Core.AddressableSystem;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Utility
@@ -16,10 +18,13 @@ namespace Utility
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public T LoadJSON(string path)
+        public async Task<T> LoadJSON(string path)
         {
-            TextAsset jsonObj = Resources.Load<TextAsset>(path);
-            return JsonUtility.FromJson<T>(jsonObj.text);
+            AddressablesManager addressManager = Core.CoreManager.Instance.addressablesManager;
+
+            TextAsset asset = await addressManager.LoadAddressable<TextAsset>(path, false);
+
+            return JsonUtility.FromJson<T>(asset.text);
         }
 
         /// <summary>

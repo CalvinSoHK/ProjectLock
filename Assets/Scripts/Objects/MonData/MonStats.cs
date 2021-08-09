@@ -52,6 +52,22 @@ namespace Mon.MonData
         }
 
         /// <summary>
+        /// Copies all values from another stats object.
+        /// Used for copying base stats into current stats.
+        /// </summary>
+        /// <param name="copyStats"></param>
+        public void MatchStatsTo(MonStats copyStats)
+        {
+            level = copyStats.level;
+            hp = copyStats.hp;
+            def = copyStats.def;
+            spDef = copyStats.spDef;
+            atk = copyStats.atk;
+            spAtk = copyStats.spAtk;
+            speed = copyStats.speed;
+        }
+
+        /// <summary>
         /// Calculates stats based on level
         /// </summary>
         private void CalculateStats()

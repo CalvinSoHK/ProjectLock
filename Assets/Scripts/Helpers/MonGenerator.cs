@@ -4,6 +4,7 @@ using UnityEngine;
 using Utility;
 using Mon.Enums;
 using Mon.MonData;
+using System.Threading.Tasks;
 
 namespace Mon.MonGeneration
 {
@@ -41,7 +42,7 @@ namespace Mon.MonGeneration
         /// Generates all mons in KeysJSON
         /// </summary>
         /// <param name="keyObj"></param>
-        public void GenerateMonsByKey(KeysJSON keyObj)
+        public async void GenerateMonsByKey(KeysJSON keyObj)
         {
             //Reset mon Base
             Init();
@@ -54,10 +55,10 @@ namespace Mon.MonGeneration
             foreach (string path in keyObj.keys)
             {
                 //Load from path
-                curMon = dataReader.ParseData(path);
+                curMon = await dataReader.ParseData(path);
                 
                 //Generate a Mon with that ID
-                GeneratedMon[] monFamily = GenerateMonFamily(curMon);
+                GeneratedMon[] monFamily = await GenerateMonFamily(curMon);
 
                 //Add each member of the family to the list, assign updated IDs
                 for(int i = 0; i < monFamily.Length; i++)
@@ -89,7 +90,7 @@ namespace Mon.MonGeneration
         /// <param name="baseMon"></param>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public GeneratedMon[] GenerateMonFamily(BaseMon baseMon)
+        public async Task<GeneratedMon[]> GenerateMonFamily(BaseMon baseMon)
         {
             //If we don't have the settings yet, grab it.
             if (settings == null)
@@ -98,7 +99,7 @@ namespace Mon.MonGeneration
             }
 
             //Pick a family to be used based off of this baseMon
-            BaseMon[] baseFamilyList = PickFamily(baseMon);
+            BaseMon[] baseFamilyList = await PickFamily(baseMon);
 
             //Only try to make a family if it isn't an empty list.
             if (baseFamilyList.Length > 0)
@@ -173,7 +174,7 @@ namespace Mon.MonGeneration
         /// </summary>
         /// <param name="baseMon"></param>
         /// <returns></returns>
-        private List<BaseMon> ParseFamilyData(BaseMon baseMon)
+        private async Task<List<BaseMon>> ParseFamilyData(BaseMon baseMon)
         {
             //Pull full family
             List<BaseMon> fullFamily = new List<BaseMon>();
@@ -184,7 +185,7 @@ namespace Mon.MonGeneration
             DataReader dataReader = new DataReader();
             foreach (int key in baseMon.family)
             {
-                BaseMon mon = dataReader.ParseData(key.ToString());
+                BaseMon mon = await dataReader.ParseData(key.ToString());
                 fullFamily.Add(mon);
                 //Debug.Log("Parsed: " + mon.name + " with ID: " + mon.key);
             }
@@ -294,10 +295,10 @@ namespace Mon.MonGeneration
         /// Picks baseMon in a family to make the family that will be in this run of the game
         /// Returns an empty list if this family has already been generated.
         /// </summary>
-        private BaseMon[] PickFamily(BaseMon baseMon)
+        private async Task<BaseMon[]> PickFamily(BaseMon baseMon)
         {
             //Pull full family
-            List<BaseMon> fullFamily = ParseFamilyData(baseMon);
+            List<BaseMon> fullFamily = await ParseFamilyData(baseMon);
 
             //Add each member of the family to the consumeKeys list
             foreach (BaseMon mon in fullFamily)

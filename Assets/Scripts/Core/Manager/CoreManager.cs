@@ -1,9 +1,12 @@
 ﻿using Core.Player;
+using Core.World;
+using Core.Dialogue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using World;
+using Core.AddressableSystem;
 
 namespace Core
 {
@@ -34,6 +37,15 @@ namespace Core
         public PlayerController player;
 
         [SerializeField]
+        public PlayerInteract interact;
+
+        [SerializeField]
+        public PlayerInputMap inputMap;
+
+        [SerializeField]
+        public PartyManager playerParty;
+
+        [SerializeField]
         public CameraManager camera;
 
         [Header("Managers")]
@@ -45,6 +57,15 @@ namespace Core
 
         [SerializeField]
         public WorldManager worldManager;
+
+        [SerializeField]
+        public LoadManager loadManager;
+
+        [SerializeField]
+        public DialogueManager dialogueManager;
+
+        [SerializeField]
+        public AddressablesManager addressablesManager;
 
         /// <summary>
         /// Moves player to found point in scene with scene name

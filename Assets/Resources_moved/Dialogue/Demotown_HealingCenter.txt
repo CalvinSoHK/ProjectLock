@@ -1,0 +1,23 @@
+{
+    "sceneName": "Demotown_HealingCenter",
+    "dialogueObjects": [
+        {
+            "dialogueID": "demotown_healingcenter_1",
+            "sceneName":"Demotown_HealingCenter",
+            "speakerName": "Dr. Cho",
+            "dialogueText": "Welcome to the healing center!",
+            "hasNext": true,
+            "dialogueNextID": "demotown_healingcenter_2",
+            "requestConfirm" : false
+        },
+        {
+            "dialogueID": "demotown_healingcenter_2",
+            "sceneName":"Demotown_HealingCenter",
+            "speakerName": "Dr. Cho",
+            "dialogueText": "Do you need me to heal your party?",
+            "hasNext": false,
+            "dialogueNextID": "",
+            "requestConfirm" : true
+        }
+    ]
+}

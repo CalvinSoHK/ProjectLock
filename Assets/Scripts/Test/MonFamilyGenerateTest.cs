@@ -22,9 +22,14 @@ public class MonFamilyGenerateTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadMon();
+    }
+
+    private async void LoadMon()
+    {
         //Load key data
         Utility.JsonUtility<KeysJSON> jsonLoader = new Utility.JsonUtility<KeysJSON>();
-        keyObj = jsonLoader.LoadJSON("MonData/keyData");
+        keyObj = await jsonLoader.LoadJSON("MonData/keyData");
 
         //Generates all mons in that keyObj
         monGenerator.GenerateMonsByKey(keyObj);
@@ -37,14 +42,7 @@ public class MonFamilyGenerateTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //Load key data
-            Utility.JsonUtility<KeysJSON> jsonLoader = new Utility.JsonUtility<KeysJSON>();
-            keyObj = jsonLoader.LoadJSON("MonData/keyData");
-
-            //Generates all mons in that keyObj
-            monGenerator.GenerateMonsByKey(keyObj);
-
-            display.ResetID();
+            LoadMon();
 
             //Save all generated mons
             monGenerator.monDex.SaveDex();

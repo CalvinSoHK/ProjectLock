@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Core;
 using UnityEngine.Events;
+using System.Threading.Tasks;
+using Core.World;
 
-namespace World
+namespace World.Event
 {
     /// <summary>
     /// Triggers scene load on entering this trigger collider
@@ -54,43 +56,63 @@ namespace World
         }
 
         /// <summary>
-        /// Loads scene
+        /// Loads scene, teleports you to the target point after scene is loaded before fade in
         /// </summary>
         private async void LoadScene()
         {
             WorldManager.OnSceneStartLoad += FireOnLoadSceneStart;
+            if (loadMode == LoadSceneMode.Single)
+            {
+                WorldManager.OnSceneLoadedBeforeFadeIn += Teleport;
+            }
+
             bool result = await CoreManager.Instance.worldManager.LoadScene(targetSceneName, loadMode);
+            WorldManager.OnSceneLoadedBeforeFadeIn -= Teleport;
             if (!result)
             {
                 throw new System.Exception("Unable to load scene: " + gameObject.name);
             }
-            else
+        }
+
+        /// <summary>
+        /// Calls CoreManager to teleport to the target point.
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
+        private Task Teleport(string sceneName)
+        {
+            if(!sceneName.Equals(targetSceneName))
             {
-                if(loadMode == LoadSceneMode.Single)
-                {
-                    CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
-                }
+                throw new System.Exception(
+                    "Teleport is not teleporting to the same target scene that was loaded. SceneName: " 
+                    + sceneName + 
+                    " Target Scene Name: " 
+                    + targetSceneName);
             }
+            CoreManager.Instance.TeleportToPoint(targetSceneName, targetTeleportPointKey);
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Fires on load scene start, unsubscribes self.
         /// Subscribes the finish event.
         /// </summary>
-        private void FireOnLoadSceneStart()
+        private Task FireOnLoadSceneStart(string sceneName)
         {
             OnLoadSceneStart?.Invoke();
             WorldManager.OnSceneStartLoad -= FireOnLoadSceneStart;
-            WorldManager.OnSceneLoaded += FireOnLoadSceneFinish;
+            WorldManager.OnSceneLoadedAfterFadeIn += FireOnLoadSceneFinish;
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Fires on load scene finish, unsubscribes self.
         /// </summary>
-        private void FireOnLoadSceneFinish()
+        private Task FireOnLoadSceneFinish(string sceneName)
         {
             OnLoadSceneFinish?.Invoke();
-            WorldManager.OnSceneLoaded -= FireOnLoadSceneFinish;
+            WorldManager.OnSceneLoadedAfterFadeIn -= FireOnLoadSceneFinish;
+            return Task.CompletedTask;
         }
     }
 }
