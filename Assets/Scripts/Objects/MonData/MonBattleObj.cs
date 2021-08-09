@@ -16,18 +16,29 @@ namespace Mon.MonData
         Dictionary<string, string> monBattleData;
 
         /// <summary>
+        /// mon stats 
+        /// </summary>
+        public MonStats monStats;
+
+
+        /// <summary>
+        /// Constructor that takes in curStats and battle data to set it
+        /// </summary>
+        /// <param name="baseStats"></param>
+        /// <param name="battleData"></param>
+        public MonBattleObj(MonStats curStats, Dictionary<string, string> battleData)
+        {
+            monStats = curStats;
+            monBattleData = battleData;
+        }
+
+        /// <summary>
         /// Called after a battle is finished.
         /// </summary>
         public void PostBattle()
         {
             monBattleData.Clear();
         }
-
-        /// <summary>
-        /// mon stats 
-        /// </summary>
-
-        public MonStats monStats;
 
         /// <summary>
         /// Appends to the monData dictionary

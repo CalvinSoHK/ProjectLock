@@ -418,6 +418,8 @@ GameObject:
   - component: {fileID: 2868099204526525887}
   - component: {fileID: 253225173}
   - component: {fileID: 3314781200523240540}
+  - component: {fileID: 4047273488145376624}
+  - component: {fileID: 7988371779962861664}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -571,6 +573,267 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactKey: 101
+--- !u!114 &4047273488145376624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868099204526525829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781ccf358a8ab8648847765d81e0451e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  party:
+  - baseMon:
+      ID: 0
+      generationID: 0
+      name: 
+      stage: 0
+      next_evoID: 0
+      prev_evoID: 0
+      primaryType: 0
+      secondaryType: 0
+      growthType: 0
+      baseStats:
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+        statTotal: 0
+      catchRate: 0
+      weight: 0
+      exp_gain: 0
+      teachableMoves: []
+    stats:
+      level: 0
+      hp: 0
+      def: 0
+      spDef: 0
+      atk: 0
+      spAtk: 0
+      speed: 0
+    battleObj:
+      monStats:
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+  - baseMon:
+      ID: 0
+      generationID: 0
+      name: 
+      stage: 0
+      next_evoID: 0
+      prev_evoID: 0
+      primaryType: 0
+      secondaryType: 0
+      growthType: 0
+      baseStats:
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+        statTotal: 0
+      catchRate: 0
+      weight: 0
+      exp_gain: 0
+      teachableMoves: []
+    stats:
+      level: 0
+      hp: 0
+      def: 0
+      spDef: 0
+      atk: 0
+      spAtk: 0
+      speed: 0
+    battleObj:
+      monStats:
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+  - baseMon:
+      ID: 0
+      generationID: 0
+      name: 
+      stage: 0
+      next_evoID: 0
+      prev_evoID: 0
+      primaryType: 0
+      secondaryType: 0
+      growthType: 0
+      baseStats:
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+        statTotal: 0
+      catchRate: 0
+      weight: 0
+      exp_gain: 0
+      teachableMoves: []
+    stats:
+      level: 0
+      hp: 0
+      def: 0
+      spDef: 0
+      atk: 0
+      spAtk: 0
+      speed: 0
+    battleObj:
+      monStats:
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+  - baseMon:
+      ID: 0
+      generationID: 0
+      name: 
+      stage: 0
+      next_evoID: 0
+      prev_evoID: 0
+      primaryType: 0
+      secondaryType: 0
+      growthType: 0
+      baseStats:
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+        statTotal: 0
+      catchRate: 0
+      weight: 0
+      exp_gain: 0
+      teachableMoves: []
+    stats:
+      level: 0
+      hp: 0
+      def: 0
+      spDef: 0
+      atk: 0
+      spAtk: 0
+      speed: 0
+    battleObj:
+      monStats:
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+  - baseMon:
+      ID: 0
+      generationID: 0
+      name: 
+      stage: 0
+      next_evoID: 0
+      prev_evoID: 0
+      primaryType: 0
+      secondaryType: 0
+      growthType: 0
+      baseStats:
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+        statTotal: 0
+      catchRate: 0
+      weight: 0
+      exp_gain: 0
+      teachableMoves: []
+    stats:
+      level: 0
+      hp: 0
+      def: 0
+      spDef: 0
+      atk: 0
+      spAtk: 0
+      speed: 0
+    battleObj:
+      monStats:
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+  - baseMon:
+      ID: 0
+      generationID: 0
+      name: 
+      stage: 0
+      next_evoID: 0
+      prev_evoID: 0
+      primaryType: 0
+      secondaryType: 0
+      growthType: 0
+      baseStats:
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+        statTotal: 0
+      catchRate: 0
+      weight: 0
+      exp_gain: 0
+      teachableMoves: []
+    stats:
+      level: 0
+      hp: 0
+      def: 0
+      spDef: 0
+      atk: 0
+      spAtk: 0
+      speed: 0
+    battleObj:
+      monStats:
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+--- !u!114 &7988371779962861664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868099204526525829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba604b6ca3dcaa04da4139fc4b24a11a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityName: Player
+  type: 3
 --- !u!1 &2868099205096375822
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +1052,7 @@ MonoBehaviour:
   player: {fileID: 2868099204526525887}
   interact: {fileID: 253225173}
   inputMap: {fileID: 3314781200523240540}
+  playerParty: {fileID: 4047273488145376624}
   camera: {fileID: 2868099205131522706}
   dexManager: {fileID: 2868099203833002788}
   encounterManager: {fileID: 2868099203904102602}

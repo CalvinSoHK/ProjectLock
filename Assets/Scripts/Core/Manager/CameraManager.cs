@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         CalculatePosition();
         CalculateForce();

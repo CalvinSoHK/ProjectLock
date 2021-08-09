@@ -43,6 +43,9 @@ namespace Core
         public PlayerInputMap inputMap;
 
         [SerializeField]
+        public PartyManager playerParty;
+
+        [SerializeField]
         public CameraManager camera;
 
         [Header("Managers")]

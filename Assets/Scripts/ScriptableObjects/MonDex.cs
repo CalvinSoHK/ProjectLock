@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -88,7 +89,7 @@ namespace Mon.MonData
         /// <summary>
         /// Loads data from JSON files into dex
         /// </summary>
-        public async void LoadDex()
+        public async Task LoadDex()
         {
             //Clear in case we have any data.
             monDict.Clear();
