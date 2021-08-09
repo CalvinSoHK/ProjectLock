@@ -22,7 +22,14 @@ namespace World
                 if (party.IsValidIndex(i))
                 {
                     MonIndObj member = party.GetPartyMember(i);
-                    member.battleObj.monStats.hp = member.stats.hp;
+                    if (member != null)
+                    {
+                        member.FullReset();
+                    }
+                    else
+                    {
+                        throw new System.Exception("HealTrigger Error: Given player party index was valid but returned null: " + i);
+                    }
                 }
             }
         }

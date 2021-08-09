@@ -33,14 +33,6 @@ namespace Mon.MonData
         }
 
         /// <summary>
-        /// Called after a battle is finished.
-        /// </summary>
-        public void PostBattle()
-        {
-            monBattleData.Clear();
-        }
-
-        /// <summary>
         /// Appends to the monData dictionary
         /// If the key is already in the dictionary, it will fail.
         /// Returns true if it succeeds, false otherwise.
@@ -87,6 +79,14 @@ namespace Mon.MonData
             string value = null;
             monBattleData.TryGetValue(key, out value);
             return value;
+        }
+
+        /// <summary>
+        /// Resets the battle obj, removing conditions
+        /// </summary>
+        public void ResetBattleObj()
+        {
+            monBattleData.Clear();
         }
     }
 }

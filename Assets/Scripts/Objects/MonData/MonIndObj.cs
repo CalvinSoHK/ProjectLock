@@ -83,5 +83,43 @@ namespace Mon.MonData
         {
             nickname = "";
         }
+
+        /// <summary>
+        /// Resets mon stats to base values
+        /// </summary>
+        public void ResetStats()
+        {
+            battleObj.monStats.atk = stats.atk;
+            battleObj.monStats.spAtk = stats.spAtk;
+            battleObj.monStats.def = stats.def;
+            battleObj.monStats.spDef = stats.spDef;
+            battleObj.monStats.speed = stats.speed;
+        }
+
+        /// <summary>
+        /// Resets mon health to full health
+        /// </summary>
+        public void ResetHealth()
+        {
+            battleObj.monStats.hp = stats.hp;
+        }
+
+        /// <summary>
+        /// Resets all status and conditions
+        /// </summary>
+        public void ResetStatus()
+        {
+            battleObj.ResetBattleObj();
+        }
+
+        /// <summary>
+        /// Resets health, stats, and statuses
+        /// </summary>
+        public void FullReset()
+        {
+            ResetStats();
+            ResetHealth();
+            ResetStatus();
+        }
     }
 }

@@ -62,7 +62,6 @@ namespace World.Event
         /// </summary>
         private void Confirm()
         {
-            Debug.Log("Confirming");
             OnConfirm?.Invoke();
             OnAnyInput();
         }
