@@ -5,25 +5,60 @@ using UnityEngine;
 public class PlayerMonster : MonoBehaviour
 {
 
-    public MonsterSO monster1;
+    [System.Serializable]
+    public class TrainerMonster
+    {
+        public MonsterSO monsterObject;
+        public string monName;
+        public int monMaxHealth;
+        public int monCurHealth;
+        public int monAtt;
+        public int monSpd;
+        public int monDef;
+        public int monLvl;
+    }
 
-    [Header("Monster 1")]
-    public string mon1name;
-    public int mon1health;
-    public int mon1att;
-    public int mon1spd;
-    public int mon1def;
-    public int mon1lvl;
+    public List<TrainerMonster> playerMonster;
 
     // Start is called before the first frame update
     void Start()
     {
-        mon1name = monster1.monsterName;
-        mon1health = monster1.health;
-        mon1att = monster1.attack;
-        mon1spd = monster1.speed;
-        mon1def = monster1.defence;
-        mon1lvl = monster1.level;
+        //SetUpValues();
     }
 
+
+    /// <summary>
+    /// Sets up values(stats) of mon  according to the object
+    /// </summary>
+    public void SetUpValues()
+    {
+        for (int i = 0; i < playerMonster.Count; i++)
+        {
+            playerMonster[i].monName = playerMonster[i].monsterObject.name;
+            playerMonster[i].monMaxHealth = playerMonster[i].monsterObject.maxHealth;
+            playerMonster[i].monCurHealth = playerMonster[i].monsterObject.curHealth;
+            playerMonster[i].monAtt = playerMonster[i].monsterObject.attack;
+            playerMonster[i].monSpd = playerMonster[i].monsterObject.speed;
+            playerMonster[i].monDef = playerMonster[i].monsterObject.defence;
+            playerMonster[i].monLvl = playerMonster[i].monsterObject.level;
+        }
+    }
+    
+
+    /// <summary>
+    /// Checks for the first available mon in inventory, if health > 0
+    /// </summary>
+    /// <returns> a player monster </returns>
+    public TrainerMonster FirstAvailable()
+    {
+        for (int i = 0; i < playerMonster.Count; i++)
+        {
+            if (playerMonster[i].monCurHealth > 0)
+            {
+                return playerMonster[i];
+            }
+        }
+            
+        return null;
+    }
 }

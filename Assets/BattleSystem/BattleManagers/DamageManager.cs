@@ -9,7 +9,7 @@ public class DamageManager : MonoBehaviour
 
 
 
-    public delegate void damageDelegate(int healthValue);
+    public delegate void damageDelegate(PlayerMonster.TrainerMonster monster, int healthValue);
 
     public static damageDelegate damageEvent;
 
@@ -19,9 +19,9 @@ public class DamageManager : MonoBehaviour
     /// </summary>
     /// <param name="monName"></param>
     /// <param name="damageValue"></param>
-    public void DealDamage(MonsterSO monster, int damageValue) //new param for Skill name? May not need damageValue
+    public void DealDamage(PlayerMonster.TrainerMonster monster, int damageValue) //new param for Skill name? May not need damageValue
     {
-        if (monster.name == stateManager.monster1.name)
+        if (monster == stateManager.playerCurMonster)
         {
             //Deal Damage
             if (stateManager.healthManager.playerCurHP - damageValue < 0)
@@ -32,9 +32,9 @@ public class DamageManager : MonoBehaviour
             {
                 stateManager.healthManager.playerCurHP -= damageValue;
             }
-            damageEvent?.Invoke(stateManager.healthManager.playerCurHP);
+            damageEvent?.Invoke(monster, stateManager.healthManager.playerCurHP);
         }
-        else if (monster.name == stateManager.monster2.name)
+        else if (monster == stateManager.aiCurMonster)
         {
             if (stateManager.healthManager.aiCurHP - damageValue < 0)
             {
@@ -44,7 +44,7 @@ public class DamageManager : MonoBehaviour
             {
                 stateManager.healthManager.aiCurHP -= damageValue;
             }
-            damageEvent?.Invoke(stateManager.healthManager.aiCurHP);
+            damageEvent?.Invoke(monster, stateManager.healthManager.aiCurHP);
         }
 
 

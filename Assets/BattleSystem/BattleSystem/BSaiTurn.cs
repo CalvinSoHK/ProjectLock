@@ -93,7 +93,7 @@ public class BSaiTurn : BSstate
     /// <returns></returns>
     bool HealthTreshhold()
     {
-        if (((float) manager.healthManager.aiCurHP / manager.mon2maxHP) < itemTreshhold)
+        if (((float) manager.healthManager.aiCurHP / manager.healthManager.aiMaxHP) < itemTreshhold)
         {
             return true;
         }

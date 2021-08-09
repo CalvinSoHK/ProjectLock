@@ -17,8 +17,8 @@ public class ConditionMananger : MonoBehaviour
     {
          if (isPoisoned)
         {
-            stateManager.damageManager.DealDamage(stateManager.monster1, PoisonDamage(stateManager.mon1maxHP));
-            Debug.Log($"Player takes {PoisonDamage(stateManager.mon1maxHP)} damage");
+            //stateManager.damageManager.DealDamage(stateManager.playerCurMonster, PoisonDamage(stateManager.mon1maxHP));
+            //Debug.Log($"Player takes {PoisonDamage(stateManager.healthManager.playerMaxHP)} damage");
         }
     }
 

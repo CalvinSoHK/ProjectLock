@@ -5,11 +5,15 @@ using UnityEngine.UI;
 public class BSstatemanager : MonoBehaviour
 {
     private BSstate currentState;
+
+    [Header("Managers")]
+    public MonUIManager monUIManager;
     public HealthManager healthManager;
     public DamageManager damageManager;
     public DialogueTexts dialogueText;
     public ItemManager itemManager;
     public ConditionMananger conditionManager;
+    public SwapManager swapManager;
 
     public int currentMove;
     public int currentAction;
@@ -19,14 +23,11 @@ public class BSstatemanager : MonoBehaviour
 
     public int aicurrentAction;
 
-    public MonsterSO monster1;
-    public MonsterSO monster2;
+    public PlayerMonster.TrainerMonster playerCurMonster;
+    public PlayerMonster.TrainerMonster aiCurMonster;
 
-
-    public int mon1curHP;
-    public int mon2curHP;
-    public int mon1maxHP;
-    public int mon2maxHP;
+    public PlayerMonster playerMonManager;
+    public PlayerMonster aiMonManager;
 
     public bool playerHasGone;
     public bool aiHasGone;

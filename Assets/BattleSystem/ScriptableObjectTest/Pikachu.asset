@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Pikachu
   m_EditorClassIdentifier: 
   monsterName: Pikachu
-  health: 100
+  maxHealth: 100
+  curHealth: 50
   attack: 100
   speed: 110
   defence: 10

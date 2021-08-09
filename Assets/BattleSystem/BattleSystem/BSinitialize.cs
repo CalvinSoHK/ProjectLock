@@ -15,14 +15,19 @@ public class BSinitialize : BSstate
 
         Debug.Log("Initializing");
         
-        manager.mon1maxHP = manager.monster1.health;
-        manager.mon2maxHP = manager.monster2.health;
-        //manager.mon1curHP = manager.mon1maxHP;
-        //manager.mon2curHP = manager.mon2maxHP;
-        //manager.healthManager.playerCurHP = manager.mon1maxHP;
-        //manager.healthManager.aiCurHP = manager.mon2maxHP;
+        manager.playerMonManager.SetUpValues();
+        manager.aiMonManager.SetUpValues();
+        manager.playerCurMonster = manager.playerMonManager.FirstAvailable();
+        manager.aiCurMonster = manager.aiMonManager.FirstAvailable();
 
-        manager.healthManager.SetUp();
+
+
+        manager.healthManager.HealthPlayerSetUp(manager.playerCurMonster);
+        manager.healthManager.HealthAISetUp(manager.aiCurMonster);
+
+        Debug.Log(manager.healthManager.playerCurHP);
+
+        manager.monUIManager.SetUp();
 
         //Testing Remove when implement inventory
         manager.aihealthpots = 2;

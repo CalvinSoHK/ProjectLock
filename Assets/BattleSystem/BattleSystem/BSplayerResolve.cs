@@ -25,28 +25,30 @@ public class BSplayerResolve : BSstate
             {
                 if (manager.currentAction == 0)
                 {
-                    manager.damageManager.DealDamage(manager.monster2, 30);
+                    manager.damageManager.DealDamage(manager.aiCurMonster, 30);
                     //DeathCheck();
-                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentMove}!";
+                    manager.dialogueText.dialogueTexts.text = $"Fix playerResolve {manager.playerCurMonster.monName} uses {manager.currentMove}!";
                     manager.playerHasGone = true;
                 }
                 else if (manager.currentAction == 1)
                 {
                     //use item
-                    manager.itemManager.UseItem(manager.monster1);
-                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentAction}!";
+                    manager.itemManager.UseItem(manager.playerCurMonster);
+                    manager.dialogueText.dialogueTexts.text = $"{manager.playerCurMonster.monName} uses {manager.currentAction}!";
                     manager.playerHasGone = true;
                 }
                 else if (manager.currentAction == 2)
                 {
                     //swap
-                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentAction}!";
+                    //Go to New swap State
+                    manager.swapManager.SwapTo();
+                    manager.dialogueText.dialogueTexts.text = $"{manager.playerCurMonster.monName} uses {manager.currentAction}!";
                     manager.playerHasGone = true;
                 }
                 else if (manager.currentAction == 3)
                 {
                     //escape
-                    manager.dialogueText.dialogueTexts.text = $"{manager.monster1.name} uses {manager.currentAction}!"; ;
+                    manager.dialogueText.dialogueTexts.text = $"{manager.playerCurMonster.monName} uses {manager.currentAction}!"; ;
                     manager.ChangeState(new BSinitialize(manager));
                 }
             }
@@ -84,7 +86,7 @@ public class BSplayerResolve : BSstate
     /// </summary>
     void DeathCheck()
     {
-        if (manager.mon2curHP <= 0)
+        if (manager.healthManager.aiCurHP <= 0)
         {
             Debug.Log("Player wins");
             manager.dialogueText.enableDialogueText(false);

@@ -61,7 +61,7 @@ public class BSprioritycheck : BSstate
         // If (skill priority > skill priority)
 
         // if Player > ai speed
-        if (manager.monster1.speed >= manager.monster2.speed)
+        if (manager.playerCurMonster.monSpd >= manager.aiCurMonster.monSpd)
         {
             //player goes first
             manager.playerPriority = true;

@@ -28,15 +28,15 @@ public class BSaiResolve : BSstate
 
                 if (manager.aicurrentAction == 0)
                 {
-                    manager.damageManager.DealDamage(manager.monster1, 10);
+                    manager.damageManager.DealDamage(manager.playerCurMonster, 10);
                     //DeathCheck();
-                    manager.dialogueText.dialogueTexts.text = $"{manager.monster2.name} uses {manager.aicurrentAction}!";
+                    manager.dialogueText.dialogueTexts.text = $"{manager.aiCurMonster.monName} uses {manager.aicurrentAction}!";
                     manager.aiHasGone = true;
                 }
                 else if (manager.aicurrentAction == 1)
                 {
-                    manager.itemManager.UseItem(manager.monster2);
-                    manager.dialogueText.dialogueTexts.text = $"{manager.monster2.name} uses {manager.aicurrentAction} heal!";
+                    manager.itemManager.UseItem(manager.aiCurMonster);
+                    manager.dialogueText.dialogueTexts.text = $"{manager.aiCurMonster.monName} uses {manager.aicurrentAction} heal!";
                     manager.aiHasGone = true;
                 }
                 else if (manager.aiHasGone)
@@ -76,7 +76,7 @@ public class BSaiResolve : BSstate
     /// </summary>
     void DeathCheck()
     {
-        if (manager.mon1curHP <= 0)
+        if (manager.healthManager.playerCurHP <= 0)
         {
             Debug.Log("AI wins");
             manager.dialogueText.enableDialogueText(false);
