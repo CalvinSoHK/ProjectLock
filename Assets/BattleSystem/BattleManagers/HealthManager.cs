@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mon.MonData;
 
 public class HealthManager : MonoBehaviour
 {
+    private BSstatemanager stateManager;
     public int playerMaxHP;
     public int playerCurHP;
 
@@ -15,19 +17,21 @@ public class HealthManager : MonoBehaviour
     /// Sets up Health for player
     /// </summary>
     /// <param name="monster"></param>
-    public void HealthPlayerSetUp(PlayerMonster.TrainerMonster monster)
+    public void HealthPlayerSetUp(MonIndObj monster)
     {
-        playerMaxHP = monster.monMaxHealth;
-        playerCurHP = monster.monCurHealth;
+        playerMaxHP = monster.battleObj.monStats.hp;
+        playerCurHP = monster.battleObj.monStats.hp;
     }
 
     /// <summary>
     /// Sets up Health for AI
     /// </summary>
     /// <param name="monster"></param>
-    public void HealthAISetUp(PlayerMonster.TrainerMonster monster)
+    public void HealthAISetUp(MonIndObj monster)
     {
-        aiMaxHP = monster.monMaxHealth;
-        aiCurHP = monster.monCurHealth;
+        aiMaxHP = monster.battleObj.monStats.hp;
+        aiCurHP = monster.battleObj.monStats.hp;
     }
+
+
 }

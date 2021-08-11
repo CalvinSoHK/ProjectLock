@@ -15,54 +15,54 @@ public class BSaiResolve : BSstate
     public override void Enter()
     {
         base.Enter();
-        manager.dialogueText.enableDialogueText(true);
+        stateManager.dialogueText.enableDialogueText(true);
         //Debug.Log("Ai resolve");
     }
 
     public override void Run()
     {
-        if (!manager.aiHasGone)
+        if (!stateManager.aiHasGone)
         {
-            if (!manager.playerPriority || manager.playerHasGone)
+            if (!stateManager.playerPriority || stateManager.playerHasGone)
             {
 
-                if (manager.aicurrentAction == 0)
+                if (stateManager.aicurrentAction == 0)
                 {
-                    manager.damageManager.DealDamage(manager.playerCurMonster, 10);
-                    //DeathCheck();
-                    manager.dialogueText.dialogueTexts.text = $"{manager.aiCurMonster.monName} uses {manager.aicurrentAction}!";
-                    manager.aiHasGone = true;
+                    stateManager.damageManager.DealDamage(stateManager.playerCurMonster, 1);
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aicurrentAction}!";
+                    DeathCheck();
+                    stateManager.aiHasGone = true;
                 }
-                else if (manager.aicurrentAction == 1)
+                else if (stateManager.aicurrentAction == 1)
                 {
-                    manager.itemManager.UseItem(manager.aiCurMonster);
-                    manager.dialogueText.dialogueTexts.text = $"{manager.aiCurMonster.monName} uses {manager.aicurrentAction} heal!";
-                    manager.aiHasGone = true;
+                    stateManager.itemManager.UseItem(stateManager.aiCurMonster);
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aicurrentAction} heal!";
+                    stateManager.aiHasGone = true;
                 }
-                else if (manager.aiHasGone)
+                else if (stateManager.aiHasGone)
                 {
-                    manager.ChangeState(new BSplayerTurn(manager));
+                    stateManager.ChangeState(new BSplayerTurn(stateManager));
                 }
             }
             else
             {
-                manager.ChangeState(new BSplayerResolve(manager));
+                stateManager.ChangeState(new BSplayerResolve(stateManager));
             }
         }
-        else if (manager.aiHasGone && !manager.playerPriority)
+        else if (stateManager.aiHasGone && !stateManager.playerPriority)
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                manager.ChangeState(new BSplayerResolve(manager));
+                stateManager.ChangeState(new BSplayerResolve(stateManager));
             }
         }
-        else if (manager.aiHasGone && manager.playerPriority) //Both AI and Player has gone --> restart
+        else if (stateManager.aiHasGone && stateManager.playerPriority) //Both AI and Player has gone --> restart
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 //manager.ChangeState(new BSplayerTurn(manager));
                 //manager.dialogueText.enableDialogueText(false);
-                manager.ChangeState(new BSpostResolve(manager));
+                stateManager.ChangeState(new BSpostResolve(stateManager));
             }
         }
     }
@@ -76,11 +76,11 @@ public class BSaiResolve : BSstate
     /// </summary>
     void DeathCheck()
     {
-        if (manager.healthManager.playerCurHP <= 0)
+        if (stateManager.healthManager.playerCurHP <= 0)
         {
-            Debug.Log("AI wins");
-            manager.dialogueText.enableDialogueText(false);
-            manager.ChangeState(new BSlost(manager));
+            //Debug.Log("AI wins");
+            //stateManager.dialogueText.enableDialogueText(false);
+            stateManager.ChangeState(new BSlost(stateManager));
         }
     }
 

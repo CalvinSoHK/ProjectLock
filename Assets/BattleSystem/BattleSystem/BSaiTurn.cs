@@ -24,7 +24,7 @@ public class BSaiTurn : BSstate
 
     public override void Run()
     {
-        Action(manager.aicurrentAction);
+        Action(stateManager.aicurrentAction);
     }
 
     void Action(int aiSkill)
@@ -33,15 +33,15 @@ public class BSaiTurn : BSstate
         {
             case 0:
                 Debug.Log($"{aiSkill} move used");
-                manager.ChangeState(new BSprioritycheck(manager));
+                stateManager.ChangeState(new BSprioritycheck(stateManager));
                 break;
             case 1:
                 Debug.Log($"{aiSkill} item used");
-                manager.ChangeState(new BSprioritycheck(manager));
+                stateManager.ChangeState(new BSprioritycheck(stateManager));
                 break;
             case 2:
                 Debug.Log($"{aiSkill} swap used");
-                manager.ChangeState(new BSprioritycheck(manager));
+                stateManager.ChangeState(new BSprioritycheck(stateManager));
                 break;
             default:
                 break;
@@ -59,14 +59,14 @@ public class BSaiTurn : BSstate
         {
 
             //Check health potions available
-            if (manager.aihealthpots > 0)
+            if (stateManager.aihealthpots > 0)
             {
-                manager.aicurrentAction = 1;
+                stateManager.aicurrentAction = 1;
             }
             else
             {
                 Debug.Log("No more");
-                manager.aicurrentAction = 0;
+                stateManager.aicurrentAction = 0;
             }
         }
         else if (!HealthTreshhold() && HaveCondition())
@@ -78,7 +78,7 @@ public class BSaiTurn : BSstate
             //Check swap
             Debug.Log("Check Swap");
             //manager.aicurrentAction = 2;
-            manager.aicurrentAction = 0;
+            stateManager.aicurrentAction = 0;
         }
         else
         {
@@ -93,7 +93,7 @@ public class BSaiTurn : BSstate
     /// <returns></returns>
     bool HealthTreshhold()
     {
-        if (((float) manager.healthManager.aiCurHP / manager.healthManager.aiMaxHP) < itemTreshhold)
+        if (((float) stateManager.healthManager.aiCurHP / stateManager.healthManager.aiMaxHP) < itemTreshhold)
         {
             return true;
         }

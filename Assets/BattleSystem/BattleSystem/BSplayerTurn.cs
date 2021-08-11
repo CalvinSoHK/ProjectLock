@@ -15,8 +15,8 @@ public class BSplayerTurn : BSstate
     {
         base.Enter();
         Debug.Log("Entered player turn");
-        manager.playerHasGone = false;
-        manager.aiHasGone = false;
+        stateManager.playerHasGone = false;
+        stateManager.aiHasGone = false;
     }
 
     public override void Run()
@@ -32,71 +32,72 @@ public class BSplayerTurn : BSstate
 
     public override void Leave()
     {
-        manager.dialogueText.enableMoveSelector(false);
-        manager.dialogueText.enableActionSelector(false);
+        stateManager.dialogueText.enableMoveSelector(false);
+        stateManager.dialogueText.enableActionSelector(false);
     }
 
 
     void actionSelection()
     {
         isAction = true;
-        manager.dialogueText.enableActionSelector(true);
+        stateManager.dialogueText.enableActionSelector(true);
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (manager.currentAction < 3) //max moves - 1
+            if (stateManager.currentAction < 3) //max moves - 1
             {
-                ++manager.currentAction;
+                ++stateManager.currentAction;
             }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (manager.currentAction > 0)
+            if (stateManager.currentAction > 0)
             {
-                --manager.currentAction;
+                --stateManager.currentAction;
             }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (manager.currentAction < 2)
+            if (stateManager.currentAction < 2)
             {
-                manager.currentAction += 2;
+                stateManager.currentAction += 2;
             }
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (manager.currentAction > 1)
+            if (stateManager.currentAction > 1)
             {
-                manager.currentAction -= 2;
+                stateManager.currentAction -= 2;
             }
         }
 
-        manager.dialogueText.updateActionSelection(manager.currentAction);
+        stateManager.dialogueText.updateActionSelection(stateManager.currentAction);
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (manager.currentAction == 0) //Fight
+            if (stateManager.currentAction == 0) //Fight
             {
-                manager.dialogueText.enableActionSelector(false);
+                stateManager.dialogueText.enableActionSelector(false);
                 isAction = false;
                 isMove = true;
-            } else if (manager.currentAction == 1) //Item
+            } else if (stateManager.currentAction == 1) //Item
             {
-                if(manager.playerhealthpots > 0)
+                if(stateManager.playerhealthpots > 0)
                 {
-                    manager.ChangeState(new BSaiTurn(manager));
+                    stateManager.ChangeState(new BSaiTurn(stateManager));
                 }
                 else
                 {
                     Debug.Log("No Healing Pots Remaining");
                 }
-            } else if (manager.currentAction == 2) //Swap
+            } else if (stateManager.currentAction == 2) //Swap
             {
-                manager.ChangeState(new BSaiTurn(manager));
-            } else if (manager.currentAction == 3) //Escape
+                
+                stateManager.ChangeState(new BSplayerSwap(stateManager));
+            } else if (stateManager.currentAction == 3) //Escape
             {
                 //Escape checker?
-                manager.ChangeState(new BSaiTurn(manager));
+                stateManager.ChangeState(new BSaiTurn(stateManager));
             }
         }
     }
@@ -104,52 +105,52 @@ public class BSplayerTurn : BSstate
     void moveSelection()
     {
         isMove = true;
-        manager.dialogueText.enableMoveSelector(true);
+        stateManager.dialogueText.enableMoveSelector(true);
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (manager.currentMove < 3) //max moves - 1
+            if (stateManager.currentMove < 3) //max moves - 1
             {
-                ++manager.currentMove;
+                ++stateManager.currentMove;
             }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (manager.currentMove > 0)
+            if (stateManager.currentMove > 0)
             {
-                --manager.currentMove;
+                --stateManager.currentMove;
             }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (manager.currentMove < 2)
+            if (stateManager.currentMove < 2)
             {
-                manager.currentMove += 2;
+                stateManager.currentMove += 2;
             }
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (manager.currentMove > 1)
+            if (stateManager.currentMove > 1)
             {
-                manager.currentMove -= 2;
+                stateManager.currentMove -= 2;
             }
         }
 
-        manager.dialogueText.updateMoveSelection(manager.currentMove);
+        stateManager.dialogueText.updateMoveSelection(stateManager.currentMove);
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
             {
                 isMove = false;
-                manager.ChangeState(new BSaiTurn(manager));
+                stateManager.ChangeState(new BSaiTurn(stateManager));
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             {
                 isMove = false;
                 isAction = true;
-                manager.dialogueText.enableMoveSelector(false);
+                stateManager.dialogueText.enableMoveSelector(false);
 
             }
         }

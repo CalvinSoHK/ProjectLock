@@ -42,8 +42,8 @@ public class ConditionMananger : MonoBehaviour
             if (Random.Range(0,100) < 50)
             {
                 isPoisoned = false;
+                Debug.Log("No longer poisoned");
             }
-                Debug.Log(isPoisoned);
         }
     }
 }

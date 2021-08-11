@@ -13,62 +13,62 @@ public class BSplayerResolve : BSstate
     public override void Enter()
     {
         base.Enter();
-        manager.dialogueText.enableDialogueText(true);
+        stateManager.dialogueText.enableDialogueText(true);
         //Debug.Log("player resolve");
     }
 
     public override void Run()
     {
-        if (!manager.playerHasGone)
+        if (!stateManager.playerHasGone)
         {
-            if (manager.playerPriority || manager.aiHasGone) //Player priority or ai has gone
+            if (stateManager.playerPriority || stateManager.aiHasGone) //Player priority or ai has gone
             {
-                if (manager.currentAction == 0)
+                if (stateManager.currentAction == 0)
                 {
-                    manager.damageManager.DealDamage(manager.aiCurMonster, 30);
-                    //DeathCheck();
-                    manager.dialogueText.dialogueTexts.text = $"Fix playerResolve {manager.playerCurMonster.monName} uses {manager.currentMove}!";
-                    manager.playerHasGone = true;
+                    stateManager.damageManager.DealDamage(stateManager.aiCurMonster, 3);
+                    stateManager.dialogueText.dialogueTexts.text = $"Fix playerResolve nickname? i forget {stateManager.playerCurMonster.baseMon.name} uses {stateManager.currentMove}!";
+                    DeathCheck();
+                    stateManager.playerHasGone = true;
                 }
-                else if (manager.currentAction == 1)
+                else if (stateManager.currentAction == 1)
                 {
                     //use item
-                    manager.itemManager.UseItem(manager.playerCurMonster);
-                    manager.dialogueText.dialogueTexts.text = $"{manager.playerCurMonster.monName} uses {manager.currentAction}!";
-                    manager.playerHasGone = true;
+                    stateManager.itemManager.UseItem(stateManager.playerCurMonster);
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.playerCurMonster.baseMon.name} uses {stateManager.currentAction}!";
+                    stateManager.playerHasGone = true;
                 }
-                else if (manager.currentAction == 2)
+                else if (stateManager.currentAction == 2)
                 {
                     //swap
-                    //Go to New swap State
-                    manager.swapManager.SwapTo();
-                    manager.dialogueText.dialogueTexts.text = $"{manager.playerCurMonster.monName} uses {manager.currentAction}!";
-                    manager.playerHasGone = true;
+                    stateManager.swapManager.SaveStats(); //Not Done Find a way
+                    stateManager.swapManager.SwapTo(stateManager.currentSelectedMon);
+                    stateManager.dialogueText.dialogueTexts.text = $"Player swaps to {stateManager.currentSelectedMon} (Check swapManager)!";
+                    stateManager.playerHasGone = true;
                 }
-                else if (manager.currentAction == 3)
+                else if (stateManager.currentAction == 3)
                 {
                     //escape
-                    manager.dialogueText.dialogueTexts.text = $"{manager.playerCurMonster.monName} uses {manager.currentAction}!"; ;
-                    manager.ChangeState(new BSinitialize(manager));
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.playerCurMonster.baseMon.name} uses {stateManager.currentAction}!";
+                    stateManager.ChangeState(new BSinitialize(stateManager));
                 }
             }
             else
             {
-                manager.ChangeState(new BSaiResolve(manager));
+                stateManager.ChangeState(new BSaiResolve(stateManager));
             }
         }
-        else if (manager.playerHasGone && manager.playerPriority) //Player has gone and player goes first --> Ais turn
+        else if (stateManager.playerHasGone && stateManager.playerPriority) //Player has gone and player goes first --> Ais turn
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                manager.ChangeState(new BSaiResolve(manager));
+                stateManager.ChangeState(new BSaiResolve(stateManager));
             }
         }
-        else if (manager.playerHasGone && !manager.playerPriority) //Player has gone and player goes second --- > restart
+        else if (stateManager.playerHasGone && !stateManager.playerPriority) //Player has gone and player goes second --- > restart
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                manager.ChangeState(new BSpostResolve(manager));
+                stateManager.ChangeState(new BSpostResolve(stateManager));
                 //manager.dialogueText.enableDialogueText(false);
             }
         }
@@ -86,11 +86,12 @@ public class BSplayerResolve : BSstate
     /// </summary>
     void DeathCheck()
     {
-        if (manager.healthManager.aiCurHP <= 0)
+        if (stateManager.healthManager.aiCurHP <= 0)
         {
+            
             Debug.Log("Player wins");
-            manager.dialogueText.enableDialogueText(false);
-            manager.ChangeState(new BSwon(manager));
+            //Earn XP based on enemy mon
+            stateManager.ChangeState(new BSwon(stateManager));
         }
     }
 

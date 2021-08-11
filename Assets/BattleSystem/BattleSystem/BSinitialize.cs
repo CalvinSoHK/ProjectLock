@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+using Mon.MonData;
 
 public class BSinitialize : BSstate
 {
@@ -14,27 +15,26 @@ public class BSinitialize : BSstate
     {
 
         Debug.Log("Initializing");
+
+        stateManager.swapManager.SwapScreenSetUp();
+        //Reference each players current Mon
+        stateManager.playerCurMonster = stateManager.playerMonManager.GetFirstValidCombatant();
+        //manager.aiCurMonster = encounteredMon
         
-        manager.playerMonManager.SetUpValues();
-        manager.aiMonManager.SetUpValues();
-        manager.playerCurMonster = manager.playerMonManager.FirstAvailable();
-        manager.aiCurMonster = manager.aiMonManager.FirstAvailable();
+        //Setup mon health Cur/Max
+        stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
+        stateManager.healthManager.HealthAISetUp(stateManager.aiCurMonster);
+        //Fix nicknames
 
 
-
-        manager.healthManager.HealthPlayerSetUp(manager.playerCurMonster);
-        manager.healthManager.HealthAISetUp(manager.aiCurMonster);
-
-        Debug.Log(manager.healthManager.playerCurHP);
-
-        manager.monUIManager.SetUp();
+        stateManager.monUIManager.SetUp();
 
         //Testing Remove when implement inventory
-        manager.aihealthpots = 2;
-        manager.playerhealthpots = 2;
+        stateManager.aihealthpots = 2;
+        stateManager.playerhealthpots = 2;
 
         //Test Code
-        CoreManager.Instance.encounterManager.encounteredMon = new Mon.MonData.MonIndObj(CoreManager.Instance.dexManager.GetMonByID(1),1);
+        //CoreManager.Instance.encounterManager.encounteredMon = new Mon.MonData.MonIndObj(CoreManager.Instance.dexManager.GetMonByID(1),1);
         //manager.mon2maxHP = CoreManager.Instance.encounterManager.encounteredMon.stats.hp;
     }
 
@@ -43,7 +43,7 @@ public class BSinitialize : BSstate
         Debug.Log("Exiting initialize");
         //Debug.Log(CoreManager.Instance.encounterManager.encounteredMon.stats.hp);
         //Debug.Log((float)manager.mon2curHP / manager.mon2maxHP);
-        manager.ChangeState(new BSplayerTurn(manager));
+        stateManager.ChangeState(new BSplayerTurn(stateManager));
 
     }
 

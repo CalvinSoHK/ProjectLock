@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BSstate
 { 
-    protected BSstatemanager manager;
+    protected BSstatemanager stateManager;
 
     public abstract void Run();
     public virtual void Enter() { }
@@ -12,6 +12,6 @@ public abstract class BSstate
     
     public BSstate(BSstatemanager theManager)
     {
-        manager = theManager;
+        stateManager = theManager;
     }
 }

@@ -13,6 +13,8 @@ public class BSwon : BSstate
     {
         base.Enter();
         Debug.Log("Won");
+        stateManager.dialogueText.dialogueTexts.text = "You have won!";
+        //Change scene back to overworld
     }
 
     public override void Run()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mon.MonData;
 
 public class ItemManager : MonoBehaviour
 {
@@ -12,17 +13,17 @@ public class ItemManager : MonoBehaviour
 
 
 
-    public delegate void healDelegate(PlayerMonster.TrainerMonster monster, int healthValue);
+    public delegate void healDelegate(MonIndObj monster, int healthValue);
 
     public static healDelegate healEvent;
 
     
-    public void UseItem(PlayerMonster.TrainerMonster monster) //Arg for Item? tag?
+    public void UseItem(MonIndObj monster) //Arg for Item? tag?
     {
         //Temp
         if (healItem)
         {
-            HealItem(monster, 50);
+            HealItem(monster, 15);
         }
     }
 
@@ -31,7 +32,7 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     /// <param name="monster"></param>
     /// <param name="healAmount"></param>
-    void HealItem(PlayerMonster.TrainerMonster monster, int healAmount)
+    void HealItem(MonIndObj monster, int healAmount)
     {
         if (monster == stateManager.playerCurMonster)
         {

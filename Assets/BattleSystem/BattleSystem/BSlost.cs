@@ -11,8 +11,9 @@ public class BSlost : BSstate
 
     public override void Enter()
     {
-        base.Enter();
         Debug.Log("Lost");
+        stateManager.dialogueText.dialogueTexts.text = "You have lost.";
+        //Change scenes here
     }
 
     public override void Run()

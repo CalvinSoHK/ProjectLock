@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+///<Summary>
+///Text system for during battle
+///</Summary>
 public class DialogueTexts : MonoBehaviour
 {
-    ///<Summary>
-    ///Text system for during battle
-    ///</Summary>
     public Text dialogueTexts;
     [SerializeField] GameObject moveSelector;
     [SerializeField] GameObject actionSelector;

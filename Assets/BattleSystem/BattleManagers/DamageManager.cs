@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mon.MonData;
 
 public class DamageManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class DamageManager : MonoBehaviour
 
 
 
-    public delegate void damageDelegate(PlayerMonster.TrainerMonster monster, int healthValue);
+    public delegate void damageDelegate(MonIndObj monster, int healthValue);
 
     public static damageDelegate damageEvent;
 
@@ -19,7 +20,7 @@ public class DamageManager : MonoBehaviour
     /// </summary>
     /// <param name="monName"></param>
     /// <param name="damageValue"></param>
-    public void DealDamage(PlayerMonster.TrainerMonster monster, int damageValue) //new param for Skill name? May not need damageValue
+    public void DealDamage(MonIndObj monster, int damageValue) //new param for Skill name? May not need damageValue
     {
         if (monster == stateManager.playerCurMonster)
         {

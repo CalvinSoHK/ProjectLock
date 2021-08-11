@@ -19,29 +19,29 @@ public class BSprioritycheck : BSstate
 
     public override void Run()
     {
-        if (manager.currentAction == 0 && manager.aicurrentAction == 0)
+        if (stateManager.currentAction == 0 && stateManager.aicurrentAction == 0)
         {
             moveCheck();
         }
-        else if (manager.currentAction == 0 && manager.aicurrentAction == 1)
+        else if (stateManager.currentAction == 0 && stateManager.aicurrentAction == 1)
         {
-            manager.playerPriority = false;
-            manager.ChangeState(new BSaiResolve(manager));
+            stateManager.playerPriority = false;
+            stateManager.ChangeState(new BSaiResolve(stateManager));
         }
-        else if (manager.currentAction == 0 && manager.aicurrentAction == 2)
+        else if (stateManager.currentAction == 0 && stateManager.aicurrentAction == 2)
         {
-            manager.playerPriority = false;
-            manager.ChangeState(new BSaiResolve(manager));
+            stateManager.playerPriority = false;
+            stateManager.ChangeState(new BSaiResolve(stateManager));
         }
-        else if (manager.currentAction == 1)
+        else if (stateManager.currentAction == 1)
         {
             itemCheck();
         }
-        else if (manager.currentAction == 2)
+        else if (stateManager.currentAction == 2)
         {
             swapCheck();
         }
-        else if (manager.currentAction == 3)
+        else if (stateManager.currentAction == 3)
         {
             escapeCheck();
         }
@@ -61,38 +61,38 @@ public class BSprioritycheck : BSstate
         // If (skill priority > skill priority)
 
         // if Player > ai speed
-        if (manager.playerCurMonster.monSpd >= manager.aiCurMonster.monSpd)
+        if (stateManager.playerCurMonster.battleObj.monStats.speed >= stateManager.aiCurMonster.battleObj.monStats.speed)
         {
             //player goes first
-            manager.playerPriority = true;
+            stateManager.playerPriority = true;
             //Debug.Log(manager.playerPriority);
-            manager.ChangeState(new BSplayerResolve(manager));
+            stateManager.ChangeState(new BSplayerResolve(stateManager));
 
         }
         else
         {   
             //player goes second
-            manager.playerPriority = false;
+            stateManager.playerPriority = false;
             //Debug.Log(manager.playerPriority);
-            manager.ChangeState(new BSaiResolve(manager));
+            stateManager.ChangeState(new BSaiResolve(stateManager));
         }
     }
 
     void itemCheck()
     {
-        manager.playerPriority = true;
-        manager.ChangeState(new BSplayerResolve(manager));
+        stateManager.playerPriority = true;
+        stateManager.ChangeState(new BSplayerResolve(stateManager));
     }
 
     void swapCheck()
     {
-        manager.playerPriority = true;
-        manager.ChangeState(new BSplayerResolve(manager));
+        stateManager.playerPriority = true;
+        stateManager.ChangeState(new BSplayerResolve(stateManager));
     }
 
     void escapeCheck()
     {
-        manager.playerPriority = true;
-        manager.ChangeState(new BSplayerResolve(manager));
+        stateManager.playerPriority = true;
+        stateManager.ChangeState(new BSplayerResolve(stateManager));
     }
 }

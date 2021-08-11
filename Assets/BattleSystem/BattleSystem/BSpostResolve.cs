@@ -16,10 +16,10 @@ public class BSpostResolve : BSstate
     public override void Enter()
     {
         base.Enter();
-        manager.conditionManager.ConditionEffect();
-        manager.conditionManager.ConditionDispel();
-        manager.ChangeState(new BSplayerTurn(manager));
-        manager.dialogueText.enableDialogueText(false);
+        stateManager.conditionManager.ConditionEffect();
+        stateManager.conditionManager.ConditionDispel();
+        stateManager.ChangeState(new BSplayerTurn(stateManager));
+        stateManager.dialogueText.enableDialogueText(false);
     }
 
     public override void Run()

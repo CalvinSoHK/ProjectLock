@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Mon.MonData;
 public class MonUIManager : MonoBehaviour
 {
     public BSstatemanager stateManager;
@@ -63,28 +63,33 @@ public class MonUIManager : MonoBehaviour
         aiHPText.text = $"Health: {stateManager.healthManager.aiCurHP} / {stateManager.healthManager.aiMaxHP}";
     }
 
+    /// <summary>
+    /// Sets up Mon Names in UI
+    /// </summary>
     void SetUpNameUI()
     {
-        playerMonName.text = stateManager.playerCurMonster.monName;
-        aiMonName.text = stateManager.aiCurMonster.monName;
+        playerMonName.text = stateManager.playerCurMonster.baseMon.name;
+        aiMonName.text = stateManager.aiCurMonster.baseMon.name;
     }
 
 
-    /// <summary>
-    /// Changes health UI when Damage is received
-    /// </summary>
-    /// <param name="healthValue"></param>
-    private void DamageReceived(PlayerMonster.TrainerMonster monster, int healthValue)
+   /// <summary>
+   /// Changes health UI when Damage is received
+   /// </summary>
+   /// <param name="monster"></param>
+   /// <param name="healthValue"></param>
+    private void DamageReceived(MonIndObj monster, int healthValue)
     {
         UpdateFill(monster, healthValue);
         UpdateHealthText(monster, healthValue);
     }
 
-    /// <summary>
-    /// Changes health UI when Healing is received
-    /// </summary>
-    /// <param name="healthValue"></param>
-    private void HealingReceived(PlayerMonster.TrainerMonster monster, int healthValue)
+   /// <summary>
+   /// Changes health UI when Healing is received
+   /// </summary>
+   /// <param name="monster"></param>
+   /// <param name="healthValue"></param>
+    private void HealingReceived(MonIndObj monster, int healthValue)
     {
         UpdateFill(monster, healthValue);
         UpdateHealthText(monster, healthValue);
@@ -94,13 +99,13 @@ public class MonUIManager : MonoBehaviour
     /// <summary>
     /// Updates the health values for healthbar fill
     /// </summary>
-    private void UpdateFill(PlayerMonster.TrainerMonster monster, int healthValue)
+    private void UpdateFill(MonIndObj monster, int healthValue)
     {
         //Debug.Log("health value" + healthValue);
         if (monster == stateManager.playerCurMonster)
         {
             newPlayerHPfill = (float) healthValue / stateManager.healthManager.playerMaxHP;
-        } else if (monster.monName == stateManager.aiCurMonster.monName)
+        } else if (monster == stateManager.aiCurMonster)
         { 
            newAIHPfill = (float) healthValue / stateManager.healthManager.aiMaxHP;
         }
@@ -109,7 +114,7 @@ public class MonUIManager : MonoBehaviour
     /// <summary>
     /// Updates health values in text
     /// </summary>
-    private void UpdateHealthText(PlayerMonster.TrainerMonster monster, int healthValue)
+    private void UpdateHealthText(MonIndObj monster, int healthValue)
     {
         //playerHPText.text = $"Health: {stateManager.mon1curHP} / {stateManager.mon1maxHP}";
         //aiHPText.text = $"Health: {stateManager.mon2curHP} / {stateManager.mon2maxHP}";

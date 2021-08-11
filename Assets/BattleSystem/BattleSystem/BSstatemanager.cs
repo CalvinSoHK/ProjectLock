@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mon.MonData;
+using World;
+using Core;
+
 public class BSstatemanager : MonoBehaviour
 {
     private BSstate currentState;
@@ -14,24 +18,27 @@ public class BSstatemanager : MonoBehaviour
     public ItemManager itemManager;
     public ConditionMananger conditionManager;
     public SwapManager swapManager;
+    public PartyManager playerMonManager;
+    //public CoreManager aiMonManager;
 
     public int currentMove;
     public int currentAction;
     public string currentActionStr;
+    public int currentSelectedMon;
 
     public bool playerPriority;
 
     public int aicurrentAction;
 
-    public PlayerMonster.TrainerMonster playerCurMonster;
-    public PlayerMonster.TrainerMonster aiCurMonster;
+    public MonIndObj playerCurMonster;
+    public MonIndObj aiCurMonster;
 
-    public PlayerMonster playerMonManager;
-    public PlayerMonster aiMonManager;
+    public GameObject swapScreen;
 
     public bool playerHasGone;
     public bool aiHasGone;
 
+    //Temp
     public int aihealthpots;
     public int playerhealthpots;
 
