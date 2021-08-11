@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MonData
+  m_EditorClassIdentifier: 
+  m_GroupName: MonData
+  m_Data:
+    m_SerializedData: []
+  m_GUID: efe500200ff933e4c9a48da935e7d647
+  m_SerializeEntries:
+  - m_GUID: 04111cff9f8e9e44287a202677a2e5e1
+    m_Address: MonData/keyData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonData
+    m_MainAsset: {fileID: 4900000, guid: 04111cff9f8e9e44287a202677a2e5e1, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 04111cff9f8e9e44287a202677a2e5e1, type: 3}
+  - m_GUID: f57c8b4b3fadbaa4f85920ac50e12c1b
+    m_Address: MonData/2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonData
+    m_MainAsset: {fileID: 4900000, guid: f57c8b4b3fadbaa4f85920ac50e12c1b, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: f57c8b4b3fadbaa4f85920ac50e12c1b, type: 3}
+  - m_GUID: 5b44b47ffa4f79f4da0bbf375f16948b
+    m_Address: MonData/1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonData
+    m_MainAsset: {fileID: 4900000, guid: 5b44b47ffa4f79f4da0bbf375f16948b, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 5b44b47ffa4f79f4da0bbf375f16948b, type: 3}
+  - m_GUID: 6bb8be1975e2e0c4ca70e8e2d3d52d5b
+    m_Address: MonData/3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonData
+    m_MainAsset: {fileID: 4900000, guid: 6bb8be1975e2e0c4ca70e8e2d3d52d5b, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 6bb8be1975e2e0c4ca70e8e2d3d52d5b, type: 3}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9e03d39bbd93a8046bc2171680c75d57, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 657f14c2d5321a6488ddf64e59837c99, type: 2}
+    - {fileID: 11400000, guid: 30a2df7cf213d994aa67c56242f58472, type: 2}

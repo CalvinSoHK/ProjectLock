@@ -7,19 +7,18 @@
     "prev_evoID": 0,
     "primaryType": 2,
     "secondaryType": 0,
-    "growthType": 1,
+    "growthType": 2,
     "baseStats": {
-        "hp": 34,
-        "def": 48,
-        "spDef": 34,
-        "atk": 27,
-        "spAtk": 35,
-        "speed": 47,
-        "statTotal": 225
+        "hp": 44,
+        "def": 33,
+        "spDef": 37,
+        "atk": 37,
+        "spAtk": 29,
+        "speed": 48,
+        "statTotal": 228
     },
     "catchRate": 0.0,
     "weight": 0.0,
     "exp_gain": 0.0,
-    "learnMoves": [],
     "teachableMoves": []
 }

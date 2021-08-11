@@ -19,12 +19,6 @@ public class MonFamilyGenerateTest : MonoBehaviour
 
     KeysJSON keyObj;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        LoadMon();
-    }
-
     private async void LoadMon()
     {
         //Load key data
@@ -32,16 +26,25 @@ public class MonFamilyGenerateTest : MonoBehaviour
         keyObj = await jsonLoader.LoadJSON("MonData/keyData");
 
         //Generates all mons in that keyObj
-        monGenerator.GenerateMonsByKey(keyObj);
+
+        await monGenerator.GenerateMonsByKey(keyObj);
+
+        await Core.CoreManager.Instance.dexManager.InitDex(monGenerator.monDex);
 
         display.generator = monGenerator;
-        //display.ResetID();
+        display.ResetID();
+    }
+
+    private void Start()
+    {
+        LoadMon();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Core.CoreManager.Instance.dexManager.DexReady)
         {
+            display.displaying = true;
             LoadMon();
 
             //Save all generated mons

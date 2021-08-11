@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
-  m_Name: Drain
+  m_Name: Quick Strike
   m_EditorClassIdentifier: 
-  moveName: Drain
-  moveTyping: 4
-  moveType: 1
+  moveName: Quick Strike
+  moveTyping: 1
+  moveType: 0
   power: 30
   accuracy: 100
-  minLevelRange: 8
+  minLevelRange: 5
   maxLevelRange: 20
-  strictTags: []
-  optionalTags:
-  - GrassType
-  - GrassLike
-  priorityLevel: 0
+  strictTags:
+  - physical
+  - tailed
+  optionalTags: []
+  priorityLevel: 1

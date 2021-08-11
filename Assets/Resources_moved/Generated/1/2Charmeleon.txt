@@ -6,20 +6,19 @@
     "next_evoID": 3,
     "prev_evoID": 1,
     "primaryType": 2,
-    "secondaryType": 0,
-    "growthType": 1,
+    "secondaryType": 5,
+    "growthType": 2,
     "baseStats": {
-        "hp": 41,
-        "def": 72,
-        "spDef": 42,
-        "atk": 40,
-        "spAtk": 51,
-        "speed": 65,
-        "statTotal": 311
+        "hp": 65,
+        "def": 47,
+        "spDef": 48,
+        "atk": 54,
+        "spAtk": 45,
+        "speed": 58,
+        "statTotal": 317
     },
     "catchRate": 0.0,
     "weight": 0.0,
     "exp_gain": 0.0,
-    "learnMoves": [],
     "teachableMoves": []
 }

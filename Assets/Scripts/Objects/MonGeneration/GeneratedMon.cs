@@ -52,12 +52,17 @@ namespace Mon.MonGeneration
         /// Associates level with move. 
         /// Only one move per level allowed.
         /// </summary>
-        public Dictionary<int, MoveData> moveDict = new Dictionary<int, MoveData>();
+        public List<LearnMoveData> learnMoves = new List<LearnMoveData>();
 
         /// <summary>
         /// List of moves that can be taught, but not learned by levels.
         /// </summary>
         public List<MoveData> teachableMoves = new List<MoveData>();
+
+        /// <summary>
+        /// List of tags this generated mon will be using this generation
+        /// </summary>
+        public List<string> assignedTags = new List<string>();
 
         /// <summary>
         /// Saves the data as a JSON

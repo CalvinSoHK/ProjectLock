@@ -50,7 +50,7 @@ namespace Core
 
         [Header("Managers")]
         [SerializeField]
-        public MonDexManager dexManager;
+        public DexManager dexManager;
 
         [SerializeField]
         public EncounterManager encounterManager;

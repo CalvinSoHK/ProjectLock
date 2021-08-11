@@ -1,7 +1,9 @@
 ﻿using Mon.MonData;
 using Mon.MonGeneration;
+using Mon.Moves;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Core
@@ -9,26 +11,40 @@ namespace Core
     /// <summary>
     /// Manages the current MonDex
     /// </summary>
-    public class MonDexManager : MonoBehaviour
+    public class DexManager : MonoBehaviour
     {
         private MonDex monDex = new MonDex();
+
+        private MoveDex moveDex = new MoveDex();
 
         private bool dexReady = false;
         public bool DexReady { get { return dexReady; } }
 
         private void Start()
         {
-            InitDex(1);
+            //InitDex(1);
         }
 
         /// <summary>
-        /// Initializes and loads the mondex with given generation ID;
+        /// Initializes and loads an inputted MonDex
         /// </summary>
         /// <param name="generationID"></param>
-        public async void InitDex(int generationID)
+        public async Task InitDex(MonDex inputDex = null)
         {
-            monDex.generationID = generationID;
-            await monDex.LoadDex();
+            //monDex.generationID = generationID;
+
+            await moveDex.LoadDex();
+
+            if (inputDex != null)
+            {
+                monDex = inputDex;
+            }
+            else
+            {
+                await monDex.LoadDex();
+            }
+
+            
             dexReady = true;
         }
 

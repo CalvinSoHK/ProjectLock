@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
-  m_Name: Claw
+  m_Name: Stream
   m_EditorClassIdentifier: 
-  moveName: Claw
-  moveTyping: 1
-  moveType: 0
-  power: 35
-  accuracy: 90
-  minLevelRange: 1
-  maxLevelRange: 15
-  strictTags:
-  - Clawed
-  optionalTags: []
+  moveName: Stream
+  moveTyping: 3
+  moveType: 1
+  power: 40
+  accuracy: 100
+  minLevelRange: 8
+  maxLevelRange: 20
+  strictTags: []
+  optionalTags:
+  - waterType
+  - waterLike
   priorityLevel: 0

@@ -64,7 +64,7 @@ namespace Mon.MonData
         /// </summary>
         public void SaveDex()
         {
-#if DEBUG_ENABLED
+#if DEBUG_ENABLED && MON_GEN
             Debug.Log("Saving dex initializing...");
             Debug.Log("Dex length is : " + dexLength);
 #endif
@@ -81,7 +81,7 @@ namespace Mon.MonData
                     throw new System.Exception("MonDex save error: invalid ID");
                 }
             }
-#if DEBUG_ENABLED
+#if DEBUG_ENABLED && MON_GEN
             Debug.Log("Saving dex completed.");
 #endif
         }

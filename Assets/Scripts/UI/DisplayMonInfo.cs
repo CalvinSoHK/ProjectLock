@@ -23,46 +23,51 @@ public class DisplayMonInfo : MonoBehaviour
 
     private int currentID = 1;
 
+    public bool displaying = false;
+
     private void Update()
     {
-        if (generator.monDex.CheckValidID(currentID))
+        if (displaying)
         {
-            displayMon = generator.monDex.GetMonByID(currentID);
-            CheckButtonActive();
+            if (generator.monDex.CheckValidID(currentID))
+            {
+                displayMon = generator.monDex.GetMonByID(currentID);
+                CheckButtonActive();
 
-            lvl.text = level.ToString();
-            id.text = displayMon.ID.ToString();
-            monName.text = displayMon.name;
-            type1.text = displayMon.primaryType.ToString();
-            type2.text = displayMon.secondaryType.ToString();
-            stage.text = displayMon.stage.ToString();
-            growth.text = displayMon.growthType.ToString();
-            catchRate.text = displayMon.catchRate.ToString();
-            weight.text = displayMon.weight.ToString();
-            exp.text = displayMon.exp_gain.ToString();
-            evolution.text = generator.monDex.CheckValidID(displayMon.next_evoID) ?
-                generator.monDex.GetMonByID(displayMon.next_evoID).name + 
-                " " + generator.monDex.GetMonByID(displayMon.next_evoID).ID : "";
-            previous.text = generator.monDex.CheckValidID(displayMon.prev_evoID) ?
-                generator.monDex.GetMonByID(displayMon.prev_evoID).name +
-                " " + generator.monDex.GetMonByID(displayMon.prev_evoID).ID : "";
+                lvl.text = level.ToString();
+                id.text = displayMon.ID.ToString();
+                monName.text = displayMon.name;
+                type1.text = displayMon.primaryType.ToString();
+                type2.text = displayMon.secondaryType.ToString();
+                stage.text = displayMon.stage.ToString();
+                growth.text = displayMon.growthType.ToString();
+                catchRate.text = displayMon.catchRate.ToString();
+                weight.text = displayMon.weight.ToString();
+                exp.text = displayMon.exp_gain.ToString();
+                evolution.text = generator.monDex.CheckValidID(displayMon.next_evoID) ?
+                    generator.monDex.GetMonByID(displayMon.next_evoID).name +
+                    " " + generator.monDex.GetMonByID(displayMon.next_evoID).ID : "";
+                previous.text = generator.monDex.CheckValidID(displayMon.prev_evoID) ?
+                    generator.monDex.GetMonByID(displayMon.prev_evoID).name +
+                    " " + generator.monDex.GetMonByID(displayMon.prev_evoID).ID : "";
 
 
-            hpCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.HP)));
-            defCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.DEF)));
-            spDefCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.SPDEF)));
-            atkCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.ATK)));
-            spAtkCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.SPATK)));
-            speedCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.SPEED)));
-            totalCalc = hpCalc + defCalc + spDefCalc + atkCalc + spAtkCalc + speedCalc;
+                hpCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.HP)));
+                defCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.DEF)));
+                spDefCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.SPDEF)));
+                atkCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.ATK)));
+                spAtkCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.SPATK)));
+                speedCalc = Mathf.RoundToInt((level / 100f * displayMon.baseStats.GetStat(MonStatType.SPEED)));
+                totalCalc = hpCalc + defCalc + spDefCalc + atkCalc + spAtkCalc + speedCalc;
 
-            hp.text = hpCalc.ToString();
-            def.text = defCalc.ToString();
-            spDef.text = spDefCalc.ToString();
-            atk.text = atkCalc.ToString();
-            spAtk.text = spAtkCalc.ToString();
-            speed.text = speedCalc.ToString();
-            total.text = totalCalc.ToString();
+                hp.text = hpCalc.ToString();
+                def.text = defCalc.ToString();
+                spDef.text = spDefCalc.ToString();
+                atk.text = atkCalc.ToString();
+                spAtk.text = spAtkCalc.ToString();
+                speed.text = speedCalc.ToString();
+                total.text = totalCalc.ToString();
+            }
         }
     }
 

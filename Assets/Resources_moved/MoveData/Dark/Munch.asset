@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
-  m_Name: Quick Strike
+  m_Name: Munch
   m_EditorClassIdentifier: 
-  moveName: Quick Strike
-  moveTyping: 1
+  moveName: Munch
+  moveTyping: 17
   moveType: 0
   power: 30
   accuracy: 100
-  minLevelRange: 5
-  maxLevelRange: 20
+  minLevelRange: 1
+  maxLevelRange: 10
   strictTags:
-  - Physical
+  - fanged
   optionalTags: []
   priorityLevel: 0
