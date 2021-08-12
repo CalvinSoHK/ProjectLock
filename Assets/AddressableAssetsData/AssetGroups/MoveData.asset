@@ -22,57 +22,99 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: ffcfcbe7da15e4a47b74dda7f304b003, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: ffcfcbe7da15e4a47b74dda7f304b003, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 464b3fe5bf7890d42addfc7822d0be0d
     m_Address: MoveData/Grass/Drain
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: 464b3fe5bf7890d42addfc7822d0be0d, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 464b3fe5bf7890d42addfc7822d0be0d, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 41c3c1d2d4d46d745b5648ede8412eca
     m_Address: MoveData/Normal/Quick Strike
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: 41c3c1d2d4d46d745b5648ede8412eca, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 41c3c1d2d4d46d745b5648ede8412eca, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 13760d57cc94e4f41980c834ae31fc6d
     m_Address: MoveData/Normal/Claw
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: 13760d57cc94e4f41980c834ae31fc6d, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 13760d57cc94e4f41980c834ae31fc6d, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: c7b64791390a7934aab313ff3d2f77bc
     m_Address: MoveData/Normal/Smash
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: c7b64791390a7934aab313ff3d2f77bc, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: c7b64791390a7934aab313ff3d2f77bc, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3713830cfc8089b439e17c68292843ba
     m_Address: MoveData/Water/Stream
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: 3713830cfc8089b439e17c68292843ba, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 3713830cfc8089b439e17c68292843ba, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 8bfb5ff11521b9249ae34ad28c6605c4
     m_Address: MoveData/Dark/Munch
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: 8bfb5ff11521b9249ae34ad28c6605c4, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 8bfb5ff11521b9249ae34ad28c6605c4, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 064a765d7b02aa545a2d40f0936db6a4
     m_Address: MoveData/Flying/Wind Wake
     m_ReadOnly: 0
     m_SerializedLabels:
     - MoveData
-    m_MainAsset: {fileID: 11400000, guid: 064a765d7b02aa545a2d40f0936db6a4, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 064a765d7b02aa545a2d40f0936db6a4, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: da9e9851d2adf054eb473e9e12e5f384
+    m_Address: MoveData/Bug/Buzz
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MoveData
+    m_MainAsset: {fileID: 11400000, guid: da9e9851d2adf054eb473e9e12e5f384, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: da9e9851d2adf054eb473e9e12e5f384, type: 2}
+  - m_GUID: 18fce2735c957eb47be7345b32da0785
+    m_Address: MoveData/Ground/Sandshock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MoveData
+    m_MainAsset: {fileID: 11400000, guid: 18fce2735c957eb47be7345b32da0785, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 18fce2735c957eb47be7345b32da0785, type: 2}
+  - m_GUID: aacd358f724b55747ad0ce85f0eabb49
+    m_Address: MoveData/Dragon/Drake Fang
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MoveData
+    m_MainAsset: {fileID: 11400000, guid: aacd358f724b55747ad0ce85f0eabb49, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: aacd358f724b55747ad0ce85f0eabb49, type: 2}
+  - m_GUID: 9fa14369e27469347bc3cd80d7fba1f9
+    m_Address: MoveData/Electric/Static
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MoveData
+    m_MainAsset: {fileID: 11400000, guid: 9fa14369e27469347bc3cd80d7fba1f9, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 9fa14369e27469347bc3cd80d7fba1f9, type: 2}
+  - m_GUID: af241375808b75c4b9f89ff61ee51d5d
+    m_Address: MoveData/Fairy/Faerie Fire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MoveData
+    m_MainAsset: {fileID: 11400000, guid: af241375808b75c4b9f89ff61ee51d5d, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: af241375808b75c4b9f89ff61ee51d5d, type: 2}
+  - m_GUID: 7ab99b062048b474ebbd17c602d31b7c
+    m_Address: MoveData/Fighting/Normal Punch
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MoveData
+    m_MainAsset: {fileID: 11400000, guid: 7ab99b062048b474ebbd17c602d31b7c, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 7ab99b062048b474ebbd17c602d31b7c, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9e03d39bbd93a8046bc2171680c75d57, type: 2}
   m_SchemaSet:
