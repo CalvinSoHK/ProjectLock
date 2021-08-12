@@ -1,4 +1,5 @@
 using Mon.Moves;
+using System;
 
 namespace Mon.Moves
 {
@@ -6,7 +7,7 @@ namespace Mon.Moves
     /// Describes when a given move is learned
     /// </summary>
     [System.Serializable]
-    public struct LearnMoveData
+    public struct LearnMoveData : IComparable
     {
         /// <summary>
         /// The move in reference
@@ -27,6 +28,19 @@ namespace Mon.Moves
         {
             move = _move;
             level = _level;
+        }
+
+        /// <summary>
+        /// Comparator for this struct
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            LearnMoveData _moveData = (LearnMoveData)obj;
+            return level.CompareTo(_moveData.level);
         }
     }
 }

@@ -35,6 +35,42 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: da9e9851d2adf054eb473e9e12e5f384
+    m_Address: MoveData/Bug/Buzz
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 18fce2735c957eb47be7345b32da0785
+    m_Address: MoveData/Ground/Sandshock
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: aacd358f724b55747ad0ce85f0eabb49
+    m_Address: MoveData/Dragon/Drake Fang
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 9fa14369e27469347bc3cd80d7fba1f9
+    m_Address: MoveData/Electric/Static
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: af241375808b75c4b9f89ff61ee51d5d
+    m_Address: MoveData/Fairy/Faerie Fire
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7ab99b062048b474ebbd17c602d31b7c
+    m_Address: MoveData/Fighting/Normal Punch
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9e03d39bbd93a8046bc2171680c75d57, type: 2}
   m_SchemaSet:

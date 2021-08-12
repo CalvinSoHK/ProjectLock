@@ -21,6 +21,6 @@ MonoBehaviour:
   maxLevelRange: 20
   strictTags:
   - physical
+  optionalTags:
   - tailed
-  optionalTags: []
   priorityLevel: 1

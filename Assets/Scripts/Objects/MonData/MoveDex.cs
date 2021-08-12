@@ -156,20 +156,43 @@ namespace Mon.Moves
             {
                 throw new MoveDexException("MoveDex Error: Generated move deck was empty for: " + generatedMon.name);
             }
-            
+
             //Pull number of moves out of moveDeck and add to generatedMon's learn list.
             //Additionally pick a random level for it to learn those moves
             for(int i = 0; i < numberOfMoves; i++)
             {
-                MoveData data = moveDeck.DestructiveDraw();
-                moveDeck.RemoveAllOfCard(data);
+                //Only attempt to do draws if the deck has cards
+                if(moveDeck.Count != 0)
+                {
+                    moveDeck.ShuffleDeck();
+                    MoveData data = moveDeck.DestructiveDraw();
+                    moveDeck.RemoveAllOfCard(data);
 
-                int level = Random.Range(data.minLevelRange, data.maxLevelRange);
+                    //Check if the drawn move is a valid move to add to this mon (checking strict tags)
+                    bool validMove = true;
+                    foreach (string strictTag in data.strictTags)
+                    {
+                        if (!generatedMon.assignedTags.Contains(strictTag))
+                        {
+                            validMove = false;
+                        }
+                    }
 
-                LearnMoveData learnMove = new LearnMoveData(data, level);
-                learnList.Add(learnMove);
+                    if (validMove)
+                    {
+                        int level = Random.Range(data.minLevelRange, data.maxLevelRange);
+
+                        LearnMoveData learnMove = new LearnMoveData(data, level);
+                        learnList.Add(learnMove);
+                    }
+                    else
+                    {
+                        //Decrement i to keep drawing.
+                        i--;
+                    }
+                }                 
             }
-
+            learnList.Sort();
             return learnList;
         }
     }

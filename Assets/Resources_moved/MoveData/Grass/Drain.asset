@@ -17,6 +17,8 @@ MonoBehaviour:
   moveType: 1
   power: 30
   accuracy: 100
+  learnableOnly: 0
+  teachableOnly: 0
   minLevelRange: 8
   maxLevelRange: 20
   strictTags: []

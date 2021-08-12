@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
-  m_Name: Munch
+  m_Name: Static
   m_EditorClassIdentifier: 
-  moveName: Munch
-  moveTyping: 17
+  moveName: Static
+  moveTyping: 5
   moveType: 0
-  power: 30
+  power: 25
   accuracy: 100
   learnableOnly: 0
   teachableOnly: 0
-  minLevelRange: 1
-  maxLevelRange: 10
+  minLevelRange: 8
+  maxLevelRange: 15
   strictTags: []
   optionalTags:
-  - fanged
-  - darkType
+  - fluffy
+  - electricType
   priorityLevel: 0

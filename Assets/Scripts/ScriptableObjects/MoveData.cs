@@ -15,6 +15,8 @@ namespace Mon.Moves
         public MoveType moveType;
         public int power;
         public int accuracy;
+        public bool learnableOnly;
+        public bool teachableOnly;
 
         /// <summary>
         /// Used when the move is about to be used.

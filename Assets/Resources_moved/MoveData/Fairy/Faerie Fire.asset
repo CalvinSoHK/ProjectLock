@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
-  m_Name: Munch
+  m_Name: Faerie Fire
   m_EditorClassIdentifier: 
-  moveName: Munch
-  moveTyping: 17
-  moveType: 0
-  power: 30
+  moveName: Faerie Fire
+  moveTyping: 16
+  moveType: 1
+  power: 35
   accuracy: 100
   learnableOnly: 0
   teachableOnly: 0
-  minLevelRange: 1
-  maxLevelRange: 10
+  minLevelRange: 10
+  maxLevelRange: 20
   strictTags: []
   optionalTags:
-  - fanged
-  - darkType
+  - fireType
+  - fairyType
+  - fairyLike
   priorityLevel: 0

@@ -155,15 +155,27 @@ namespace Mon.MonGeneration
                     //Pick tags
                     try
                     {
-                        familyList[i].assignedTags = await PickTags(baseFamilyList[i]);
+                        if(i == 0)
+                        {
+                            familyList[i].assignedTags = await PickTags(baseFamilyList[i]);
+                        }
+                        else
+                        {
+                            //Pick tags and combine with previous evo's list
+                            familyList[i].assignedTags = await PickTags(baseFamilyList[i], familyList[i - 1].assignedTags);
+                        }
+                        
                     }
                     catch (MonGeneratorException)
                     {
                         Debug.LogError("MonGenerator Error: Failed to give tags to " + familyList[i].name);
-                    }             
+                    }
+
+                    //Add tag for the added secondary tag
+                    await AddSecondaryTag(familyList[i]);
 
                     //Pick move sets
-                    int numberOfMoves = Random.Range(1, 2);
+                    int numberOfMoves = Random.Range(5, 10);
                     try
                     {
                         familyList[i].learnMoves = await moveDex.GenerateLearnMoves(familyList[i], numberOfMoves);
@@ -424,6 +436,46 @@ namespace Mon.MonGeneration
             }
               
             return tagList;
+        }
+
+        /// <summary>
+        /// Picks tags from baseMon to be assigned to generated mon
+        /// Combines with inputted existing_tags.
+        /// This helps maintain similar tags across evolutions
+        /// </summary>
+        /// <param name="baseMon"></param>
+        /// <param name="existing_tags"></param>
+        /// <returns></returns>
+        private async Task<List<string>> PickTags(BaseMon baseMon, List<string> existing_tags)
+        {
+            List<string> initPick = await PickTags(baseMon);
+            foreach(string oldTag in existing_tags)
+            {
+                if (!initPick.Contains(oldTag))
+                {
+                    initPick.Add(oldTag);
+                } 
+            }
+            return initPick;
+        }
+    
+        /// <summary>
+        /// Adds secondary typing to the assigned tags
+        /// Only if not None
+        /// </summary>
+        /// <param name="baseMon"></param>
+        /// <param name="secondType"></param>
+        /// <returns></returns>
+        private async Task AddSecondaryTag(GeneratedMon genMon)
+        {
+            if(genMon.secondaryType != MonType.None)
+            {
+                string tag = genMon.secondaryType.ToString().ToLower() + "Type";
+                if (!genMon.assignedTags.Contains(tag))
+                {
+                    genMon.assignedTags.Add(tag);
+                }
+            }          
         }
     }
 

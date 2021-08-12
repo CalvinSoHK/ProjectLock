@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
-  m_Name: Munch
+  m_Name: Sandshock
   m_EditorClassIdentifier: 
-  moveName: Munch
-  moveTyping: 17
-  moveType: 0
-  power: 30
-  accuracy: 100
+  moveName: Sandshock
+  moveTyping: 7
+  moveType: 1
+  power: 40
+  accuracy: 95
   learnableOnly: 0
   teachableOnly: 0
-  minLevelRange: 1
-  maxLevelRange: 10
-  strictTags: []
+  minLevelRange: 15
+  maxLevelRange: 25
+  strictTags:
+  - groundType
   optionalTags:
-  - fanged
-  - darkType
+  - sandy
   priorityLevel: 0

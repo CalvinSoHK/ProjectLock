@@ -15,8 +15,10 @@ MonoBehaviour:
   moveName: Torch
   moveTyping: 2
   moveType: 1
-  power: 40
+  power: 25
   accuracy: 100
+  learnableOnly: 0
+  teachableOnly: 0
   minLevelRange: 8
   maxLevelRange: 20
   strictTags: []

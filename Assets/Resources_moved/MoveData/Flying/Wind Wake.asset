@@ -15,13 +15,16 @@ MonoBehaviour:
   moveName: Wind Wake
   moveTyping: 6
   moveType: 1
-  power: 40
+  power: 25
   accuracy: 90
+  learnableOnly: 0
+  teachableOnly: 0
   minLevelRange: 2
   maxLevelRange: 15
-  strictTags:
-  - winged
+  strictTags: []
+  optionalTags:
   - dragonLike
-  - flying
-  optionalTags: []
+  - flyingLike
+  - flyingType
+  - winged
   priorityLevel: 0

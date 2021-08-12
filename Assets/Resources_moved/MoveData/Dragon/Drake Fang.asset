@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
-  m_Name: Munch
+  m_Name: Drake Fang
   m_EditorClassIdentifier: 
-  moveName: Munch
-  moveTyping: 17
+  moveName: 50
+  moveTyping: 13
   moveType: 0
-  power: 30
-  accuracy: 100
+  power: 50
+  accuracy: 90
   learnableOnly: 0
   teachableOnly: 0
-  minLevelRange: 1
-  maxLevelRange: 10
-  strictTags: []
+  minLevelRange: 15
+  maxLevelRange: 20
+  strictTags:
+  - dragonType
   optionalTags:
   - fanged
-  - darkType
   priorityLevel: 0
