@@ -24,11 +24,11 @@ public class BSinitialize : BSstate
         //Setup mon health Cur/Max
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
         stateManager.healthManager.HealthAISetUp(stateManager.aiCurMonster);
+        
         //Fix nicknames
 
-
         stateManager.monUIManager.SetUp();
-
+         
         //Testing Remove when implement inventory
         stateManager.aihealthpots = 2;
         stateManager.playerhealthpots = 2;

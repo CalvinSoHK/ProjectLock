@@ -93,7 +93,6 @@ public class BSplayerTurn : BSstate
                 }
             } else if (stateManager.currentAction == 2) //Swap
             {
-                
                 stateManager.ChangeState(new BSplayerSwap(stateManager));
             } else if (stateManager.currentAction == 3) //Escape
             {

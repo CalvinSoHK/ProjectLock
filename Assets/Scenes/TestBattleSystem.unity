@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 105385583}
   - component: {fileID: 105385584}
   - component: {fileID: 105385586}
+  - component: {fileID: 105385585}
   m_Layer: 0
   m_Name: BattleSystem
   m_TagString: Untagged
@@ -408,6 +409,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 105385579}
+--- !u!114 &105385585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105385578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487425ee09638bd4883c1690775b2694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateManager: {fileID: 0}
 --- !u!114 &105385586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,58 +703,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &307535291
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 307535293}
-  - component: {fileID: 307535292}
-  m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &307535292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307535291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c022ec869bb0c4eac5d2032c089d7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMonster:
-  - monsterObject: {fileID: 11400000, guid: 45ab879a5140c094da9b37c9b7aa5083, type: 2}
-    monName: 
-    monMaxHealth: 0
-    monCurHealth: 0
-    monAtt: 0
-    monSpd: 0
-    monDef: 0
-    monLvl: 0
---- !u!4 &307535293
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307535291}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 87.36245, y: 21.545877, z: -32.839233}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &313467064
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,7 +765,7 @@ PrefabInstance:
     - target: {fileID: 2868099205153646784, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2868099205153646784, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
@@ -1404,66 +1366,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518164970}
   m_CullTransparentMesh: 0
---- !u!1 &689244495
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 689244497}
-  - component: {fileID: 689244496}
-  m_Layer: 0
-  m_Name: Trainer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &689244496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689244495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c022ec869bb0c4eac5d2032c089d7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMonster:
-  - monsterObject: {fileID: 11400000, guid: 1f4750af4aa08ec409975835c9af0a39, type: 2}
-    monName: 
-    monMaxHealth: 0
-    monCurHealth: 0
-    monAtt: 0
-    monSpd: 0
-    monDef: 0
-    monLvl: 0
-  - monsterObject: {fileID: 11400000, guid: fa04f2bdc968000449154a8373124b08, type: 2}
-    monName: 
-    monMaxHealth: 0
-    monCurHealth: 0
-    monAtt: 0
-    monSpd: 0
-    monDef: 0
-    monLvl: 0
---- !u!4 &689244497
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689244495}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 87.36245, y: 21.545877, z: -32.839233}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705489089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,78 +1445,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705489089}
   m_CullTransparentMesh: 1
---- !u!1 &740736295
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 740736297}
-  - component: {fileID: 740736296}
-  m_Layer: 0
-  m_Name: Pokemon1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &740736296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 740736295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f806c1aa41e59a4db9e92abbba65a92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseMon:
-    name: 
-    key: 0
-    stage: 0
-    family: 
-    requiredType: 0
-    tags: []
-  generatedMon:
-    ID: 0
-    generationID: 0
-    name: 
-    stage: 0
-    next_evoID: 0
-    prev_evoID: 0
-    primaryType: 0
-    secondaryType: 0
-    growthType: 0
-    baseStats:
-      hp: 100
-      def: 0
-      spDef: 0
-      atk: 0
-      spAtk: 0
-      speed: 0
-      statTotal: 0
-    catchRate: 0
-    weight: 0
-    exp_gain: 0
-    teachableMoves: []
---- !u!4 &740736297
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 740736295}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.73256, y: -26.782553, z: -55.31435}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &870122674
 GameObject:
   m_ObjectHideFlags: 0
@@ -2501,7 +2331,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190762019}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

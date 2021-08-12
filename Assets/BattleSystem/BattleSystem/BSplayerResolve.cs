@@ -81,7 +81,7 @@ public class BSplayerResolve : BSstate
     }
 
 
-    // TODO check if has remaining pokemon
+    // TODO check if AI has remaining pokemon
     /// <summary>
     /// Checks if AI mon is still alive
     /// </summary>

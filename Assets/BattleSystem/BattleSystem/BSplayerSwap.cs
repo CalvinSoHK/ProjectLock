@@ -12,7 +12,6 @@ public class BSplayerSwap : BSstate
     public override void Enter()
     {
         stateManager.swapScreen.SetActive(true);
-        Debug.Log(stateManager.swapManager.playerParty.Count);
     }
 
     public override void Run()
@@ -35,7 +34,7 @@ public class BSplayerSwap : BSstate
             {            
                 if (SelectMonCheck())
                 {
-                    stateManager.ChangeState(new BSaiResolve(stateManager));
+                    stateManager.ChangeState(new BSaiTurn(stateManager));
                 }
 
             }
