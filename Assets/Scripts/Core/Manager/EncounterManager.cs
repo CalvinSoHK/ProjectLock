@@ -17,7 +17,8 @@ namespace Core.Player
         EncounterData curEncounter = null;
 
         //Encountered mon
-        MonIndObj encounteredMon = null;
+        [SerializeField]
+        private MonIndObj encounteredMon = null;
 
         [Header("Encounter Chance")]
         float curChance = 0;

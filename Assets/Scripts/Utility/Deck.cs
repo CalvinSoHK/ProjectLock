@@ -25,6 +25,21 @@ namespace Utility
         }
 
         /// <summary>
+        /// Constructs deck from list
+        /// </summary>
+        /// <param name="list"></param>
+        public Deck(List<T> list = null)
+        {
+            if(list != null)
+            {
+                foreach (T value in list)
+                {
+                    deckList.Add(value);
+                }
+            }
+        }
+
+        /// <summary>
         /// Returns the first card in the deck
         /// </summary>
         /// <returns></returns>

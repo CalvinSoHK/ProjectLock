@@ -1713,7 +1713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterData:
   - dexID: 1
-    level: 1
+    level: 100
     chanceWeight: 100
 --- !u!1001 &1765208954
 PrefabInstance:

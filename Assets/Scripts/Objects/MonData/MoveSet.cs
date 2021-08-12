@@ -11,7 +11,35 @@ namespace Mon.MonData
     /// </summary>
     public class MoveSet
     {
-        private MoveData[] moveSet = new MoveData[4];
+        public static int MoveMaxCount
+        {
+            get
+            {
+                return 4;
+            }
+        }
+
+        [SerializeField]
+        private MoveData[] moveSet = new MoveData[MoveMaxCount];
+
+        /// <summary>
+        /// Number of valid moves in this move set
+        /// </summary>
+        public int MoveCount
+        {
+            get
+            {
+                int total = 0;
+                for (int i = 0; i < moveSet.Length; i++)
+                {
+                    if (moveSet[i] != null)
+                    {
+                        total++;
+                    }
+                }
+                return total;
+            }
+        }
 
         /// <summary>
         /// Tries to grab an empty move slot, if not able returns -1.

@@ -3,6 +3,7 @@ using Mon.Moves;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 namespace Mon.MonData
 {
@@ -63,8 +64,44 @@ namespace Mon.MonData
             baseMon = mon;
             stats = new MonStats(baseMon.baseStats);
             stats.SetToLevel(level);
+            moveSet = new MoveSet();
+            SetMoveset(level);
             battleObj = new MonBattleObj(new MonStats(baseMon.baseStats), new Dictionary<string, string>());
             battleObj.monStats.MatchStatsTo(stats);
+        }
+
+        /// <summary>
+        /// Sets random moveset for the mon based on level
+        /// </summary>
+        private void SetMoveset(int level)
+        {
+            Deck<LearnMoveData> possibleMoves = new Deck<LearnMoveData>(baseMon.GetLearnableMoves(level));
+            possibleMoves.ShuffleDeck();
+            while(moveSet.MoveCount < 5)
+            {
+                //If there are no more possible moves just break out of the while loop
+                if(possibleMoves.Count == 0)
+                {
+                    break;
+                }
+                else //Keep drawing from the possible moves list and keep overwriting till done
+                {
+                    //Draw a possible move
+                    LearnMoveData learnMove = possibleMoves.DestructiveDraw();
+
+                    //Grabs empty index. IF there is one just assign a move to it
+                    if (moveSet.GetEmptyIndex() != -1)
+                    {
+                        moveSet.LearnMove(learnMove.move, moveSet.GetEmptyIndex());
+                    }
+                    else //If there is no empty index
+                    {
+                        //Pick a random index
+                        int index = Random.Range(0, MoveSet.MoveMaxCount);
+                        moveSet.LearnMove(learnMove.move, index);
+                    }
+                }
+            }
         }
 
         /// <summary>

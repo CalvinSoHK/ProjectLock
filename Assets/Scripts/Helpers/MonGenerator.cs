@@ -181,7 +181,7 @@ namespace Mon.MonGeneration
                     int numberOfMoves = Random.Range(5, 10);
                     try
                     {
-                        familyList[i].learnMoves = await moveDex.GenerateLearnMoves(familyList[i], numberOfMoves);
+                        familyList[i].learnableMoves = await moveDex.GenerateLearnMoves(familyList[i], numberOfMoves);
                     }
                     catch (MoveDexException e)
                     {
