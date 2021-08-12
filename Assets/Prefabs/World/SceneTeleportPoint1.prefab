@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7296114070446533118}
   - component: {fileID: 7296114070446533119}
   - component: {fileID: 7296114070446533104}
+  - component: {fileID: 1365783728511408577}
   m_Layer: 0
   m_Name: Doorway
   m_TagString: Untagged
@@ -57,15 +58,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7a4d0de80a839488da14f5231c450a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: HealingCenter
-  targetTeleportPointKey: 1
-  loadMode: 0
+--- !u!114 &1365783728511408577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296114070446533117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6030588022992be41aa10778f24ca7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBeforeEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAfterEventFire:
+    m_PersistentCalls:
+      m_Calls: []
   OnLoadSceneStart:
     m_PersistentCalls:
       m_Calls: []
   OnLoadSceneFinish:
     m_PersistentCalls:
       m_Calls: []
+  targetSceneName: 
+  targetTeleportPointKey: -1
+  loadMode: 0
 --- !u!1 &7296114070705908899
 GameObject:
   m_ObjectHideFlags: 0

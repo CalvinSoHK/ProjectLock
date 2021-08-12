@@ -665,6 +665,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 522755862}
     m_Modifications:
+    - target: {fileID: 1365783728511408577, guid: f6094ac9aece10f42988b0786bb13cbf,
+        type: 3}
+      propertyPath: targetSceneName
+      value: Demotown
+      objectReference: {fileID: 0}
+    - target: {fileID: 1365783728511408577, guid: f6094ac9aece10f42988b0786bb13cbf,
+        type: 3}
+      propertyPath: targetTeleportPointKey
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7296114070446533104, guid: f6094ac9aece10f42988b0786bb13cbf,
         type: 3}
       propertyPath: targetSceneName

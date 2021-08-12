@@ -21,15 +21,10 @@ public class MonFamilyGenerateTest : MonoBehaviour
 
     private async void LoadMon()
     {
-        //Load key data
-        Utility.JsonUtility<KeysJSON> jsonLoader = new Utility.JsonUtility<KeysJSON>();
-        keyObj = await jsonLoader.LoadJSON("MonData/keyData");
-
         //Generates all mons in that keyObj
+        await monGenerator.GenerateMonsByKey();
 
-        await monGenerator.GenerateMonsByKey(keyObj);
-
-        await Core.CoreManager.Instance.dexManager.InitDex(monGenerator.monDex);
+        await Core.CoreManager.Instance.dexManager.LoadDex(monGenerator.monDex);
 
         display.generator = monGenerator;
         display.ResetID();

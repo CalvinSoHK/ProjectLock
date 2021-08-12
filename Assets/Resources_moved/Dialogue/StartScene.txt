@@ -1,0 +1,5 @@
+{
+    "sceneName": "StartScene",
+    "dialogueObjects": [
+    ]
+}

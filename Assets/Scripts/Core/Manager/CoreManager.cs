@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using World;
 using Core.AddressableSystem;
+using System.Threading.Tasks;
 
 namespace Core
 {
@@ -66,6 +67,24 @@ namespace Core
 
         [SerializeField]
         public AddressablesManager addressablesManager;
+
+        /// <summary>
+        /// Initializes game
+        /// </summary>
+        public async Task Initialize()
+        {
+            await dexManager.GenerateDex();
+            SetPlayerActive(true);
+        }
+
+        /// <summary>
+        /// Sets the player as active
+        /// </summary>
+        /// <param name="active"></param>
+        public void SetPlayerActive(bool active)
+        {
+            player.gameObject.SetActive(active);
+        }
 
         /// <summary>
         /// Moves player to found point in scene with scene name

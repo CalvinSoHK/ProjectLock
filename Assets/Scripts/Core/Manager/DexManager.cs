@@ -26,25 +26,51 @@ namespace Core
         }
 
         /// <summary>
+        /// Generates a fresh new dex
+        /// </summary>
+        /// <returns></returns>
+        public async Task GenerateDex()
+        {
+            //If moveDex is not ready wait for to finish first
+            if (!moveDex.IsReady)
+            {
+                await moveDex.LoadDex();
+            }
+
+            //Create a generator to make a whole new generation. Then generate mons by key
+            MonGenerator generator = new MonGenerator();
+            await generator.GenerateMonsByKey();
+
+            //Set the dex to the generated dex
+            monDex = generator.monDex;
+
+            //Mark as ready
+            dexReady = true;
+        }
+
+        /// <summary>
         /// Initializes and loads an inputted MonDex
         /// </summary>
         /// <param name="generationID"></param>
-        public async Task InitDex(MonDex inputDex = null)
+        public async Task LoadDex(MonDex inputDex = null)
         {
-            //monDex.generationID = generationID;
-
-            await moveDex.LoadDex();
-
+            //If moveDex is not ready wait for to finish first
+            if (!moveDex.IsReady)
+            {
+                await moveDex.LoadDex();
+            }
+            
+            //If we were inputted an inputDex set that as the dex
             if (inputDex != null)
             {
                 monDex = inputDex;
             }
-            else
+            else //Otherwise load dex that was set in it's variable
             {
                 await monDex.LoadDex();
             }
 
-            
+            //Mark the dexManager as dexReady
             dexReady = true;
         }
 

@@ -46,8 +46,11 @@ namespace Mon.MonGeneration
         /// Generates all mons in KeysJSON
         /// </summary>
         /// <param name="keyObj"></param>
-        public async Task GenerateMonsByKey(KeysJSON keyObj)
+        public async Task GenerateMonsByKey()
         {
+            JsonUtility<KeysJSON> jsonLoader = new JsonUtility<KeysJSON>();
+            KeysJSON keyObj = await jsonLoader.LoadJSON("MonData/keyData");
+
             //Reset mon Base
             Init();
 

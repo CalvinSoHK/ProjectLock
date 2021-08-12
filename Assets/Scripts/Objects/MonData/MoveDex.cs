@@ -19,7 +19,14 @@ namespace Mon.Moves
         /// Value = List of MoveData, all moves that are related to that key
         /// </summary>
         Dictionary<string, List<MoveData>> moveDict = new Dictionary<string, List<MoveData>>();
-    
+
+        private bool isReady = false;
+
+        /// <summary>
+        /// When true, the moveDict is loaded
+        /// </summary>
+        public bool IsReady { get { return isReady; } }
+
         /// <summary>
         /// Clears the dict of all lists
         /// </summary>
@@ -54,6 +61,9 @@ namespace Mon.Moves
                     Debug.LogError(e.Message);
                 }
             }
+
+            //Set as ready
+            isReady = true;
         }
 
         /// <summary>

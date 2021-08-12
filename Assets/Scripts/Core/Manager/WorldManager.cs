@@ -196,7 +196,9 @@ namespace Core.World
             }
             else
             {
-                Debug.LogError("WorldManager Error: Attempted to unload a scene that is not loaded: " + sceneName + " Aborted.");
+#if DEBUG_ENABLED
+                Debug.Log("WorldManager: Attempted to unload a scene that is not loaded: " + sceneName + " Aborted.");
+#endif            
                 return false;
             }
         }
