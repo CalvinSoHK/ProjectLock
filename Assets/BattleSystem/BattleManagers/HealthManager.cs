@@ -19,7 +19,7 @@ public class HealthManager : MonoBehaviour
     /// <param name="monster"></param>
     public void HealthPlayerSetUp(MonIndObj monster)
     {
-        playerMaxHP = monster.battleObj.monStats.hp;
+        playerMaxHP = monster.stats.hp;
         playerCurHP = monster.battleObj.monStats.hp;
     }
 
@@ -32,6 +32,5 @@ public class HealthManager : MonoBehaviour
         aiMaxHP = monster.battleObj.monStats.hp;
         aiCurHP = monster.battleObj.monStats.hp;
     }
-
 
 }

@@ -45,7 +45,7 @@ public class BSplayerSwap : BSstate
     {
         stateManager.swapScreen.SetActive(false);
     }
-    //Todo Figure out variables for currentSelectedMon so it isnt static
+
     /// <summary>
     /// User selects mon with arrow keys
     /// </summary>

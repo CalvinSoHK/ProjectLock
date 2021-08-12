@@ -101,7 +101,6 @@ public class MonUIManager : MonoBehaviour
     /// </summary>
     private void UpdateFill(MonIndObj monster, int healthValue)
     {
-        //Debug.Log("health value" + healthValue);
         if (monster == stateManager.playerCurMonster)
         {
             newPlayerHPfill = (float) healthValue / stateManager.healthManager.playerMaxHP;
@@ -116,8 +115,6 @@ public class MonUIManager : MonoBehaviour
     /// </summary>
     private void UpdateHealthText(MonIndObj monster, int healthValue)
     {
-        //playerHPText.text = $"Health: {stateManager.mon1curHP} / {stateManager.mon1maxHP}";
-        //aiHPText.text = $"Health: {stateManager.mon2curHP} / {stateManager.mon2maxHP}";
         if (monster == stateManager.playerCurMonster)
         {
             playerHPText.text = $"Health: {healthValue} / {stateManager.healthManager.playerMaxHP}";

@@ -13,7 +13,10 @@ public class SwapManager : MonoBehaviour
 
     [SerializeField]
     public List<Text> playerMon;
-    
+
+    //Index of current mon
+    public int currentDisplayedMon;
+
     // Player clicks selects monsterSelect (0-5)
     // Changes from playerMonster[currentMonster] to playerMonster[monsterSelect]
     // monsterSelect = currentMonster
@@ -83,9 +86,10 @@ public class SwapManager : MonoBehaviour
     /// <summary>
     /// Save current stats to somewhere ?
     /// </summary>
-    public void SaveStats()
+    public void SaveStats(MonIndObj monster)
     {
         //Save playerMonCurHP to somewhere? partyManager?
+        monster.battleObj.monStats.hp = stateManager.healthManager.playerCurHP;
     }
 
     /// <summary>

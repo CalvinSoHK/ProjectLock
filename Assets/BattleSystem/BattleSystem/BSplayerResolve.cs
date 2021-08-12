@@ -40,7 +40,9 @@ public class BSplayerResolve : BSstate
                 else if (stateManager.currentAction == 2)
                 {
                     //swap
-                    stateManager.swapManager.SaveStats(); //Not Done Find a way
+                    stateManager.swapManager.SaveStats(stateManager.playerMonManager.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
+                    stateManager.swapManager.currentDisplayedMon = stateManager.currentSelectedMon;
+                    //Debug.Log(stateManager.playerMonManager.GetPartyMember(stateManager.swapManager.currentDisplayedMon).baseMon.name);
                     stateManager.swapManager.SwapTo(stateManager.currentSelectedMon);
                     stateManager.dialogueText.dialogueTexts.text = $"Player swaps to {stateManager.currentSelectedMon} (Check swapManager)!";
                     stateManager.playerHasGone = true;
