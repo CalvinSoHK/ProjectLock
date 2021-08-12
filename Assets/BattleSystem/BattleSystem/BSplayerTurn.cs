@@ -15,6 +15,7 @@ public class BSplayerTurn : BSstate
     {
         base.Enter();
         Debug.Log("Entered player turn");
+        stateManager.dialogueText.dialogueTexts.gameObject.SetActive(false);
         stateManager.playerHasGone = false;
         stateManager.aiHasGone = false;
     }

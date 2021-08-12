@@ -17,7 +17,10 @@ public class ItemManager : MonoBehaviour
 
     public static healDelegate healEvent;
 
-    
+    /// <summary>
+    /// Use item
+    /// </summary>
+    /// <param name="monster"></param>
     public void UseItem(MonIndObj monster) //Arg for Item? tag?
     {
         //Temp

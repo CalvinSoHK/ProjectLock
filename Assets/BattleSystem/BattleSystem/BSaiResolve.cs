@@ -28,7 +28,7 @@ public class BSaiResolve : BSstate
 
                 if (stateManager.aicurrentAction == 0)
                 {
-                    stateManager.damageManager.DealDamage(stateManager.playerCurMonster, 1);
+                    stateManager.damageManager.DealDamage(stateManager.playerCurMonster, 5);
                     stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aicurrentAction}!";
                     DeathCheck();
                     stateManager.aiHasGone = true;
@@ -73,14 +73,24 @@ public class BSaiResolve : BSstate
 
     /// <summary>
     /// Checks if players mon is still alive
+    /// If there is swap to Alive Mon
+    /// Else lose state
     /// </summary>
     void DeathCheck()
     {
         if (stateManager.healthManager.playerCurHP <= 0)
         {
-            //Debug.Log("AI wins");
-            //stateManager.dialogueText.enableDialogueText(false);
-            stateManager.ChangeState(new BSlost(stateManager));
+            stateManager.swapManager.SaveStats(stateManager.playerMonManager.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
+            if (stateManager.playerMonManager.GetFirstValidCombatant() != null)
+            {
+                Debug.Log(stateManager.playerMonManager.GetFirstValidCombatant().baseMon.name);
+
+                stateManager.ChangeState(new BSplayerSwap(stateManager));
+            }
+            else
+            {
+                stateManager.ChangeState(new BSlost(stateManager));
+            }
         }
     }
 
