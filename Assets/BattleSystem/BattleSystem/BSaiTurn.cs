@@ -24,7 +24,7 @@ public class BSaiTurn : BSstate
 
     public override void Run()
     {
-        Action(stateManager.aicurrentAction);
+        Action(stateManager.aiCurrentAction);
     }
 
     void Action(int aiSkill)
@@ -61,12 +61,12 @@ public class BSaiTurn : BSstate
             //Check health potions available
             if (stateManager.aihealthpots > 0)
             {
-                stateManager.aicurrentAction = 1;
+                stateManager.aiCurrentAction = 1;
             }
             else
             {
                 Debug.Log("No more");
-                stateManager.aicurrentAction = 0;
+                stateManager.aiCurrentAction = 0;
             }
         }
         else if (!HealthTreshhold() && HaveCondition())
@@ -78,7 +78,7 @@ public class BSaiTurn : BSstate
             //Check swap
             Debug.Log("Check Swap");
             //manager.aicurrentAction = 2;
-            stateManager.aicurrentAction = 0;
+            stateManager.aiCurrentAction = 0;
         }
         else
         {

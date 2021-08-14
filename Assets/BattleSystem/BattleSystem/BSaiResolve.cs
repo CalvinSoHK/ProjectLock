@@ -26,17 +26,17 @@ public class BSaiResolve : BSstate
             if (!stateManager.playerPriority || stateManager.playerHasGone)
             {
 
-                if (stateManager.aicurrentAction == 0)
+                if (stateManager.aiCurrentAction == 0)
                 {
                     stateManager.damageManager.DealDamage(stateManager.playerCurMonster, 5);
-                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aicurrentAction}!";
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aiCurrentAction}!";
                     DeathCheck();
                     stateManager.aiHasGone = true;
                 }
-                else if (stateManager.aicurrentAction == 1)
+                else if (stateManager.aiCurrentAction == 1)
                 {
                     stateManager.itemManager.UseItem(stateManager.aiCurMonster);
-                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aicurrentAction} heal!";
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aiCurrentAction} heal!";
                     stateManager.aiHasGone = true;
                 }
                 else if (stateManager.aiHasGone)

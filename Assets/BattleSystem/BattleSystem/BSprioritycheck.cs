@@ -19,16 +19,16 @@ public class BSprioritycheck : BSstate
 
     public override void Run()
     {
-        if (stateManager.currentAction == 0 && stateManager.aicurrentAction == 0)
+        if (stateManager.currentAction == 0 && stateManager.aiCurrentAction == 0)
         {
             moveCheck();
         }
-        else if (stateManager.currentAction == 0 && stateManager.aicurrentAction == 1)
+        else if (stateManager.currentAction == 0 && stateManager.aiCurrentAction == 1)
         {
             stateManager.playerPriority = false;
             stateManager.ChangeState(new BSaiResolve(stateManager));
         }
-        else if (stateManager.currentAction == 0 && stateManager.aicurrentAction == 2)
+        else if (stateManager.currentAction == 0 && stateManager.aiCurrentAction == 2)
         {
             stateManager.playerPriority = false;
             stateManager.ChangeState(new BSaiResolve(stateManager));

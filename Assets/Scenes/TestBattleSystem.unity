@@ -245,12 +245,14 @@ MonoBehaviour:
   conditionManager: {fileID: 105385584}
   swapManager: {fileID: 1190762021}
   playerMonManager: {fileID: 1792011660}
+  aiMonManager: {fileID: 1774290755}
   currentMove: 0
   currentAction: 0
   currentActionStr: 
   currentSelectedMon: 0
   playerPriority: 0
-  aicurrentAction: 0
+  aiCurrentAction: 0
+  aiCurrentMove: 0
   playerCurMonster:
     baseMon:
       ID: 0
@@ -293,9 +295,9 @@ MonoBehaviour:
         speed: 0
   aiCurMonster:
     baseMon:
-      ID: 1
+      ID: 0
       generationID: 0
-      name: Charzard
+      name: 
       stage: 0
       next_evoID: 0
       prev_evoID: 0
@@ -324,13 +326,13 @@ MonoBehaviour:
       speed: 0
     battleObj:
       monStats:
-        level: 5
-        hp: 10
-        def: 10
-        spDef: 10
-        atk: 10
-        spAtk: 10
-        speed: 10
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
   swapScreen: {fileID: 1190762019}
   playerHasGone: 0
   aiHasGone: 0
@@ -749,8 +751,88 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
+      propertyPath: encounteredMon.stats.hp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.stats.atk
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.stats.def
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
       propertyPath: encounteredMon.baseMon.ID
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.stats.level
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.stats.spAtk
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.stats.spDef
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.stats.speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.baseMon.name
+      value: Test ID
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.baseMon.generationID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.battleObj.monStats.hp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.battleObj.monStats.atk
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.battleObj.monStats.def
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.battleObj.monStats.level
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.battleObj.monStats.spAtk
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.battleObj.monStats.spDef
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: encounteredMon.battleObj.monStats.speed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2868099204526525827, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
@@ -3150,6 +3232,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658164815}
   m_CullTransparentMesh: 0
+--- !u!114 &1774290755 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2868099203904102602, guid: 5023eb6124a3bad40b628e8e59aab62e,
+    type: 3}
+  m_PrefabInstance: {fileID: 344757332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9b0700d93c89947acae529cf77363b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1792011660 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,

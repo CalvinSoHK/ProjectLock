@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mon.MonData;
 using World;
-using Core;
+using Core.Player;
 
 public class BSstatemanager : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class BSstatemanager : MonoBehaviour
     public ConditionMananger conditionManager;
     public SwapManager swapManager;
     public PartyManager playerMonManager;
-    //public CoreManager aiMonManager;
+    public EncounterManager aiMonManager;
 
     public int currentMove;
     public int currentAction;
@@ -28,7 +28,8 @@ public class BSstatemanager : MonoBehaviour
 
     public bool playerPriority;
 
-    public int aicurrentAction;
+    public int aiCurrentAction;
+    public int aiCurrentMove;
 
     public MonIndObj playerCurMonster;
     public MonIndObj aiCurMonster;

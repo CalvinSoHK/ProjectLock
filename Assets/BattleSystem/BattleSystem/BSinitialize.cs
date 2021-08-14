@@ -17,9 +17,11 @@ public class BSinitialize : BSstate
         Debug.Log("Initializing");
 
         stateManager.swapManager.SwapScreenSetUp();
+        
         //Reference each players current Mon
         stateManager.playerCurMonster = stateManager.playerMonManager.GetFirstValidCombatant();
-        //manager.aiCurMonster = encounteredMon
+        //Check for encounterType? Trainer or wild
+        stateManager.aiCurMonster = stateManager.aiMonManager.encounteredMon;
         
         //Setup mon health Cur/Max
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
@@ -41,8 +43,6 @@ public class BSinitialize : BSstate
     public override void Run()
     {
         Debug.Log("Exiting initialize");
-        //Debug.Log(CoreManager.Instance.encounterManager.encounteredMon.stats.hp);
-        //Debug.Log((float)manager.mon2curHP / manager.mon2maxHP);
         stateManager.ChangeState(new BSplayerTurn(stateManager));
 
     }
