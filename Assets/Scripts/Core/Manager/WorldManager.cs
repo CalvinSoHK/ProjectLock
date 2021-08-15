@@ -219,7 +219,7 @@ namespace Core.World
         public async Task LoadSceneList(List<string> sceneList)
         {
             //Init loading screen
-            await Core.CoreManager.Instance.loadManager.LoadLoadingScreen();
+            await Core.CoreManager.Instance.loadManager.LoadLoadingScreen(false);
 
             if(sceneList.Count > 0)
             {
@@ -235,7 +235,7 @@ namespace Core.World
             }
 
             //Unload loading screen
-            await CoreManager.Instance.loadManager.UnloadLoadingScreen();
+            await CoreManager.Instance.loadManager.UnloadLoadingScreen(false);
         }
 
         /// <summary>

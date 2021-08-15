@@ -96,12 +96,14 @@ namespace Core.Player
             encounteredMon = indObj;
             //Debug.Log("Firing encounter against: " + indObj.Nickname);
             loadedScenes = CoreManager.Instance.worldManager.GetLoadedScenes();
-            await CoreManager.Instance.worldManager.LoadScene(battleScene, UnityEngine.SceneManagement.LoadSceneMode.Single);
+            CoreManager.Instance.SetPlayerActive(false);
+            await CoreManager.Instance.worldManager.LoadScene(battleScene, UnityEngine.SceneManagement.LoadSceneMode.Single, true, false);
         }
 
         public async void FinishEncounter()
         {
             await CoreManager.Instance.worldManager.LoadSceneList(loadedScenes);
+            CoreManager.Instance.SetPlayerActive(true);
             loadedScenes.Clear();
         }
     }

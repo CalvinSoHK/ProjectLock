@@ -31,6 +31,18 @@ MonoBehaviour:
     - Dialogue
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 0f13a0180192c6d4a92d53057f8673ce
+    m_Address: Dialogue/TestBattleSystem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 4900000, guid: 0f13a0180192c6d4a92d53057f8673ce, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 0f13a0180192c6d4a92d53057f8673ce, type: 3}
+  - m_GUID: 131fc15e3c8a8d2478b0f42b571ac574
+    m_Address: Dialogue/StartScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 4900000, guid: 131fc15e3c8a8d2478b0f42b571ac574, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 131fc15e3c8a8d2478b0f42b571ac574, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9e03d39bbd93a8046bc2171680c75d57, type: 2}
   m_SchemaSet:
