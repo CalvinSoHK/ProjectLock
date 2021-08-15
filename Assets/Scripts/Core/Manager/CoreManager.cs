@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using World;
 using Core.AddressableSystem;
 using System.Threading.Tasks;
+using Mon.MonData;
 
 namespace Core
 {
@@ -67,6 +68,9 @@ namespace Core
 
         [SerializeField]
         public AddressablesManager addressablesManager;
+
+        [Header("Scriptable Objects")]
+        public TypeRelationSO typeRelationSO;
 
         /// <summary>
         /// Initializes game

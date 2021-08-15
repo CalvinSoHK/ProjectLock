@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 namespace Mon.Enums
 {
-    public enum MonType
+    /// <summary>
+    /// Enum that is used for effectiveness relations
+    /// NOTE: Make sure this has all the typings in MonType
+    /// </summary>
+    [Flags]
+    public enum TypeRelationMask
     {
         None = 0,
         Normal = 1,
