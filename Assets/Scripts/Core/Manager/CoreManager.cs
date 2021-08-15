@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using World;
 using Core.AddressableSystem;
+using System.Threading.Tasks;
+using Mon.MonData;
 
 namespace Core
 {
@@ -50,7 +52,7 @@ namespace Core
 
         [Header("Managers")]
         [SerializeField]
-        public MonDexManager dexManager;
+        public DexManager dexManager;
 
         [SerializeField]
         public EncounterManager encounterManager;
@@ -66,6 +68,27 @@ namespace Core
 
         [SerializeField]
         public AddressablesManager addressablesManager;
+
+        [Header("Scriptable Objects")]
+        public TypeRelationSO typeRelationSO;
+
+        /// <summary>
+        /// Initializes game
+        /// </summary>
+        public async Task Initialize()
+        {
+            await dexManager.GenerateDex();
+            SetPlayerActive(true);
+        }
+
+        /// <summary>
+        /// Sets the player as active
+        /// </summary>
+        /// <param name="active"></param>
+        public void SetPlayerActive(bool active)
+        {
+            player.gameObject.SetActive(active);
+        }
 
         /// <summary>
         /// Moves player to found point in scene with scene name

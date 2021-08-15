@@ -5,6 +5,7 @@ using Utility;
 using Mon.Enums;
 using Mon.MonData;
 using System.Threading.Tasks;
+using Mon.Moves;
 
 namespace Mon.MonGeneration
 {
@@ -14,6 +15,8 @@ namespace Mon.MonGeneration
 
         //<ID number, to generated mon pairs>
         public MonDex monDex;
+
+        public MoveDex moveDex;
 
         //Consumed key IDs paired with the names in the data files.
         //Useful to have the name in case we have errors in our json files. 
@@ -33,6 +36,7 @@ namespace Mon.MonGeneration
             {
                 generationCount = Resources.Load<MonGenerationCount>(StaticPaths.GenerationCount);
             }
+            moveDex = new MoveDex();
 
             monDex = new MonDex();
             monDex.generationID = generationCount.GetNewID();
@@ -42,10 +46,15 @@ namespace Mon.MonGeneration
         /// Generates all mons in KeysJSON
         /// </summary>
         /// <param name="keyObj"></param>
-        public async void GenerateMonsByKey(KeysJSON keyObj)
+        public async Task GenerateMonsByKey()
         {
+            JsonUtility<KeysJSON> jsonLoader = new JsonUtility<KeysJSON>();
+            KeysJSON keyObj = await jsonLoader.LoadJSON("MonData/keyData");
+
             //Reset mon Base
             Init();
+
+            await moveDex.LoadDex();
 
             //Start counting IDs generated
             int ID = 0;
@@ -56,6 +65,7 @@ namespace Mon.MonGeneration
             {
                 //Load from path
                 curMon = await dataReader.ParseData(path);
+                //Debug.Log("CurMon: " + curMon.name);
                 
                 //Generate a Mon with that ID
                 GeneratedMon[] monFamily = await GenerateMonFamily(curMon);
@@ -78,9 +88,11 @@ namespace Mon.MonGeneration
                     }
 
                     monDex.monDict.Add(ID, monFamily[i]);
+                    //Debug.Log("Mon Family Member: " + monFamily[i].name);
                 }
             }
             monDex.dexLength = ID;
+            //Debug.Log("Mon Dex Length: " + monDex.dexLength);
         }
 
         /// <summary>
@@ -142,6 +154,40 @@ namespace Mon.MonGeneration
 
                     //Pick stats
                     familyList[i].baseStats = CalculateStats(maxStats, familyProfile.GrabProfile(familyList[i].stage));
+
+                    //Pick tags
+                    try
+                    {
+                        if(i == 0)
+                        {
+                            familyList[i].assignedTags = await PickTags(baseFamilyList[i]);
+                        }
+                        else
+                        {
+                            //Pick tags and combine with previous evo's list
+                            familyList[i].assignedTags = await PickTags(baseFamilyList[i], familyList[i - 1].assignedTags);
+                        }
+                        
+                    }
+                    catch (MonGeneratorException)
+                    {
+                        Debug.LogError("MonGenerator Error: Failed to give tags to " + familyList[i].name);
+                    }
+
+                    //Add tag for the added secondary tag
+                    await AddSecondaryTag(familyList[i]);
+
+                    //Pick move sets
+                    int numberOfMoves = Random.Range(5, 10);
+                    try
+                    {
+                        familyList[i].learnableMoves = await moveDex.GenerateLearnMoves(familyList[i], numberOfMoves);
+                    }
+                    catch (MoveDexException e)
+                    {
+                        Debug.LogError(e.Message);
+                    }
+                    
                 }
                 return familyList;
             }
@@ -358,5 +404,93 @@ namespace Mon.MonGeneration
 
             return familyList;
         }
+    
+        /// <summary>
+        /// Picks tags from baseMon to be assigned to generated mon
+        /// </summary>
+        /// <param name="baseMon"></param>
+        /// <returns></returns>
+        private async Task<List<string>> PickTags(BaseMon baseMon)
+        {
+            List<string> tagList = new List<string>();
+
+            //Make deck to shuffle
+            Deck<string> tagDeck = new Deck<string>();
+
+            //Add all tags to deck
+            foreach(string tag in baseMon.tags)
+            {
+                tagDeck.AddCard(tag);
+            }
+
+            if(tagDeck.Count <= 0)
+            {
+                throw new MonGeneratorException("TagDeck is empty before drawing for base mon : " + baseMon.name);
+            }
+
+            //Pick number of tags to pull
+            int required_tags = Random.Range(1, tagDeck.Count);
+
+            //Pull random number of tags from list
+            for(int i = 0; i < required_tags; i++)
+            {
+                tagDeck.ShuffleDeck();
+                tagList.Add(tagDeck.DestructiveDraw());
+            }
+              
+            return tagList;
+        }
+
+        /// <summary>
+        /// Picks tags from baseMon to be assigned to generated mon
+        /// Combines with inputted existing_tags.
+        /// This helps maintain similar tags across evolutions
+        /// </summary>
+        /// <param name="baseMon"></param>
+        /// <param name="existing_tags"></param>
+        /// <returns></returns>
+        private async Task<List<string>> PickTags(BaseMon baseMon, List<string> existing_tags)
+        {
+            List<string> initPick = await PickTags(baseMon);
+            foreach(string oldTag in existing_tags)
+            {
+                if (!initPick.Contains(oldTag))
+                {
+                    initPick.Add(oldTag);
+                } 
+            }
+            return initPick;
+        }
+    
+        /// <summary>
+        /// Adds secondary typing to the assigned tags
+        /// Only if not None
+        /// </summary>
+        /// <param name="baseMon"></param>
+        /// <param name="secondType"></param>
+        /// <returns></returns>
+        private async Task AddSecondaryTag(GeneratedMon genMon)
+        {
+            if(genMon.secondaryType != MonType.None)
+            {
+                string tag = genMon.secondaryType.ToString().ToLower() + "Type";
+                if (!genMon.assignedTags.Contains(tag))
+                {
+                    genMon.assignedTags.Add(tag);
+                }
+            }          
+        }
+    }
+
+    /// <summary>
+    /// Exception specifically for MonGenerator
+    /// </summary>
+    public class MonGeneratorException : System.Exception
+    {
+        public MonGeneratorException(string msg) : base(msg)
+        {
+
+        }
     }
 }
+

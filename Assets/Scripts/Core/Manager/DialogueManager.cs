@@ -90,7 +90,11 @@ namespace Core.Dialogue
                 //Load dialogue dict
                 SceneDialogueObject sceneDict = await LoadDialogueDict(sceneName);
 
-                dialogueDict.Add(sceneName, sceneDict);
+                //Check again in case while awaiting we somehow triggered another register
+                if (!dialogueDict.ContainsKey(sceneName))
+                {
+                    dialogueDict.Add(sceneName, sceneDict);
+                }                
             }
             else
             {

@@ -17,7 +17,8 @@ namespace Core.Player
         EncounterData curEncounter = null;
 
         //Encountered mon
-        public MonIndObj encounteredMon = null;
+        [SerializeField]
+        private MonIndObj encounteredMon = null;
 
         [Header("Encounter Chance")]
         float curChance = 0;
@@ -25,6 +26,13 @@ namespace Core.Player
         float encounterChance = 0.25f;
         [SerializeField]
         float chanceGain = 0.05f;
+
+        /// <summary>
+        /// List of scenes to return to
+        /// </summary>
+        private List<string> loadedScenes;
+
+        private const string battleScene = "TestBattleSystem";
 
         private void OnEnable()
         {
@@ -80,13 +88,23 @@ namespace Core.Player
             return false;
         }
 
-        private void FireEncounter()
+        private async void FireEncounter()
         {
             curChance = 0f;
-            Debug.Log("CurEncounterData: " + curEncounter.dexID);
+            //Debug.Log("CurEncounterData: " + curEncounter.dexID);
             MonIndObj indObj = new MonIndObj(CoreManager.Instance.dexManager.GetMonByID(curEncounter.dexID), curEncounter.level);
             encounteredMon = indObj;
-            Debug.Log("Firing encounter against: " + indObj.Nickname);
+            //Debug.Log("Firing encounter against: " + indObj.Nickname);
+            loadedScenes = CoreManager.Instance.worldManager.GetLoadedScenes();
+            CoreManager.Instance.SetPlayerActive(false);
+            await CoreManager.Instance.worldManager.LoadScene(battleScene, UnityEngine.SceneManagement.LoadSceneMode.Single, true, false);
+        }
+
+        public async void FinishEncounter()
+        {
+            await CoreManager.Instance.worldManager.LoadSceneList(loadedScenes);
+            CoreManager.Instance.SetPlayerActive(true);
+            loadedScenes.Clear();
         }
     }
 }

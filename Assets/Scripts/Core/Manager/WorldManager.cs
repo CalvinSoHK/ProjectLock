@@ -108,11 +108,13 @@ namespace Core.World
         /// Async task to load a scene.
         /// Returns true if and when complete.
         /// False if unable to complete.
+        /// LoadingScreen is only used for Single loadmode.
         /// </summary>
         /// <param name="sceneName"></param>
         /// <param name="loadSceneMode"></param>
+        /// <param name="loadingScreen"></param>
         /// <returns></returns>
-        public async Task<bool> LoadScene(string sceneName, LoadSceneMode loadSceneMode)
+        public async Task<bool> LoadScene(string sceneName, LoadSceneMode loadSceneMode, bool loadingScreen = true, bool changePlayerState = true)
         {
             //Check that we don't already have that scene loaded.
             if (IsValidLoad(sceneName))
@@ -122,7 +124,10 @@ namespace Core.World
                 //We want to use additive so loading screen remains. Manually remove all other scenes here first.
                 if (loadSceneMode == LoadSceneMode.Single)
                 {
-                    await Core.CoreManager.Instance.loadManager.LoadLoadingScreen();
+                    if (loadingScreen)
+                    {
+                        await Core.CoreManager.Instance.loadManager.LoadLoadingScreen(changePlayerState);
+                    }                  
 
                     //Find all scenes that aren't loading screen
                     List<string> targetList = new List<string>();
@@ -153,7 +158,10 @@ namespace Core.World
 
                     await delegateHelper.RunAsyncDelegate(OnSceneLoadedBeforeFadeIn, sceneName);
 
-                    await CoreManager.Instance.loadManager.UnloadLoadingScreen();
+                    if (loadingScreen)
+                    {
+                        await CoreManager.Instance.loadManager.UnloadLoadingScreen(changePlayerState);
+                    }               
 
                     await delegateHelper.RunAsyncDelegate(OnSceneLoadedAfterFadeIn, sceneName);
                 }
@@ -196,9 +204,38 @@ namespace Core.World
             }
             else
             {
-                Debug.LogError("WorldManager Error: Attempted to unload a scene that is not loaded: " + sceneName + " Aborted.");
+#if DEBUG_ENABLED
+                Debug.Log("WorldManager: Attempted to unload a scene that is not loaded: " + sceneName + " Aborted.");
+#endif            
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Loads a given list of scene names
+        /// </summary>
+        /// <param name="sceneList"></param>
+        /// <returns></returns>
+        public async Task LoadSceneList(List<string> sceneList)
+        {
+            //Init loading screen
+            await Core.CoreManager.Instance.loadManager.LoadLoadingScreen(false);
+
+            if(sceneList.Count > 0)
+            {
+                await LoadScene(sceneList[0], LoadSceneMode.Single, false, false);
+            }
+
+            foreach (string sceneName in sceneList)
+            {
+                if(!await LoadScene(sceneName, LoadSceneMode.Additive, false, false))
+                {
+                    throw new WorldManagerException("Failed to load scene: " + sceneName);
+                }
+            }
+
+            //Unload loading screen
+            await CoreManager.Instance.loadManager.UnloadLoadingScreen(false);
         }
 
         /// <summary>
@@ -234,7 +271,7 @@ namespace Core.World
             }
             else
             {
-                throw new System.Exception("WorldManager Error: Attempted to add scene to list even though it is already there. Scene: " + sceneName);
+                throw new WorldManagerException("WorldManager Error: Attempted to add scene to list even though it is already there. Scene: " + sceneName);
             }
         }
 
@@ -251,7 +288,7 @@ namespace Core.World
             }
             else
             {
-                throw new System.Exception("WorldManager Error: Attempted to remove scene to list even though it isn't already there. Scene: " + sceneName);
+                throw new WorldManagerException("Attempted to remove scene to list even though it isn't already there. Scene: " + sceneName);
             }
         }
 
@@ -262,5 +299,26 @@ namespace Core.World
         {
             loadedScenes.Clear();
         }
+
+        /// <summary>
+        /// Gives the list of all the loaded scenes
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetLoadedScenes()
+        {
+            return loadedScenes;
+        }
+    }
+
+    /// <summary>
+    /// Exception for WorldManager
+    /// </summary>
+    public class WorldManagerException : Exception
+    {
+        public WorldManagerException (string msg) : base(msg)
+        {
+
+        }
     }
 }
+

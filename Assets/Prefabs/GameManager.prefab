@@ -736,6 +736,54 @@ MonoBehaviour:
   encounterLayers:
     serializedVersion: 2
     m_Bits: 256
+  encounteredMon:
+    baseMon:
+      ID: 0
+      generationID: 0
+      name: 
+      stage: 0
+      next_evoID: 0
+      prev_evoID: 0
+      primaryType: 0
+      secondaryType: 0
+      growthType: 0
+      baseStats:
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
+        statTotal: 0
+      catchRate: 0
+      weight: 0
+      exp_gain: 0
+      learnableMoves: []
+      teachableMoves: []
+      assignedTags: []
+    stats:
+      level: 0
+      hp: 0
+      def: 0
+      spDef: 0
+      atk: 0
+      spAtk: 0
+      speed: 0
+    moveSet:
+      moveSet:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    battleObj:
+      monStats:
+        level: 0
+        hp: 0
+        def: 0
+        spDef: 0
+        atk: 0
+        spAtk: 0
+        speed: 0
   encounterChance: 0.001
   chanceGain: 0.00001
 --- !u!1 &2868099204526525829
@@ -943,7 +991,9 @@ MonoBehaviour:
       catchRate: 0
       weight: 0
       exp_gain: 0
+      learnableMoves: []
       teachableMoves: []
+      assignedTags: []
     stats:
       level: 10
       hp: 0
@@ -952,6 +1002,12 @@ MonoBehaviour:
       atk: 0
       spAtk: 0
       speed: 0
+    moveSet:
+      moveSet:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     battleObj:
       monStats:
         level: 0
@@ -982,7 +1038,9 @@ MonoBehaviour:
       catchRate: 0
       weight: 0
       exp_gain: 0
+      learnableMoves: []
       teachableMoves: []
+      assignedTags: []
     stats:
       level: 0
       hp: 0
@@ -991,6 +1049,12 @@ MonoBehaviour:
       atk: 0
       spAtk: 0
       speed: 0
+    moveSet:
+      moveSet:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     battleObj:
       monStats:
         level: 0
@@ -1021,7 +1085,9 @@ MonoBehaviour:
       catchRate: 0
       weight: 0
       exp_gain: 0
+      learnableMoves: []
       teachableMoves: []
+      assignedTags: []
     stats:
       level: 0
       hp: 0
@@ -1030,6 +1096,12 @@ MonoBehaviour:
       atk: 0
       spAtk: 0
       speed: 0
+    moveSet:
+      moveSet:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     battleObj:
       monStats:
         level: 0
@@ -1060,7 +1132,9 @@ MonoBehaviour:
       catchRate: 0
       weight: 0
       exp_gain: 0
+      learnableMoves: []
       teachableMoves: []
+      assignedTags: []
     stats:
       level: 0
       hp: 0
@@ -1069,6 +1143,12 @@ MonoBehaviour:
       atk: 0
       spAtk: 0
       speed: 0
+    moveSet:
+      moveSet:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     battleObj:
       monStats:
         level: 0
@@ -1099,7 +1179,9 @@ MonoBehaviour:
       catchRate: 0
       weight: 0
       exp_gain: 0
+      learnableMoves: []
       teachableMoves: []
+      assignedTags: []
     stats:
       level: 0
       hp: 0
@@ -1108,6 +1190,12 @@ MonoBehaviour:
       atk: 0
       spAtk: 0
       speed: 0
+    moveSet:
+      moveSet:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     battleObj:
       monStats:
         level: 0
@@ -1138,7 +1226,9 @@ MonoBehaviour:
       catchRate: 0
       weight: 0
       exp_gain: 0
+      learnableMoves: []
       teachableMoves: []
+      assignedTags: []
     stats:
       level: 0
       hp: 0
@@ -1147,6 +1237,12 @@ MonoBehaviour:
       atk: 0
       spAtk: 0
       speed: 0
+    moveSet:
+      moveSet:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     battleObj:
       monStats:
         level: 0
@@ -1396,6 +1492,7 @@ MonoBehaviour:
   loadManager: {fileID: 1506079767057621588}
   dialogueManager: {fileID: 7888493634771396010}
   addressablesManager: {fileID: 400417292661220324}
+  typeRelationSO: {fileID: 11400000, guid: 2b318597a2e44b548af4856a0bd666b5, type: 2}
 --- !u!1 &4444808816015125203
 GameObject:
   m_ObjectHideFlags: 0

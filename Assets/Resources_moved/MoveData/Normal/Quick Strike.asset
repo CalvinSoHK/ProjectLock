@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9efcbdf1371be34a8368b8a438f2a37, type: 3}
+  m_Name: Quick Strike
+  m_EditorClassIdentifier: 
+  moveName: Quick Strike
+  moveTyping: 1
+  moveType: 0
+  power: 30
+  accuracy: 100
+  minLevelRange: 5
+  maxLevelRange: 20
+  strictTags:
+  - physical
+  optionalTags:
+  - tailed
+  priorityLevel: 1
