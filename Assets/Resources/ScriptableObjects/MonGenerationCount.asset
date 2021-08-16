@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ea394374a1d2d4c8672f205d0b27db, type: 3}
   m_Name: MonGenerationCount
   m_EditorClassIdentifier: 
-  count: 0
+  count: 1

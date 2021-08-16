@@ -49,6 +49,9 @@ public class BSstatemanager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerMonManager = Core.CoreManager.Instance.playerParty;
+        aiMonManager = Core.CoreManager.Instance.encounterManager;
+        aiCurMonster = Core.CoreManager.Instance.encounterManager.EncounteredMon;
         ChangeState(new BSinitialize(this));
     }
 
@@ -56,7 +59,6 @@ public class BSstatemanager : MonoBehaviour
     void Update()
     {
         currentState.Run();
-
     }
 
     public void ChangeState(BSstate newState)

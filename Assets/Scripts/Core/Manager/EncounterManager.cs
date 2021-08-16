@@ -20,6 +20,17 @@ namespace Core.Player
         [SerializeField]
         private MonIndObj encounteredMon = null;
 
+        /// <summary>
+        /// Encountered mon (for wild encounters)
+        /// </summary>
+        public MonIndObj EncounteredMon
+        {
+           get
+            {
+                return encounteredMon;
+            }
+        }
+
         [Header("Encounter Chance")]
         float curChance = 0;
         [SerializeField]
