@@ -14,16 +14,18 @@ public class BSinitialize : BSstate
     public override void Enter()
     {
         Debug.Log("Initializing");
-        Debug.Log("StateManager: " + stateManager);
+        stateManager.playerMonManager = Core.CoreManager.Instance.playerParty;
+        stateManager.aiMonManager = Core.CoreManager.Instance.encounterManager;
+        
+       
         Debug.Log("PartyManager: " + stateManager.playerMonManager);
         stateManager.swapManager.SwapScreenSetUp();
         
         //Reference each players current Mon
         stateManager.playerCurMonster = stateManager.playerMonManager.GetFirstValidCombatant();
+        stateManager.aiCurMonster = stateManager.aiMonManager.EncounteredMon;
         //Check for encounterType? Trainer or wild
         Debug.Log("AIMonManager: " + stateManager.aiMonManager);
-        stateManager.aiCurMonster = stateManager.aiMonManager.EncounteredMon;
-        
         //Setup mon health Cur/Max
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
         stateManager.healthManager.HealthAISetUp(stateManager.aiCurMonster);

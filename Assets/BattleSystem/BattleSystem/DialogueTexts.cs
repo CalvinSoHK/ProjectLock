@@ -12,7 +12,7 @@ public class DialogueTexts : MonoBehaviour
     [SerializeField] GameObject moveSelector;
     [SerializeField] GameObject actionSelector;
     [SerializeField] GameObject moveDetail;
-    [SerializeField] List<Text> movesText;
+    [SerializeField] public List<Text> movesText;
     [SerializeField] List<Text> actionText;
 
 

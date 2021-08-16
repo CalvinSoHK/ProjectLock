@@ -49,6 +49,7 @@ public class MonUIManager : MonoBehaviour
     {
         SetUpHealthUI();
         SetUpNameUI();
+        SetUpMoveText();
     }
 
     /// <summary>
@@ -132,5 +133,23 @@ public class MonUIManager : MonoBehaviour
     {
         playerHPBar.fillAmount = Mathf.Lerp(playerHPBar.fillAmount, newPlayerHPfill, Time.deltaTime * lerpSpeed);
         aiHPBar.fillAmount = Mathf.Lerp(aiHPBar.fillAmount, newAIHPfill, Time.deltaTime * lerpSpeed);
+    }
+
+    /// <summary>
+    /// Sets up player moves text 1-4
+    /// </summary>
+    private void SetUpMoveText()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (stateManager.playerCurMonster.moveSet.GetMove(i) != null)
+            {
+                stateManager.dialogueText.movesText[i].text = stateManager.playerCurMonster.moveSet.GetMove(i).name;
+            }
+            else
+            {
+                stateManager.dialogueText.movesText[i].text = "----";
+            }
+        }
     }
 }
