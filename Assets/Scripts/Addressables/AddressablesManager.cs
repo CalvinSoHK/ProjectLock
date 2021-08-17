@@ -93,7 +93,7 @@ namespace Core.AddressableSystem
         private async Task HandleHandle(AsyncOperationHandle handle, string path, bool logProgress)
         {
             //If we want to log progress on this load
-            if (logProgress && handle.Status != AsyncOperationStatus.Succeeded)
+            if (logProgress)
             {
                 do
                 {
