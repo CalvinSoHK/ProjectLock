@@ -51,6 +51,8 @@ public class DamageManager : MonoBehaviour
 
     }
 
+
+    //Todo change this later TEMP
     /// <summary>
     /// Does calculation for how much damage move deals
     /// Used in DealDamage
@@ -59,8 +61,10 @@ public class DamageManager : MonoBehaviour
     /// <returns></returns>
     public int DamageCalculation(MoveData monMove)
     {
-        int damageValue = (monMove.power/ (stateManager.playerCurMonster.battleObj.monStats.atk/10));
-        Debug.Log(damageValue);
+        float multiplier = Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.aiCurMonster, stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove).moveTyping);
+        Debug.Log("Multiplier: " + multiplier);
+        int damageValue = (int) ((monMove.power/ (stateManager.playerCurMonster.battleObj.monStats.atk/10)) * multiplier);
+        Debug.Log("DMG" + damageValue);
         return damageValue;
     }
 

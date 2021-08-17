@@ -28,7 +28,7 @@ public class BSaiResolve : BSstate
 
                 if (stateManager.aiCurrentAction == 0)
                 {
-                    stateManager.damageManager.DealDamage(stateManager.playerCurMonster, 5);
+                    stateManager.damageManager.DealDamage(stateManager.playerCurMonster, 1);
                     stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aiCurrentAction}!";
                     DeathCheck();
                     stateManager.aiHasGone = true;
