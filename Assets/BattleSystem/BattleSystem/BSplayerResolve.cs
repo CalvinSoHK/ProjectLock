@@ -25,8 +25,8 @@ public class BSplayerResolve : BSstate
             {
                 if (stateManager.currentAction == 0)
                 {
-                    stateManager.damageManager.DealDamage(stateManager.aiCurMonster, 3);
-                    stateManager.dialogueText.dialogueTexts.text = $"Fix playerResolve nickname? i forget {stateManager.playerCurMonster.baseMon.name} uses {stateManager.currentMove}!";
+                    stateManager.damageManager.DealDamage(stateManager.aiCurMonster, stateManager.damageManager.DamageCalculation(stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove)));
+                    stateManager.dialogueText.dialogueTexts.text = $"Fix playerResolve nickname? i forget {stateManager.playerCurMonster.baseMon.name} uses {stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove).name}!";
                     DeathCheck();
                     stateManager.playerHasGone = true;
                 }

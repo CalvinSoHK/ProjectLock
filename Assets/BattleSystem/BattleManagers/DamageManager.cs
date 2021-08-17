@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mon.MonData;
+using Mon.Moves;
 
 public class DamageManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class DamageManager : MonoBehaviour
     /// Monster deals damage
     /// subtracts enemey monster name health by damageValue
     /// </summary>
-    /// <param name="monName"></param>
+    /// <param name="monster"></param>
     /// <param name="damageValue"></param>
     public void DealDamage(MonIndObj monster, int damageValue) //new param for Skill name? May not need damageValue
     {
@@ -48,8 +49,19 @@ public class DamageManager : MonoBehaviour
             damageEvent?.Invoke(monster, stateManager.healthManager.aiCurHP);
         }
 
-
     }
 
+    /// <summary>
+    /// Does calculation for how much damage move deals
+    /// Used in DealDamage
+    /// </summary>
+    /// <param name="monMove"></param>
+    /// <returns></returns>
+    public int DamageCalculation(MoveData monMove)
+    {
+        int damageValue = (monMove.power/ (stateManager.playerCurMonster.battleObj.monStats.atk/10));
+        Debug.Log(damageValue);
+        return damageValue;
+    }
 
 }

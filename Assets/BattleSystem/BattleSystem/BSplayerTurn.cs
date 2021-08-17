@@ -38,6 +38,9 @@ public class BSplayerTurn : BSstate
     }
 
 
+    /// <summary>
+    /// Allows player to select their action (attack/item/swap/escape)
+    /// </summary>
     void actionSelection()
     {
         isAction = true;
@@ -102,13 +105,16 @@ public class BSplayerTurn : BSstate
         }
     }
 
+    /// <summary>
+    /// Allows player to select their move(attack)
+    /// </summary>
     void moveSelection()
     {
         isMove = true;
         stateManager.dialogueText.enableMoveSelector(true);
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (stateManager.currentMove < 3) //max moves - 1
+            if (stateManager.currentMove < stateManager.playerCurMonster.moveSet.MoveCount - 1) //max moves - 1
             {
                 ++stateManager.currentMove;
             }
@@ -122,7 +128,10 @@ public class BSplayerTurn : BSstate
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (stateManager.currentMove < 2)
+            if (stateManager.currentMove < 1 && stateManager.playerCurMonster.moveSet.MoveCount == 3)
+            {
+                stateManager.currentMove += 2;
+            } else if (stateManager.currentMove < 2 && stateManager.playerCurMonster.moveSet.MoveCount == 4)
             {
                 stateManager.currentMove += 2;
             }
