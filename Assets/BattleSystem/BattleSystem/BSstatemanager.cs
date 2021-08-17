@@ -21,6 +21,7 @@ public class BSstatemanager : MonoBehaviour
     public PartyManager playerMonManager;
     public EncounterManager aiMonManager;
 
+
     public int currentMove;
     public int currentAction;
     public string currentActionStr;

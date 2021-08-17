@@ -20,6 +20,11 @@ public class BSwon : BSstate
     public override void Run()
     {
 
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Core.CoreManager.Instance.encounterManager.FinishEncounter();
+        }
+
     }
 
 

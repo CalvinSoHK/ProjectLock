@@ -246,6 +246,7 @@ MonoBehaviour:
   swapManager: {fileID: 1190762021}
   playerMonManager: {fileID: 0}
   aiMonManager: {fileID: 0}
+  typeRelation: {fileID: 11400000, guid: 2b318597a2e44b548af4856a0bd666b5, type: 2}
   currentMove: 0
   currentAction: 0
   currentActionStr: 
