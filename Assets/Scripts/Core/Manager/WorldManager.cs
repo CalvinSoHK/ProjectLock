@@ -219,18 +219,23 @@ namespace Core.World
         public async Task LoadSceneList(List<string> sceneList)
         {
             //Init loading screen
-            await Core.CoreManager.Instance.loadManager.LoadLoadingScreen(false);
+            await CoreManager.Instance.loadManager.LoadLoadingScreen(false);
 
+            string firstScene = "";
             if(sceneList.Count > 0)
             {
                 await LoadScene(sceneList[0], LoadSceneMode.Single, false, false);
+                firstScene = sceneList[0];
             }
 
             foreach (string sceneName in sceneList)
             {
-                if(!await LoadScene(sceneName, LoadSceneMode.Additive, false, false))
+                if (!sceneName.Equals(firstScene))
                 {
-                    throw new WorldManagerException("Failed to load scene: " + sceneName);
+                    if (!await LoadScene(sceneName, LoadSceneMode.Additive, false, false))
+                    {
+                        throw new WorldManagerException("Failed to load scene: " + sceneName);
+                    }
                 }
             }
 
@@ -306,7 +311,12 @@ namespace Core.World
         /// <returns></returns>
         public List<string> GetLoadedScenes()
         {
-            return loadedScenes;
+            List<string> curSceneList = new List<string>();
+            foreach(string sceneName in loadedScenes)
+            {
+                curSceneList.Add(sceneName);
+            }
+            return curSceneList;
         }
     }
 

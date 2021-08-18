@@ -41,6 +41,7 @@ namespace Core.Player
         /// <summary>
         /// List of scenes to return to
         /// </summary>
+        [SerializeField]
         private List<string> loadedScenes;
 
         private const string battleScene = "TestBattleSystem";
