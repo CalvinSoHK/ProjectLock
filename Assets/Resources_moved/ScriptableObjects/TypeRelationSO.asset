@@ -1,0 +1,705 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71424d3f5db3984f8ca493ac86d45b8, type: 3}
+  m_Name: TypeRelationSO
+  m_EditorClassIdentifier: 
+  typeRelations:
+  - type: 1
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 2
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 3
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 4
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 5
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 6
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 7
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 8
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 9
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 10
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 11
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 12
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 13
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 14
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 15
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 16
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 17
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  - type: 18
+    relationList:
+    - type: 1
+      relation: 0
+    - type: 2
+      relation: 0
+    - type: 3
+      relation: 0
+    - type: 4
+      relation: 0
+    - type: 5
+      relation: 0
+    - type: 6
+      relation: 0
+    - type: 7
+      relation: 0
+    - type: 8
+      relation: 0
+    - type: 9
+      relation: 0
+    - type: 10
+      relation: 0
+    - type: 11
+      relation: 0
+    - type: 12
+      relation: 0
+    - type: 13
+      relation: 0
+    - type: 14
+      relation: 0
+    - type: 15
+      relation: 0
+    - type: 16
+      relation: 0
+    - type: 17
+      relation: 0
+    - type: 18
+      relation: 0
+  displayRelations:
+    type: 0
+    relationList: []
+  targetType1: 0
+  targetType2: 0
+  targetRelation: 0
