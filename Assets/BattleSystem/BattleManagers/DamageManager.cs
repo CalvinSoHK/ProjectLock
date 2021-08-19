@@ -54,17 +54,32 @@ public class DamageManager : MonoBehaviour
 
     //Todo change this later TEMP
     /// <summary>
-    /// Does calculation for how much damage move deals
+    /// Does calculation for how much damage player's move deals
     /// Used in DealDamage
     /// </summary>
     /// <param name="monMove"></param>
     /// <returns></returns>
-    public int DamageCalculation(MoveData monMove)
+    public int DamageCalculationPlayer(MoveData monMove)
     {
         float multiplier = Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.aiCurMonster, stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove).moveTyping);
-        Debug.Log("Multiplier: " + multiplier);
+        //Debug.Log("Multiplier: " + multiplier);
         int damageValue = (int) ((monMove.power/ (stateManager.playerCurMonster.battleObj.monStats.atk/10)) * multiplier);
-        Debug.Log("DMG" + damageValue);
+        //Debug.Log("DMG: " + damageValue);
+        return damageValue;
+    }
+
+
+    //Todo change this later TEMP
+    /// <summary>
+    /// Does calculation for how much damage ai's move deals
+    /// Used in DealDamage
+    /// </summary>
+    /// <param name="monMove"></param>
+    /// <returns></returns>
+    public int DamageCalculationAI(MoveData monMove)
+    {
+        float multiplier = Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.playerCurMonster, stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove).moveTyping);
+        int damageValue = (int)((monMove.power / (stateManager.aiCurMonster.battleObj.monStats.atk / 10)) * multiplier);
         return damageValue;
     }
 

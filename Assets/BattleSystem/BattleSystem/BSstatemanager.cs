@@ -18,9 +18,10 @@ public class BSstatemanager : MonoBehaviour
     public ItemManager itemManager;
     public ConditionMananger conditionManager;
     public SwapManager swapManager;
+    public AIDecisionMove aiDecisionMove;
+    [Header("Mon Managers")]
     public PartyManager playerMonManager;
     public EncounterManager aiMonManager;
-
 
     public int currentMove;
     public int currentAction;

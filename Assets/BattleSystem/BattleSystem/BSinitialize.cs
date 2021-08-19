@@ -19,6 +19,7 @@ public class BSinitialize : BSstate
         stateManager.aiMonManager = CoreManager.Instance.encounterManager;
         Debug.Log("Ai Party: " + stateManager.aiMonManager);
         
+
         //Debug.Log(stateManager.typeRelation.typeRelationSO);
         //Check for encounterType? Trainer or wild
         stateManager.swapManager.SwapScreenSetUp();
@@ -27,7 +28,7 @@ public class BSinitialize : BSstate
         stateManager.playerCurMonster = stateManager.playerMonManager.GetFirstValidCombatant();
         stateManager.aiCurMonster = stateManager.aiMonManager.EncounteredMon;
 
-
+        stateManager.aiDecisionMove.MoveSelection();
 
         //Setup mon health Cur/Max
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
