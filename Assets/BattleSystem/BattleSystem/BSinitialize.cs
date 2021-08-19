@@ -28,8 +28,9 @@ public class BSinitialize : BSstate
         stateManager.playerCurMonster = stateManager.playerMonManager.GetFirstValidCombatant();
         stateManager.aiCurMonster = stateManager.aiMonManager.EncounteredMon;
 
-        stateManager.aiDecisionMove.MoveSelection();
-
+        Debug.Log(stateManager.aiCurMonster.moveSet.GetMove(0).moveTyping);
+        Debug.Log(stateManager.playerCurMonster);
+        Debug.Log(Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.playerCurMonster, stateManager.aiCurMonster.moveSet.GetMove(0).moveTyping));
         //Setup mon health Cur/Max
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
         stateManager.healthManager.HealthAISetUp(stateManager.aiCurMonster);
