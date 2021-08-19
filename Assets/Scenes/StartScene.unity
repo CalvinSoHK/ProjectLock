@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -295,6 +295,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2868099205153646847, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: typeRelationSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 957255dd02422504293011313f5bbd8c,
+        type: 2}
     - target: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
       propertyPath: party.Array.data[0].stats.level
