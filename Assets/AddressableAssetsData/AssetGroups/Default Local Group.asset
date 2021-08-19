@@ -35,12 +35,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 2b318597a2e44b548af4856a0bd666b5
-    m_Address: ScriptableObjects/TypeRelationsSO
+  - m_GUID: 957255dd02422504293011313f5bbd8c
+    m_Address: ScriptableObjects/TypeRelationSO
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 11400000, guid: 2b318597a2e44b548af4856a0bd666b5, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 2b318597a2e44b548af4856a0bd666b5, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9e03d39bbd93a8046bc2171680c75d57, type: 2}
   m_SchemaSet:

@@ -786,6 +786,7 @@ MonoBehaviour:
         speed: 0
   encounterChance: 0.001
   chanceGain: 0.00001
+  loadedScenes: []
 --- !u!1 &2868099204526525829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,7 +1493,7 @@ MonoBehaviour:
   loadManager: {fileID: 1506079767057621588}
   dialogueManager: {fileID: 7888493634771396010}
   addressablesManager: {fileID: 400417292661220324}
-  typeRelationSO: {fileID: 11400000, guid: 2b318597a2e44b548af4856a0bd666b5, type: 2}
+  typeRelationSO: {fileID: 11400000, guid: 957255dd02422504293011313f5bbd8c, type: 2}
 --- !u!1 &4444808816015125203
 GameObject:
   m_ObjectHideFlags: 0
