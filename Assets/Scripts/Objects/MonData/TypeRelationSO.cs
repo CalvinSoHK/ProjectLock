@@ -19,6 +19,7 @@ namespace Mon.MonData
     menuName = "MonGeneration/TypeRelationSO", order = 5)]
     public class TypeRelationSO : ScriptableObject
     {
+        [SerializeField]
         private List<TypeRelations> typeRelations = new List<TypeRelations>();
 
         private Dictionary<MonType, TypeRelations> typeDict = new Dictionary<MonType, TypeRelations>();
@@ -63,7 +64,7 @@ namespace Mon.MonData
         /// <summary>
         /// Updates dict to reflect the list
         /// </summary>
-        private void UpdateDict()
+        public void UpdateDict()
         {
             typeDict.Clear();
 
@@ -119,11 +120,15 @@ namespace Mon.MonData
         public TypeRelations GetRelationOf(MonType type)
         {
             TypeRelations value;
-            if (typeDict.TryGetValue(type, out value))
+            if(type != MonType.None)
             {
-                return value;
+                if (typeDict.TryGetValue(type, out value))
+                {
+                    return value;
+                }
+                throw new TypeEffectivenessSOException("Attempted to get relation of type : " + type + " but it wasn't in dict.");
             }
-            throw new TypeEffectivenessSOException("Attempted to get relation of type : " + type + " but it wasn't in dict.");
+            return null;
         }
     
         /// <summary>
@@ -132,16 +137,20 @@ namespace Mon.MonData
         public void UpdateRelation()
         {
             TypeRelations typeRelation1 = GetRelationOf(targetType1);
-            SingleTypeRelation relation1 = typeRelation1.GetRelation(targetType2);
-            if (relation1 != null)
+
+            if(typeRelation1 != null)
             {
-                relation1.relation = targetRelation;
-                UpdateDict();
-            }
-            else
-            {
-                throw new TypeEffectivenessSOException("Failed to update relation because retrieving relation of type failed: " + targetType2);
-            }          
+                SingleTypeRelation relation1 = typeRelation1.GetRelation(targetType2);
+                if (relation1 != null)
+                {
+                    relation1.relation = targetRelation;
+                    UpdateDict();
+                }
+                else
+                {
+                    throw new TypeEffectivenessSOException("Failed to update relation because retrieving relation of type failed: " + targetType2);
+                }
+            }               
         }
     
         /// <summary>
@@ -155,8 +164,15 @@ namespace Mon.MonData
         public TypeRelation GetRelationBetween(MonType type1, MonType type2)
         {
             TypeRelations relations = GetRelationOf(type1);
-            SingleTypeRelation relation = relations.GetRelation(type2);
-            return relation.relation;
+            if(relations != null)
+            {
+                SingleTypeRelation relation = relations.GetRelation(type2);
+                return relation.relation;
+            }
+            else
+            {
+                return TypeRelation.Neutral;
+            }
         }
 
         /// <summary>
@@ -214,12 +230,20 @@ namespace Mon.MonData
 
             TypeRelationSO obj = (TypeRelationSO)target;
 
-            obj.displayRelations = obj.GetRelationOf(obj.targetType1);
+            if(obj.targetType1 != MonType.None)
+            {
+                obj.displayRelations = obj.GetRelationOf(obj.targetType1);
+            }          
 
-            if (GUILayout.Button("Update Type Relation"))
+            if(GUILayout.Button("Update Type Relation"))
+            {
+                obj.UpdateRelation();
+            }
+
+            if (GUILayout.Button("Update Dict"))
             {
                 
-                obj.UpdateRelation();
+                obj.UpdateDict();
             }
         }
     }
