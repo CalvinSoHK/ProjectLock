@@ -26,7 +26,7 @@ public class BSwon : BSstate
         if (Input.GetKeyDown(KeyCode.Return) && !firedOnce)
         {
             firedOnce = true;
-            Core.CoreManager.Instance.encounterManager.FinishEncounter();
+            Core.CoreManager.Instance.encounterManager.FinishEncounterAsync();
         }
 
     }

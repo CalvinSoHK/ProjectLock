@@ -230,11 +230,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2868099204526525829, guid: 5023eb6124a3bad40b628e8e59aab62e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2868099205153646784, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
       propertyPath: m_RootOrder
@@ -294,17 +289,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2868099205153646847, guid: 5023eb6124a3bad40b628e8e59aab62e,
-        type: 3}
-      propertyPath: typeRelationSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 957255dd02422504293011313f5bbd8c,
-        type: 2}
-    - target: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,
-        type: 3}
-      propertyPath: party.Array.data[0].stats.level
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5023eb6124a3bad40b628e8e59aab62e, type: 3}

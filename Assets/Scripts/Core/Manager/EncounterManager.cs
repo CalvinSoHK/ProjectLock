@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using World.Tile;
+using World;
+using System.Threading.Tasks;
 
 namespace Core.Player
 {
@@ -19,6 +21,20 @@ namespace Core.Player
         //Encountered mon
         [SerializeField]
         private MonIndObj encounteredMon = null;
+
+        [SerializeField]
+        private Encounter encounterInfo;
+
+        /// <summary>
+        /// Current encounter information
+        /// </summary>
+        public Encounter EncounterInfo
+        {
+            get
+            {
+                return encounterInfo;
+            }
+        }
 
         /// <summary>
         /// Encountered mon (for wild encounters)
@@ -68,7 +84,12 @@ namespace Core.Player
                 if (Random.Range(0f, 1f) <= curChance)
                 {
                     curEncounter = encounterArea.PickEncounter();
-                    FireEncounter();
+                    curChance = 0f;
+                    MonIndObj indObj = new MonIndObj(CoreManager.Instance.dexManager.GetMonByID(curEncounter.dexID), curEncounter.level);
+                    encounteredMon = indObj;
+                    PartyManager wildMonParty = new PartyManager();
+                    wildMonParty.AddMember(indObj);
+                    FireEncounter(new Encounter(EncounterType.Wild, wildMonParty));
                 }
                 else
                 {
@@ -100,23 +121,48 @@ namespace Core.Player
             return false;
         }
 
-        private async void FireEncounter()
+        public void FireEncounter(Encounter encounterInfo)
         {
-            curChance = 0f;
-            //Debug.Log("CurEncounterData: " + curEncounter.dexID);
-            MonIndObj indObj = new MonIndObj(CoreManager.Instance.dexManager.GetMonByID(curEncounter.dexID), curEncounter.level);
-            encounteredMon = indObj;
-            //Debug.Log("Firing encounter against: " + indObj.Nickname);
+            FireEncounterAsync(encounterInfo);
+        }
+
+        private async Task FireEncounterAsync(Encounter _encounterInfo)
+        {
+            encounterInfo = _encounterInfo;
             loadedScenes = CoreManager.Instance.worldManager.GetLoadedScenes();
             CoreManager.Instance.SetPlayerActive(false);
             await CoreManager.Instance.worldManager.LoadScene(battleScene, UnityEngine.SceneManagement.LoadSceneMode.Single, true, false);
         }
 
-        public async void FinishEncounter()
+        public async void FinishEncounterAsync()
         {
             await CoreManager.Instance.worldManager.LoadSceneList(loadedScenes);
             CoreManager.Instance.SetPlayerActive(true);
             loadedScenes.Clear();
+            encounterInfo = null;
+        }
+    }
+
+    public enum EncounterType
+    {
+        Wild,
+        Trainer,
+        Gym
+    }
+
+    /// <summary>
+    /// Class that describes an encounter
+    /// </summary>
+    [System.Serializable]
+    public class Encounter
+    {
+        public EncounterType encounterType;
+        public PartyManager party;
+
+        public Encounter(EncounterType _type, PartyManager _party)
+        {
+            encounterType = _type;
+            party = _party;
         }
     }
 }

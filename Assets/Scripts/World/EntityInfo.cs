@@ -25,8 +25,8 @@ namespace World
     public enum EntityType
     {
         NonCombatant,
-        Combatant,
-        Boss,
+        Trainer,
+        Gym,
         Player
     }
 }
