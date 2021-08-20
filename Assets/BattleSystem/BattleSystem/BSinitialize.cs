@@ -14,10 +14,10 @@ public class BSinitialize : BSstate
     public override void Enter()
     {
         Debug.Log("Initializing");
-        stateManager.playerMonManager = CoreManager.Instance.playerParty;
-        Debug.Log("Player Party: " + stateManager.playerMonManager);
-        stateManager.aiMonManager = CoreManager.Instance.encounterManager;
-        Debug.Log("Ai Party: " + stateManager.aiMonManager);
+        stateManager.playerParty = CoreManager.Instance.playerParty.party;
+        Debug.Log("Player Party: " + stateManager.playerParty);
+        stateManager.aiParty = CoreManager.Instance.encounterManager.EncounterInfo.party;
+        Debug.Log("Ai Party: " + stateManager.aiParty);
         
 
         //Debug.Log(stateManager.typeRelation.typeRelationSO);
@@ -25,8 +25,8 @@ public class BSinitialize : BSstate
         stateManager.swapManager.SwapScreenSetUp();
 
         //Reference each players current Mon
-        stateManager.playerCurMonster = stateManager.playerMonManager.GetFirstValidCombatant();
-        stateManager.aiCurMonster = stateManager.aiMonManager.EncounteredMon;
+        stateManager.playerCurMonster = stateManager.playerParty.GetFirstValidCombatant();
+        stateManager.aiCurMonster = stateManager.aiParty.GetFirstValidCombatant();
 
         Debug.Log(stateManager.aiCurMonster.moveSet.GetMove(0).moveTyping);
         Debug.Log(stateManager.playerCurMonster);

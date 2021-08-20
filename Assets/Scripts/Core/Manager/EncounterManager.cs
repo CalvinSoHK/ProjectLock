@@ -18,10 +18,6 @@ namespace Core.Player
         EncounterArea encounterArea = null;
         EncounterData curEncounter = null;
 
-        //Encountered mon
-        [SerializeField]
-        private MonIndObj encounteredMon = null;
-
         [SerializeField]
         private Encounter encounterInfo;
 
@@ -33,17 +29,6 @@ namespace Core.Player
             get
             {
                 return encounterInfo;
-            }
-        }
-
-        /// <summary>
-        /// Encountered mon (for wild encounters)
-        /// </summary>
-        public MonIndObj EncounteredMon
-        {
-           get
-            {
-                return encounteredMon;
             }
         }
 
@@ -86,8 +71,7 @@ namespace Core.Player
                     curEncounter = encounterArea.PickEncounter();
                     curChance = 0f;
                     MonIndObj indObj = new MonIndObj(CoreManager.Instance.dexManager.GetMonByID(curEncounter.dexID), curEncounter.level);
-                    encounteredMon = indObj;
-                    PartyManager wildMonParty = new PartyManager();
+                    Party wildMonParty = new Party();
                     wildMonParty.AddMember(indObj);
                     FireEncounter(new Encounter(EncounterType.Wild, wildMonParty));
                 }
@@ -157,9 +141,9 @@ namespace Core.Player
     public class Encounter
     {
         public EncounterType encounterType;
-        public PartyManager party;
+        public Party party;
 
-        public Encounter(EncounterType _type, PartyManager _party)
+        public Encounter(EncounterType _type, Party _party)
         {
             encounterType = _type;
             party = _party;

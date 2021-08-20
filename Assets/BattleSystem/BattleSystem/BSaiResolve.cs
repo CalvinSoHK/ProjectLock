@@ -81,10 +81,10 @@ public class BSaiResolve : BSstate
     {
         if (stateManager.healthManager.playerCurHP <= 0)
         {
-            stateManager.swapManager.SaveStats(stateManager.playerMonManager.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
-            if (stateManager.playerMonManager.GetFirstValidCombatant() != null)
+            stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
+            if (stateManager.playerParty.GetFirstValidCombatant() != null)
             {
-                Debug.Log(stateManager.playerMonManager.GetFirstValidCombatant().baseMon.name);
+                Debug.Log(stateManager.playerParty.GetFirstValidCombatant().baseMon.name);
 
                 stateManager.ChangeState(new BSplayerSwap(stateManager));
             }

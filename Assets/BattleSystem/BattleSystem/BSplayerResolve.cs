@@ -40,7 +40,7 @@ public class BSplayerResolve : BSstate
                 else if (stateManager.currentAction == 2)
                 {
                     //swap
-                    stateManager.swapManager.SaveStats(stateManager.playerMonManager.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
+                    stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
                     stateManager.swapManager.currentDisplayedMon = stateManager.currentSelectedMon;
                     stateManager.swapManager.SwapTo(stateManager.currentSelectedMon);
                     stateManager.dialogueText.dialogueTexts.text = $"Player swaps to {stateManager.currentSelectedMon} (Check swapManager)!";

@@ -26,7 +26,7 @@ namespace World.Trigger
                     return;
             }
 
-            Core.CoreManager.Instance.encounterManager.FireEncounter(new Encounter(type, GetComponent<PartyManager>()));
+            Core.CoreManager.Instance.encounterManager.FireEncounter(new Encounter(type, GetComponent<PartyManager>().party));
         }
     }
 }

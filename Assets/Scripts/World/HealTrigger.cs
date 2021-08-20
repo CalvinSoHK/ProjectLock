@@ -15,7 +15,7 @@ namespace World.Trigger
         /// </summary>
         public void HealPlayerParty()
         {
-            PartyManager party = Core.CoreManager.Instance.playerParty;
+            Party party = Core.CoreManager.Instance.playerParty.party;
 
             for(int i = 0; i < party.PartySize; i++)
             {

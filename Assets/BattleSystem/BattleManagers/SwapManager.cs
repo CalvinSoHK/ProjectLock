@@ -39,9 +39,9 @@ public class SwapManager : MonoBehaviour
     {
         for (int i = 0; i < playerMon.Count; i++)
         {
-            if (stateManager.playerMonManager.GetPartyMember(i) != null)
+            if (stateManager.playerParty.GetPartyMember(i) != null)
             {
-                playerParty.Add(stateManager.playerMonManager.GetPartyMember(i));
+                playerParty.Add(stateManager.playerParty.GetPartyMember(i));
             }
         }    
     }
@@ -98,7 +98,7 @@ public class SwapManager : MonoBehaviour
     /// <param name="selectedMon"></param>
     public void SwapTo(int selectedMon)
     {
-        stateManager.playerCurMonster = stateManager.playerMonManager.GetPartyMember(selectedMon);
+        stateManager.playerCurMonster = stateManager.playerParty.GetPartyMember(selectedMon);
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
         stateManager.monUIManager.SetUp();
     }

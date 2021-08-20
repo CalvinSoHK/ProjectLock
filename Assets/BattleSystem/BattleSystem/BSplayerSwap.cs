@@ -97,12 +97,12 @@ public class BSplayerSwap : BSstate
         //Personal ID for every Mon of player?
         //First Caught = 1?
         //2nd = 2
-        if (stateManager.playerMonManager.GetPartyMember(stateManager.currentSelectedMon).baseMon.name == stateManager.playerCurMonster.baseMon.name)
+        if (stateManager.playerParty.GetPartyMember(stateManager.currentSelectedMon).baseMon.name == stateManager.playerCurMonster.baseMon.name)
         {
             Debug.Log("Alreaedy Selected");
             return false;
         }
-        else if (stateManager.playerMonManager.GetPartyMember(stateManager.currentSelectedMon).battleObj.monStats.hp <= 0)
+        else if (stateManager.playerParty.GetPartyMember(stateManager.currentSelectedMon).battleObj.monStats.hp <= 0)
         {
             Debug.Log("Not Alive");
             return false;

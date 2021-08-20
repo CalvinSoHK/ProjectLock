@@ -20,8 +20,8 @@ public class BSstatemanager : MonoBehaviour
     public SwapManager swapManager;
     public AIDecisionMove aiDecisionMove;
     [Header("Mon Managers")]
-    public PartyManager playerMonManager;
-    public EncounterManager aiMonManager;
+    public Party playerParty;
+    public Party aiParty;
 
     public int currentMove;
     public int currentAction;
