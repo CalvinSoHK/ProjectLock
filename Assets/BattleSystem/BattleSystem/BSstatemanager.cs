@@ -41,6 +41,8 @@ public class BSstatemanager : MonoBehaviour
     public bool playerHasGone;
     public bool aiHasGone;
 
+    public EncounterType encounterType;
+
     //Temp
     public int aihealthpots;
     public int playerhealthpots;

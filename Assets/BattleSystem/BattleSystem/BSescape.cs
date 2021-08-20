@@ -30,7 +30,7 @@ public class BSescape : BSstate
         {
             if (canEscape)
             {
-                Core.CoreManager.Instance.encounterManager.FinishEncounter();
+                Core.CoreManager.Instance.encounterManager.FinishEncounterAsync();
             }
              else
             {
