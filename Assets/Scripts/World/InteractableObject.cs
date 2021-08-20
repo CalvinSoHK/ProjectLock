@@ -19,5 +19,10 @@ namespace World
         {
             OnInteract?.Invoke();
         }
+
+        public void InteractComplete()
+        {
+            OnInteractComplete?.Invoke();
+        }
     }
 }

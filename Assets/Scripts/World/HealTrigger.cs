@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace World
+namespace World.Trigger
 {
     /// <summary>
     /// Allows us to trigger a heal on player party
