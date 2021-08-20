@@ -1347,46 +1347,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   party:
-  - baseMon:
-      ID: 1
-      generationID: 1
-      name: 
-      stage: 0
-      next_evoID: 0
-      prev_evoID: 0
-      primaryType: 0
-      secondaryType: 0
-      growthType: 0
-      baseStats:
+    party:
+    - baseMon:
+        ID: 1
+        generationID: 1
+        name: 
+        stage: 0
+        next_evoID: 0
+        prev_evoID: 0
+        primaryType: 0
+        secondaryType: 0
+        growthType: 0
+        baseStats:
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+          statTotal: 0
+        catchRate: 0
+        weight: 0
+        exp_gain: 0
+        learnableMoves: []
+        teachableMoves: []
+        assignedTags: []
+      stats:
+        level: 100
         hp: 0
         def: 0
         spDef: 0
         atk: 0
         spAtk: 0
         speed: 0
-        statTotal: 0
-      catchRate: 0
-      weight: 0
-      exp_gain: 0
-      learnableMoves: []
-      teachableMoves: []
-      assignedTags: []
-    stats:
-      level: 0
-      hp: 0
-      def: 0
-      spDef: 0
-      atk: 0
-      spAtk: 0
-      speed: 0
-    moveSet:
       moveSet:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    battleObj:
-      monStats:
+        moveSet:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      battleObj:
+        monStats:
+          level: 0
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+    - baseMon:
+        ID: 0
+        generationID: 0
+        name: 
+        stage: 0
+        next_evoID: 0
+        prev_evoID: 0
+        primaryType: 0
+        secondaryType: 0
+        growthType: 0
+        baseStats:
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+          statTotal: 0
+        catchRate: 0
+        weight: 0
+        exp_gain: 0
+        learnableMoves: []
+        teachableMoves: []
+        assignedTags: []
+      stats:
         level: 0
         hp: 0
         def: 0
@@ -1394,46 +1427,46 @@ MonoBehaviour:
         atk: 0
         spAtk: 0
         speed: 0
-  - baseMon:
-      ID: 0
-      generationID: 0
-      name: 
-      stage: 0
-      next_evoID: 0
-      prev_evoID: 0
-      primaryType: 0
-      secondaryType: 0
-      growthType: 0
-      baseStats:
-        hp: 0
-        def: 0
-        spDef: 0
-        atk: 0
-        spAtk: 0
-        speed: 0
-        statTotal: 0
-      catchRate: 0
-      weight: 0
-      exp_gain: 0
-      learnableMoves: []
-      teachableMoves: []
-      assignedTags: []
-    stats:
-      level: 0
-      hp: 0
-      def: 0
-      spDef: 0
-      atk: 0
-      spAtk: 0
-      speed: 0
-    moveSet:
       moveSet:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    battleObj:
-      monStats:
+        moveSet:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      battleObj:
+        monStats:
+          level: 0
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+    - baseMon:
+        ID: 0
+        generationID: 0
+        name: 
+        stage: 0
+        next_evoID: 0
+        prev_evoID: 0
+        primaryType: 0
+        secondaryType: 0
+        growthType: 0
+        baseStats:
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+          statTotal: 0
+        catchRate: 0
+        weight: 0
+        exp_gain: 0
+        learnableMoves: []
+        teachableMoves: []
+        assignedTags: []
+      stats:
         level: 0
         hp: 0
         def: 0
@@ -1441,46 +1474,46 @@ MonoBehaviour:
         atk: 0
         spAtk: 0
         speed: 0
-  - baseMon:
-      ID: 0
-      generationID: 0
-      name: 
-      stage: 0
-      next_evoID: 0
-      prev_evoID: 0
-      primaryType: 0
-      secondaryType: 0
-      growthType: 0
-      baseStats:
-        hp: 0
-        def: 0
-        spDef: 0
-        atk: 0
-        spAtk: 0
-        speed: 0
-        statTotal: 0
-      catchRate: 0
-      weight: 0
-      exp_gain: 0
-      learnableMoves: []
-      teachableMoves: []
-      assignedTags: []
-    stats:
-      level: 0
-      hp: 0
-      def: 0
-      spDef: 0
-      atk: 0
-      spAtk: 0
-      speed: 0
-    moveSet:
       moveSet:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    battleObj:
-      monStats:
+        moveSet:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      battleObj:
+        monStats:
+          level: 0
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+    - baseMon:
+        ID: 0
+        generationID: 0
+        name: 
+        stage: 0
+        next_evoID: 0
+        prev_evoID: 0
+        primaryType: 0
+        secondaryType: 0
+        growthType: 0
+        baseStats:
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+          statTotal: 0
+        catchRate: 0
+        weight: 0
+        exp_gain: 0
+        learnableMoves: []
+        teachableMoves: []
+        assignedTags: []
+      stats:
         level: 0
         hp: 0
         def: 0
@@ -1488,46 +1521,46 @@ MonoBehaviour:
         atk: 0
         spAtk: 0
         speed: 0
-  - baseMon:
-      ID: 0
-      generationID: 0
-      name: 
-      stage: 0
-      next_evoID: 0
-      prev_evoID: 0
-      primaryType: 0
-      secondaryType: 0
-      growthType: 0
-      baseStats:
-        hp: 0
-        def: 0
-        spDef: 0
-        atk: 0
-        spAtk: 0
-        speed: 0
-        statTotal: 0
-      catchRate: 0
-      weight: 0
-      exp_gain: 0
-      learnableMoves: []
-      teachableMoves: []
-      assignedTags: []
-    stats:
-      level: 0
-      hp: 0
-      def: 0
-      spDef: 0
-      atk: 0
-      spAtk: 0
-      speed: 0
-    moveSet:
       moveSet:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    battleObj:
-      monStats:
+        moveSet:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      battleObj:
+        monStats:
+          level: 0
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+    - baseMon:
+        ID: 0
+        generationID: 0
+        name: 
+        stage: 0
+        next_evoID: 0
+        prev_evoID: 0
+        primaryType: 0
+        secondaryType: 0
+        growthType: 0
+        baseStats:
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+          statTotal: 0
+        catchRate: 0
+        weight: 0
+        exp_gain: 0
+        learnableMoves: []
+        teachableMoves: []
+        assignedTags: []
+      stats:
         level: 0
         hp: 0
         def: 0
@@ -1535,46 +1568,46 @@ MonoBehaviour:
         atk: 0
         spAtk: 0
         speed: 0
-  - baseMon:
-      ID: 0
-      generationID: 0
-      name: 
-      stage: 0
-      next_evoID: 0
-      prev_evoID: 0
-      primaryType: 0
-      secondaryType: 0
-      growthType: 0
-      baseStats:
-        hp: 0
-        def: 0
-        spDef: 0
-        atk: 0
-        spAtk: 0
-        speed: 0
-        statTotal: 0
-      catchRate: 0
-      weight: 0
-      exp_gain: 0
-      learnableMoves: []
-      teachableMoves: []
-      assignedTags: []
-    stats:
-      level: 0
-      hp: 0
-      def: 0
-      spDef: 0
-      atk: 0
-      spAtk: 0
-      speed: 0
-    moveSet:
       moveSet:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    battleObj:
-      monStats:
+        moveSet:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      battleObj:
+        monStats:
+          level: 0
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+    - baseMon:
+        ID: 0
+        generationID: 0
+        name: 
+        stage: 0
+        next_evoID: 0
+        prev_evoID: 0
+        primaryType: 0
+        secondaryType: 0
+        growthType: 0
+        baseStats:
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
+          statTotal: 0
+        catchRate: 0
+        weight: 0
+        exp_gain: 0
+        learnableMoves: []
+        teachableMoves: []
+        assignedTags: []
+      stats:
         level: 0
         hp: 0
         def: 0
@@ -1582,53 +1615,21 @@ MonoBehaviour:
         atk: 0
         spAtk: 0
         speed: 0
-  - baseMon:
-      ID: 0
-      generationID: 0
-      name: 
-      stage: 0
-      next_evoID: 0
-      prev_evoID: 0
-      primaryType: 0
-      secondaryType: 0
-      growthType: 0
-      baseStats:
-        hp: 0
-        def: 0
-        spDef: 0
-        atk: 0
-        spAtk: 0
-        speed: 0
-        statTotal: 0
-      catchRate: 0
-      weight: 0
-      exp_gain: 0
-      learnableMoves: []
-      teachableMoves: []
-      assignedTags: []
-    stats:
-      level: 0
-      hp: 0
-      def: 0
-      spDef: 0
-      atk: 0
-      spAtk: 0
-      speed: 0
-    moveSet:
       moveSet:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    battleObj:
-      monStats:
-        level: 0
-        hp: 0
-        def: 0
-        spDef: 0
-        atk: 0
-        spAtk: 0
-        speed: 0
+        moveSet:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      battleObj:
+        monStats:
+          level: 0
+          hp: 0
+          def: 0
+          spDef: 0
+          atk: 0
+          spAtk: 0
+          speed: 0
 --- !u!114 &1219582081
 MonoBehaviour:
   m_ObjectHideFlags: 0

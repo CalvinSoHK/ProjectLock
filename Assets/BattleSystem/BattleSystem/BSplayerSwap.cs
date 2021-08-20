@@ -27,7 +27,7 @@ public class BSplayerSwap : BSstate
                 if (SelectMonCheck())
                 {
                     stateManager.swapManager.currentDisplayedMon = stateManager.currentSelectedMon;
-                    stateManager.swapManager.SwapTo(stateManager.currentSelectedMon);
+                    stateManager.swapManager.SwapToPlayer(stateManager.currentSelectedMon);
                     stateManager.ChangeState(new BSplayerTurn(stateManager));
                 }
             } else
@@ -97,7 +97,7 @@ public class BSplayerSwap : BSstate
         //Personal ID for every Mon of player?
         //First Caught = 1?
         //2nd = 2
-        if (stateManager.playerParty.GetPartyMember(stateManager.currentSelectedMon).baseMon.name == stateManager.playerCurMonster.baseMon.name)
+        if (stateManager.playerParty.GetPartyMember(stateManager.currentSelectedMon) == stateManager.playerCurMonster)
         {
             Debug.Log("Alreaedy Selected");
             return false;

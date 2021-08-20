@@ -74,9 +74,9 @@ public class AIDecisionMove : MonoBehaviour
         /// <param name="maxMoves"></param>
         /// <returns></returns>
         void RandomMoveSelection(int maxMoves)
-    {
-        stateManager.aiCurrentMove = Random.Range(0, maxMoves - 1);
+        {
+            stateManager.aiCurrentMove = Random.Range(0, maxMoves - 1);
 
-    }
+        }
 
 }

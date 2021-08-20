@@ -24,7 +24,7 @@ public class BSaiTurn : BSstate
 
     public override void Run()
     {
-        if (stateManager.aiMonManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
+        if (Core.CoreManager.Instance.encounterManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
         {
             Action(stateManager.aiCurrentAction);
         }

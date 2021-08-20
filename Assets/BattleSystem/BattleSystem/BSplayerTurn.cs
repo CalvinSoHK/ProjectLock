@@ -100,7 +100,7 @@ public class BSplayerTurn : BSstate
             } else if (stateManager.currentAction == 3) //Escape
             {
                 //Escape checker?
-                if (stateManager.aiMonManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
+                if (Core.CoreManager.Instance.encounterManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
                 {
                     Debug.Log("You cannot escape from non-wild");
                 }

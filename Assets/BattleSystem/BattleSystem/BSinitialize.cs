@@ -26,11 +26,13 @@ public class BSinitialize : BSstate
 
         //Reference each players current Mon
         stateManager.playerCurMonster = stateManager.playerParty.GetFirstValidCombatant();
+        if (stateManager.aiParty.GetFirstValidCombatant() == null)
+        {
+            Debug.LogError("null");
+        }
         stateManager.aiCurMonster = stateManager.aiParty.GetFirstValidCombatant();
 
-        Debug.Log(stateManager.aiCurMonster.moveSet.GetMove(0).moveTyping);
-        Debug.Log(stateManager.playerCurMonster);
-        Debug.Log(Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.playerCurMonster, stateManager.aiCurMonster.moveSet.GetMove(0).moveTyping));
+        Debug.Log(stateManager.aiCurMonster.moveSet.GetMove(0));
         //Setup mon health Cur/Max
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
         stateManager.healthManager.HealthAISetUp(stateManager.aiCurMonster);

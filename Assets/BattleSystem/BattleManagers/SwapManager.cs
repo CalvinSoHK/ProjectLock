@@ -96,10 +96,21 @@ public class SwapManager : MonoBehaviour
     /// Swaps to selected Mon and sets up UI, health
     /// </summary>
     /// <param name="selectedMon"></param>
-    public void SwapTo(int selectedMon)
+    public void SwapToPlayer(int selectedMon)
     {
         stateManager.playerCurMonster = stateManager.playerParty.GetPartyMember(selectedMon);
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
+        stateManager.monUIManager.SetUp();
+    }
+
+    /// <summary>
+    /// Swaps to selected Mon and sets up UI, health
+    /// </summary>
+    /// <param name="selectedMon"></param>
+    public void SwapToAI(int selectedMon)
+    {
+        stateManager.aiCurMonster = stateManager.aiParty.GetPartyMember(selectedMon);
+        stateManager.healthManager.HealthPlayerSetUp(stateManager.aiCurMonster);
         stateManager.monUIManager.SetUp();
     }
 }

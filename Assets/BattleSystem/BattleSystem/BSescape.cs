@@ -30,6 +30,7 @@ public class BSescape : BSstate
         {
             if (canEscape)
             {
+                stateManager.swapManager.SaveStats(stateManager.playerCurMonster);
                 Core.CoreManager.Instance.encounterManager.FinishEncounterAsync();
             }
              else

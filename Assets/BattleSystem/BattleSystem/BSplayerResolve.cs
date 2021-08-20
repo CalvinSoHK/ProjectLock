@@ -42,7 +42,7 @@ public class BSplayerResolve : BSstate
                     //swap
                     stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
                     stateManager.swapManager.currentDisplayedMon = stateManager.currentSelectedMon;
-                    stateManager.swapManager.SwapTo(stateManager.currentSelectedMon);
+                    stateManager.swapManager.SwapToPlayer(stateManager.currentSelectedMon);
                     stateManager.dialogueText.dialogueTexts.text = $"Player swaps to {stateManager.currentSelectedMon} (Check swapManager)!";
                     stateManager.playerHasGone = true;
                 }
@@ -91,7 +91,14 @@ public class BSplayerResolve : BSstate
             
             Debug.Log("Player wins");
             //Earn XP based on enemy mon
-            stateManager.ChangeState(new BSwon(stateManager));
+            if (Core.CoreManager.Instance.encounterManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
+            {
+
+            }
+            else
+            {
+                stateManager.ChangeState(new BSwon(stateManager));
+            }
         }
     }
 
