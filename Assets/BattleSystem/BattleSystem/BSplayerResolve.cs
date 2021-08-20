@@ -49,7 +49,7 @@ public class BSplayerResolve : BSstate
                 else if (stateManager.currentAction == 3)
                 {
                     //escape
-                    Escape();
+                    stateManager.ChangeState(new BSescape(stateManager));
                 }
             }
             else
@@ -95,34 +95,4 @@ public class BSplayerResolve : BSstate
         }
     }
 
-    /// <summary>
-    /// Checks if player is able to escape
-    /// </summary>
-    void Escape()
-    {
-        //float odds = ((stateManager.playerCurMonster.stats.speed * 128) / (stateManager.aiCurMonster.stats.speed)) + (30 * attempts)
-        float currentEscape = Random.Range(0, 1f);
-        float odds = .8f; //80% chance
-
-        if (odds >= currentEscape)
-        {
-            stateManager.dialogueText.dialogueTexts.text = "You have escaped!";
-            
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                Core.CoreManager.Instance.encounterManager.FinishEncounter();
-            }
-        }
-        else
-        {
-            stateManager.dialogueText.dialogueTexts.text = "You are unable to escape!";
-            
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                stateManager.playerHasGone = true;
-            }
-
-        } 
-            
-    }
 }

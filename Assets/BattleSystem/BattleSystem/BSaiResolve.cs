@@ -30,7 +30,7 @@ public class BSaiResolve : BSstate
                     stateManager.aiDecisionMove.MoveSelection();
                     //Debug.Log("Hypothetical Move: " + stateManager.aiCurrentMove);
                     stateManager.damageManager.DealDamage(stateManager.playerCurMonster, stateManager.damageManager.DamageCalculationAI(stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove)));
-                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove).moveName}!";
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses{stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove).moveName}!";
                     DeathCheck();
                     stateManager.aiHasGone = true;
                 }
