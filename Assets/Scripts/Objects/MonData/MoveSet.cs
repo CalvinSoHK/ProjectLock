@@ -121,6 +121,9 @@ namespace Mon.MonData
                 }
             }
 
+            moveDamageList.Sort();
+            moveDamageList.Reverse();
+
             return moveDamageList;
         }
     }
