@@ -4,14 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mon.Enums;
 using System.Linq;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+
 
 namespace Mon.MonData
 {
-
-
     /// <summary>
     /// Data for Move data.
     /// </summary>
@@ -77,43 +73,6 @@ namespace Mon.MonData
                 typeDict.Add(relations.type, relations);
             }
         }
-
-        /*
-        private void OnValidate()
-        {
-            ValidateTypes();
-        }
-
-        /// <summary>
-        /// Validate types so it doesn't break
-        /// </summary>
-        private void ValidateTypes()
-        {
-            //For every type relations class in our list
-            foreach (TypeRelations typeRelation in typeRelations)
-            {
-                //For every single type relation class in that relation
-                foreach(SingleTypeRelation relation1 in typeRelation.relationList)
-                {
-                    //Grab the mirror relation to this type
-                    TypeRelations mirrorRelation = GetRelationOf(relation1.type);
-
-                    SingleTypeRelation relation2;
-                    if(mirrorRelation.relationDict.TryGetValue(typeRelation.type, out relation2))
-                    {
-                        if(relation1.relation != relation2.relation)
-                        {
-                            throw new TypeEffectivenessSOException("Relation of type : " + typeRelation.type + " and :" + mirrorRelation.type + " don't have a consistent relationship.");
-                        }
-                    }
-                    else
-                    {
-                        throw new TypeEffectivenessSOException("Attempted to find mirror relation of type: " + relation1.type);
-                    }           
-                }
-            }
-        }
-        */
 
         /// <summary>
         /// Returns the TypeRelations class of given type
@@ -251,136 +210,6 @@ namespace Mon.MonData
             multiplierList.Reverse();
 
             return multiplierList;
-        }
-    }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(TypeRelationSO))]
-    public class TypeEffectivenessSOEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            TypeRelationSO obj = (TypeRelationSO)target;
-
-            if(obj.targetType1 != MonType.None)
-            {
-                obj.displayRelations = obj.GetRelationOf(obj.targetType1);
-            }          
-
-            if(GUILayout.Button("Update Type Relation"))
-            {
-                obj.UpdateRelation();
-            }
-
-            if (GUILayout.Button("Update Dict"))
-            {
-                
-                obj.UpdateDict();
-            }
-        }
-    }
-#endif
-
-    [System.Serializable]
-    public class SingleTypeRelation
-    {
-        //The type in relation to
-        public MonType type;
-
-        //Relationship between the two types
-        public TypeRelation relation;
-
-        public SingleTypeRelation(MonType _type)
-        {
-            type = _type;
-        }
-    }
-
-    [System.Serializable]
-    public class TypeRelations
-    {
-        //Type we are relating to all others
-        public MonType type;
-
-        //List of single type relation classes
-        public List<SingleTypeRelation> relationList;
-
-        //Dictionary of single type relations, key is montype
-        public Dictionary<MonType, SingleTypeRelation> relationDict = new Dictionary<MonType, SingleTypeRelation>();
-
-        public TypeRelations(MonType _type)
-        {
-            type = _type;
-
-            //Get list of all montypes
-            List<MonType> types = Enum.GetValues(typeof(MonType))
-                                .Cast<MonType>()
-                                .ToList();
-
-            relationList = new List<SingleTypeRelation>();
-
-            //Add every type into type list
-            foreach (MonType type in types)
-            {
-                if (type != MonType.None)
-                {
-                    relationList.Add(new SingleTypeRelation(type));
-                }
-            }
-
-            UpdateDict();
-        }
-    
-        /// <summary>
-        /// Grabs the single type relation of a type.
-        /// Returns null if it fails
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public SingleTypeRelation GetRelation(MonType type)
-        {
-            SingleTypeRelation value;
-            if(relationDict.TryGetValue(type, out value))
-            {
-                return value;
-            }
-            return null;
-        }
-
-        public void UpdateDict()
-        {
-            //Clear and populate dict
-            relationDict.Clear();
-
-            foreach (SingleTypeRelation relation in relationList)
-            {
-                relationDict.Add(relation.type, relation);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Type and multiplier in one struct
-    /// </summary>
-    public struct TypeMultiplier : IComparable
-    {
-        public MonType type;
-        public float multiplier;
-
-        public TypeMultiplier(MonType _type, float _multiplier)
-        {
-            type = _type;
-            multiplier = _multiplier;
-        }
-
-        public int CompareTo(object obj)
-        {
-            if (obj == null) return 1;
-
-            TypeMultiplier _typeMultiplier = (TypeMultiplier)obj;
-            return multiplier.CompareTo(_typeMultiplier.multiplier);
         }
     }
 

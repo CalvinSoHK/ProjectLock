@@ -55,8 +55,10 @@ public class MoveSet_Test
         Assert.AreEqual(2, moveDamageList.Count);
         Assert.AreEqual(0, moveDamageList[0].index);
         Assert.AreEqual(50, moveDamageList[0].power);
+        Assert.AreEqual(1, moveDamageList[0].typeMultiplier);
         Assert.AreEqual(1, moveDamageList[1].index);
         Assert.AreEqual(10, moveDamageList[1].power);
+        Assert.AreEqual(0.5, moveDamageList[1].typeMultiplier);
 
         //Test we are able to swap moves
         moveSet.SwitchMoveIndex(0, 1);

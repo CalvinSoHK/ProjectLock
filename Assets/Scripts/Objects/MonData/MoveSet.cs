@@ -117,48 +117,11 @@ namespace Mon.MonData
                 {
                     float moveMultiplier = typeMultiplierList.Find(x => x.type == move.moveTyping).multiplier;
                     int power = Mathf.RoundToInt(move.power * moveMultiplier);
-                    moveDamageList.Add(new MoveDamage(move, power, i));
+                    moveDamageList.Add(new MoveDamage(move, power, i, moveMultiplier));
                 }
             }
 
             return moveDamageList;
-        }
-    }
-
-    /// <summary>
-    /// Class that holds the power the move should do
-    /// And the move in question
-    /// </summary>
-    public class MoveDamage : IComparable
-    {
-        /// <summary>
-        /// The full move data
-        /// </summary>
-        public MoveData moveData;
-
-        /// <summary>
-        /// The theoretical power of the mon
-        /// </summary>
-        public int power;
-
-        /// <summary>
-        /// Index of the move on the mon
-        /// </summary>
-        public int index;
-
-        public MoveDamage(MoveData _moveData, int _power, int _index)
-        {
-            moveData = _moveData;
-            power = _power;
-            index = _index;
-        }
-
-        public int CompareTo(object obj)
-        {
-            if (obj == null) return 1;
-
-            MoveDamage _moveDamage = (MoveDamage)obj;
-            return power.CompareTo(_moveDamage.power);
         }
     }
 }
