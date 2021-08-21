@@ -17,15 +17,7 @@ public class TypeRelationSO_Test
     [Test]
     public void TypeRelationSO_TestSimplePasses()
     {
-        
 
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator TypeRelationSO_TestWithEnumeratorPasses()
-    {
         //Test Constructor of TypeRelations
         TypeRelations normalRelations = new TypeRelations(MonType.Normal);
 
@@ -109,17 +101,21 @@ public class TypeRelationSO_Test
 
         MonIndObj testMon = new MonIndObj(testGenMon, 1);
 
-        List<MonType> weakTypes = typeRelation.GetSortedWeakness(testMon);
+        List<TypeMultiplier> weakTypes = typeRelation.GetSortedWeakness(testMon);
 
         Assert.IsTrue(weakTypes != null);
         Assert.AreEqual(18, weakTypes.Count);
-        Assert.AreEqual(MonType.Rock, weakTypes[0]);
-        Assert.AreEqual(MonType.Water, weakTypes[1]);
-        Assert.AreEqual(MonType.Steel, weakTypes[15]);
-        Assert.AreEqual(MonType.Psychic, weakTypes[16]);
-        Assert.AreEqual(MonType.Flying, weakTypes[17]);
+        Assert.AreEqual(MonType.Rock, weakTypes[0].type);
+        Assert.AreEqual(4, weakTypes[0].multiplier);
+        Assert.AreEqual(MonType.Water, weakTypes[1].type);
+        Assert.AreEqual(2, weakTypes[1].multiplier);
+        Assert.AreEqual(MonType.Steel, weakTypes[15].type);
+        Assert.AreEqual(0.5, weakTypes[15].multiplier);
+        Assert.AreEqual(MonType.Psychic, weakTypes[16].type);
+        Assert.AreEqual(0.25, weakTypes[16].multiplier);
+        Assert.AreEqual(MonType.Flying, weakTypes[17].type);
+        Assert.AreEqual(0, weakTypes[17].multiplier);
 
-        yield return null;
     }
 
     /// <summary>

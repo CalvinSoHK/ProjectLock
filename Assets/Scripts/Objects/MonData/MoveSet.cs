@@ -1,4 +1,5 @@
 ﻿using Mon.Moves;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -88,17 +89,76 @@ namespace Mon.MonData
         }
 
         /// <summary>
-        /// Sets move1 to index1, and move2 to index2.
+        /// Swaps moves between two indexes
         /// </summary>
-        /// <param name="move1"></param>
         /// <param name="index1"></param>
-        /// <param name="move2"></param>
         /// <param name="index2"></param>
-        public void SwitchMoveIndex(MoveData move1, int index1, MoveData move2, int index2)
+        public void SwitchMoveIndex(int index1, int index2)
         {
-            moveSet[index1] = move1;
-            moveSet[index2] = move2;
+            MoveData temp = GetMove(0);
+            moveSet[index1] = GetMove(1);
+            moveSet[index2] = temp;
         }
 
+        /// <summary>
+        /// Returns a list of MoveDamage which contains the preliminary power guess of each move
+        /// </summary>
+        /// <param name="typeMultiplierList"></param>
+        /// <returns></returns>
+        public List<MoveDamage> CalcMovePower(List<TypeMultiplier> typeMultiplierList)
+        {
+            List<MoveDamage> moveDamageList = new List<MoveDamage>();
+
+            //Loop through all moves
+            for (int i = 0; i < MoveMaxCount; i++)
+            {
+                MoveData move = GetMove(i);
+                if (move != null)
+                {
+                    float moveMultiplier = typeMultiplierList.Find(x => x.type == move.moveTyping).multiplier;
+                    int power = Mathf.RoundToInt(move.power * moveMultiplier);
+                    moveDamageList.Add(new MoveDamage(move, power, i));
+                }
+            }
+
+            return moveDamageList;
+        }
+    }
+
+    /// <summary>
+    /// Class that holds the power the move should do
+    /// And the move in question
+    /// </summary>
+    public class MoveDamage : IComparable
+    {
+        /// <summary>
+        /// The full move data
+        /// </summary>
+        public MoveData moveData;
+
+        /// <summary>
+        /// The theoretical power of the mon
+        /// </summary>
+        public int power;
+
+        /// <summary>
+        /// Index of the move on the mon
+        /// </summary>
+        public int index;
+
+        public MoveDamage(MoveData _moveData, int _power, int _index)
+        {
+            moveData = _moveData;
+            power = _power;
+            index = _index;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            MoveDamage _moveDamage = (MoveDamage)obj;
+            return power.CompareTo(_moveDamage.power);
+        }
     }
 }

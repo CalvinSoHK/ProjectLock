@@ -229,10 +229,8 @@ namespace Mon.MonData
         /// </summary>
         /// <param name="mon"></param>
         /// <returns></returns>
-        public List<MonType> GetSortedWeakness(MonIndObj mon)
+        public List<TypeMultiplier> GetSortedWeakness(MonIndObj mon)
         {
-            List<MonType> sorted = new List<MonType>();
-
             //Get list of all montypes
             List<MonType> types = Enum.GetValues(typeof(MonType))
                                 .Cast<MonType>()
@@ -252,12 +250,7 @@ namespace Mon.MonData
             multiplierList.Sort();
             multiplierList.Reverse();
 
-            foreach(TypeMultiplier multiplier in multiplierList)
-            {
-                sorted.Add(multiplier.type);
-            }
-
-            return sorted;
+            return multiplierList;
         }
     }
 

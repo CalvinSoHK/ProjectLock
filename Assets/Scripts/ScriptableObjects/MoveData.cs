@@ -11,7 +11,13 @@ namespace Mon.Moves
     public class MoveData : ScriptableObject
     {
         public string moveName;
+        /// <summary>
+        /// Fire, Water, etc
+        /// </summary>
         public MonType moveTyping;
+        /// <summary>
+        /// Physical, special, status
+        /// </summary>
         public MoveType moveType;
         public int power;
         public int accuracy;
