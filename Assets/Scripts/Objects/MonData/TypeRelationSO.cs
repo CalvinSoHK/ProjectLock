@@ -48,7 +48,11 @@ namespace Mon.MonData
         {
             get
             {
-                return TypeRelations;
+                return typeRelations;
+            }
+            set
+            {
+                typeRelations = value;
             }
         }
 
@@ -218,6 +222,43 @@ namespace Mon.MonData
                     return 1f;
             }
         }
+
+        /// <summary>
+        /// Returns a list of decreasing effective moves on this mon.
+        /// First type is strongest, last is weakest.
+        /// </summary>
+        /// <param name="mon"></param>
+        /// <returns></returns>
+        public List<MonType> GetSortedWeakness(MonIndObj mon)
+        {
+            List<MonType> sorted = new List<MonType>();
+
+            //Get list of all montypes
+            List<MonType> types = Enum.GetValues(typeof(MonType))
+                                .Cast<MonType>()
+                                .ToList();
+
+            List<TypeMultiplier> multiplierList = new List<TypeMultiplier>();
+
+            //Add every type into type list
+            foreach (MonType type in types)
+            {
+                if (type != MonType.None)
+                {
+                    multiplierList.Add(new TypeMultiplier(type, GetMultiplier(mon, type)));
+                }
+            }
+
+            multiplierList.Sort();
+            multiplierList.Reverse();
+
+            foreach(TypeMultiplier multiplier in multiplierList)
+            {
+                sorted.Add(multiplier.type);
+            }
+
+            return sorted;
+        }
     }
 
 #if UNITY_EDITOR
@@ -296,13 +337,7 @@ namespace Mon.MonData
                 }
             }
 
-            //Clear and populate dict
-            relationDict.Clear();
-
-            foreach(SingleTypeRelation relation in relationList)
-            {
-                relationDict.Add(relation.type, relation);
-            }
+            UpdateDict();
         }
     
         /// <summary>
@@ -319,6 +354,40 @@ namespace Mon.MonData
                 return value;
             }
             return null;
+        }
+
+        public void UpdateDict()
+        {
+            //Clear and populate dict
+            relationDict.Clear();
+
+            foreach (SingleTypeRelation relation in relationList)
+            {
+                relationDict.Add(relation.type, relation);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Type and multiplier in one struct
+    /// </summary>
+    public struct TypeMultiplier : IComparable
+    {
+        public MonType type;
+        public float multiplier;
+
+        public TypeMultiplier(MonType _type, float _multiplier)
+        {
+            type = _type;
+            multiplier = _multiplier;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            TypeMultiplier _typeMultiplier = (TypeMultiplier)obj;
+            return multiplier.CompareTo(_typeMultiplier.multiplier);
         }
     }
 
