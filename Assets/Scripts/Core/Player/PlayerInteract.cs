@@ -17,6 +17,13 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     LayerMask layers;
 
+    private const float INTERACT_ENABLE_TICK = 1f;
+
+    /// <summary>
+    /// Checks to see if already enabling. If so prevent further enable interact calls.
+    /// </summary>
+    private bool enabling = false;
+
     private void Update()
     {
         CheckInteract();
@@ -54,7 +61,11 @@ public class PlayerInteract : MonoBehaviour
     /// </summary>
     public void EnableInteract()
     {
-        StartCoroutine(EnableOnNextFrame());
+        if (!enabling)
+        {
+            StartCoroutine(EnableOnNextFrame());
+            enabling = true;
+        }   
     }
 
     /// <summary>
@@ -64,7 +75,8 @@ public class PlayerInteract : MonoBehaviour
     /// <returns></returns>
     private IEnumerator EnableOnNextFrame()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(INTERACT_ENABLE_TICK);
         interactOn = true;
+        enabling = false;
     }
 }

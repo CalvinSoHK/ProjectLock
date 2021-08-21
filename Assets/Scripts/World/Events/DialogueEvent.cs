@@ -13,6 +13,18 @@ namespace World.Event
             sceneName = "";
 
         /// <summary>
+        /// When true, at the beginning of this dialogue it will disable interact
+        /// </summary>
+        [SerializeField]
+        private bool disableInteract = true;
+
+        /// <summary>
+        /// When true, at the end of this dialogue it will re-enable interact 
+        /// </summary>
+        [SerializeField]
+        private bool enableInteract = true;
+
+        /// <summary>
         /// Fires this dialogue event as a normal dialogue event.
         /// Will re-enable player interact at the end of dialogue.
         /// </summary>
@@ -30,7 +42,11 @@ namespace World.Event
         /// <param name="obj"></param>
         private void FireOnDialogue(DialogueObject obj)
         {
-            Core.CoreManager.Instance.interact.DisableInteract();
+            if (disableInteract)
+            {
+                Core.CoreManager.Instance.interact.DisableInteract();
+            }
+            
             OnEventFire?.Invoke();
             DialogueManager.OnDialogueFire -= FireOnDialogue;
         }
@@ -41,7 +57,11 @@ namespace World.Event
         /// <param name="obj"></param>
         private void FireOnDialogueAfter(DialogueObject obj)
         {
-            Core.CoreManager.Instance.interact.EnableInteract();
+            if (enableInteract)
+            {
+                Core.CoreManager.Instance.interact.EnableInteract();
+            }
+            
             OnAfterEventFire?.Invoke();
             DialogueManager.OnDialogueAfterFire -= FireOnDialogueAfter;
         }

@@ -11,7 +11,7 @@ public class MoveSet_Test
 {
     // A Test behaves as an ordinary method
     [Test]
-    public void MoveSet_TestSimplePasses()
+    public void MoveSet_Tests()
     {
         // Use the Assert class to test conditions
         MoveSet moveSet = new MoveSet();

@@ -305,6 +305,21 @@ PrefabInstance:
       propertyPath: party.party.Array.data[0].baseMon.generationID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8750036358576548800, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: preload
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750036358576548800, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: inventory.itemList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750036358576548800, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: inventory.itemList.Array.data[0]
+      value: DemotownKey
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5023eb6124a3bad40b628e8e59aab62e, type: 3}
 --- !u!1 &1108972843

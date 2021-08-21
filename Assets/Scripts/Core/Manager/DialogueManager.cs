@@ -28,6 +28,12 @@ namespace Core.Dialogue
         /// </summary>
         private Dictionary<string, SceneDialogueObject> dialogueDict = new Dictionary<string, SceneDialogueObject>();
 
+        /// <summary>
+        /// If set to true it will preload at start
+        /// </summary>
+        [SerializeField]
+        private bool preload = false;
+
         private void OnEnable()
         {
             Core.World.WorldManager.OnSceneStartLoad += RegisterSceneDialogue;
@@ -45,7 +51,10 @@ namespace Core.Dialogue
         /// </summary>
         private void Start()
         {
-            PreloadData();
+            if (preload)
+            {
+                PreloadData();
+            }         
         }
 
         /// <summary>
@@ -173,6 +182,15 @@ namespace Core.Dialogue
         public void FireDialogueEvent(string sceneName, string dialogueID)
         {
             OnDialogueFire?.Invoke(GrabDialogueObject(sceneName, dialogueID));
+        }
+
+        /// <summary>
+        /// Fires dialogue with given dialogue object
+        /// </summary>
+        /// <param name="dialogue"></param>
+        public void FireDialogue(DialogueObject dialogueObj)
+        {
+            OnDialogueFire?.Invoke(dialogueObj);
         }
 
         /// <summary>

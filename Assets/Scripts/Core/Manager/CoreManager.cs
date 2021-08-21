@@ -9,6 +9,7 @@ using World;
 using Core.AddressableSystem;
 using System.Threading.Tasks;
 using Mon.MonData;
+using Inventory;
 
 namespace Core
 {
@@ -49,6 +50,9 @@ namespace Core
 
         [SerializeField]
         public CameraManager camera;
+
+        [SerializeField]
+        public InventoryManager playerInventory;
 
         [Header("Managers")]
         [SerializeField]

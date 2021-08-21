@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -21,8 +22,43 @@ namespace Core.AddressableSystem
         /// <summary>
         /// Dictionary that stores addressable handles with key: path and value: handles
         /// </summary>
-        private Dictionary<string, UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
-            handleDict = new Dictionary<string, UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>();
+        private ConcurrentDictionary<string, UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
+            handleDict = new ConcurrentDictionary<string, UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>();
+
+
+        /// <summary>
+        /// Tries to load addressable from a path
+        /// If it succeeds, it will return true
+        /// Call LoadAddressable again to grab it with the same path. (Will not go through full load again when you do)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="path"></param>
+        /// <param name="logProgress"></param>
+        /// <returns></returns>
+        public async Task<bool> TryLoadAddressable<T>(string path, bool logProgress = false)
+        {
+            AsyncOperationHandle handle;
+            //If we've already loaded the path then this is definitely valid.
+            if (IsHandleLoaded(path))
+            {
+                return true;
+            }
+            else
+            {
+                handle = Addressables.LoadAssetAsync<T>(path);
+            }
+
+            try
+            {
+                await HandleHandle(handle, path, logProgress);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                return false;
+            }
+        }
 
         /// <summary>
         /// Loads given addressable asset.
@@ -32,18 +68,15 @@ namespace Core.AddressableSystem
         /// <returns></returns>
         public async Task<T> LoadAddressable<T>(string path, bool logProgress = false)
         {
-            AsyncOperationHandle handle;
-            if (IsPathLoaded(path))
+            if(await TryLoadAddressable<T>(path, logProgress))
             {
-                handle = GetHandle(path);
+                AsyncOperationHandle handle = GetHandle(path);
+                return (T)handle.Result;
             }
             else
             {
-                handle = Addressables.LoadAssetAsync<T>(path);
+                throw new System.Exception("AddressablesManager Exception: Attempted to load path that isn't valid. Be sure to call TryLoadAddressable before calling LoadAddressable.");
             }
-
-            await HandleHandle(handle, path, logProgress);
-            return (T)handle.Result;
         }
 
         /// <summary>
@@ -67,19 +100,13 @@ namespace Core.AddressableSystem
 
         /// <summary>
         /// Adds a handle to the dict with path as key
+        /// Returns true if successful
         /// </summary>
         /// <param name="path"></param>
         /// <param name="handle"></param>
-        private void AddHandle(string path, AsyncOperationHandle handle)
+        private bool AddHandle(string path, AsyncOperationHandle handle)
         {
-            if (!handleDict.ContainsKey(path))
-            {
-                handleDict.Add(path, handle);
-            }
-            else
-            {
-                throw new System.Exception("Attempting to load addressable that has already been loaded at path: " + path);
-            }
+            return handleDict.TryAdd(path, handle);
         }
 
         /// <summary>
@@ -108,7 +135,7 @@ namespace Core.AddressableSystem
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                if (!IsPathLoaded(path))
+                if (!IsHandleLoaded(path))
                 {
                     AddHandle(path, handle);
                 }             
@@ -125,36 +152,26 @@ namespace Core.AddressableSystem
 
         /// <summary>
         /// Releases addressable at given path.
-        /// Only works if addressable is loaded into dict.
+        /// Returns true if successful
         /// </summary>
         /// <param name="path"></param>
-        public void ReleaseAddressable(string path)
+        public bool ReleaseAddressable(string path)
         {
-            if (handleDict.ContainsKey(path))
+            AsyncOperationHandle handle;
+            if (handleDict.TryRemove(path, out handle))
             {
-                AsyncOperationHandle handle;
-                if (handleDict.TryGetValue(path, out handle))
-                {
-                    handleDict.Remove(path);
-                    Addressables.Release(handle);
-                }
-                else
-                {
-                    throw new System.Exception("AddressablesManager Error: Failed to retrieve handle that is in dict at path: " + path);
-                }
+                Addressables.Release(handle);
+                return true;
             }
-            else
-            {
-                throw new System.Exception("AddressablesManager Error: Attempting to release addressable that is not in dict at path: " + path);
-            }
+            return false;
         }
 
         /// <summary>
-        /// Checks if the path is loaded
+        /// Checks if there is a handle loaded for the given path
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public bool IsPathLoaded(string path)
+        public bool IsHandleLoaded(string path)
         {
             if (handleDict.ContainsKey(path))
             {

@@ -1,0 +1,54 @@
+{
+    "sceneName": "Demotown",
+    "dialogueObjects": [
+        {
+            "dialogueID": "demotown_youngster_kim",
+            "sceneName":"Demotown",
+            "speakerName": "Youngster Kim",
+            "dialogueText": "Bet you can't beat me!",
+            "hasNext": false
+        },
+        {
+            "dialogueID": "demotown_professor_wuwong_1",
+            "sceneName":"Demotown",
+            "speakerName": "Professor WuWong",
+            "dialogueText": "Welcome to Demotown!",
+            "hasNext": true,
+            "dialogueNextID": "demotown_professor_wuwong_2"
+        },
+        {
+            "dialogueID": "demotown_professor_wuwong_2",
+            "sceneName":"Demotown",
+            "speakerName": "Professor WuWong",
+            "dialogueText": "Do you want to trade your Demotown Key for some Capture Balls?",
+            "hasNext": false,
+            "dialogueNextID": "",
+            "requestConfirm" : true
+        },
+        {
+            "dialogueID": "demotown_professor_wuwong_confirm",
+            "sceneName":"Demotown",
+            "speakerName": "Professor WuWong",
+            "dialogueText": "Alright here you go.",
+            "hasNext": false,
+            "dialogueNextID": ""
+        },
+        {
+            "dialogueID": "demotown_professor_wuwong_unconfirm",
+            "sceneName":"Demotown",
+            "speakerName": "Professor WuWong",
+            "dialogueText": "Fine then...",
+            "hasNext": false,
+            "dialogueNextID": ""
+        }
+        ,
+        {
+            "dialogueID": "demotown_professor_wuwong_invalid",
+            "sceneName":"Demotown",
+            "speakerName": "Professor WuWong",
+            "dialogueText": "Don't lie to me, you don't have the Demotown Key anymore.",
+            "hasNext": false,
+            "dialogueNextID": ""
+        }
+    ]
+}

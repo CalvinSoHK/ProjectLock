@@ -15,7 +15,7 @@ public class TypeRelationSO_Test
 
     // A Test behaves as an ordinary method
     [Test]
-    public void TypeRelationSO_TestSimplePasses()
+    public void TypeRelationSO_Tests()
     {
 
         //Test Constructor of TypeRelations

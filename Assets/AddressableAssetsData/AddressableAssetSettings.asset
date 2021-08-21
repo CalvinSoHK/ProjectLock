@@ -32,6 +32,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0368a3d5b88e0084d9f9778e0f942394, type: 2}
   - {fileID: 11400000, guid: 4d7e2f1b9035c1d4d97ed25ff68108a6, type: 2}
   - {fileID: 11400000, guid: 7d422c80b28179f4b97fd652c4b0ad8e, type: 2}
+  - {fileID: 11400000, guid: 61dca0605f0bc3344a74ee80338ec797, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -76,6 +77,7 @@ MonoBehaviour:
     - Dialogue
     - MoveData
     - MonData
+    - ItemData
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 250a003ebc4d70e4ea0968bfca0e98d6, type: 2}
