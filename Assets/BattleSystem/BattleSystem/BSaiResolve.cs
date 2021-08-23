@@ -14,6 +14,7 @@ public class BSaiResolve : BSstate
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("Enemy Resolve");
         stateManager.dialogueText.enableDialogueText(true);
         //Debug.Log("Ai resolve");
     }
@@ -30,7 +31,7 @@ public class BSaiResolve : BSstate
                     stateManager.aiDecisionMove.MoveSelection();
                     //Debug.Log("Hypothetical Move: " + stateManager.aiCurrentMove);
                     stateManager.damageManager.DealDamage(stateManager.playerCurMonster, stateManager.damageManager.DamageCalculationAI(stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove)));
-                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses{stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove).moveName}!";
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove).moveName}!";
                     DeathCheck();
                     stateManager.aiHasGone = true;
                 }
@@ -81,7 +82,7 @@ public class BSaiResolve : BSstate
     {
         if (stateManager.healthManager.playerCurHP <= 0)
         {
-            stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
+            stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentActiveMon));
             if (stateManager.playerParty.GetFirstValidCombatant() != null)
             {
                 Debug.Log(stateManager.playerParty.GetFirstValidCombatant().baseMon.name);

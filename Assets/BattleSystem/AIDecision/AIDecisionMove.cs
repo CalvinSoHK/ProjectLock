@@ -55,7 +55,7 @@ public class AIDecisionMove : MonoBehaviour
             if (stateManager.aiCurMonster.moveSet.GetMove(i) != null)
             {
                 int currentDamage = stateManager.damageManager.DamageCalculationAI(stateManager.aiCurMonster.moveSet.GetMove(i));
-                
+
                 if (currentDamage > highestDamage)
                 {
                     highestDamage = currentDamage;
@@ -76,7 +76,6 @@ public class AIDecisionMove : MonoBehaviour
         void RandomMoveSelection(int maxMoves)
         {
             stateManager.aiCurrentMove = Random.Range(0, maxMoves - 1);
-
         }
 
 }

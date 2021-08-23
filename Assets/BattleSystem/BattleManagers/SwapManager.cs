@@ -15,7 +15,7 @@ public class SwapManager : MonoBehaviour
     public List<Text> playerMon;
 
     //Index of current mon
-    public int currentDisplayedMon;
+    public int currentActiveMon;
 
     // Player clicks selects monsterSelect (0-5)
     // Changes from playerMonster[currentMonster] to playerMonster[monsterSelect]
@@ -89,7 +89,13 @@ public class SwapManager : MonoBehaviour
     public void SaveStats(MonIndObj monster)
     {
         //Save playerMonCurHP to somewhere? partyManager?
-        monster.battleObj.monStats.hp = stateManager.healthManager.playerCurHP;
+        if (monster == stateManager.playerCurMonster)
+        {
+            monster.battleObj.monStats.hp = stateManager.healthManager.playerCurHP;
+        } else if (monster == stateManager.aiCurMonster)
+        {
+            monster.battleObj.monStats.hp = stateManager.healthManager.aiCurHP;
+        }
     }
 
     /// <summary>
@@ -110,7 +116,8 @@ public class SwapManager : MonoBehaviour
     public void SwapToAI(int selectedMon)
     {
         stateManager.aiCurMonster = stateManager.aiParty.GetPartyMember(selectedMon);
-        stateManager.healthManager.HealthPlayerSetUp(stateManager.aiCurMonster);
+        stateManager.healthManager.HealthAISetUp(stateManager.aiCurMonster);
         stateManager.monUIManager.SetUp();
+        Debug.Log("swapped to " + selectedMon);
     }
 }

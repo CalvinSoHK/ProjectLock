@@ -13,8 +13,9 @@ public class BSplayerResolve : BSstate
     public override void Enter()
     {
         base.Enter();
+        Debug.Log(stateManager.playerHasGone);
         stateManager.dialogueText.enableDialogueText(true);
-        //Debug.Log("player resolve");
+
     }
 
     public override void Run()
@@ -25,8 +26,9 @@ public class BSplayerResolve : BSstate
             {
                 if (stateManager.currentAction == 0)
                 {
+                    Debug.Log(stateManager.currentMove);
                     stateManager.damageManager.DealDamage(stateManager.aiCurMonster, stateManager.damageManager.DamageCalculationPlayer(stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove)));
-                    stateManager.dialogueText.dialogueTexts.text = $"Fix playerResolve nickname? i forget {stateManager.playerCurMonster.baseMon.name} uses {stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove).name}!";
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.playerCurMonster.Nickname} uses {stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove).name}!";
                     DeathCheck();
                     stateManager.playerHasGone = true;
                 }
@@ -34,14 +36,14 @@ public class BSplayerResolve : BSstate
                 {
                     //use item
                     stateManager.itemManager.UseItem(stateManager.playerCurMonster);
-                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.playerCurMonster.baseMon.name} uses {stateManager.currentAction}!";
+                    stateManager.dialogueText.dialogueTexts.text = $"{stateManager.playerCurMonster.Nickname} uses {stateManager.currentAction}!";
                     stateManager.playerHasGone = true;
                 }
                 else if (stateManager.currentAction == 2)
                 {
                     //swap
-                    stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentDisplayedMon));
-                    stateManager.swapManager.currentDisplayedMon = stateManager.currentSelectedMon;
+                    stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentActiveMon));
+                    stateManager.swapManager.currentActiveMon = stateManager.currentSelectedMon;
                     stateManager.swapManager.SwapToPlayer(stateManager.currentSelectedMon);
                     stateManager.dialogueText.dialogueTexts.text = $"Player swaps to {stateManager.currentSelectedMon} (Check swapManager)!";
                     stateManager.playerHasGone = true;
@@ -93,7 +95,18 @@ public class BSplayerResolve : BSstate
             //Earn XP based on enemy mon
             if (Core.CoreManager.Instance.encounterManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
             {
-
+                stateManager.swapManager.SaveStats(stateManager.aiCurMonster);
+                if (stateManager.aiParty.GetFirstValidCombatant() != null)
+                {
+                    stateManager.aiDecisionSwap.aiAverageSwap(stateManager.aiParty, stateManager.playerCurMonster);
+                    //Reset?
+                    stateManager.aiHasGone = true;
+                    stateManager.ChangeState(new BSpostResolve(stateManager));
+                }
+                else 
+                {
+                    stateManager.ChangeState(new BSwon(stateManager));
+                }    
             }
             else
             {

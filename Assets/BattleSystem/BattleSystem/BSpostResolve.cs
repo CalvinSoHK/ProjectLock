@@ -18,8 +18,8 @@ public class BSpostResolve : BSstate
         base.Enter();
         stateManager.conditionManager.ConditionEffect();
         stateManager.conditionManager.ConditionDispel();
-        stateManager.ChangeState(new BSplayerTurn(stateManager));
         stateManager.dialogueText.enableDialogueText(false);
+        stateManager.ChangeState(new BSplayerTurn(stateManager));
     }
 
     public override void Run()

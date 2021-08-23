@@ -32,7 +32,6 @@ public class BSinitialize : BSstate
         }
         stateManager.aiCurMonster = stateManager.aiParty.GetFirstValidCombatant();
 
-        Debug.Log(stateManager.aiCurMonster.moveSet.GetMove(0));
         //Setup mon health Cur/Max
         stateManager.healthManager.HealthPlayerSetUp(stateManager.playerCurMonster);
         stateManager.healthManager.HealthAISetUp(stateManager.aiCurMonster);

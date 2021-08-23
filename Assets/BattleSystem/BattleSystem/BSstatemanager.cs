@@ -19,6 +19,7 @@ public class BSstatemanager : MonoBehaviour
     public ConditionMananger conditionManager;
     public SwapManager swapManager;
     public AIDecisionMove aiDecisionMove;
+    public AIdecision.AIDecisionSwap aiDecisionSwap;
     [Header("Mon Managers")]
     public Party playerParty;
     public Party aiParty;
@@ -40,8 +41,6 @@ public class BSstatemanager : MonoBehaviour
 
     public bool playerHasGone;
     public bool aiHasGone;
-
-    public EncounterType encounterType;
 
     //Temp
     public int aihealthpots;

@@ -26,9 +26,9 @@ public class BSplayerSwap : BSstate
                 Debug.Log("Dead select new mon");
                 if (SelectMonCheck())
                 {
-                    stateManager.swapManager.currentDisplayedMon = stateManager.currentSelectedMon;
+                    stateManager.swapManager.currentActiveMon = stateManager.currentSelectedMon;
                     stateManager.swapManager.SwapToPlayer(stateManager.currentSelectedMon);
-                    stateManager.ChangeState(new BSplayerTurn(stateManager));
+                    stateManager.ChangeState(new BSpostResolve(stateManager));
                 }
             } else
             {            

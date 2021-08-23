@@ -62,9 +62,9 @@ public class DamageManager : MonoBehaviour
     public int DamageCalculationPlayer(MoveData monMove)
     {
         float multiplier = Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.aiCurMonster, stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove).moveTyping);
-        //Debug.Log("Multiplier: " + multiplier);
-        int damageValue = (int) ((monMove.power/ (stateManager.playerCurMonster.battleObj.monStats.atk/10)) * multiplier);
-        //Debug.Log("DMG: " + damageValue);
+        int damageValue = (int) ((monMove.power/ (stateManager.playerCurMonster.battleObj.monStats.atk)) * multiplier);
+        Debug.Log("Player Multiplier: " + multiplier + " damage:  " + damageValue);
+        damageValue = 10;
         return damageValue;
     }
 
@@ -78,8 +78,11 @@ public class DamageManager : MonoBehaviour
     /// <returns></returns>
     public int DamageCalculationAI(MoveData monMove)
     {
-        float multiplier = Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.playerCurMonster, stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove).moveTyping);
-        int damageValue = (int)((monMove.power / (stateManager.aiCurMonster.battleObj.monStats.atk / 10)) * multiplier);
+        float multiplier = Core.CoreManager.Instance.typeRelationSO.GetMultiplier(stateManager.playerCurMonster, monMove.moveTyping);
+        int damageValue = (int)((monMove.power / (stateManager.aiCurMonster.battleObj.monStats.atk)) * multiplier);
+        //Debug.Log(monMove.moveTyping + monMove.moveName);
+        Debug.Log("AI Multiplier: " + multiplier + " damage:  " + damageValue);
+        damageValue = 5;
         return damageValue;
     }
 

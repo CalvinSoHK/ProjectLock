@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 105385584}
   - component: {fileID: 105385586}
   - component: {fileID: 105385585}
+  - component: {fileID: 105385587}
   m_Layer: 0
   m_Name: BattleSystem
   m_TagString: Untagged
@@ -245,6 +246,7 @@ MonoBehaviour:
   conditionManager: {fileID: 105385584}
   swapManager: {fileID: 1190762021}
   aiDecisionMove: {fileID: 105385585}
+  aiDecisionSwap: {fileID: 105385587}
   playerParty:
     party:
     - baseMon:
@@ -1023,6 +1025,19 @@ MonoBehaviour:
   playerCurHP: 0
   aiMaxHP: 0
   aiCurHP: 0
+--- !u!114 &105385587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105385578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015224c7ea6c284409efb4f7cb06ae96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateManager: {fileID: 105385579}
 --- !u!1 &138980999
 GameObject:
   m_ObjectHideFlags: 0
