@@ -37,6 +37,7 @@ public class BSescape : BSstate
             {
                 stateManager.playerHasGone = true;
                 stateManager.ChangeState(new BSaiResolve(stateManager));
+                return;
             }
         }
     }

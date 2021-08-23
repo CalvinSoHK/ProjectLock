@@ -18,6 +18,7 @@ public class BSplayerTurn : BSstate
         stateManager.dialogueText.dialogueTexts.gameObject.SetActive(false);
         stateManager.playerHasGone = false;
         stateManager.aiHasGone = false;
+        Debug.Log(stateManager.playerHasGone);
     }
 
     public override void Run()

@@ -44,11 +44,13 @@ public class BSaiResolve : BSstate
                 else if (stateManager.aiHasGone)
                 {
                     stateManager.ChangeState(new BSplayerTurn(stateManager));
+                    return;
                 }
             }
             else
             {
                 stateManager.ChangeState(new BSplayerResolve(stateManager));
+                return;
             }
         }
         else if (stateManager.aiHasGone && !stateManager.playerPriority)
@@ -56,6 +58,7 @@ public class BSaiResolve : BSstate
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 stateManager.ChangeState(new BSplayerResolve(stateManager));
+                return;
             }
         }
         else if (stateManager.aiHasGone && stateManager.playerPriority) //Both AI and Player has gone --> restart
@@ -65,6 +68,7 @@ public class BSaiResolve : BSstate
                 //manager.ChangeState(new BSplayerTurn(manager));
                 //manager.dialogueText.enableDialogueText(false);
                 stateManager.ChangeState(new BSpostResolve(stateManager));
+                return;
             }
         }
     }
@@ -88,10 +92,12 @@ public class BSaiResolve : BSstate
                 Debug.Log(stateManager.playerParty.GetFirstValidCombatant().baseMon.name);
 
                 stateManager.ChangeState(new BSplayerSwap(stateManager));
+                return;
             }
             else
             {
                 stateManager.ChangeState(new BSlost(stateManager));
+                return;
             }
         }
     }

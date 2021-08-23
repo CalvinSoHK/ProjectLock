@@ -13,7 +13,6 @@ public class BSplayerResolve : BSstate
     public override void Enter()
     {
         base.Enter();
-        Debug.Log(stateManager.playerHasGone);
         stateManager.dialogueText.enableDialogueText(true);
 
     }
@@ -29,8 +28,35 @@ public class BSplayerResolve : BSstate
                     Debug.Log(stateManager.currentMove);
                     stateManager.damageManager.DealDamage(stateManager.aiCurMonster, stateManager.damageManager.DamageCalculationPlayer(stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove)));
                     stateManager.dialogueText.dialogueTexts.text = $"{stateManager.playerCurMonster.Nickname} uses {stateManager.playerCurMonster.moveSet.GetMove(stateManager.currentMove).name}!";
-                    DeathCheck();
-                    stateManager.playerHasGone = true;
+                    if (DeathCheck())
+                    {
+                        if (Core.CoreManager.Instance.encounterManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
+                        {
+                            stateManager.swapManager.SaveStats(stateManager.aiCurMonster);
+                            if (stateManager.aiParty.GetFirstValidCombatant() != null)
+                            {
+                                stateManager.aiDecisionSwap.aiAverageSwap(stateManager.aiParty, stateManager.playerCurMonster);
+                                //Reset?
+                                stateManager.aiHasGone = true;
+                                stateManager.ChangeState(new BSpostResolve(stateManager));
+                                return;
+                            }
+                            else
+                            {
+                                stateManager.ChangeState(new BSwon(stateManager));
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            stateManager.ChangeState(new BSwon(stateManager));
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        stateManager.playerHasGone = true;
+                    }
                 }
                 else if (stateManager.currentAction == 1)
                 {
@@ -52,11 +78,13 @@ public class BSplayerResolve : BSstate
                 {
                     //escape
                     stateManager.ChangeState(new BSescape(stateManager));
+                    return;
                 }
             }
             else
             {
                 stateManager.ChangeState(new BSaiResolve(stateManager));
+                return;
             }
         }
         else if (stateManager.playerHasGone && stateManager.playerPriority) //Player has gone and player goes first --> Ais turn
@@ -64,6 +92,7 @@ public class BSplayerResolve : BSstate
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 stateManager.ChangeState(new BSaiResolve(stateManager));
+                return;
             }
         }
         else if (stateManager.playerHasGone && !stateManager.playerPriority) //Player has gone and player goes second --- > restart
@@ -71,6 +100,7 @@ public class BSplayerResolve : BSstate
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 stateManager.ChangeState(new BSpostResolve(stateManager));
+                return;
                 //manager.dialogueText.enableDialogueText(false);
             }
         }
@@ -86,33 +116,14 @@ public class BSplayerResolve : BSstate
     /// <summary>
     /// Checks if AI mon is still alive
     /// </summary>
-    void DeathCheck()
+    bool DeathCheck()
     {
         if (stateManager.healthManager.aiCurHP <= 0)
         {
-            
-            Debug.Log("Player wins");
-            //Earn XP based on enemy mon
-            if (Core.CoreManager.Instance.encounterManager.EncounterInfo.encounterType != Core.Player.EncounterType.Wild)
-            {
-                stateManager.swapManager.SaveStats(stateManager.aiCurMonster);
-                if (stateManager.aiParty.GetFirstValidCombatant() != null)
-                {
-                    stateManager.aiDecisionSwap.aiAverageSwap(stateManager.aiParty, stateManager.playerCurMonster);
-                    //Reset?
-                    stateManager.aiHasGone = true;
-                    stateManager.ChangeState(new BSpostResolve(stateManager));
-                }
-                else 
-                {
-                    stateManager.ChangeState(new BSwon(stateManager));
-                }    
-            }
-            else
-            {
-                stateManager.ChangeState(new BSwon(stateManager));
-            }
+            return true;
         }
+
+        return false;
     }
 
 }

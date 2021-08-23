@@ -29,12 +29,14 @@ public class BSplayerSwap : BSstate
                     stateManager.swapManager.currentActiveMon = stateManager.currentSelectedMon;
                     stateManager.swapManager.SwapToPlayer(stateManager.currentSelectedMon);
                     stateManager.ChangeState(new BSpostResolve(stateManager));
+                    return;
                 }
             } else
             {            
                 if (SelectMonCheck())
                 {
                     stateManager.ChangeState(new BSaiTurn(stateManager));
+                    return;
                 }
 
             }
@@ -43,6 +45,7 @@ public class BSplayerSwap : BSstate
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             stateManager.ChangeState(new BSplayerTurn(stateManager));
+            return;
         }
     }
 
