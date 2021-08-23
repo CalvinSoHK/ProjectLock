@@ -202,7 +202,23 @@ namespace Mon.Moves
                     }
                 }                 
             }
+
+            if(learnList.Count == 0)
+            {
+                string errorMsg = "Error: Generated mon had no moves in learn list: " + generatedMon.name;
+                errorMsg += "\n Full list of tags on mon is: ";
+                foreach(string tag in generatedMon.assignedTags)
+                {
+                    errorMsg += "\n tag";
+                }
+                Debug.LogError(errorMsg);
+            }
+
             learnList.Sort();
+
+            //Set learnList first index to 0
+            learnList[0] = new LearnMoveData(learnList[0].move, 1);
+
             return learnList;
         }
     }
