@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mon.MonData;
+using Inventory;
 
 public class ItemManager : MonoBehaviour
 {
@@ -62,5 +63,36 @@ public class ItemManager : MonoBehaviour
             }
             healEvent?.Invoke(monster, stateManager.healthManager.aiCurHP);
         }
+    }
+
+
+    /// <summary>
+    /// Player uses item
+    /// </summary>
+    /// <param name="item"></param>
+    public void UserItem(string item)
+    {
+        if (Core.CoreManager.Instance.playerInventory.Inventory.HasItem(item))
+        {
+            Core.CoreManager.Instance.playerInventory.Inventory.UseItem(item);
+            
+            if (item == stateManager.captureBall.name)
+            {
+                CatchhMon();
+                Debug.Log("Caught Mon");
+                stateManager.ChangeState(new BSwon(stateManager));
+                return;
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// When player ca
+    /// </summary>
+    void CatchhMon()
+    {
+        stateManager.swapManager.SaveStats(stateManager.aiCurMonster);
+        stateManager.playerParty.AddMember(stateManager.aiCurMonster);
     }
 }

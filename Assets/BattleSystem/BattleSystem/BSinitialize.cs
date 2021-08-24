@@ -18,9 +18,9 @@ public class BSinitialize : BSstate
         Debug.Log("Player Party: " + stateManager.playerParty);
         stateManager.aiParty = CoreManager.Instance.encounterManager.EncounterInfo.party;
         Debug.Log("Ai Party: " + stateManager.aiParty);
-        
 
-        //Debug.Log(stateManager.typeRelation.typeRelationSO);
+
+        Debug.Log(stateManager.captureBall.name);
         //Check for encounterType? Trainer or wild
         stateManager.swapManager.SwapScreenSetUp();
 
@@ -53,6 +53,7 @@ public class BSinitialize : BSstate
     {
         Debug.Log("Exiting initialize");
         stateManager.ChangeState(new BSplayerTurn(stateManager));
+        return;
 
     }
 

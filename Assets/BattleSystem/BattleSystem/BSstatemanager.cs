@@ -24,6 +24,8 @@ public class BSstatemanager : MonoBehaviour
     public Party playerParty;
     public Party aiParty;
 
+    public ScriptableObject captureBall;
+
     public int currentMove;
     public int currentAction;
     public string currentActionStr;

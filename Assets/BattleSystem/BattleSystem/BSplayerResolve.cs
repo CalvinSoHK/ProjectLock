@@ -61,7 +61,8 @@ public class BSplayerResolve : BSstate
                 else if (stateManager.currentAction == 1)
                 {
                     //use item
-                    stateManager.itemManager.UseItem(stateManager.playerCurMonster);
+                    stateManager.itemManager.UserItem(stateManager.captureBall.name);
+                    //stateManager.itemManager.UseItem(stateManager.playerCurMonster);
                     stateManager.dialogueText.dialogueTexts.text = $"{stateManager.playerCurMonster.Nickname} uses {stateManager.currentAction}!";
                     stateManager.playerHasGone = true;
                 }

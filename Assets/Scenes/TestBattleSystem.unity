@@ -815,6 +815,7 @@ MonoBehaviour:
           atk: 0
           spAtk: 0
           speed: 0
+  captureBall: {fileID: 11400000, guid: 3a60c03a980b4104f8f9394c262063e9, type: 2}
   currentMove: 0
   currentAction: 0
   currentActionStr: 
@@ -2458,7 +2459,7 @@ MonoBehaviour:
   - {fileID: 1596073047}
   - {fileID: 2146919118}
   - {fileID: 705489091}
-  currentDisplayedMon: 0
+  currentActiveMon: 0
 --- !u!114 &1190762022
 MonoBehaviour:
   m_ObjectHideFlags: 0

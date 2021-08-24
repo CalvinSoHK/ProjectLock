@@ -18,7 +18,6 @@ public class BSplayerTurn : BSstate
         stateManager.dialogueText.dialogueTexts.gameObject.SetActive(false);
         stateManager.playerHasGone = false;
         stateManager.aiHasGone = false;
-        Debug.Log(stateManager.playerHasGone);
     }
 
     public override void Run()
@@ -87,17 +86,12 @@ public class BSplayerTurn : BSstate
                 isMove = true;
             } else if (stateManager.currentAction == 1) //Item
             {
-                if(stateManager.playerhealthpots > 0)
-                {
-                    stateManager.ChangeState(new BSaiTurn(stateManager));
-                }
-                else
-                {
-                    Debug.Log("No Healing Pots Remaining");
-                }
+                stateManager.ChangeState(new BSplayerItem(stateManager));
+                return;
             } else if (stateManager.currentAction == 2) //Swap
             {
                 stateManager.ChangeState(new BSplayerSwap(stateManager));
+                return;
             } else if (stateManager.currentAction == 3) //Escape
             {
                 //Escape checker?
