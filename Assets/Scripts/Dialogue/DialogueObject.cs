@@ -45,5 +45,12 @@ namespace Core.Dialogue
         /// NOTE: Confirm event is attached to the given entity. If there is none it will fail to do anything.
         /// </summary>
         public bool requestConfirm;
+
+        /// <summary>
+        /// Whether or not this is not a scene dialogue object.
+        /// By default it is false when it isn't present in a json.
+        /// Used only for firing dialogue in game without a json file.
+        /// </summary>
+        public bool isNotScene;
     }
 }

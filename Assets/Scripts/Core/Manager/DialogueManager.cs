@@ -202,5 +202,14 @@ namespace Core.Dialogue
         {
             OnDialogueAfterFire?.Invoke(GrabDialogueObject(sceneName, dialogueID));
         }
+
+        /// <summary>
+        /// Fires the after dialogue event without using scene name and id
+        /// </summary>
+        /// <param name="obj"></param>
+        public void FireAfterDialogue(DialogueObject obj)
+        {
+            OnDialogueAfterFire?.Invoke(obj);
+        }
     }
 }

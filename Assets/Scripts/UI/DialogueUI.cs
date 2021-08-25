@@ -74,8 +74,12 @@ namespace UI.Overworld
         /// </summary>
         private void AfterConfirmEvent()
         {
-            ConfirmUI.Confirm -= AfterConfirmEvent;
-            ConfirmUI.Deny -= AfterConfirmEvent;
+            if (curObj.requestConfirm)
+            {
+                ConfirmUI.Confirm -= AfterConfirmEvent;
+                ConfirmUI.Deny -= AfterConfirmEvent;
+            }
+
             AfterDialogueEvent();
         }
 
@@ -84,7 +88,14 @@ namespace UI.Overworld
         /// </summary>
         private void AfterDialogueEvent()
         {
-            Core.CoreManager.Instance.dialogueManager.FireAfterDialogueEvent(curObj.sceneName, curObj.dialogueID);
+            if (curObj.isNotScene)
+            {
+                Core.CoreManager.Instance.dialogueManager.FireAfterDialogue(curObj);
+            }
+            else
+            {
+                Core.CoreManager.Instance.dialogueManager.FireAfterDialogueEvent(curObj.sceneName, curObj.dialogueID);
+            }
         }
 
         /// <summary>

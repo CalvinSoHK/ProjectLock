@@ -27,7 +27,11 @@ namespace Inventory.Items
         {
             Core.CoreManager.Instance.dialogueManager.FireDialogue(new Core.Dialogue.DialogueObject()
             {
-                dialogueText = OnUseString
+                dialogueText = OnUseString,
+                requestConfirm = false,
+                hasNext = false,
+                sceneName = "",
+                isNotScene = true
             });
         }
     }
