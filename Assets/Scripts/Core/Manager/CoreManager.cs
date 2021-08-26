@@ -10,6 +10,7 @@ using Core.AddressableSystem;
 using System.Threading.Tasks;
 using Mon.MonData;
 using Inventory;
+using CustomInput;
 
 namespace Core
 {
