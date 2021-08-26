@@ -42,5 +42,10 @@ public class BSplayerItem : BSstate
     public override void Run()
     {
         //Select item here
+        // 1. Open inventory screen
+        // 2. Select Item
+        // 3. Check whether item usable
+        // 4. Save string for item
+        // 5. Change state
     }
 }

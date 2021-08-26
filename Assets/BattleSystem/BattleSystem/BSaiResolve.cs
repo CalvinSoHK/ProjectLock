@@ -32,7 +32,21 @@ public class BSaiResolve : BSstate
                     //Debug.Log("Hypothetical Move: " + stateManager.aiCurrentMove);
                     stateManager.damageManager.DealDamage(stateManager.playerCurMonster, stateManager.damageManager.DamageCalculationAI(stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove)));
                     stateManager.dialogueText.dialogueTexts.text = $"{stateManager.aiCurMonster.baseMon.name} uses {stateManager.aiCurMonster.moveSet.GetMove(stateManager.aiCurrentMove).moveName}!";
-                    DeathCheck();
+                    if (DeathCheck())
+                    {
+                        if (stateManager.playerParty.GetFirstValidCombatant() != null)
+                        {
+                            Debug.Log(stateManager.playerParty.GetFirstValidCombatant().baseMon.name);
+
+                            stateManager.ChangeState(new BSplayerSwap(stateManager));
+                            return;
+                        }
+                        else
+                        {
+                            stateManager.ChangeState(new BSlost(stateManager));
+                            return;
+                        }
+                    }
                     stateManager.aiHasGone = true;
                 }
                 else if (stateManager.aiCurrentAction == 1)
@@ -82,25 +96,15 @@ public class BSaiResolve : BSstate
     /// If there is swap to Alive Mon
     /// Else lose state
     /// </summary>
-    void DeathCheck()
+    bool DeathCheck()
     {
         if (stateManager.healthManager.playerCurHP <= 0)
         {
             stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentActiveMon));
-            if (stateManager.playerParty.GetFirstValidCombatant() != null)
-            {
-                Debug.Log(stateManager.playerParty.GetFirstValidCombatant().baseMon.name);
-
-                stateManager.ChangeState(new BSplayerSwap(stateManager));
-                return;
-            }
-            else
-            {
-                stateManager.ChangeState(new BSlost(stateManager));
-                return;
-            }
+            return true;
         }
-    }
 
+        return false;
+    }
 }
     
