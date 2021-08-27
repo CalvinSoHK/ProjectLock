@@ -290,6 +290,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2868099205153646785, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4047273488145376624, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
       propertyPath: party.party.Array.data[0].baseMon.ID
@@ -304,6 +309,11 @@ PrefabInstance:
         type: 3}
       propertyPath: party.party.Array.data[0].baseMon.generationID
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399983739062000584, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8750036358576548800, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
