@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Core.Dialogue;
+using CustomInput;
 
 namespace UI.Overworld
 {
@@ -48,7 +49,7 @@ namespace UI.Overworld
 
         protected override void HandleDisplayState()
         {
-            if (Input.GetKeyDown(Core.CoreManager.Instance.inputMap.interactKey))
+            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
             {
                 // If it has a request confirmation, subscribe releveant events and invoke it
                 if (curObj.requestConfirm)

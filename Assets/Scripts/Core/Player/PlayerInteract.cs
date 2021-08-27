@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using World;
+using CustomInput;
 
 /// <summary>
 /// Allows player to interact with interactables
@@ -33,7 +34,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (interactOn)
         {
-            if (Input.GetKeyDown(Core.CoreManager.Instance.inputMap.interactKey))
+            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
             {
                 RaycastHit info = new RaycastHit();
                 if (Physics.Raycast(transform.position, transform.forward, out info, interactRange, layers))
