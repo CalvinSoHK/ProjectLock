@@ -4,36 +4,30 @@ using UnityEngine;
 using CustomInput;
 using Core.PartyUI;
 
-namespace UI.PartyUI
+namespace UI
 {
-    public class PartyUI : BaseUI
+    public class PartyUI : SelectorUI
     {
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             PartyUIManager.OnPartyFire += PartyUIOn;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             PartyUIManager.OnPartyFire -= PartyUIOn;
         }
 
-        protected override void HandlePrintingState()
-        {
-            ChangeState(UIState.Displaying);
-        }
-
-        protected override void HandleDisplayState()
+        protected override void HandleDisable()
         {
             if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
             {
-                PartyUIOff();
-                
+                PartyUIOff();               
             }
         }
-
-
 
         /// <summary>
         /// Turns Party UI on
@@ -44,6 +38,7 @@ namespace UI.PartyUI
             state = UIState.Displaying;
             SetUIActive(true);
             Debug.Log("Displaying");
+            ResetUI();
             Core.CoreManager.Instance.player.DisableInput();
         }
 
@@ -58,15 +53,5 @@ namespace UI.PartyUI
             Debug.Log("Off");
             Core.CoreManager.Instance.player.EnableInput();
         }
-
-
-        /// <summary>
-        /// Enables UI
-        /// </summary>
-        private void EnableUI()
-        {
-            SetUIActive(true);
-        }
-
     }
 }

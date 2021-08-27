@@ -63,8 +63,17 @@ namespace UI
 
         /// <summary>
         /// Handles Display UI state
+        /// By default calls HandleDisable
         /// </summary>
         protected virtual void HandleDisplayState()
+        {
+            HandleDisable();
+        }
+
+        /// <summary>
+        /// Handles disabling the UI state
+        /// </summary>
+        protected virtual void HandleDisable()
         {
 
         }

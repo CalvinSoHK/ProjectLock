@@ -18,8 +18,9 @@ namespace UI
         [SerializeField]
         private SelectableDirEnum direction;
 
+        [HideInInspector]
         [SerializeField]
-        private List<SelectableUI> selectableList = new List<SelectableUI>();
+        private List<int> selectableList = new List<int>();
 
         //Reference to player input mapping
         private PlayerInputMap input;
@@ -27,33 +28,46 @@ namespace UI
         //Which input name to use for increment and decrement
         private InputEnums.InputName incrementKey, decrementKey;
 
+        //Index of which selectable we are on
+        private int curIndex = 0;
+
+        [Tooltip("Affects how long in between an index increment before the next one can happen.")]
+        [SerializeField]
+        private float indexDelay = 1f;
+
+        /// <summary>
+        /// Internal timer for processing index changes
+        /// </summary>
+        private float indexTimer = 0f;
+
+        /// <summary>
+        /// Whetehr the selection can be changed
+        /// </summary>
+        private bool selectionChangeable = true;
+
         //Count of how many selectables there are
         private int SelectableCount
         {
             get
             {
-                return indexList.Count;
+                return selectableList.Count;
             }
         }
 
-        //Index of which selectable we are on
-        private int curIndex = 0;
 
         public delegate void ElementEvent(string groupKey, int index);
         public static ElementEvent SelectElement;
+        public static ElementEvent HoverElement;
 
         public delegate void ElementCountEvent(string groupKey);
         public static ElementCountEvent CountElement;
 
-        //Used to count indexes
-        private List<int> indexList = new List<int>();
-
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             SelectableUI.CountElement += CountSelectable;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             SelectableUI.CountElement -= CountSelectable;
         }
@@ -71,6 +85,46 @@ namespace UI
         {
             SetNavigation();
             CountSelectables();
+            curIndex = 0;
+            HoverElement?.Invoke(groupKey, curIndex);
+        }
+
+        /// <summary>
+        /// Increments index respecting count
+        /// </summary>
+        private void IncrementIndex()
+        {
+            if (selectionChangeable)
+            {
+                StartIndexTimer();
+                if (curIndex < SelectableCount - 1)
+                {
+                    curIndex++;
+                }
+                else
+                {
+                    curIndex = 0;
+                }
+            }           
+        }
+
+        /// <summary>
+        /// Decrements index respecting count
+        /// </summary>
+        private void DecrementIndex()
+        {
+            if (selectionChangeable)
+            {
+                StartIndexTimer();
+                if (curIndex > 0)
+                {
+                    curIndex--;
+                }
+                else
+                {
+                    curIndex = SelectableCount - 1;
+                }
+            }           
         }
 
         /// <summary>
@@ -95,12 +149,40 @@ namespace UI
         }
 
         /// <summary>
+        /// Navigates indexes
+        /// </summary>
+        private void NavigateIndex()
+        {
+            if(input.GetInput(incrementKey, InputEnums.InputAction.Down))
+            {
+                IncrementIndex();
+                HoverElement?.Invoke(groupKey, curIndex);
+            }
+            else if(input.GetInput(decrementKey, InputEnums.InputAction.Down))
+            {
+                DecrementIndex();
+                HoverElement?.Invoke(groupKey, curIndex);
+            }
+        }
+
+        /// <summary>
+        /// Handles selecting an index
+        /// </summary>
+        private void SelectIndex()
+        {
+            if(input.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
+            {
+                SelectElement?.Invoke(groupKey, curIndex);
+            }
+        }
+
+        /// <summary>
         /// Function that begins the process of counting how many selectables there are.
         /// Called on start, but can also be called externally if need be.
         /// </summary>
         public void CountSelectables()
         {
-            indexList.Clear();
+            selectableList.Clear();
             CountElement?.Invoke(groupKey);
         }
 
@@ -111,30 +193,55 @@ namespace UI
         /// <param name="index"></param>
         private void CountSelectable(int index)
         {
-            if (!indexList.Contains(index))
+            if (!selectableList.Contains(index))
             {
-                indexList.Add(index);
+                selectableList.Add(index);
             }
             else
             {
                 Debug.LogError("From selectable UI : " + gameObject.name + " there are multiple selectables with index: " + index);
             }
         }
-     
+
         /// <summary>
-        /// Navigates indexes
+        /// Starts the index timer.
         /// </summary>
-        private void NavigateIndex()
+        private void StartIndexTimer()
         {
-            
+            if (selectionChangeable)
+            {
+                selectionChangeable = false;
+                indexTimer = indexDelay;
+            }
+        }
+
+        /// <summary>
+        /// Processes the index timer
+        /// </summary>
+        private void ProcessIndexTimer()
+        {
+            if (!selectionChangeable)
+            {
+                if (indexTimer > 0)
+                {
+                    indexTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    selectionChangeable = true;
+                }
+            }
         }
 
         /// <summary>
         /// Handles if exiting UI is pressed 
         /// </summary>
-        private void HandleDisable()
+        protected override void HandleDisable()
         {
-            
+            if(input.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
+            {
+                ChangeState(UIState.Off);
+            }
         }
 
         protected override void HandleOffState()
@@ -150,6 +257,9 @@ namespace UI
         protected override void HandleDisplayState()
         {
             NavigateIndex();
+            SelectIndex();
+            ProcessIndexTimer();
+            base.HandleDisplayState();
         }
     }
 }
