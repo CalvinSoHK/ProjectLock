@@ -43,7 +43,7 @@ namespace CustomInput
         /// </summary>
         /// <param name="inputName"></param>
         /// <returns></returns>
-        private InputMapping GetMapping(InputEnums.InputName inputName)
+        public InputMapping GetMapping(InputEnums.InputName inputName)
         {
             InputMapping value;
             if(inputDict.TryGetValue(inputName, out value))
