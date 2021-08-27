@@ -27,7 +27,9 @@ namespace CustomInput
             Down,
             Interact,
             Confirm,
-            Deny
+            Deny,
+            Party,
+            Return
         }
     }
 }

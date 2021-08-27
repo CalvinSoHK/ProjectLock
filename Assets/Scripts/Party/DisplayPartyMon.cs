@@ -25,6 +25,11 @@ public class DisplayPartyMon : MonoBehaviour
             if (Core.CoreManager.Instance.playerParty.party.GetPartyMember(i) != null)
             {
                 SetUpIndMonUI(playerMonUI[i], Core.CoreManager.Instance.playerParty.party.GetPartyMember(i));
+                playerMonUI[i].gameObject.SetActive(true);
+            } 
+            else
+            {
+                playerMonUI[i].gameObject.SetActive(false);
             }
         }
     }

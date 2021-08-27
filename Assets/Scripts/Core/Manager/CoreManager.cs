@@ -1,6 +1,7 @@
 ﻿using Core.Player;
 using Core.World;
 using Core.Dialogue;
+using Core.PartyUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,6 +74,9 @@ namespace Core
 
         [SerializeField]
         public AddressablesManager addressablesManager;
+
+        [SerializeField]
+        public PartyUIManager partyUIManager;
 
         [Header("Scriptable Objects")]
         public TypeRelationSO typeRelationSO;
