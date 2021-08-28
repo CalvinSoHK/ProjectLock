@@ -209,7 +209,7 @@ namespace Mon.Moves
                 errorMsg += "\n Full list of tags on mon is: ";
                 foreach(string tag in generatedMon.assignedTags)
                 {
-                    errorMsg += "\n tag";
+                    errorMsg += "\n " + tag;
                 }
                 Debug.LogError(errorMsg);
             }
