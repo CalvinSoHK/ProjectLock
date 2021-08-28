@@ -38,7 +38,7 @@ namespace UI
             state = UIState.Displaying;
             SetUIActive(true);
             Debug.Log("Displaying");
-            ResetUI();
+            Reset();
             Core.CoreManager.Instance.player.DisableInput();
         }
 

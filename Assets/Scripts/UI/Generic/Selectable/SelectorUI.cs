@@ -2,6 +2,7 @@ using CustomInput;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
@@ -10,43 +11,44 @@ namespace UI
     /// </summary>
     public class SelectorUI : BaseUI
     {
+        [Header("Selector Options")]
         [Tooltip("Key of the group of selectable components.")]
         [SerializeField]
-        private string groupKey = "";
+        protected string groupKey = "";
 
         [Tooltip("Direction in which players interact with selectable pieces.")]
         [SerializeField]
-        private SelectableDirEnum direction;
+        protected SelectableDirEnum direction;
 
         [HideInInspector]
         [SerializeField]
-        private List<int> selectableList = new List<int>();
+        protected List<int> selectableList = new List<int>();
 
         //Reference to player input mapping
-        private PlayerInputMap input;
+        protected PlayerInputMap input;
 
         //Which input name to use for increment and decrement
-        private InputEnums.InputName incrementKey, decrementKey;
+        protected InputEnums.InputName incrementKey, decrementKey;
 
         //Index of which selectable we are on
-        private int curIndex = 0;
+        protected int curIndex = 0;
 
         [Tooltip("Affects how long in between an index increment before the next one can happen.")]
         [SerializeField]
-        private float indexDelay = 1f;
+        protected float indexDelay = 1f;
 
         /// <summary>
         /// Internal timer for processing index changes
         /// </summary>
-        private float indexTimer = 0f;
+        protected float indexTimer = 0f;
 
         /// <summary>
         /// Whetehr the selection can be changed
         /// </summary>
-        private bool selectionChangeable = true;
+        protected bool selectionChangeable = true;
 
         //Count of how many selectables there are
-        private int SelectableCount
+        protected int SelectableCount
         {
             get
             {
@@ -54,39 +56,68 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// When true, selectable count will be counted at run time.
+        /// </summary>
+        [Tooltip("Must be on to count number of UI at awake. Off if you want to control it through code.")]
+        [SerializeField]
+        protected bool runtimeCount = true;
 
-        public delegate void ElementEvent(string groupKey, int index);
-        public static ElementEvent SelectElement;
-        public static ElementEvent HoverElement;
+        public delegate void ElementIdentifierEvent(string groupKey, int index);
+        public static ElementIdentifierEvent SelectorSelect;
+        public static ElementIdentifierEvent SelectorHover;
 
-        public delegate void ElementCountEvent(string groupKey);
-        public static ElementCountEvent CountElement;
+        public delegate void ElementKeyEvent(string groupKey);
+        public static ElementKeyEvent SelectorCount;
+
+        public delegate void ElementUIActiveEvent(string groupKey, bool active);
+        public static ElementUIActiveEvent SelectorUIActive;
 
         protected virtual void OnEnable()
         {
-            SelectableUI.CountElement += CountSelectable;
+            SelectableUI.SelectableCount += CountSelectable;
+            SelectableUI.SelectableSelected += SelectedElement;
         }
 
         protected virtual void OnDisable()
         {
-            SelectableUI.CountElement -= CountSelectable;
+            SelectableUI.SelectableCount -= CountSelectable;
+            SelectableUI.SelectableSelected -= SelectedElement;
         }
 
-        private void Start()
+        protected override void Start()
+        {           
+            base.Reset();
+        }
+
+        /// <summary>
+        /// Inits UI elements for this UI
+        /// Is called in ResetUI, though you can override that too if you need customization.
+        /// </summary>
+        protected override void Init()
         {
-            input = Core.CoreManager.Instance.inputMap;
-            ResetUI();
+            if(!input)
+            {
+                input = Core.CoreManager.Instance.inputMap;
+            }
+
+            if (runtimeCount)
+            {
+                CountSelectables();
+            }
+            
+            SetNavigation();
+            curIndex = 0;
+
+            SelectorHover?.Invoke(groupKey, curIndex);
         }
 
         /// <summary>
         /// Resets UI elements for this UI
         /// </summary>
-        public void ResetUI()
+        protected override void Reset()
         {
-            SetNavigation();
-            CountSelectables();
-            curIndex = 0;
-            HoverElement?.Invoke(groupKey, curIndex);
+            Init();                    
         }
 
         /// <summary>
@@ -138,9 +169,17 @@ namespace UI
                     decrementKey = InputEnums.InputName.Down;
                     incrementKey = InputEnums.InputName.Up;
                     break;
+                case SelectableDirEnum.VerticalFlipped:
+                    decrementKey = InputEnums.InputName.Up;
+                    incrementKey = InputEnums.InputName.Down;
+                    break;
                 case SelectableDirEnum.Horizontal:
                     decrementKey = InputEnums.InputName.Left;
                     incrementKey = InputEnums.InputName.Right;
+                    break;
+                case SelectableDirEnum.HorizontalFlipped:
+                    decrementKey = InputEnums.InputName.Right;
+                    incrementKey = InputEnums.InputName.Left;
                     break;
                 case SelectableDirEnum.Both:
                 default:
@@ -156,23 +195,23 @@ namespace UI
             if(input.GetInput(incrementKey, InputEnums.InputAction.Down))
             {
                 IncrementIndex();
-                HoverElement?.Invoke(groupKey, curIndex);
+                SelectorHover?.Invoke(groupKey, curIndex);
             }
             else if(input.GetInput(decrementKey, InputEnums.InputAction.Down))
             {
                 DecrementIndex();
-                HoverElement?.Invoke(groupKey, curIndex);
+                SelectorHover?.Invoke(groupKey, curIndex);
             }
         }
 
         /// <summary>
         /// Handles selecting an index
-        /// </summary>
-        private void SelectIndex()
+        /// </summary>    
+        protected void SelectIndex()
         {
             if(input.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
             {
-                SelectElement?.Invoke(groupKey, curIndex);
+                SelectorSelect?.Invoke(groupKey, curIndex);
             }
         }
 
@@ -183,7 +222,7 @@ namespace UI
         public void CountSelectables()
         {
             selectableList.Clear();
-            CountElement?.Invoke(groupKey);
+            SelectorCount?.Invoke(groupKey);
         }
 
         /// <summary>
@@ -234,6 +273,20 @@ namespace UI
         }
 
         /// <summary>
+        /// Processes an element being selected.
+        /// </summary>
+        /// <param name="_groupKey"></param>
+        /// <param name="_index"></param>
+        private void SelectedElement(string _groupKey, int _index)
+        {
+            if (groupKey.Equals(_groupKey))
+            {
+                curIndex = _index;
+                SelectorSelect?.Invoke(groupKey, curIndex);
+            }
+        }
+
+        /// <summary>
         /// Handles if exiting UI is pressed 
         /// </summary>
         protected override void HandleDisable()
@@ -241,17 +294,15 @@ namespace UI
             if(input.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
             {
                 ChangeState(UIState.Off);
+                SelectorUIActive?.Invoke(groupKey, false);
             }
-        }
-
-        protected override void HandleOffState()
-        {
-            SetUIActive(false);
         }
 
         protected override void HandlePrintingState()
         {
+            base.HandlePrintingState();
             ChangeState(UIState.Displaying);
+            SelectorUIActive?.Invoke(groupKey, true);
         }
 
         protected override void HandleDisplayState()

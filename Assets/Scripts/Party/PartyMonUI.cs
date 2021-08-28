@@ -8,6 +8,7 @@ namespace UI
 {
     public class PartyMonUI : SelectableUI
     {
+        [Header("Party Slot Elements")]
         public Text monName;
         public Text monLevel;
         public Text monHealth;

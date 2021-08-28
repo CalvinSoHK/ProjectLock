@@ -3,7 +3,10 @@ namespace UI
     public enum SelectableDirEnum
     {
         Horizontal,
+        HorizontalFlipped,
         Vertical,
-        Both
+        VerticalFlipped,
+        Both,
+        BothFlipped
     }
 }
