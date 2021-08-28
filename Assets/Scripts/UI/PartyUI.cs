@@ -51,7 +51,7 @@ namespace UI
             //SetUIActive(true);
             this.transform.GetChild(0).gameObject.SetActive(true);
             Debug.Log("Displaying");
-            ResetUI();
+            Reset();
             Core.CoreManager.Instance.player.DisableInput();
         }
 

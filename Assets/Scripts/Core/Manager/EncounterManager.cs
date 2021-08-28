@@ -114,6 +114,7 @@ namespace Core.Player
         {
             encounterInfo = _encounterInfo;
             loadedScenes = CoreManager.Instance.worldManager.GetLoadedScenes();
+            CoreManager.Instance.worldStateManager.SetWorldState(WorldState.Battle);
             CoreManager.Instance.SetPlayerActive(false);
             await CoreManager.Instance.worldManager.LoadScene(battleScene, UnityEngine.SceneManagement.LoadSceneMode.Single, true, false);
         }
@@ -121,6 +122,7 @@ namespace Core.Player
         public async void FinishEncounterAsync()
         {
             await CoreManager.Instance.worldManager.LoadSceneList(loadedScenes);
+            CoreManager.Instance.worldStateManager.SetWorldState(WorldState.Overworld);
             CoreManager.Instance.SetPlayerActive(true);
             loadedScenes.Clear();
             encounterInfo = null;

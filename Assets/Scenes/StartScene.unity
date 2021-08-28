@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 1838077249}
   - component: {fileID: 1838077252}
   - component: {fileID: 1838077253}
+  - component: {fileID: 1838077254}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -640,3 +641,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1838077254}
+        m_TargetAssemblyTypeName: World.Event.WorldStateEvent, ProjectLock
+        m_MethodName: ChangeWorldState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1838077254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838077247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b30230ac35573e478a1ef87d9c5b07e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBeforeEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAfterEventFire:
+    m_PersistentCalls:
+      m_Calls: []
+  targetState: 1

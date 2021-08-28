@@ -15,6 +15,11 @@ namespace UI
 
         protected UIState state = UIState.Off;
 
+        protected virtual void Start()
+        {
+            Init();
+        }
+
         /// <summary>
         /// Updates UI. Currently calls all the HandleStates.
         /// Remember to call base.Update if overriding.
@@ -22,6 +27,22 @@ namespace UI
         protected virtual void Update()
         {
             HandleState();
+        }
+
+        /// <summary>
+        /// Inits the UI. Overrideable, default does nothing but called on Start.
+        /// </summary>
+        protected virtual void Init()
+        {
+
+        }
+
+        /// <summary>
+        /// Resets the UI. Overrideable, default does nothing.
+        /// </summary>
+        protected virtual void Reset()
+        {
+
         }
 
         /// <summary>
@@ -50,7 +71,7 @@ namespace UI
         /// </summary>
         protected virtual void HandleOffState()
         {
-
+            SetUIActive(false);
         }
 
         /// <summary>
@@ -58,7 +79,7 @@ namespace UI
         /// </summary>
         protected virtual void HandlePrintingState()
         {
-
+            SetUIActive(true);
         }
 
         /// <summary>
@@ -96,6 +117,24 @@ namespace UI
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(active);
+            }
+        }
+
+        /// <summary>
+        /// Sets all children to active st ate.
+        /// Ignores objects in the ignoreList
+        /// </summary>
+        /// <param name="active"></param>
+        /// <param name="ignoreList"></param>
+        protected void SetUIActive(bool active, List<GameObject> ignoreList)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                GameObject obj = transform.GetChild(i).gameObject;
+                if (!ignoreList.Contains(obj))
+                {
+                    obj.SetActive(active);
+                }
             }
         }
     }
