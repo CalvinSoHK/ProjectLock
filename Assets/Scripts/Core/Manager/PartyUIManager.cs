@@ -10,7 +10,6 @@ namespace Core.PartyUI
         /// <summary>
         /// Delegate event for party UI manager.
         /// </summary>
-        /// <param name="dialogueID"></param>
         public delegate void PartyEvent();
         public static PartyEvent OnPartyFire;
         public static PartyEvent OnPartyAfterFire;
@@ -25,7 +24,9 @@ namespace Core.PartyUI
             }
         }
 
-
+        /// <summary>
+        /// Fires a Party Menu event
+        /// </summary>
         public void FirePartyEvent()
         {
             OnPartyFire?.Invoke();
