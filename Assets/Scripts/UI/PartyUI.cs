@@ -22,12 +22,14 @@ namespace UI
         {
             base.OnEnable();
             PartyUIManager.OnPartyFire += PartyUIOn;
+            PartyMonUI.MonRecount += Init;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             PartyUIManager.OnPartyFire -= PartyUIOn;
+            PartyMonUI.MonRecount -= Init;
         }
 
         /// <summary>
@@ -54,5 +56,6 @@ namespace UI
             CountSelectables();
             OnPartyReadyFire?.Invoke();
         }
+
     }
 }

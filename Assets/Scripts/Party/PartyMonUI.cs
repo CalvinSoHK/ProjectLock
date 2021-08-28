@@ -19,35 +19,32 @@ namespace UI
 
         public delegate void MonSelectEvent();
         public static MonSelectEvent OnMonSelectFire;
-
+        public static MonSelectEvent MonRecount;
+        
         protected override void OnEnable()
         {
             base.OnEnable();
-            //PartyUIManager.OnPartyFire += OnPartyUIFire;
             PartyUI.OnPartyReadyFire += OnPartyUIFire;
-            //SelectableUI.FireSelect += MonInfo;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            //PartyUIManager.OnPartyFire -= OnPartyUIFire;
             PartyUI.OnPartyReadyFire -= OnPartyUIFire;
-            //SelectableUI.FireSelect += M
         }
 
         protected override void HandlePrintingState()
         {
             if (CheckValidMon(index))
             {
-                groupKey = realGroupKey;
+                ActivateKey();
                 base.HandlePrintingState();
                 MonInfo(Core.CoreManager.Instance.playerParty.party.GetPartyMember(index));
                 ChangeState(UIState.Displaying);
             }
             else
             {
-                groupKey = "";
+                DeactivateKey();
             }
         }
 
@@ -95,6 +92,44 @@ namespace UI
             monHealth.text = $"{monster.battleObj.monStats.hp} / {monster.stats.hp}";
             monLevel.text = monster.stats.level.ToString();
         }
+        
+        /// <summary>
+        /// Sets groupKey to newKey
+        /// </summary>
+        /// <param name="newKey"></param>
+        /// <returns></returns>
+        private bool ChangeGroupKey(string newKey)
+        {
+            if (!groupKey.Equals(newKey))
+            {
+                groupKey = newKey;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Sets groupKey to realGroupKey and Invokes a recount
+        /// </summary>
+        private void ActivateKey()
+        {
+            if (ChangeGroupKey(realGroupKey))
+            {
+                MonRecount?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Sets groupKey to empty and Invokes a recount
+        /// </summary>
+        private void DeactivateKey()
+        {
+            if (ChangeGroupKey(""))
+            {
+                MonRecount?.Invoke();
+            }
+        }
+
 
     }
 }
