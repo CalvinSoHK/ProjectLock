@@ -15,6 +15,9 @@ namespace UI
         public delegate void PartyMenuEvent(int curIndex);
         public static PartyMenuEvent OnPartySelectFire;
 
+        public delegate void OnPartyReady();
+        public static OnPartyReady OnPartyReadyFire;
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -43,6 +46,13 @@ namespace UI
         private void PartyUIOff()
         {
             ChangeState(UIState.Off);
+        }
+
+        protected override void HandlePrintingState()
+        {
+            base.HandlePrintingState();
+            CountSelectables();
+            OnPartyReadyFire?.Invoke();
         }
     }
 }

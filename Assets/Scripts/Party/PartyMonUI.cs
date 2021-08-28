@@ -15,49 +15,80 @@ namespace UI
         public Text monHealth;
         public GameObject monHealthBar;
         public GameObject monSprite;
+        private string realGroupKey;
 
-        MonIndObj monster;
-        protected void OnEnable()
+        public delegate void MonSelectEvent();
+        public static MonSelectEvent OnMonSelectFire;
+
+        protected override void OnEnable()
         {
-            PartyUIManager.OnPartyFire += OnPartyUIFire;
+            base.OnEnable();
+            //PartyUIManager.OnPartyFire += OnPartyUIFire;
+            PartyUI.OnPartyReadyFire += OnPartyUIFire;
             //SelectableUI.FireSelect += MonInfo;
         }
 
-        protected void OnDisable()
+        protected override void OnDisable()
         {
-            PartyUIManager.OnPartyFire -= OnPartyUIFire;
+            base.OnDisable();
+            //PartyUIManager.OnPartyFire -= OnPartyUIFire;
+            PartyUI.OnPartyReadyFire -= OnPartyUIFire;
             //SelectableUI.FireSelect += M
         }
 
         protected override void HandlePrintingState()
         {
-            base.HandlePrintingState();
-            MonInfo(Core.CoreManager.Instance.playerParty.party.GetPartyMember(index));
-            Debug.Log("Yep");
-            ChangeState(UIState.Printing);
+            if (CheckValidMon(index))
+            {
+                groupKey = realGroupKey;
+                base.HandlePrintingState();
+                MonInfo(Core.CoreManager.Instance.playerParty.party.GetPartyMember(index));
+                ChangeState(UIState.Displaying);
+            }
+            else
+            {
+                groupKey = "";
+            }
+        }
+
+        protected override void Init()
+        {
+            base.Init();
+            realGroupKey = groupKey;
         }
 
         protected override void Select()
         {
             base.Select();
+            Debug.Log(index);
         }
 
         private void OnPartyUIFire()
         {
-            GetMon(index);
+            //CheckValidMon(index);
         }
 
-        private void GetMon(int monIndex)
+        /// <summary>
+        /// Checks for valid mon
+        /// If valid continues to printing state
+        /// </summary>
+        /// <param name="monIndex"></param>
+        private bool CheckValidMon(int monIndex)
         {
-           if (Core.CoreManager.Instance.playerParty.party.GetPartyMember(monIndex) != null)
+            if (Core.CoreManager.Instance.playerParty.party.GetPartyMember(monIndex) != null)
             {
-                ChangeState(UIState.Printing);
+                return true;
             }
             else
             {
-
+                return false;
             }
         }
+
+        /// <summary>
+        /// Sets variable based on MonIndObj
+        /// </summary>
+        /// <param name="monster"></param>
         private void MonInfo(MonIndObj monster)
         {
             monName.text = monster.baseMon.name;
