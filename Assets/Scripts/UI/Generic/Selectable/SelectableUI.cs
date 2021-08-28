@@ -30,7 +30,6 @@ namespace UI
         [SerializeField]
         public string key;
 
-
         public delegate void SelectElement(string groupKey, int index);
 
         /// <summary>

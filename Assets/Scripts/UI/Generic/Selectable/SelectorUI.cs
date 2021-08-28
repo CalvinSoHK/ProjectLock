@@ -63,6 +63,8 @@ namespace UI
         [SerializeField]
         protected bool runtimeCount = true;
 
+
+
         public delegate void ElementIdentifierEvent(string groupKey, int index);
         public static ElementIdentifierEvent SelectorSelect;
         public static ElementIdentifierEvent SelectorHover;
@@ -283,6 +285,7 @@ namespace UI
         /// </summary>
         protected override void HandleDisable()
         {
+            base.HandleDisable();
             if(input.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
             {
                 ChangeState(UIState.Off);
@@ -296,7 +299,6 @@ namespace UI
             base.HandlePrintingState();
             ChangeState(UIState.Displaying);
             Core.CoreManager.Instance.player.DisableInput();
-            Debug.Log("Setting UI Active: " + groupKey + " active : " + true);
             SelectorUIActive?.Invoke(groupKey, true);
         }
 

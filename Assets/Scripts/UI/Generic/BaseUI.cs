@@ -6,6 +6,15 @@ namespace UI
 {
     public class BaseUI : MonoBehaviour
     {
+        [Header("UI Options")]
+        [SerializeField]
+        [Tooltip("Auto enabling selectables. Only disabled this if your script will turn it on manually.")]
+        private bool autoEnable = true;
+
+        [SerializeField]
+        [Tooltip("Auto enabling selectables. Only disabled this if your script will turn it on manually.")]
+        private bool autoDisable = true;
+
         protected enum UIState
         {
             Off, //Turns UI off
@@ -81,7 +90,10 @@ namespace UI
         /// </summary>
         protected virtual void HandleOffState()
         {
-            SetUIActive(false);
+            if (autoDisable)
+            {
+                SetUIActive(false);
+            }
         }
 
         /// <summary>
@@ -89,7 +101,10 @@ namespace UI
         /// </summary>
         protected virtual void HandlePrintingState()
         {
-            SetUIActive(true);
+            if (autoEnable)
+            {
+                SetUIActive(true);
+            }
         }
 
         /// <summary>
