@@ -78,6 +78,9 @@ namespace Core
         [SerializeField]
         public PartyUIManager partyUIManager;
 
+        [SerializeField]
+        public WorldStateManager worldStateManager;
+
         [Header("Scriptable Objects")]
         public TypeRelationSO typeRelationSO;
 
