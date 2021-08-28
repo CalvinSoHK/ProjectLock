@@ -21,25 +21,13 @@ namespace UI
             PartyUIManager.OnPartyFire -= PartyUIOn;
         }
 
-        protected override void HandleDisable()
-        {
-            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
-            {
-                PartyUIOff();               
-            }
-        }
-
         /// <summary>
         /// Turns Party UI on
         /// Turns off player interact
         /// </summary>
         private void PartyUIOn()
         {
-            state = UIState.Displaying;
-            SetUIActive(true);
-            Debug.Log("Displaying");
-            Reset();
-            Core.CoreManager.Instance.player.DisableInput();
+            ChangeState(UIState.Printing);
         }
 
         /// <summary>
@@ -48,10 +36,7 @@ namespace UI
         /// </summary>
         private void PartyUIOff()
         {
-            state = UIState.Off;
-            SetUIActive(false);
-            Debug.Log("Off");
-            Core.CoreManager.Instance.player.EnableInput();
+            ChangeState(UIState.Off);
         }
     }
 }

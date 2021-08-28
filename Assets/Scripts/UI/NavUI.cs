@@ -33,7 +33,7 @@ namespace UI
         protected override void HandleOffState()
         {
             base.HandleOffState();
-            if(Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
+            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld && Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
             {
                 ChangeState(UIState.Printing);
             }

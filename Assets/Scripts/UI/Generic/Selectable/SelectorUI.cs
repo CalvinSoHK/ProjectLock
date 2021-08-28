@@ -85,11 +85,6 @@ namespace UI
             SelectableUI.SelectableSelected -= SelectedElement;
         }
 
-        protected override void Start()
-        {           
-            base.Reset();
-        }
-
         /// <summary>
         /// Inits UI elements for this UI
         /// Is called in ResetUI, though you can override that too if you need customization.
@@ -110,14 +105,6 @@ namespace UI
             curIndex = 0;
 
             SelectorHover?.Invoke(groupKey, curIndex);
-        }
-
-        /// <summary>
-        /// Resets UI elements for this UI
-        /// </summary>
-        protected override void Reset()
-        {
-            Init();                    
         }
 
         /// <summary>
@@ -230,16 +217,19 @@ namespace UI
         /// Our selectable count is just that list's total count.
         /// </summary>
         /// <param name="index"></param>
-        private void CountSelectable(int index)
+        private void CountSelectable(string _groupKey, int _index)
         {
-            if (!selectableList.Contains(index))
+            if (groupKey.Equals(_groupKey))
             {
-                selectableList.Add(index);
-            }
-            else
-            {
-                Debug.LogError("From selectable UI : " + gameObject.name + " there are multiple selectables with index: " + index);
-            }
+                if (!selectableList.Contains(_index))
+                {
+                    selectableList.Add(_index);
+                }
+                else
+                {
+                    Debug.LogError("From selectable UI : " + gameObject.name + " there are multiple selectables with index: " + _index);
+                }
+            }          
         }
 
         /// <summary>
@@ -294,6 +284,7 @@ namespace UI
             if(input.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
             {
                 ChangeState(UIState.Off);
+                Core.CoreManager.Instance.player.EnableInput();
                 SelectorUIActive?.Invoke(groupKey, false);
             }
         }
@@ -302,6 +293,8 @@ namespace UI
         {
             base.HandlePrintingState();
             ChangeState(UIState.Displaying);
+            Core.CoreManager.Instance.player.DisableInput();
+            Debug.Log("Setting UI Active: " + groupKey + " active : " + true);
             SelectorUIActive?.Invoke(groupKey, true);
         }
 

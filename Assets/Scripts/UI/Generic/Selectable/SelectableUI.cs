@@ -40,11 +40,10 @@ namespace UI
         /// </summary>
         public static SelectElement SelectableSelected;
 
-        public delegate void CountElementEvent(int index);
         /// <summary>
         /// Fired to count this element in the selector UI.
         /// </summary>
-        public static CountElementEvent SelectableCount;
+        public static SelectElement SelectableCount;
 
         public delegate void FireSelect(string key);
         /// <summary>
@@ -242,7 +241,7 @@ namespace UI
         {
             if (groupKey.Equals(_groupKey))
             {
-                SelectableCount?.Invoke(index);
+                SelectableCount?.Invoke(groupKey, index);
             }
         }
     }
