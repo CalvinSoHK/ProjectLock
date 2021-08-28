@@ -16,23 +16,54 @@ namespace UI
         public GameObject monHealthBar;
         public GameObject monSprite;
 
+        MonIndObj monster;
         protected void OnEnable()
         {
-            PartyUIManager.OnPartyFire += MonInfo;
+            PartyUIManager.OnPartyFire += OnPartyUIFire;
+            //SelectableUI.FireSelect += MonInfo;
         }
 
         protected void OnDisable()
         {
-            PartyUIManager.OnPartyFire -= MonInfo;
+            PartyUIManager.OnPartyFire -= OnPartyUIFire;
+            //SelectableUI.FireSelect += M
         }
 
-        public override void Select()
+        protected override void HandlePrintingState()
+        {
+            base.HandlePrintingState();
+            MonInfo(Core.CoreManager.Instance.playerParty.party.GetPartyMember(index));
+            Debug.Log("Yep");
+            ChangeState(UIState.Printing);
+        }
+
+        protected override void Select()
         {
             base.Select();
         }
-        private void MonInfo()
+
+        private void OnPartyUIFire()
         {
-            MonIndObj mon = Core.CoreManager.Instance.playerParty.party.GetPartyMember(0);
+            GetMon(index);
         }
+
+        private void GetMon(int monIndex)
+        {
+           if (Core.CoreManager.Instance.playerParty.party.GetPartyMember(monIndex) != null)
+            {
+                ChangeState(UIState.Printing);
+            }
+            else
+            {
+
+            }
+        }
+        private void MonInfo(MonIndObj monster)
+        {
+            monName.text = monster.baseMon.name;
+            monHealth.text = $"{monster.battleObj.monStats.hp} / {monster.stats.hp}";
+            monLevel.text = monster.stats.level.ToString();
+        }
+
     }
 }
