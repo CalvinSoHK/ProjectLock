@@ -8,9 +8,9 @@ namespace UI
     {
         protected enum UIState
         {
-            Off,
-            Printing,
-            Displaying
+            Off, //Turns UI off
+            Printing, //Turns UI on, changes to displaying when initialized and on correctly
+            Displaying //Handles UI inputs, and decides when to turn off
         }
 
         protected UIState state = UIState.Off;
