@@ -73,14 +73,16 @@ namespace UI
         public delegate void ElementUIActiveEvent(string groupKey, bool active);
         public static ElementUIActiveEvent SelectorUIActive;
 
-        protected virtual void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             SelectableUI.SelectableCount += CountSelectable;
             SelectableUI.SelectableSelected += SelectedElement;
         }
 
-        protected virtual void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             SelectableUI.SelectableCount -= CountSelectable;
             SelectableUI.SelectableSelected -= SelectedElement;
         }

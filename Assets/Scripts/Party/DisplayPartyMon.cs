@@ -10,6 +10,10 @@ namespace UI
         [SerializeField]
         private List<PartyMonUI> playerMonUI;
 
+        public delegate void MonDisplayEvent();
+        public static MonDisplayEvent OnDisplayMon;
+        public static MonDisplayEvent OffDisplayMon;
+
         private void OnEnable()
         {
             SetUpPartyMonUI();

@@ -56,8 +56,9 @@ namespace UI
         /// </summary>
         private List<GameObject> ignoreList = new List<GameObject>();
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             SelectorUI.SelectorSelect += SelectEvent;
             SelectorUI.SelectorCount += CountEvent;
             SelectorUI.SelectorHover += HoverEvent;
@@ -65,8 +66,9 @@ namespace UI
             SelectableSelected += DeselectClick;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             SelectorUI.SelectorSelect -= SelectEvent;
             SelectorUI.SelectorCount -= CountEvent;
             SelectorUI.SelectorHover -= HoverEvent;

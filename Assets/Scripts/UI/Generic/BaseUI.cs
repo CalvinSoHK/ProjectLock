@@ -15,6 +15,16 @@ namespace UI
 
         protected UIState state = UIState.Off;
 
+        protected virtual void OnEnable()
+        {
+
+        }
+
+        protected virtual void OnDisable()
+        {
+
+        }
+
         protected virtual void Start()
         {
             Init();
