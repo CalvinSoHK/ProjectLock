@@ -44,11 +44,12 @@ namespace UI
         /// </summary>
         public static SelectElement SelectableCount;
 
-        public delegate void FireSelect(string key);
+        public delegate void SelectElementIdentifier(string groupKey, string key);
+
         /// <summary>
         /// Fires the selectable select.
         /// </summary>
-        public static FireSelect SelectableSelectFire;
+        public static SelectElementIdentifier SelectableSelectFire;
 
         /// <summary>
         /// Ignore list used for setuiactive
@@ -182,8 +183,7 @@ namespace UI
         protected virtual void Select()
         {
             Hover();
-            SelectableSelectFire?.Invoke(key);
-            Debug.Log("Clicked on : " + key);
+            SelectableSelectFire?.Invoke(groupKey, key);
         }
 
         /// <summary>
@@ -232,6 +232,19 @@ namespace UI
         protected override void HandlePrintingState()
         {
             SetUIActive(true, ignoreList);
+            if(index == 0)
+            {
+                Hover();
+            }
+            ChangeState(UIState.Displaying);
+        }
+
+        /// <summary>
+        /// Override display state so we don't exit.
+        /// </summary>
+        protected override void HandleDisplayState()
+        {
+           
         }
 
         /// <summary>

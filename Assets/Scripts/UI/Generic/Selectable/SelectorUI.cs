@@ -63,8 +63,6 @@ namespace UI
         [SerializeField]
         protected bool runtimeCount = true;
 
-
-
         public delegate void ElementIdentifierEvent(string groupKey, int index);
         public static ElementIdentifierEvent SelectorSelect;
         public static ElementIdentifierEvent SelectorHover;
@@ -91,7 +89,6 @@ namespace UI
 
         /// <summary>
         /// Inits UI elements for this UI
-        /// Is called in ResetUI, though you can override that too if you need customization.
         /// </summary>
         protected override void Init()
         {
@@ -107,8 +104,6 @@ namespace UI
             
             SetNavigation();
             curIndex = 0;
-
-            SelectorHover?.Invoke(groupKey, curIndex);
         }
 
         /// <summary>
