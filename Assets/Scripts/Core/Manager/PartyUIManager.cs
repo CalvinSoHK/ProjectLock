@@ -17,9 +17,8 @@ namespace Core.PartyUI
 
         private void Update()
         {
-            if (CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Party, InputEnums.InputAction.Down))
+            if (CoreManager.Instance.worldStateManager.State == WorldState.Overworld && CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Party, InputEnums.InputAction.Down))
             {
-                Debug.Log("Pressed");
                 FirePartyEvent();
             }
         }

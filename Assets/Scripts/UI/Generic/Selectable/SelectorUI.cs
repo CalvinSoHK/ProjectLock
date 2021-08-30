@@ -231,7 +231,7 @@ namespace UI
                 }
                 else
                 {
-                    Debug.LogError("From selectable UI : " + gameObject.name + " there are multiple selectables with index: " + _index);
+                    Debug.LogWarning("From selectable UI : " + gameObject.name + " there are multiple selectables with index: " + _index);
                 }
             }          
         }

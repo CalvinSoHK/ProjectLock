@@ -22,14 +22,14 @@ namespace UI
         {
             base.OnEnable();
             PartyUIManager.OnPartyFire += PartyUIOn;
-            PartyMonUI.MonRecount += Init;
+            PartyMonUI.MonRecount += GroupKeyCheck;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             PartyUIManager.OnPartyFire -= PartyUIOn;
-            PartyMonUI.MonRecount -= Init;
+            PartyMonUI.MonRecount -= GroupKeyCheck ;
         }
 
         /// <summary>
@@ -53,9 +53,22 @@ namespace UI
         protected override void HandlePrintingState()
         {
             base.HandlePrintingState();
-            CountSelectables();
             OnPartyReadyFire?.Invoke();
         }
 
+
+        /// <summary>
+        /// Checks for groupKey
+        /// If groupKey equal to parameter
+        /// Recount Selectable
+        /// </summary>
+        /// <param name="_groupKey"></param>
+        private void GroupKeyCheck(string _groupKey)
+        {
+            if (groupKey.Equals(_groupKey))
+            {
+                Init();
+            }
+        }
     }
 }

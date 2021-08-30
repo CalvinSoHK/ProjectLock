@@ -4,6 +4,7 @@ using UnityEngine;
 using Mon.MonData;
 using UnityEngine.UI;
 using Core.PartyUI;
+using CustomInput;
 
 namespace UI
 {
@@ -13,24 +14,26 @@ namespace UI
         public Text monName;
         public Text monLevel;
         public Text monHealth;
-        public GameObject monHealthBar;
+        public Image monHealthBar;
         public GameObject monSprite;
         private string realGroupKey;
 
         public delegate void MonSelectEvent();
         public static MonSelectEvent OnMonSelectFire;
-        public static MonSelectEvent MonRecount;
+
+        public delegate void MonRecountEvent(string groupKey);
+        public static MonRecountEvent MonRecount;
         
+
+
         protected override void OnEnable()
         {
             base.OnEnable();
-            PartyUI.OnPartyReadyFire += OnPartyUIFire;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            PartyUI.OnPartyReadyFire -= OnPartyUIFire;
         }
 
         protected override void HandlePrintingState()
@@ -57,13 +60,9 @@ namespace UI
         protected override void Select()
         {
             base.Select();
-            Debug.Log(index);
+            OnMonSelectFire?.Invoke();
         }
 
-        private void OnPartyUIFire()
-        {
-            //CheckValidMon(index);
-        }
 
         /// <summary>
         /// Checks for valid mon
@@ -91,6 +90,7 @@ namespace UI
             monName.text = monster.baseMon.name;
             monHealth.text = $"{monster.battleObj.monStats.hp} / {monster.stats.hp}";
             monLevel.text = monster.stats.level.ToString();
+            monHealthBar.fillAmount = (float)monster.battleObj.monStats.hp / monster.stats.hp;
         }
         
         /// <summary>
@@ -115,7 +115,7 @@ namespace UI
         {
             if (ChangeGroupKey(realGroupKey))
             {
-                MonRecount?.Invoke();
+                MonRecount?.Invoke(realGroupKey);
             }
         }
 
@@ -126,7 +126,7 @@ namespace UI
         {
             if (ChangeGroupKey(""))
             {
-                MonRecount?.Invoke();
+                MonRecount?.Invoke(realGroupKey);
             }
         }
 
