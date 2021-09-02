@@ -184,6 +184,7 @@ namespace UI
         {
             Hover();
             SelectableSelectFire?.Invoke(groupKey, key);
+            OnSelect?.Invoke();
         }
 
         /// <summary>

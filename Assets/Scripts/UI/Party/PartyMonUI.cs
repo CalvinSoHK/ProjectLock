@@ -6,8 +6,12 @@ using UnityEngine.UI;
 using Core.PartyUI;
 using CustomInput;
 
+//Rework to be selected
 namespace UI
 {
+    /// <summary>
+    /// Individual Mon UI
+    /// </summary>
     public class PartyMonUI : SelectableUI
     {
         [Header("Party Slot Elements")]
@@ -18,7 +22,7 @@ namespace UI
         public GameObject monSprite;
         private string realGroupKey;
 
-        public delegate void MonSelectEvent();
+        public delegate void MonSelectEvent(int curMon);
         public static MonSelectEvent OnMonSelectFire;
 
         public delegate void MonRecountEvent(string groupKey);
@@ -29,11 +33,13 @@ namespace UI
         protected override void OnEnable()
         {
             base.OnEnable();
+            PartySwapManager.OnPartySwapFire += HandlePrintingState;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
+            PartySwapManager.OnPartySwapFire -= HandlePrintingState;
         }
 
         protected override void HandlePrintingState()
@@ -60,7 +66,7 @@ namespace UI
         protected override void Select()
         {
             base.Select();
-            OnMonSelectFire?.Invoke();
+            OnMonSelectFire?.Invoke(index);
         }
 
 
@@ -129,7 +135,5 @@ namespace UI
                 MonRecount?.Invoke(realGroupKey);
             }
         }
-
-
     }
 }
