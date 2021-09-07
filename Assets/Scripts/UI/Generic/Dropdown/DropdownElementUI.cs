@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UI.Selector;
 
-namespace UI
+namespace UI.Dropdown
 {
-    public class DropdownElementUI : SelectableUI
+    public class DropdownElementUI : SelectorElementUI
     {
         [Header("Dropdown Element Options")]
         [Tooltip("String to display in display text object.")]
@@ -16,7 +17,7 @@ namespace UI
         [Tooltip("Where to put display text.")]
         private TextMeshProUGUI displayTextObj;
 
-        protected override void Init()
+        public override void Init()
         {
             base.Init();
             displayTextObj.text = displayText;

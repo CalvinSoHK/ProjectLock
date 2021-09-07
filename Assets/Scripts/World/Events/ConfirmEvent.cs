@@ -1,4 +1,4 @@
-using UI.Overworld;
+using UI.Dialogue;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,12 +14,12 @@ namespace World.Event
 
         private void OnEnable()
         {
-            DialogueUI.OnConfirmRequest += FireConfirm;
+            DialogueElementUI.OnConfirmRequest += FireConfirm;
         }
 
         private void OnDisable()
         {
-            DialogueUI.OnConfirmRequest -= FireConfirm;
+            DialogueElementUI.OnConfirmRequest -= FireConfirm;
         }
 
         /// <summary>
@@ -31,8 +31,8 @@ namespace World.Event
         {
             OnBeforeEventFire?.Invoke();
             FireOnConfirm();
-            ConfirmUI.Confirm += Confirm;
-            ConfirmUI.Deny += Deny;
+            ConfirmElementUI.Confirm += Confirm;
+            ConfirmElementUI.Deny += Deny;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace World.Event
         {
             Core.CoreManager.Instance.interact.DisableInteract();
             OnEventFire?.Invoke();
-            DialogueUI.OnConfirmRequest -= FireOnConfirm;
+            DialogueElementUI.OnConfirmRequest -= FireOnConfirm;
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace World.Event
         private void OnAnyInput()
         {
             FireOnConfirmAfter();
-            ConfirmUI.Confirm -= Confirm;
-            ConfirmUI.Deny -= Deny;
+            ConfirmElementUI.Confirm -= Confirm;
+            ConfirmElementUI.Deny -= Deny;
         }
     }
 }
