@@ -76,6 +76,9 @@ namespace Core
         public AddressablesManager addressablesManager;
 
         [SerializeField]
+        public UIManager uiManager;
+
+        [SerializeField]
         public PartyUIManager partyUIManager;
 
         [SerializeField]

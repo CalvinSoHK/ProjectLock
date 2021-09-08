@@ -2,13 +2,14 @@ using Core.Dialogue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI.Base;
 
-namespace UI.Overworld
+namespace UI.Dialogue
 {
     /// <summary>
     /// Confirm UI script
     /// </summary>
-    public class ConfirmUI : BaseUI
+    public class ConfirmElementUI : BaseElementUI
     {
         public delegate void OnConfirmEvent();
         public static OnConfirmEvent Confirm;
@@ -16,12 +17,12 @@ namespace UI.Overworld
 
         private void OnEnable()
         {
-            DialogueUI.OnConfirmRequest += EnableUI;
+            DialogueElementUI.OnConfirmRequest += EnableUI;
         }
 
         private void OnDisable()
         {
-            DialogueUI.OnConfirmRequest -= EnableUI;
+            DialogueElementUI.OnConfirmRequest -= EnableUI;
         }
 
         /// <summary>
@@ -29,19 +30,34 @@ namespace UI.Overworld
         /// </summary>
         private void EnableUI()
         {
-            SetUIActive(true);
+            SetObjectsActive(true);
         }
 
         public void ConfirmInvoke()
         {
             Confirm?.Invoke();
-            SetUIActive(false);
+            SetObjectsActive(false);
         }
 
         public void DenyInvoke()
         {
             Deny?.Invoke();
-            SetUIActive(false);
+            SetObjectsActive(false);
+        }
+
+        public override void EnableElement()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void DisableElement()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void RefreshElement()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

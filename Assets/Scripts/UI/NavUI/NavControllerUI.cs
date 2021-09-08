@@ -3,33 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using CustomInput;
+using UI.Dropdown;
+using UI.Base;
 
-namespace UI
+namespace UI.Nav
 {
     /// <summary>
     /// NavUI. Repopulates on every call. In the future options may change dynamically so it is required.
     /// </summary>
-    public class NavUI : DropdownUI
+    public class NavControllerUI : DropdownControllerUI
     {
         /// <summary>
         /// Returns the list of the Overworld UI options
         /// </summary>
         /// <returns></returns>
-        private List<DropdownElementDTO> GetOverworldList()
+        private void PopulateOverworldDropdown()
         {
             List<string> optionKeys = new List<string>();
             optionKeys.Add("Party");
             optionKeys.Add("Inventory");
-            //optionKeys.Add("Options");
-            return CreateDefaultOptions(optionKeys);
+            optionKeys.Add("Options");
+            MakeOrReplaceDropdown(optionKeys);
         }
 
-        protected override void HandleOffState()
+        public override void HandleOffState()
         {
             base.HandleOffState();
-            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld && Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
+            //Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld && 
+            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
             {
-                PopulateDropdown(new DropdownDTO(groupKey, GetOverworldList()));
+                PopulateOverworldDropdown();
                 ChangeState(UIState.Printing);
             }
         }

@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Core.Dialogue;
 using CustomInput;
+using UI.Base;
 
-namespace UI.Overworld
+namespace UI.Dialogue
 {
     /// <summary>
     /// Manages dialogue UI
     /// </summary>
-    public class DialogueUI : BaseUI
+    public class DialogueElementUI : BaseElementUI
     {
         [SerializeField]
         TextMeshProUGUI textMesh;
@@ -40,22 +41,23 @@ namespace UI.Overworld
             DialogueManager.OnDialogueAfterFire -= DialogueOff;
         }
 
-        protected override void HandlePrintingState()
+        public override void HandlePrintingState()
         {
+            Debug.Log("Printing dialogue state");
             speakerText.text = curObj.speakerName;
             textMesh.text = curObj.dialogueText;
-            ChangeState(UIState.Displaying);
+            base.HandlePrintingState();
         }
 
-        protected override void HandleDisplayState()
+        public override void HandleDisplayState()
         {
             if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
             {
                 // If it has a request confirmation, subscribe releveant events and invoke it
                 if (curObj.requestConfirm)
                 {
-                    ConfirmUI.Confirm += AfterConfirmEvent;
-                    ConfirmUI.Deny += AfterConfirmEvent;
+                    ConfirmElementUI.Confirm += AfterConfirmEvent;
+                    ConfirmElementUI.Deny += AfterConfirmEvent;
                     OnConfirmRequest?.Invoke();
                 }
                 else if (curObj.hasNext) //If it has next, display next
@@ -77,8 +79,8 @@ namespace UI.Overworld
         {
             if (curObj.requestConfirm)
             {
-                ConfirmUI.Confirm -= AfterConfirmEvent;
-                ConfirmUI.Deny -= AfterConfirmEvent;
+                ConfirmElementUI.Confirm -= AfterConfirmEvent;
+                ConfirmElementUI.Deny -= AfterConfirmEvent;
             }
 
             AfterDialogueEvent();
@@ -106,9 +108,9 @@ namespace UI.Overworld
         /// <param name="obj"></param>
         private void DialogueOn(DialogueObject obj)
         {
-            state = UIState.Printing;
+            Debug.Log("Turning on dialogue");
+            ChangeState(UIState.Printing);
             curObj = obj;
-            SetUIActive(true);
             Core.CoreManager.Instance.player.DisableInput();
         }
 
@@ -119,11 +121,26 @@ namespace UI.Overworld
         /// <param name="obj"></param>
         private void DialogueOff(DialogueObject obj)
         {
-            state = UIState.Off;
+            Debug.Log("Turning off dialogue");
+            ChangeState(UIState.Hiding);
             curObj = null;
             textMesh.text = "";
-            SetUIActive(false);
             Core.CoreManager.Instance.player.EnableInput();
-        }      
+        }
+
+        public override void EnableElement()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void DisableElement()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void RefreshElement()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

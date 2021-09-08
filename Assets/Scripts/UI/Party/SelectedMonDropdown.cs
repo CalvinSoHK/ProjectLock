@@ -3,32 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using CustomInput;
+using UI.Dropdown;
+using UI.Base;
 
-namespace UI
+namespace UI.Party
 {
-    public class SelectedMonDropdown : DropdownUI
+    public class SelectedMonDropdown : DropdownElementUI
     {
         bool isPrinted = false;
 
-        protected override void OnEnable()
+        protected override void SubscribeListeners()
         {
-            base.OnEnable();
-            PartyMonUI.OnMonSelectFire += Handler;
+            base.SubscribeListeners();
+            //PartyMonUI.OnMonSelectFire += Handler;
         }
 
-        protected override void OnDisable()
+        protected override void UnsubscribeListeners()
         {
-            base.OnDisable();
-            PartyMonUI.OnMonSelectFire -= Handler;
+            base.UnsubscribeListeners();
+            //PartyMonUI.OnMonSelectFire -= Handler;
         }
 
-        protected override void HandlePrintingState()
+        public override void HandlePrintingState()
         {
             base.HandlePrintingState();
             isPrinted = true;
-        }   
+        }
 
-        protected override void HandleDisplayState()
+        public override void HandleDisplayState()
         {
             base.HandleDisplayState();
             if (Input.GetKeyDown(KeyCode.K)) 
@@ -36,7 +38,7 @@ namespace UI
                 ExitMenuPressed();
             }
         }
-        protected override void HandleOffState()
+        public override void HandleOffState()
         {
             base.HandleOffState();
             isPrinted = false;
@@ -64,7 +66,7 @@ namespace UI
                 switch (Core.CoreManager.Instance.worldStateManager.State)
                 {
                     case Core.WorldState.Overworld:
-                        PopulateDropdown(new DropdownDTO(groupKey, OverworldParty()));
+                        //PopulateDropdown(new DropdownDTO(groupKey, OverworldParty()));
                         break;
                     case Core.WorldState.Battle:
                         //BattleParty();
@@ -74,6 +76,7 @@ namespace UI
             }
         }
 
+        /*
         /// <summary>
         /// Returns the list of the Overworld Party UI options
         /// </summary>
@@ -84,8 +87,9 @@ namespace UI
             dropdownList.Add("Swap");
             dropdownList.Add("Item");
 
-            return CreateDefaultOptions(dropdownList);
-        }
+            
+            //return CreateDefaultOptions(dropdownList);
+        }*/
 
     }
 

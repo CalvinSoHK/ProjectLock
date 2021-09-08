@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Base
 {
-    [RequireComponent(typeof(BasePointerUI))]
+    [RequireComponent(typeof(BasePointerElementUI))]
     public class PointerColorPicker : MonoBehaviour
     {
         [Header("Pointer Color Options")]
@@ -26,7 +26,7 @@ namespace UI
 
         private void Start()
         {
-            BasePointerUI pointerUI = GetComponent<BasePointerUI>();
+            BasePointerElementUI pointerUI = GetComponent<BasePointerElementUI>();
 
             pointerUI.OnPointerExitEvent.AddListener(() => ChangeColor(DefaultColor));
             pointerUI.OnPointerEnterEvent.AddListener(() => ChangeColor(PointerEnter));

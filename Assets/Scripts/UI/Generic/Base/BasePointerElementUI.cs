@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UI
+namespace UI.Base
 {
-    public class BasePointerUI : BaseUI, IPointerClickHandler,
+    public class BasePointerElementUI : BaseElementUI, IPointerClickHandler,
             IPointerEnterHandler, IPointerExitHandler,
             IPointerDownHandler, IPointerUpHandler
     {
@@ -55,5 +55,21 @@ namespace UI
             OnPointerDownEvent?.Invoke();
         }
 
+        public override void EnableElement()
+        {
+            SetObjectsActive(true);
+            ChangeState(UIState.Printing);
+        }
+
+        public override void DisableElement()
+        {
+            SetObjectsActive(false);
+            ChangeState(UIState.Hiding);
+        }
+
+        public override void RefreshElement()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

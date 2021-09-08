@@ -36,29 +36,15 @@ namespace UI
             }
         }
 
-        private string key;
-
-        /// <summary>
-        /// The key that corresponds to this element being clicked
-        /// </summary>
-        public string Key
-        {
-            get
-            {
-                return key;
-            }
-        }
-
         /// <summary>
         /// Creates a DTO for an individual selectable dropdown element
         /// </summary>
         /// <param name="_elementText"> Text to display for element </param>
         /// <param name="_onElementSelect"> Event to fire off when element is selected</param>
-        public DropdownElementDTO(string _elementText, UnityAction _onElementSelect, string _key)
+        public DropdownElementDTO(string _elementText, UnityAction _onElementSelect)
         {
             elementText = _elementText;
             onElementSelect = _onElementSelect;
-            key = _key;
         }
     }
 }

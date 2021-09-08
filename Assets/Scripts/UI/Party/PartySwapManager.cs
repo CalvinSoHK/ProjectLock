@@ -22,15 +22,15 @@ namespace UI
 
         private void OnEnable()
         {
-            DropdownUI.DropdownOptionFire += EnableSwap;
-            PartyMonUI.OnMonSelectFire += SaveMon;
+            //DropdownUI.DropdownOptionFire += EnableSwap;
+            //PartyMonUI.OnMonSelectFire += SaveMon;
             //SelectableUI.SelectableSelectFire += EnableUI;
         }
 
         private void OnDisable()
         {
-            DropdownUI.DropdownOptionFire -= EnableSwap;
-            PartyMonUI.OnMonSelectFire -= SaveMon;
+            //DropdownUI.DropdownOptionFire -= EnableSwap;
+            //PartyMonUI.OnMonSelectFire -= SaveMon;
             //SelectableUI.SelectableSelectFire -= EnableUI;
         }
 

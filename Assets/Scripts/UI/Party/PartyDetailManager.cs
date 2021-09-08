@@ -12,12 +12,12 @@ namespace UI
 
         private void OnEnable()
         {
-            DropdownUI.DropdownOptionFire += EnableUI;
+            //DropdownUI.DropdownOptionFire += EnableUI;
         }
 
         private void OnDisable()
         {
-            DropdownUI.DropdownOptionFire -= EnableUI;
+            //DropdownUI.DropdownOptionFire -= EnableUI;
         }
 
 
