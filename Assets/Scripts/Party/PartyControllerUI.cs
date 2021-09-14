@@ -4,29 +4,62 @@ using UnityEngine;
 using UnityEngine.Events;
 using CustomInput;
 using UI.Selector;
+using UI.Base;
 
 namespace UI.Party
 {
+    /// <summary>
+    /// Controller for Party UI
+    /// </summary>
     public class PartyControllerUI : SelectorControllerUI
     {
-        public override void HandleHidingState()
-        {
-            base.HandleHidingState();
-            //ResetList();
-        }
 
-        /*
-        /// <summary>
-        /// Destroys list gameObject
-        /// </summary>
-        private void ResetList()
+        private PartyModelUI partyModel;
+
+       public override void HandleOffState()
         {
-            foreach(Transform child in transform)
+            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld && Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Party, InputEnums.InputAction.Down))
             {
-                Destroy(child.gameObject);
+                ChangeState(UIState.Printing);
             }
         }
-        */
-    }
 
+        public override void HandlePrintingState()
+        {
+            //Setting data in Model
+            for (int i = 0; i < partyModel.playerMon.Length; i++)
+            {
+                MonInfo(i);
+            }
+            base.HandlePrintingState();
+        }
+
+        /// <summary>
+        /// Inits UI elements for this UI
+        /// </summary>
+        public override void Init()
+        {
+            if (!input)
+            {
+                input = Core.CoreManager.Instance.inputMap;
+            }
+
+            model = new PartyModelUI();
+            partyModel = (PartyModelUI)model;
+            selectorModel = (SelectorModelUI)model;
+
+            model.Init();
+        }
+
+
+        //Maybe move somewhere in future?
+        /// <summary>
+        /// Gives MonIndObj player party member from index
+        /// </summary>
+        /// <param name="monNumber"></param>
+        void MonInfo(int monNumber)
+        {
+            partyModel.playerMon[monNumber] = Core.CoreManager.Instance.playerParty.party.GetPartyMember(monNumber);
+        }
+    }
 }

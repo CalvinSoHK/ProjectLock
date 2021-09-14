@@ -56,11 +56,11 @@ namespace UI.Base
         private void UpdateModelState(Model _model)
         {
             SetModel(_model);
-            if (model.Active && state == UIState.Displaying)
+            if (!model.Active && state == UIState.Displaying)
             {
                 ChangeState(UIState.Hiding);
             }
-            else if(!model.Active && state == UIState.Off)
+            else if(model.Active && state == UIState.Off)
             {
                 ChangeState(UIState.Printing);
             }

@@ -46,7 +46,7 @@ namespace UI.Selector
             model = new SelectorModelUI();
             selectorModel = (SelectorModelUI)model;
 
-            base.Init();
+            model.Init();
         }
 
         public override void HandleOffState()
@@ -61,7 +61,7 @@ namespace UI.Selector
         /// <summary>
         /// Increments index respecting count
         /// </summary>
-        private void IncrementIndex()
+        protected void IncrementIndex()
         {
             if (selectionChangeable)
             {
@@ -74,7 +74,7 @@ namespace UI.Selector
         /// <summary>
         /// Decrements index respecting count
         /// </summary>
-        private void DecrementIndex()
+        protected void DecrementIndex()
         {
             if (selectionChangeable)
             {
@@ -116,7 +116,7 @@ namespace UI.Selector
         /// <summary>
         /// Navigates indexes
         /// </summary>
-        private void NavigateIndex()
+        protected void NavigateIndex()
         {
             if (!selectorModel.Locked)
             {
@@ -136,7 +136,7 @@ namespace UI.Selector
             }        
         }
 
-        private void SelectIndex()
+        protected void SelectIndex()
         {
             if (input.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
             {
@@ -148,7 +148,7 @@ namespace UI.Selector
         /// <summary>
         /// Starts the index timer.
         /// </summary>
-        private void StartIndexTimer()
+        protected void StartIndexTimer()
         {
             if (selectionChangeable)
             {
@@ -160,7 +160,7 @@ namespace UI.Selector
         /// <summary>
         /// Processes the index timer
         /// </summary>
-        private void ProcessIndexTimer()
+        protected void ProcessIndexTimer()
         {
             if (!selectionChangeable)
             {

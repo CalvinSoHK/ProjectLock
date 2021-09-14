@@ -130,8 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1fc8cb058587d4da0b33133a5d2381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoEnable: 1
-  autoDisable: 1
+  isExplicitlyManaged: 1
+  ignoreList:
+  - {fileID: 1409085775153106368}
   OnPointerClickEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -147,13 +148,11 @@ MonoBehaviour:
   OnPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
-  index: 0
-  groupKey: PartyUI
+  selectableIndex: -1
   selectMarker: {fileID: 1409085775153106368}
   OnSelect:
     m_PersistentCalls:
       m_Calls: []
-  key: 
   monName: {fileID: 1103041541905573993}
   monLevel: {fileID: 8943744151896699845}
   monHealth: {fileID: 4884053131346948531}

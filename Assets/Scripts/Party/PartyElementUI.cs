@@ -12,6 +12,8 @@ namespace UI.Party
 {
     public class PartyElementUI : SelectorElementUI
     {
+
+
         [Header("Party Slot Elements")]
         public Text monName;
         public Text monLevel;
@@ -19,50 +21,15 @@ namespace UI.Party
         public Image monHealthBar;
         public GameObject monSprite;
 
-        public delegate void MonSelectEvent();
-        public static MonSelectEvent OnMonSelectFire;
-
-        public delegate void MonRecountEvent(string groupKey);
-        public static MonRecountEvent MonRecount;
-        
-        public override void HandlePrintingState()
+        public override void EnableElement()
         {
-
-            if (CheckValidMon(selectableIndex))
-            {
-                base.HandlePrintingState();
-                MonInfo(Core.CoreManager.Instance.playerParty.party.GetPartyMember(selectableIndex));
-                ChangeState(UIState.Displaying);
-            }
+            base.EnableElement();
         }
 
-        /// <summary>
-        /// Checks for valid mon
-        /// If valid continues to printing state
-        /// </summary>
-        /// <param name="monIndex"></param>
-        private bool CheckValidMon(int monIndex)
+        public override void DisableElement()
         {
-            if (Core.CoreManager.Instance.playerParty.party.GetPartyMember(monIndex) != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            base.DisableElement();
         }
 
-        /// <summary>
-        /// Sets variable based on MonIndObj
-        /// </summary>
-        /// <param name="monster"></param>
-        private void MonInfo(MonIndObj monster)
-        {
-            monName.text = monster.baseMon.name;
-            monHealth.text = $"{monster.battleObj.monStats.hp} / {monster.stats.hp}";
-            monLevel.text = monster.stats.level.ToString();
-            monHealthBar.fillAmount = (float)monster.battleObj.monStats.hp / monster.stats.hp;
-        }
     }
 }

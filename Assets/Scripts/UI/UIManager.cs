@@ -4,6 +4,7 @@ using UnityEngine;
 using UI.Base;
 using UI.Selector;
 using UI.Nav;
+using UI.Party;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class UIManager : MonoBehaviour
     SelectorControllerUI selectorController = new SelectorControllerUI();
 
     NavControllerUI navController = new NavControllerUI();
+
+    PartyControllerUI partyController = new PartyControllerUI();
 
     List<IControllerUI> controllers = new List<IControllerUI>();
 
@@ -31,6 +34,12 @@ public class UIManager : MonoBehaviour
         navController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
         //navController
         controllers.Add(navController);
+
+        partyController.SetupController("Party");
+        partyController.SetNavigation(UI.SelectableDirEnum.Horizontal);
+        controllers.Add(partyController);
+
+
     }
 
     private void Update()

@@ -73,6 +73,7 @@ namespace UI.Base
 
         public virtual void HandlePrintingState()
         {
+            model.SetActive(true);
             model.InvokeModel(key);
             ChangeState(UIState.Displaying);
         }
@@ -82,12 +83,13 @@ namespace UI.Base
             if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Return, CustomInput.InputEnums.InputAction.Down))
             {
                 ChangeState(UIState.Hiding);
-                model.InvokeModel(key);
             }
         }
 
         public virtual void HandleHidingState()
         {
+            model.SetActive(false);
+            model.InvokeModel(key);
             ChangeState(UIState.Off);
         }
     }
