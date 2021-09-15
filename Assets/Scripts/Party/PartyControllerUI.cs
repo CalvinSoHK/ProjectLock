@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using CustomInput;
 using UI.Selector;
 using UI.Base;
+using UI.Dropdown;
 
 namespace UI.Party
 {
@@ -16,9 +17,22 @@ namespace UI.Party
 
         private PartyModelUI partyModel;
 
-       public override void HandleOffState()
+        public int savedSelectedIndex = -1;
+
+        private void OnEnable()
         {
-            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld && Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Party, InputEnums.InputAction.Down))
+            PartyElementUI.PartySelectFire += SaveIndex;
+        }
+
+        private void OnDisable()
+        {
+            PartyElementUI.PartySelectFire -= SaveIndex;
+        }
+        public override void HandleOffState()
+        {
+            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld
+                && Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Party, InputEnums.InputAction.Down)
+                )
             {
                 ChangeState(UIState.Printing);
             }
@@ -34,9 +48,7 @@ namespace UI.Party
             base.HandlePrintingState();
         }
 
-        /// <summary>
-        /// Inits UI elements for this UI
-        /// </summary>
+
         public override void Init()
         {
             if (!input)
@@ -57,9 +69,25 @@ namespace UI.Party
         /// Gives MonIndObj player party member from index
         /// </summary>
         /// <param name="monNumber"></param>
-        void MonInfo(int monNumber)
+        private void MonInfo(int monNumber)
         {
             partyModel.playerMon[monNumber] = Core.CoreManager.Instance.playerParty.party.GetPartyMember(monNumber);
+        }
+
+
+        private void SaveIndex(string _key, int _selectedIndex)
+        {
+            Debug.Log("Pre: " + savedSelectedIndex);
+            if (savedSelectedIndex < 0)
+            {
+                savedSelectedIndex = _selectedIndex;
+            }
+            Debug.Log("Post: " + savedSelectedIndex);
+        }
+
+        private void SwapMon(int _selectedIndex, int newMonIndex)
+        {
+
         }
     }
 }

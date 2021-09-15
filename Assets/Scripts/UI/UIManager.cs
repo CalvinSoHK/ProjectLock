@@ -5,6 +5,7 @@ using UI.Base;
 using UI.Selector;
 using UI.Nav;
 using UI.Party;
+using UI.Dropdown;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,7 +18,19 @@ public class UIManager : MonoBehaviour
 
     PartyControllerUI partyController = new PartyControllerUI();
 
+    DropdownControllerUI dropdownController = new DropdownControllerUI();
+
     List<IControllerUI> controllers = new List<IControllerUI>();
+
+    private void OnEnable()
+    {
+        PartyElementUI.PartySelectFire += Temp;
+    }
+
+    private void OnDisable()
+    {
+        PartyElementUI.PartySelectFire -= Temp;
+    }
 
     private void Start()
     {
@@ -39,6 +52,10 @@ public class UIManager : MonoBehaviour
         partyController.SetNavigation(UI.SelectableDirEnum.Horizontal);
         controllers.Add(partyController);
 
+        dropdownController.SetupController("Dropdown");
+        dropdownController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
+        controllers.Add(dropdownController);
+
 
     }
 
@@ -54,4 +71,23 @@ public class UIManager : MonoBehaviour
             controller.HandleState();
         }
     }
+
+    private void Temp(string _key, int selectedIndex)
+    {
+        List<string> partyDropdownList = new List<string>();
+        switch(_key)
+        {
+            //Enums?
+            case "Party":
+                partyDropdownList.Add("Swap");
+                partyDropdownList.Add("Details");
+                break;
+            default:
+                Debug.Log("Wrong Key specified");
+                break;
+        }
+        dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+    }
+
+
 }

@@ -13,7 +13,6 @@ namespace UI.Party
     public class PartyElementUI : SelectorElementUI
     {
 
-
         [Header("Party Slot Elements")]
         public Text monName;
         public Text monLevel;
@@ -21,15 +20,15 @@ namespace UI.Party
         public Image monHealthBar;
         public GameObject monSprite;
 
-        public override void EnableElement()
-        {
-            base.EnableElement();
-        }
 
-        public override void DisableElement()
-        {
-            base.DisableElement();
-        }
+        public delegate void PartySelectEvent(string key, int selectableKey);
+        public static PartySelectEvent PartySelectFire;
 
+        public override void Select()
+        {
+            base.Select();
+            Debug.Log("Selected", this);
+            PartySelectFire?.Invoke("Party",selectableIndex);
+        }
     }
 }

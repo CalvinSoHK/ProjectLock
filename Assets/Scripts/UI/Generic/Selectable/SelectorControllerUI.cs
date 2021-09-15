@@ -52,7 +52,8 @@ namespace UI.Selector
         public override void HandleOffState()
         {
             base.HandleOffState();
-            if(Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Party, InputEnums.InputAction.Down))
+            //Delete?
+            if(Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
             {
                 ChangeState(UIState.Printing);
             }

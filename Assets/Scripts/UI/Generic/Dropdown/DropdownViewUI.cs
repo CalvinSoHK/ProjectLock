@@ -53,7 +53,7 @@ namespace UI.Dropdown
         protected override void UpdateView(Model _model)
         {
             base.UpdateView(_model);
-            //PopulateDropdown(dropdownModel);
+            PopulateDropdown(dropdownModel);
         }
 
         /// <summary>
