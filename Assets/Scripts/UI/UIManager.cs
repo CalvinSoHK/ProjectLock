@@ -24,12 +24,14 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
+        DropdownControllerUI.DropdownOptionFire += Test;
         PartyElementUI.PartySelectFire += Temp;
     }
 
     private void OnDisable()
     {
         PartyElementUI.PartySelectFire -= Temp;
+        DropdownControllerUI.DropdownOptionFire -= Test;
     }
 
     private void Start()
@@ -43,10 +45,10 @@ public class UIManager : MonoBehaviour
         selectorController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
         controllers.Add(selectorController);
 
-        navController.SetupController("Dropdown");
+        /*navController.SetupController("Dropdown");
         navController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
         //navController
-        controllers.Add(navController);
+        controllers.Add(navController);*/
 
         partyController.SetupController("Party");
         partyController.SetNavigation(UI.SelectableDirEnum.Horizontal);
@@ -89,5 +91,8 @@ public class UIManager : MonoBehaviour
         dropdownController.MakeOrReplaceDropdown(partyDropdownList);
     }
 
-
+    private void Test(string _key, string _optionKey)
+    {
+        Debug.Log("Test");
+    }
 }

@@ -24,11 +24,6 @@ namespace UI.Party
             PartyModelUI.ModelUpdate -= UpdateModel;
         }
 
-        public override void Init()
-        {
-            base.Init();
-        }
-
 
         protected override void SetModel(Model _model)
         {

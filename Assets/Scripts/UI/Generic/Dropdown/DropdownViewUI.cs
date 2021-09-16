@@ -40,6 +40,7 @@ namespace UI.Dropdown
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
+            selectorElementList.Clear();
         }
 
         private void UpdateModel(string _key, DropdownModelUI _model)
@@ -71,6 +72,7 @@ namespace UI.Dropdown
                 element.displayText = elementDTO.ElementText;
                 element.OnSelect.AddListener(elementDTO.OnElementSelect);
                 index++;
+                selectorElementList.Add(element);
             }
             Init();
         }

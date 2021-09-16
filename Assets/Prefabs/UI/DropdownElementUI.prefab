@@ -300,12 +300,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9f3201da7a6894381aa8872f1fa5fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isExplicitlyManaged: 0
+  ignoreList: []
   OnPointerClickEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7991666653244888094}
-        m_TargetAssemblyTypeName: UI.SelectableUI, ProjectLock
-        m_MethodName: SelectClick
+        m_TargetAssemblyTypeName: UI.Selector.SelectorElementUI, ProjectLock
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -327,13 +329,11 @@ MonoBehaviour:
   OnPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
-  index: -1
-  groupKey: 
+  selectableIndex: -1
   selectMarker: {fileID: 7991666652445176395}
   OnSelect:
     m_PersistentCalls:
       m_Calls: []
-  key: 
   displayText: 
   displayTextObj: {fileID: 7991666652399810987}
 --- !u!114 &1307489734428117101
