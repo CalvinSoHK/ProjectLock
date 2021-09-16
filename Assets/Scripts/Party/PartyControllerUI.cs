@@ -19,15 +19,6 @@ namespace UI.Party
 
         public int savedSelectedIndex = -1;
 
-        private void OnEnable()
-        {
-            PartyElementUI.PartySelectFire += SaveIndex;
-        }
-
-        private void OnDisable()
-        {
-            PartyElementUI.PartySelectFire -= SaveIndex;
-        }
         public override void HandleOffState()
         {
             if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld
