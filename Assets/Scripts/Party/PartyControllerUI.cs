@@ -18,7 +18,7 @@ namespace UI.Party
         private PartyModelUI partyModel;
 
         public int savedSelectedIndex = -1;
-
+        public bool firstIteration = true;
         public override void HandleOffState()
         {
             if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld
@@ -39,6 +39,13 @@ namespace UI.Party
             base.HandlePrintingState();
         }
 
+        public override void HandleDisplayState()
+        {
+            if (!model.Locked)
+            {
+                base.HandleDisplayState();
+            }
+        }
 
         public override void Init()
         {
@@ -50,6 +57,7 @@ namespace UI.Party
             model = new PartyModelUI();
             partyModel = (PartyModelUI)model;
             selectorModel = (SelectorModelUI)model;
+
 
             model.Init();
         }
@@ -66,19 +74,34 @@ namespace UI.Party
         }
 
 
-        private void SaveIndex(string _key, int _selectedIndex)
+        public void SaveIndex(int _selectedIndex)
         {
-            Debug.Log("Pre: " + savedSelectedIndex);
             if (savedSelectedIndex < 0)
             {
                 savedSelectedIndex = _selectedIndex;
             }
-            Debug.Log("Post: " + savedSelectedIndex);
         }
 
-        private void SwapMon(int _selectedIndex, int newMonIndex)
+        public void SwapMon(int _selectedIndex, int newMonIndex)
         {
+            if (_selectedIndex != newMonIndex && savedSelectedIndex != -1)
+            {
+                Debug.Log($"Swapping {_selectedIndex} with {newMonIndex}");
+                Core.CoreManager.Instance.playerParty.party.SwapMembers(_selectedIndex, newMonIndex);
+                savedSelectedIndex = -1;
+                selectorModel.SetSelect(false);
+                partyModel.InvokeModel(key);
+                partyModel.SetLocked(false);
+                //Update UI here? Refresh?
+            } else
+            {
+                Debug.Log($"Not swappable: {_selectedIndex} and {newMonIndex}");
+            }
+        }
 
+        public void SelectorSetSelect(bool setSelect)
+        {
+            selectorModel.SetSelect(setSelect);
         }
     }
 }

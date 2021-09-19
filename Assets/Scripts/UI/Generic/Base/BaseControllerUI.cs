@@ -34,6 +34,16 @@ namespace UI.Base
             state = _state;
         }
 
+        public void EnableState()
+        {
+            ChangeState(UIState.Printing);
+        }
+
+        public void DisableState()
+        {
+            ChangeState(UIState.Hiding);
+        }
+
         public virtual void Init()
         {
             model.Init();

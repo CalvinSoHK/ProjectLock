@@ -41,6 +41,7 @@ namespace UI.Dropdown
                 Destroy(transform.GetChild(i).gameObject);
             }
             selectorElementList.Clear();
+            managedList.Clear();
         }
 
         private void UpdateModel(string _key, DropdownModelUI _model)
@@ -54,7 +55,11 @@ namespace UI.Dropdown
         protected override void UpdateView(Model _model)
         {
             base.UpdateView(_model);
-            PopulateDropdown(dropdownModel);
+            if (dropdownModel.Active)
+            {
+                PopulateDropdown(dropdownModel);
+            }
+            
         }
 
         /// <summary>
@@ -73,6 +78,8 @@ namespace UI.Dropdown
                 element.OnSelect.AddListener(elementDTO.OnElementSelect);
                 index++;
                 selectorElementList.Add(element);
+                element.EnableElement();
+                managedList.Add(element);
             }
             Init();
         }

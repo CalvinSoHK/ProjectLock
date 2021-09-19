@@ -93,8 +93,8 @@ namespace UI.Selector
                 {
                     if (element.SelectableIndex == selectedIndex)
                     {
-                        element.Select();
                         selectorModel.SetLocked(true);
+                        element.Select();
                     }
                 }
             }

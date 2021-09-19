@@ -24,14 +24,14 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        DropdownControllerUI.DropdownOptionFire += Test;
-        PartyElementUI.PartySelectFire += Temp;
+        DropdownControllerUI.DropdownOptionFire += OnDropdownPress;
+        PartyElementUI.PartySelectFire += OnUISelect;
     }
 
     private void OnDisable()
     {
-        PartyElementUI.PartySelectFire -= Temp;
-        DropdownControllerUI.DropdownOptionFire -= Test;
+        PartyElementUI.PartySelectFire -= OnUISelect;
+        DropdownControllerUI.DropdownOptionFire -= OnDropdownPress;
     }
 
     private void Start()
@@ -74,25 +74,55 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Temp(string _key, int selectedIndex)
+    int selectedIndex = -1;
+    private void OnUISelect(string _key, int _selectedIndex)
     {
         List<string> partyDropdownList = new List<string>();
-        switch(_key)
+        if (partyController.savedSelectedIndex != -1)
         {
-            //Enums?
-            case "Party":
-                partyDropdownList.Add("Swap");
-                partyDropdownList.Add("Details");
-                break;
-            default:
-                Debug.Log("Wrong Key specified");
-                break;
+            selectedIndex = _selectedIndex;
         }
-        dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+        if (partyController.firstIteration)
+        {
+            switch (_key)
+            {
+                //Enums?
+                case "Party":
+                    partyDropdownList.Add("Swap");
+                    partyDropdownList.Add("Details");
+                    partyController.SaveIndex(_selectedIndex);
+                    break;
+                default:
+                    Debug.Log("Wrong Key specified");
+                    break;
+            }
+
+            dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+            dropdownController.EnableState();
+        } else
+        {
+            //Stuck here 
+            partyController.SwapMon(partyController.savedSelectedIndex, selectedIndex);
+            partyController.firstIteration = true;
+        }
+
+        Debug.Log(partyController.model.Locked);
     }
 
-    private void Test(string _key, string _optionKey)
+    private void OnDropdownPress(string _key, string _optionKey)
     {
-        Debug.Log("Test");
+        if (_optionKey == "Swap")
+        {
+            //Hide Dropdown Needs change
+            //dropdownController.DisableState();
+            //Unlock changing party
+            if (partyController.firstIteration)
+            {
+                partyController.model.SetLocked(false);
+                partyController.SelectorSetSelect(false);
+                partyController.firstIteration = false;
+                Debug.Log("Setting to second iteration");
+            }
+        }
     }
 }
