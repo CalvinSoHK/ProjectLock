@@ -139,12 +139,18 @@ namespace UI.Selector
 
         protected void SelectIndex()
         {
-            if (input.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
+            if (selectionChangeable)
             {
-                selectorModel.SetSelect(true);
-                selectorModel.InvokeModel(key);
+                if (input.GetInput(InputEnums.InputName.Interact, InputEnums.InputAction.Down))
+                {
+                    StartIndexTimer();
+                    selectorModel.SetSelect(true);
+                    selectorModel.InvokeModel(key);
+                }
             }
         }
+
+
 
         /// <summary>
         /// Starts the index timer.
