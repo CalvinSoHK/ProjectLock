@@ -43,7 +43,8 @@ namespace UI.Party
         {
             if (!model.Locked)
             {
-                base.HandleDisplayState();
+                IndexControl();
+                OnReturnKey();
             }
         }
 
@@ -89,19 +90,44 @@ namespace UI.Party
                 Debug.Log($"Swapping {_selectedIndex} with {newMonIndex}");
                 Core.CoreManager.Instance.playerParty.party.SwapMembers(_selectedIndex, newMonIndex);
                 savedSelectedIndex = -1;
-                selectorModel.SetSelect(false);
-                partyModel.InvokeModel(key);
+                SelectorSetSelect(false);
+                Refresh();
                 partyModel.SetLocked(false);
-                //Update UI here? Refresh?
+                firstIteration = true;
             } else
             {
                 Debug.Log($"Not swappable: {_selectedIndex} and {newMonIndex}");
+                selectorModel.SetSelect(false);
+                partyModel.SetLocked(false);
             }
         }
 
         public void SelectorSetSelect(bool setSelect)
         {
             selectorModel.SetSelect(setSelect);
+        }
+        
+        protected override void Refresh()
+        {
+            ChangeState(UIState.Printing);
+            partyModel.InvokeModel(key);
+            
+        }
+
+        private void OnReturnKey()
+        {
+            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
+            {
+                if (!firstIteration)
+                {
+                    //Reopen dropdown?
+                    firstIteration = true;
+                }
+                else
+                {
+                    ChangeState(UIState.Hiding);
+                }
+            }
         }
     }
 }

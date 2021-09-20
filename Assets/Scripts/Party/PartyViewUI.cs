@@ -44,11 +44,13 @@ namespace UI.Party
             base.UpdateView(_model);
             if (partyModel.Active == true)
             {
+                selectorBoundMax = 0;
                 for (int i = 0; i < playerParty.Count; i++)
                 {
                     if (CheckValidMon(i))
                     {
                         SetElements(i);
+                        selectorBoundMax++;
                     }
                 }
             }
@@ -57,16 +59,12 @@ namespace UI.Party
                 for (int i = 0; i < playerParty.Count; i++)
                 {
                     playerParty[i].DisableElement();
+                    selectorElementList[i].Dehover();
                 }
             }
 
         }
 
-
-        /// <summary>
-        /// Checks for valid mon
-        /// </summary>
-        /// <param name="monIndex"></param>
         private bool CheckValidMon(int monIndex)
         {
             if (partyModel.playerMon[monIndex] != null)

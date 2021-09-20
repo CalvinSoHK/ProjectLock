@@ -18,6 +18,8 @@ namespace UI.Selector
 
         protected SelectorModelUI selectorModel = new SelectorModelUI();
 
+        protected int selectorBoundMax; 
+
         protected virtual void OnEnable()
         {
             SelectorModelUI.ModelUpdate += UpdateModel;
@@ -41,6 +43,7 @@ namespace UI.Selector
                     selectorElementList.Add(selectorElement);
                 }
             }
+
         }
 
         /// <summary>
@@ -75,9 +78,9 @@ namespace UI.Selector
                 selectedIndex += selectorModel.IndexChange;
                 if(selectedIndex < 0)
                 {
-                    selectedIndex = selectorElementList.Count - 1;
+                    selectedIndex = selectorBoundMax - 1;
                 }
-                else if (selectedIndex > selectorElementList.Count - 1)
+                else if (selectedIndex > selectorBoundMax - 1)
                 {
                     selectedIndex = 0;
                 }

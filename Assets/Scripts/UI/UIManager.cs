@@ -82,6 +82,7 @@ public class UIManager : MonoBehaviour
         {
             selectedIndex = _selectedIndex;
         }
+        //Clean this up     
         if (partyController.firstIteration)
         {
             switch (_key)
@@ -103,10 +104,7 @@ public class UIManager : MonoBehaviour
         {
             //Stuck here 
             partyController.SwapMon(partyController.savedSelectedIndex, selectedIndex);
-            partyController.firstIteration = true;
         }
-
-        Debug.Log(partyController.model.Locked);
     }
 
     private void OnDropdownPress(string _key, string _optionKey)
@@ -114,7 +112,8 @@ public class UIManager : MonoBehaviour
         if (_optionKey == "Swap")
         {
             //Hide Dropdown Needs change
-            //dropdownController.DisableState();
+            dropdownController.DisableState();
+
             //Unlock changing party
             if (partyController.firstIteration)
             {

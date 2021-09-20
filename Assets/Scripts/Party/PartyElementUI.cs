@@ -27,7 +27,6 @@ namespace UI.Party
         public override void Select()
         {
             base.Select();
-            Debug.Log("Selected", this);
             PartySelectFire?.Invoke("Party",selectableIndex);
         }
     }
