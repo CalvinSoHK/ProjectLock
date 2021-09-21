@@ -78,42 +78,55 @@ public class UIManager : MonoBehaviour
     private void OnUISelect(string _key, int _selectedIndex)
     {
         List<string> partyDropdownList = new List<string>();
-        if (partyController.savedSelectedIndex != -1)
-        {
-            selectedIndex = _selectedIndex;
-        }
         //Clean this up     
-        if (partyController.firstIteration)
+
+        switch (_key)
         {
-            switch (_key)
-            {
-                //Enums?
-                case "Party":
+            //Enums?
+            case "Party":
+                if (partyController.savedSelectedIndex != -1)
+                {
+                    selectedIndex = _selectedIndex;
+                }
+                if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
+                {
                     partyDropdownList.Add("Swap");
                     partyDropdownList.Add("Details");
                     partyController.SaveIndex(_selectedIndex);
-                    break;
-                default:
-                    Debug.Log("Wrong Key specified");
-                    break;
-            }
-
-            dropdownController.MakeOrReplaceDropdown(partyDropdownList);
-            dropdownController.EnableState();
-        } else
-        {
-            //Stuck here 
-            partyController.SwapMon(partyController.savedSelectedIndex, selectedIndex);
+                    if (partyController.firstIteration)
+                    {
+                        dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+                        dropdownController.EnableState();
+                    }
+                    else
+                    {
+                        partyController.SwapMonOverworld(partyController.savedSelectedIndex, selectedIndex);
+                    }
+                } 
+                else if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Battle)
+                {
+                    partyDropdownList.Add("Switch");
+                    partyDropdownList.Add("Item");
+                    partyDropdownList.Add("Details");
+                    dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+                    dropdownController.EnableState();
+                }
+                break;
+            default:
+                Debug.Log("Wrong Key specified");
+                break;
         }
+
+        //dropdownController should partyController.SetLocked(true) when return key is pressed
+        //And hide dropdown
     }
 
     private void OnDropdownPress(string _key, string _optionKey)
     {
+        //Hide Dropdown Needs change. Button still appears and works despite DisableState()
+        //dropdownController.DisableState();
         if (_optionKey == "Swap")
         {
-            //Hide Dropdown Needs change
-            dropdownController.DisableState();
-
             //Unlock changing party
             if (partyController.firstIteration)
             {

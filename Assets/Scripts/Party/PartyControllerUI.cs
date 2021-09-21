@@ -27,6 +27,7 @@ namespace UI.Party
             {
                 ChangeState(UIState.Printing);
             }
+
         }
 
         public override void HandlePrintingState()
@@ -83,7 +84,7 @@ namespace UI.Party
             }
         }
 
-        public void SwapMon(int _selectedIndex, int newMonIndex)
+        public void SwapMonOverworld(int _selectedIndex, int newMonIndex)
         {
             if (_selectedIndex != newMonIndex && savedSelectedIndex != -1)
             {
