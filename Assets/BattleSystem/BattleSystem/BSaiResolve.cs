@@ -100,7 +100,7 @@ public class BSaiResolve : BSstate
     {
         if (stateManager.healthManager.playerCurHP <= 0)
         {
-            stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(stateManager.swapManager.currentActiveMon));
+            stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(0));
             return true;
         }
 

@@ -6,6 +6,7 @@ using UI.Selector;
 using UI.Nav;
 using UI.Party;
 using UI.Dropdown;
+using Mon.MonData;
 
 public class UIManager : MonoBehaviour
 {
@@ -74,7 +75,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    int selectedIndex = -1;
+    public int selectedIndex = -1;
     private void OnUISelect(string _key, int _selectedIndex)
     {
         List<string> partyDropdownList = new List<string>();
@@ -97,19 +98,25 @@ public class UIManager : MonoBehaviour
                     {
                         dropdownController.MakeOrReplaceDropdown(partyDropdownList);
                         dropdownController.EnableState();
+                        partyController.firstIteration = false;
                     }
                     else
                     {
                         partyController.SwapMonOverworld(partyController.savedSelectedIndex, selectedIndex);
+                        Debug.Log("Ran");
                     }
                 } 
                 else if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Battle)
                 {
-                    partyDropdownList.Add("Switch");
-                    partyDropdownList.Add("Item");
-                    partyDropdownList.Add("Details");
-                    dropdownController.MakeOrReplaceDropdown(partyDropdownList);
-                    dropdownController.EnableState();
+                    if (partyController.firstIteration)
+                    {
+                        partyDropdownList.Add("Swap");
+                        partyDropdownList.Add("Item");
+                        partyDropdownList.Add("Details");
+                        dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+                        dropdownController.EnableState();
+                        partyController.firstIteration = false;
+                    }
                 }
                 break;
             default:
@@ -125,16 +132,37 @@ public class UIManager : MonoBehaviour
     {
         //Hide Dropdown Needs change. Button still appears and works despite DisableState()
         //dropdownController.DisableState();
-        if (_optionKey == "Swap")
+        if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
         {
-            //Unlock changing party
-            if (partyController.firstIteration)
+            if (_optionKey == "Swap")
             {
-                partyController.model.SetLocked(false);
-                partyController.SelectorSetSelect(false);
-                partyController.firstIteration = false;
-                Debug.Log("Setting to second iteration");
+                //Unlock changing party
+                if (!partyController.firstIteration)
+                {
+                    partyController.model.SetLocked(false);
+                    partyController.SelectorSetSelect(false);
+                    //partyController.firstIteration = false;
+                    Debug.Log("Setting to second iteration");
+                }
             }
         }
+    }
+
+    public void PartyEnable()
+    {
+        partyController.EnableState();
+    }
+
+    public void PartyDisable()
+    {
+        partyController.SelectorSetSelect(false);
+        partyController.model.SetLocked(false);
+        partyController.firstIteration = true;
+        partyController.DisableState();
+    }
+     
+    public void PartyBattleCheck(int monNumber, MonIndObj playerMon)
+    {
+        partyController.MonInfoBattle(monNumber, playerMon);
     }
 }

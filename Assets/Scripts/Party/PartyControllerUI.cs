@@ -6,6 +6,7 @@ using CustomInput;
 using UI.Selector;
 using UI.Base;
 using UI.Dropdown;
+using Mon.MonData;
 
 namespace UI.Party
 {
@@ -27,16 +28,19 @@ namespace UI.Party
             {
                 ChangeState(UIState.Printing);
             }
-
         }
 
         public override void HandlePrintingState()
         {
             //Setting data in Model
-            for (int i = 0; i < partyModel.playerMon.Length; i++)
+            StartIndexTimer();
+            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
             {
-                MonInfo(i);
-            }
+                for (int i = 0; i < partyModel.playerMon.Length; i++)
+                {
+                    MonInfoOverworld(i);
+                }         
+            } 
             base.HandlePrintingState();
         }
 
@@ -70,11 +74,15 @@ namespace UI.Party
         /// Gives MonIndObj player party member from index
         /// </summary>
         /// <param name="monNumber"></param>
-        private void MonInfo(int monNumber)
+        private void MonInfoOverworld(int monNumber)
         {
             partyModel.playerMon[monNumber] = Core.CoreManager.Instance.playerParty.party.GetPartyMember(monNumber);
         }
 
+        public void MonInfoBattle(int monNumber, MonIndObj playerMon)
+        {
+            partyModel.playerMon[monNumber] = playerMon;
+        }
 
         public void SaveIndex(int _selectedIndex)
         {
@@ -122,7 +130,11 @@ namespace UI.Party
                 if (!firstIteration)
                 {
                     //Reopen dropdown?
-                    firstIteration = true;
+                    //is Not Locked (Swapped has been pressed already)
+                    if (!model.Locked)
+                    {
+                        firstIteration = true;
+                    }
                 }
                 else
                 {

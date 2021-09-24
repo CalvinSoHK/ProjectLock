@@ -17,6 +17,7 @@ public class BSwon : BSstate
 
         stateManager.dialogueText.dialogueTexts.text = "You have won!";
         stateManager.swapManager.SaveStats(stateManager.playerCurMonster);
+        RevertOriginalPosition();
     }
 
     public override void Run()
@@ -28,8 +29,20 @@ public class BSwon : BSstate
             firedOnce = true;
             Core.CoreManager.Instance.encounterManager.FinishEncounterAsync();
         }
-
     }
 
+    private void RevertOriginalPosition()
+    {
+        for (int i = 0; i < stateManager.playerParty.PartySize; i++)
+        {
+            for (int k = 0; k < stateManager.originalPartyOrder.Length; k++)
+            {
+                if (stateManager.playerParty.GetPartyMember(i) == stateManager.originalPartyOrder[k])
+                {
+                    stateManager.playerParty.SwapMembers(i, k);
+                }
+            }
+        }
+    }
 
 }

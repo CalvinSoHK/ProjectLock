@@ -20,6 +20,7 @@ public class BSstatemanager : MonoBehaviour
     public SwapManager swapManager;
     public AIDecisionMove aiDecisionMove;
     public AIdecision.AIDecisionSwap aiDecisionSwap;
+    public UIManager uiManager;
     [Header("Mon Managers")]
     public Party playerParty;
     public Party aiParty;
@@ -39,6 +40,7 @@ public class BSstatemanager : MonoBehaviour
     public MonIndObj playerCurMonster;
     public MonIndObj aiCurMonster;
 
+    public MonIndObj[] originalPartyOrder = new MonIndObj[Core.CoreManager.Instance.playerParty.party.PartySize];
     public GameObject swapScreen;
 
     public bool playerHasGone;

@@ -14,15 +14,18 @@ public class BSinitialize : BSstate
     public override void Enter()
     {
         Debug.Log("Initializing");
+        stateManager.uiManager = CoreManager.Instance.uiManager;
+        Debug.Log("UIManager: " + stateManager.uiManager);
         stateManager.playerParty = CoreManager.Instance.playerParty.party;
         Debug.Log("Player Party: " + stateManager.playerParty);
         stateManager.aiParty = CoreManager.Instance.encounterManager.EncounterInfo.party;
         Debug.Log("Ai Party: " + stateManager.aiParty);
 
+        //Save Locations of playerParty
+        SavePartyIndex();
 
         Debug.Log(stateManager.captureBall.name);
         //Check for encounterType? Trainer or wild
-        stateManager.swapManager.SwapScreenSetUp();
 
         //Reference each players current Mon
         stateManager.playerCurMonster = stateManager.playerParty.GetFirstValidCombatant();
@@ -57,4 +60,11 @@ public class BSinitialize : BSstate
 
     }
 
+    private void SavePartyIndex()
+    {
+        for (int i = 0; i < stateManager.originalPartyOrder.Length; i++)
+        {
+            stateManager.originalPartyOrder[i] = stateManager.playerParty.GetPartyMember(i);
+        }
+    }
 }   
