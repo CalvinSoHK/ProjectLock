@@ -103,7 +103,6 @@ public class UIManager : MonoBehaviour
                     else
                     {
                         partyController.SwapMonOverworld(partyController.savedSelectedIndex, selectedIndex);
-                        Debug.Log("Ran");
                     }
                 } 
                 else if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Battle)
@@ -141,13 +140,13 @@ public class UIManager : MonoBehaviour
                 {
                     partyController.model.SetLocked(false);
                     partyController.SelectorSetSelect(false);
-                    //partyController.firstIteration = false;
+                    //partyController.firstIteration = false; Here?
                     Debug.Log("Setting to second iteration");
                 }
             }
         }
     }
-
+    // When first is selected, Swap has not been pressed. Return down. Still locked
     public void PartyEnable()
     {
         partyController.EnableState();

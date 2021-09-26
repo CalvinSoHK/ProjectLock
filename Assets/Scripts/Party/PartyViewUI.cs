@@ -62,7 +62,6 @@ namespace UI.Party
                     selectorElementList[i].Dehover();
                 }
             }
-
         }
 
         private bool CheckValidMon(int monIndex)
@@ -99,6 +98,11 @@ namespace UI.Party
             monNumber.monHealthBar.fillAmount = (float)monster.battleObj.monStats.hp / monster.stats.hp;
         }
 
-
+        [ContextMenu("CheckLocked")]
+        private void CheckLocked()
+        {
+            Debug.Log("Active: " + partyModel.Active);
+            Debug.Log("Locked: " + partyModel.Locked);
+        }
     }
 }

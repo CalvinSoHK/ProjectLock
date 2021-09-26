@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UI.Selector;
+using UI.Base;
+using CustomInput;
 
 namespace UI.Dropdown
 {
@@ -63,6 +65,23 @@ namespace UI.Dropdown
             }
             DropdownDTO dto = new DropdownDTO(dropdownList);
             return dto;
+        }
+
+        public override void HandleDisplayState()
+        {
+            if (!model.Locked)
+            {
+                IndexControl();
+                OnReturnKey();
+            }
+        }
+
+        private void OnReturnKey()
+        {
+            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
+            {
+                ChangeState(UIState.Hiding);
+            }
         }
     }
 }

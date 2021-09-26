@@ -131,10 +131,8 @@ namespace UI.Party
                 {
                     //Reopen dropdown?
                     //is Not Locked (Swapped has been pressed already)
-                    if (!model.Locked)
-                    {
-                        firstIteration = true;
-                    }
+                    //Check if dropdown active?
+                    firstIteration = true;
                 }
                 else
                 {
