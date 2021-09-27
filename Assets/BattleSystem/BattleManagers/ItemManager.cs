@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mon.MonData;
 using Inventory;
+using Storage;
 
 public class ItemManager : MonoBehaviour
 {
@@ -10,9 +11,6 @@ public class ItemManager : MonoBehaviour
     public BSstatemanager stateManager;
 
     bool healItem = true;
-
-
-
 
     public delegate void healDelegate(MonIndObj monster, int healthValue);
 
@@ -88,11 +86,16 @@ public class ItemManager : MonoBehaviour
     }
 
     /// <summary>
-    /// When player ca
+    /// Catches mon
+    /// Adds to Player Storage if no slot is available
     /// </summary>
-    void CatchhMon()
+    private void CatchhMon()
     {
         stateManager.swapManager.SaveStats(stateManager.aiCurMonster);
-        stateManager.playerParty.AddMember(stateManager.aiCurMonster);
+
+        if (!stateManager.playerParty.AddMember(stateManager.aiCurMonster))
+        {
+            Core.CoreManager.Instance.monStorageManager.PlayerStorage.AddMonToFreeSlot(stateManager.aiCurMonster);
+        }
     }
 }

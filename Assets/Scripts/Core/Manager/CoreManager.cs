@@ -11,6 +11,7 @@ using Core.AddressableSystem;
 using System.Threading.Tasks;
 using Mon.MonData;
 using Inventory;
+using Storage;
 using CustomInput;
 
 namespace Core
@@ -79,7 +80,7 @@ namespace Core
         public UIManager uiManager;
 
         [SerializeField]
-        public PartyUIManager partyUIManager;
+        public MonStorageManager monStorageManager;
 
         [SerializeField]
         public WorldStateManager worldStateManager;

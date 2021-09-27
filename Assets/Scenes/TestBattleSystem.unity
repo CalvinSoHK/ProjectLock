@@ -247,6 +247,7 @@ MonoBehaviour:
   swapManager: {fileID: 1190762021}
   aiDecisionMove: {fileID: 105385585}
   aiDecisionSwap: {fileID: 105385587}
+  uiManager: {fileID: 0}
   playerParty:
     party:
     - baseMon:
@@ -919,6 +920,7 @@ MonoBehaviour:
         atk: 0
         spAtk: 0
         speed: 0
+  originalPartyOrder: []
   swapScreen: {fileID: 1190762019}
   playerHasGone: 0
   aiHasGone: 0
@@ -984,6 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 105385579}
+  monStorageManager: {fileID: 0}
 --- !u!114 &105385584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2451,15 +2454,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 105385579}
-  playerParty: []
-  playerMon:
-  - {fileID: 949579762}
-  - {fileID: 1188306379}
-  - {fileID: 912285429}
-  - {fileID: 1596073047}
-  - {fileID: 2146919118}
-  - {fileID: 705489091}
-  currentActiveMon: 0
 --- !u!114 &1190762022
 MonoBehaviour:
   m_ObjectHideFlags: 0
