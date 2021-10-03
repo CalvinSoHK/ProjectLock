@@ -7,6 +7,8 @@ namespace Storage
 {
     public class MonStorageManager : MonoBehaviour
     {
+        //List of all the MonStorageData boxes? 
+
         [SerializeField]
         private MonStorageData playerStorage = new MonStorageData();
         
@@ -17,6 +19,12 @@ namespace Storage
                 return playerStorage;
             }
         }
+
+        private void Start()
+        {
+            
+        }
+
 
         [ContextMenu("Check")]
         public void Check()

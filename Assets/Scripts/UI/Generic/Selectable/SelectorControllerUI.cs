@@ -185,7 +185,6 @@ namespace UI.Selector
         public override void HandleDisplayState()
         {
             base.HandleDisplayState();
-            IndexControl();
         }
 
         protected void IndexControl()

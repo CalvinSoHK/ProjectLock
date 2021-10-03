@@ -6,6 +6,7 @@ using UI.Selector;
 using UI.Nav;
 using UI.Party;
 using UI.Dropdown;
+using UI.Storage;
 using Mon.MonData;
 
 public class UIManager : MonoBehaviour
@@ -18,6 +19,8 @@ public class UIManager : MonoBehaviour
     NavControllerUI navController = new NavControllerUI();
 
     PartyControllerUI partyController = new PartyControllerUI();
+
+    StorageControllerUI storageController = new StorageControllerUI();
 
     DropdownControllerUI dropdownController = new DropdownControllerUI();
 
@@ -54,6 +57,10 @@ public class UIManager : MonoBehaviour
         partyController.SetupController("Party");
         partyController.SetNavigation(UI.SelectableDirEnum.Horizontal);
         controllers.Add(partyController);
+
+        storageController.SetupController("Storage");
+        storageController.SetNavigation(UI.SelectableDirEnum.Horizontal);
+        controllers.Add(storageController);
 
         dropdownController.SetupController("Dropdown");
         dropdownController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
