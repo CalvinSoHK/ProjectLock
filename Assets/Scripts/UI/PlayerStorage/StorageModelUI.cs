@@ -8,8 +8,11 @@ namespace UI.Storage
 {
     public class StorageModelUI : SelectorModelUI
     {
-        private MonIndObj[] _playerStorage = new MonIndObj[Core.CoreManager.Instance.monStorageManager.PlayerStorage.storageSize];
-        
+        //private MonIndObj[] _playerStorage = new MonIndObj[Core.CoreManager.Instance.monStorageManager.playerStorage.storageSize];
+        public int activeBox = 0;
+
+        private MonIndObj[] _playerStorage = new MonIndObj[50];
+
         public MonIndObj[] playerStorage
         {
             get

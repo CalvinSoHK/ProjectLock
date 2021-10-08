@@ -12,7 +12,7 @@ namespace Storage
     public class MonStorageData
     {
         //Move somewhere else in future
-        private const int _storageSize = 50;
+        private const int _storageSize = 2;
 
         public int storageSize
         {
@@ -58,7 +58,7 @@ namespace Storage
         /// Checks whether storage has space
         /// Sets freeIndex if True
         /// </summary>
-        private bool HasSpace()
+        public bool HasSpace()
         {
             for (int i = 0; i < MonStorage.Length; i++)
             {
@@ -124,6 +124,32 @@ namespace Storage
                 Debug.Log(MonStorage[i].Nickname + " " + MonStorage[i].battleObj.monStats.hp +"/"+ MonStorage[i].stats.hp);
             }
         }
+    }
+
+    public class MonStorageListData
+    {
+        private List<MonStorageData> _monStorageList = new List<MonStorageData>();
+
+        public List<MonStorageData> monStorageList
+        {
+            get
+            {
+                return _monStorageList;
+            }
+            set
+            {
+                _monStorageList = value;
+            }
+        }
+
+        public void SwapBoxPosition(int firstIndex, int secondIndex)
+        {
+            MonStorageData temp = monStorageList[secondIndex];
+
+            monStorageList[secondIndex] = monStorageList[firstIndex];
+            monStorageList[firstIndex] = temp;
+        }
+
     }
 
 }

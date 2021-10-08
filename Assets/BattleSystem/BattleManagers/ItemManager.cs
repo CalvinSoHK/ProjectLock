@@ -95,7 +95,18 @@ public class ItemManager : MonoBehaviour
 
         if (!stateManager.playerParty.AddMember(stateManager.aiCurMonster))
         {
-            Core.CoreManager.Instance.monStorageManager.PlayerStorage.AddMonToFreeSlot(stateManager.aiCurMonster);
+            for (int i = 0; i < Core.CoreManager.Instance.monStorageManager.playerStorageList.monStorageList.Count; i++)
+            {
+                if (Core.CoreManager.Instance.monStorageManager.playerStorageList.monStorageList[i].HasSpace())
+                {
+                    Core.CoreManager.Instance.monStorageManager.playerStorageList.monStorageList[i].AddMonToFreeSlot(stateManager.aiCurMonster);
+                    break;
+                }
+                else
+                {
+                    Debug.Log("No space going to try next box");
+                }
+            }
         }
     }
 }

@@ -8,28 +8,25 @@ namespace Storage
     public class MonStorageManager : MonoBehaviour
     {
         //List of all the MonStorageData boxes? 
+        private int boxCount = 2;
 
-        [SerializeField]
-        private MonStorageData playerStorage = new MonStorageData();
+        private MonStorageData playerStorage;
+
+        public MonStorageListData playerStorageList = new MonStorageListData();
         
-        public MonStorageData PlayerStorage
-        {
-            get
-            {
-                return playerStorage;
-            }
-        }
-
         private void Start()
         {
-            
+            for (int i = 0; i < boxCount; i++)
+            {
+                playerStorage = new MonStorageData();
+                playerStorageList.monStorageList.Add(playerStorage);
+            }
         }
-
 
         [ContextMenu("Check")]
         public void Check()
         {
-            PlayerStorage.Test();
+            playerStorage.Test();
         }
     }
 }

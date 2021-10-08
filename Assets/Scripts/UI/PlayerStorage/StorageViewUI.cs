@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UI.Selector;
 using UI.Base;
 
@@ -9,6 +10,9 @@ namespace UI.Storage
     public class StorageViewUI : SelectorViewUI
     {
         private StorageModelUI storageModel;
+
+        [SerializeField]
+        public Text currentBox;
 
         [SerializeField]
         List<StorageElementUI> storageList = new List<StorageElementUI>();
@@ -43,6 +47,7 @@ namespace UI.Storage
             base.UpdateView(_model);
             //Set elements
             SetElement();
+            SetActiveBox();
         }
 
         private void SetElement()
@@ -62,6 +67,11 @@ namespace UI.Storage
                 }
                 storageList[i].EnableElement();
             }
+        }
+
+        private void SetActiveBox()
+        {
+            currentBox.text = "Box: " + (storageModel.activeBox+1);
         }
     }
 }

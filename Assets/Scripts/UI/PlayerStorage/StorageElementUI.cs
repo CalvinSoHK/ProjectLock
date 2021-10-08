@@ -7,7 +7,6 @@ namespace UI.Storage
 {
     public class StorageElementUI : SelectorElementUI
     {
-        public Image monSprite;
         public Text monName;
     }
 }
