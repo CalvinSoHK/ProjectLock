@@ -11,6 +11,8 @@ namespace UI.Selector
         /// </summary>
         protected int selectedIndex = 0;
 
+        protected int selectorBoundMax; 
+
         /// <summary>
         /// List of selector elements
         /// </summary>
@@ -18,7 +20,6 @@ namespace UI.Selector
 
         protected SelectorModelUI selectorModel = new SelectorModelUI();
 
-        protected int selectorBoundMax; 
 
         protected virtual void OnEnable()
         {

@@ -33,8 +33,15 @@ namespace UI.Storage
             base.HandleDisplayState();
             SwapMons(0,1);
             SwapBox();
-            ChangeActiveBox();
+            //ChangeActiveBox();
         }
+
+        public override void HandleHidingState()
+        {
+            base.HandleHidingState();
+            StorageUIManager.TestFire -= HandlePrintingState;
+        }
+
         public override void Init()
         {
             if (!input)
@@ -46,7 +53,7 @@ namespace UI.Storage
             storageModel = (StorageModelUI)model;
             selectorModel = (SelectorModelUI)model;
 
-
+            StorageUIManager.TestFire += HandlePrintingState;
             model.Init();
         }
 

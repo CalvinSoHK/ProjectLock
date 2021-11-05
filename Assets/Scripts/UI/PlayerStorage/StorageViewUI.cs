@@ -46,13 +46,14 @@ namespace UI.Storage
         {
             base.UpdateView(_model);
             //Set elements
-            SetElement();
+            SetStorageElement();
             SetActiveBox();
         }
 
-        private void SetElement()
+        private void SetStorageElement()
         {
             //CurrentTemp
+            selectorBoundMax = 0;
             for (int i = 0; i < storageList.Count; i++)
             {
                 if (storageModel.playerStorage[i] != null)
@@ -66,6 +67,7 @@ namespace UI.Storage
                     storageList[i].monName.text = "null";
                 }
                 storageList[i].EnableElement();
+                selectorBoundMax++;
             }
         }
 
