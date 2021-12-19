@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +38,7 @@ namespace Mon.MonGeneration
                 }
             }
 
-            return pickedProfiles[Random.Range(0, pickedProfiles.Count - 1)];
+            return pickedProfiles[CoreManager.Instance.randomManager.Range(0, pickedProfiles.Count - 1, "FamilyProfile1")];
         }
     }
 }

@@ -1,3 +1,4 @@
+using Core;
 using Core.AddressableSystem;
 using Mon.MonGeneration;
 using System.Collections;
@@ -147,7 +148,7 @@ namespace Mon.Moves
             List<LearnMoveData> learnList = new List<LearnMoveData>();
 
             //Deck to shuffle and pull from
-            Deck<MoveData> moveDeck = new Deck<MoveData>();
+            Deck<MoveData> moveDeck = new Deck<MoveData>(generatedMon.ID);
             
             //Adds all related moves to move deck
             foreach(string tag in generatedMon.assignedTags)
@@ -190,7 +191,7 @@ namespace Mon.Moves
 
                     if (validMove)
                     {
-                        int level = Random.Range(data.minLevelRange, data.maxLevelRange);
+                        int level = CoreManager.Instance.randomManager.Range(data.minLevelRange, data.maxLevelRange, "MoveDex1");
 
                         LearnMoveData learnMove = new LearnMoveData(data, level);
                         learnList.Add(learnMove);

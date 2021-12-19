@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -2527,6 +2527,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1728475289570886261, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: seed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1728475289570886261, guid: 5023eb6124a3bad40b628e8e59aab62e,
+        type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2868099204526525829, guid: 5023eb6124a3bad40b628e8e59aab62e,
         type: 3}
       propertyPath: m_IsActive
@@ -3378,8 +3388,9 @@ MonoBehaviour:
     catchRate: 0
     weight: 0
     exp_gain: 0
-    learnMoves: []
+    learnableMoves: []
     teachableMoves: []
+    assignedTags: []
   displaying: 0
 --- !u!1 &1673985478
 GameObject:
@@ -3848,8 +3859,9 @@ MonoBehaviour:
     catchRate: 0
     weight: 0
     exp_gain: 0
-    learnMoves: []
+    learnableMoves: []
     teachableMoves: []
+    assignedTags: []
 --- !u!1 &1816992163
 GameObject:
   m_ObjectHideFlags: 0
@@ -4311,8 +4323,9 @@ MonoBehaviour:
     catchRate: 0
     weight: 0
     exp_gain: 0
-    learnMoves: []
+    learnableMoves: []
     teachableMoves: []
+    assignedTags: []
 --- !u!1 &1974201179
 GameObject:
   m_ObjectHideFlags: 0

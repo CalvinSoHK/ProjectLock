@@ -11,7 +11,7 @@ namespace Utility
     {
         private List<T> deckList = new List<T>();
 
-        System.Random random = new System.Random();
+        System.Random random;
 
         /// <summary>
         /// Count of cards in deck
@@ -28,7 +28,7 @@ namespace Utility
         /// Constructs deck from list
         /// </summary>
         /// <param name="list"></param>
-        public Deck(List<T> list = null)
+        public Deck(int seedModifier = 0, List<T> list = null)
         {
             if(list != null)
             {
@@ -37,6 +37,8 @@ namespace Utility
                     deckList.Add(value);
                 }
             }
+
+            random = new System.Random(Core.CoreManager.Instance.randomManager.Seed + seedModifier);
         }
 
         /// <summary>

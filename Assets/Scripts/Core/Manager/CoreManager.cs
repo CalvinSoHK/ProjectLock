@@ -84,6 +84,9 @@ namespace Core
         [SerializeField]
         public WorldStateManager worldStateManager;
 
+        [SerializeField]
+        public RandomManager randomManager;
+
         [Header("Scriptable Objects")]
         public TypeRelationSO typeRelationSO;
 
@@ -92,6 +95,7 @@ namespace Core
         /// </summary>
         public async Task Initialize()
         {
+            randomManager.InitializeSeed();
             await dexManager.GenerateDex();
             SetPlayerActive(true);
         }

@@ -1,3 +1,4 @@
+using Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,7 +76,7 @@ public class AIDecisionMove : MonoBehaviour
         /// <returns></returns>
         void RandomMoveSelection(int maxMoves)
         {
-            stateManager.aiCurrentMove = Random.Range(0, maxMoves - 1);
+            stateManager.aiCurrentMove = CoreManager.Instance.randomManager.Range(0, maxMoves - 1, "AIRandomMove");
         }
 
 }

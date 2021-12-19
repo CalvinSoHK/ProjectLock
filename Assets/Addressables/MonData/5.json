@@ -1,0 +1,13 @@
+{
+  "key": 5,
+  "name": "Ivysaur",
+  "stage": 2,
+  "family" : [
+    4,
+    6
+  ],
+  "requiredType": "grass",
+  "tags": [
+    "grassType"
+  ]
+}

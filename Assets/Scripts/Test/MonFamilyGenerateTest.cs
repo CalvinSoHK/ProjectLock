@@ -32,14 +32,25 @@ public class MonFamilyGenerateTest : MonoBehaviour
 
     private void Start()
     {
+        Core.CoreManager.Instance.randomManager.InitializeSeed();
         LoadMon();
+        StartCoroutine(WaitForReady());
+    }
+
+    private IEnumerator WaitForReady()
+    {
+        while (!Core.CoreManager.Instance.dexManager.DexReady)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        display.displaying = true;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && Core.CoreManager.Instance.dexManager.DexReady)
         {
-            display.displaying = true;
+           
             LoadMon();
 
             //Save all generated mons

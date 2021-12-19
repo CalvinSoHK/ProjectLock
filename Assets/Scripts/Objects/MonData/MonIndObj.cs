@@ -1,4 +1,5 @@
-﻿using Mon.MonGeneration;
+﻿using Core;
+using Mon.MonGeneration;
 using Mon.Moves;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,7 +76,7 @@ namespace Mon.MonData
         /// </summary>
         private void SetMoveset(int level)
         {
-            Deck<LearnMoveData> possibleMoves = new Deck<LearnMoveData>(baseMon.GetLearnableMoves(level));
+            Deck<LearnMoveData> possibleMoves = new Deck<LearnMoveData>(baseMon.ID, baseMon.GetLearnableMoves(level));
             possibleMoves.ShuffleDeck();
             while(moveSet.MoveCount < 5)
             {
@@ -97,7 +98,7 @@ namespace Mon.MonData
                     else //If there is no empty index
                     {
                         //Pick a random index
-                        int index = Random.Range(0, MoveSet.MoveMaxCount);
+                        int index = CoreManager.Instance.randomManager.Range(0, MoveSet.MoveMaxCount, "MonIndObj1");
                         moveSet.LearnMove(learnMove.move, index);
                     }
                 }

@@ -1,0 +1,13 @@
+{
+  "key": 8,
+  "name": "Wartortle",
+  "stage": 2,
+  "family" : [
+    7,
+    9
+  ],
+  "requiredType": "water",
+  "tags": [
+    "waterType"
+  ]
+}

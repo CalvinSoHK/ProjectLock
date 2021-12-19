@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Utility
         public T PickRandom()
         {
             T[] enums = (T[])Enum.GetValues(typeof(T));
-            return enums[UnityEngine.Random.Range(0, enums.Length)];
+            return enums[CoreManager.Instance.randomManager.Range(0, enums.Length, "PickRandomEnumL21")];
         }
     }
 }

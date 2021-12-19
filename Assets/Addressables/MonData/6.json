@@ -1,0 +1,13 @@
+{
+  "key": 6,
+  "name": "Venusaur",
+  "stage": 3,
+  "family" : [
+    4,
+    5
+  ],
+  "requiredType": "grass",
+  "tags": [
+    "grassType"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "key": 7,
+  "name": "Squirtle",
+  "stage": 1,
+  "family" : [
+    8,
+    9
+  ],
+  "requiredType": "water",
+  "tags": [
+    "waterType"
+  ]
+}

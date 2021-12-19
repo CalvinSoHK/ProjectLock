@@ -1,0 +1,13 @@
+{
+  "key": 9,
+  "name": "Blastoise",
+  "stage": 3,
+  "family" : [
+    7,
+    8
+  ],
+  "requiredType": "water",
+  "tags": [
+    "waterType"
+  ]
+}

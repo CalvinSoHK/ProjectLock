@@ -1,3 +1,4 @@
+using Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +10,6 @@ namespace World.Event
     /// </summary>
     public class InitializeGame : BaseEvent
     {
-        /// <summary>
-        /// Calls the async InitTask
-        /// </summary>
-        public void Initialize()
-        {
-            OnBeforeEventFire?.Invoke();
-            InitTask();
-        }
-
         /// <summary>
         /// Async initialize of the game
         /// </summary>

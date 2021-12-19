@@ -13,6 +13,14 @@ namespace Core
     /// </summary>
     public class DexManager : MonoBehaviour
     {
+        public MonDex Dex
+        {
+            get
+            {
+                return monDex;
+            }
+        }
+
         private MonDex monDex = new MonDex();
 
         private MoveDex moveDex = new MoveDex();
@@ -36,6 +44,8 @@ namespace Core
             {
                 await moveDex.LoadDex();
             }
+
+            Debug.Log("Generating dex");
 
             //Create a generator to make a whole new generation. Then generate mons by key
             MonGenerator generator = new MonGenerator();

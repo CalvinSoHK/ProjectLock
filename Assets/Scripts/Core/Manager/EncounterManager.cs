@@ -66,7 +66,7 @@ namespace Core.Player
                     curChance = encounterChance;
                 }
 
-                if (Random.Range(0f, 1f) <= curChance)
+                if (CoreManager.Instance.randomManager.Range(0f, 1f, "CheckEncounter1") <= curChance)
                 {
                     curEncounter = encounterArea.PickEncounter();
                     curChance = 0f;
