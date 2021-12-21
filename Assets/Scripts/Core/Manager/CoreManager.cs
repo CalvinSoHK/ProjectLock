@@ -97,6 +97,7 @@ namespace Core
         {
             randomManager.InitializeSeed();
             await dexManager.GenerateDex();
+            await encounterManager.InitEncounterData();
             SetPlayerActive(true);
         }
 

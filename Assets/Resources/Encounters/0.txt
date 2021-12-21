@@ -1,0 +1,19 @@
+{
+    "encounterList": [
+        {
+            "id": "demotown_northwest",
+            "encounterData": [
+                {
+                    "dexID": 2,
+                    "level": 2,
+                    "chanceWeight": 0.9818333387374878
+                },
+                {
+                    "dexID": 1,
+                    "level": 4,
+                    "chanceWeight": 0.6588273048400879
+                }
+            ]
+        }
+    ]
+}

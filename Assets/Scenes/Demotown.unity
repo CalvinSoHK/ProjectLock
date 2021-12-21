@@ -2753,10 +2753,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bbadc00b688302428fc40522c7438ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  encounterData:
-  - dexID: 1
-    level: 100
-    chanceWeight: 100
+  id: demotown_northwest
+  encounterData: []
 --- !u!114 &1761997904
 MonoBehaviour:
   m_ObjectHideFlags: 0

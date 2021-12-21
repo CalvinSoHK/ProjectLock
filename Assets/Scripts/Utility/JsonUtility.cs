@@ -10,21 +10,43 @@ namespace Utility
     /// <summary>
     /// JSONUtility Class
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"> T is the type</typeparam>
     public class JsonUtility <T>
     {
+        public enum LoadType
+        {
+            Addressable,
+            Resources
+        }
+
         /// <summary>
         /// Loads a JSON at "path" and turns into object type T
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public async Task<T> LoadJSON(string path)
+        public async Task<T> LoadJSON(string path, LoadType type = LoadType.Addressable)
         {
-            AddressablesManager addressManager = Core.CoreManager.Instance.addressablesManager;
+            if(type == LoadType.Addressable)
+            {
+                AddressablesManager addressManager = Core.CoreManager.Instance.addressablesManager;
 
-            TextAsset asset = await addressManager.LoadAddressable<TextAsset>(path, false);
+                TextAsset asset = await addressManager.LoadAddressable<TextAsset>(path, false);
 
-            return JsonUtility.FromJson<T>(asset.text);
+                return JsonUtility.FromJson<T>(asset.text);
+            }
+            else if(type == LoadType.Resources)
+            {
+                ResourceRequest request = Resources.LoadAsync<TextAsset>(path);
+                Debug.Log("Attempting load at path: " + path);
+                while (!request.isDone)
+                {
+                    Debug.Log("Progress: " + request.progress);
+                    await Task.Delay(100);
+                }
+                TextAsset asset = (TextAsset)request.asset;
+                return JsonUtility.FromJson<T>(asset.text);
+            }
+            throw new System.Exception("LoadJSON Error : Entered invalid loading mode: " + type);            
         }
 
         /// <summary>

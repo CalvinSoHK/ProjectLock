@@ -5,6 +5,17 @@ using UnityEngine;
 public class EncounterArea : MonoBehaviour
 {
     [SerializeField]
+    private string id = "";
+
+    public string ID
+    {
+        get
+        {
+            return id;
+        }
+    }
+
+    [SerializeField]
     List<EncounterData> encounterData = new List<EncounterData>();
 
     public EncounterData PickEncounter()

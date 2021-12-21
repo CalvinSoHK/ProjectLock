@@ -97,8 +97,8 @@ namespace Mon.MonData
 
             //Initialize json utilty and path to load from
             Utility.JsonUtility<GeneratedMon> jsonUtility = new Utility.JsonUtility<GeneratedMon>();
-            string checkPath = StaticPaths.SaveToGeneratedPath + "/" + generationID;
-            string loadPath = StaticPaths.LoadFromGeneratedPath + "/" + generationID;
+            string checkPath = StaticPaths.SaveToGeneratedMonsPaths + "/" + generationID;
+            string loadPath = StaticPaths.LoadFromGeneratedMonsPaths + "/" + generationID;
 
             //Check if the generation inputted is valid.
             if(!Directory.Exists(checkPath))

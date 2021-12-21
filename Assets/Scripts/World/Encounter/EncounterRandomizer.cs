@@ -25,6 +25,28 @@ public class EncounterRandomizer : MonoBehaviour
     {
         encounterArea = GetComponent<EncounterArea>();
 
+        List<EncounterData> encounterData = new List<EncounterData>();
+
+        //If we can get data then use those
+        if(CoreManager.Instance.encounterManager.encounterData.TryGetEncounters(encounterArea.ID, out encounterData))
+        {
+            foreach(EncounterData data in encounterData)
+            {
+                Debug.Log(data.dexID + " / " + data.level + " / " + data.chanceWeight);
+                encounterArea.AddEncounter(data);
+            }
+        }
+        else //Else generate new ones
+        {
+            GenerateRandomEncounters();
+        }
+    }
+
+    /// <summary>
+    /// Generates random encounters
+    /// </summary>
+    private void GenerateRandomEncounters()
+    {
         encounterArea.EmptyEncounterList();
 
         dex = CoreManager.Instance.dexManager.Dex;
@@ -32,9 +54,9 @@ public class EncounterRandomizer : MonoBehaviour
         //Clamps numEncounters to dex length
         numEncounters = Mathf.Clamp(numEncounters, 0, dex.dexLength);
 
-        for(int i = 0; i < numEncounters; i++)
+        for (int i = 0; i < numEncounters; i++)
         {
-            
+
             int randID = CoreManager.Instance.randomManager.Range(0, dex.dexLength, "EncounterRandomizer1");
             if (dex.CheckValidID(randID))
             {
@@ -43,10 +65,8 @@ public class EncounterRandomizer : MonoBehaviour
                     CoreManager.Instance.randomManager.Range(minLevel, maxLevel, "EncounterRandomizer2"),
                     CoreManager.Instance.randomManager.Range(0f, 1f, "EncounterRandomizer3"));
                 encounterArea.AddEncounter(data);
-                Debug.Log("Encounter added: " + data.dexID);
+                Core.CoreManager.Instance.encounterManager.encounterData.AddEncounter(encounterArea.ID, data);
             }
         }
-
-        //Destroy(this);
     }
 }

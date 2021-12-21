@@ -5,11 +5,16 @@ using UnityEngine;
 using World.Tile;
 using World;
 using System.Threading.Tasks;
+using Utility;
+using System.IO;
 
 namespace Core.Player
 {
     public class EncounterManager : MonoBehaviour
     {
+        [Header("Encounter Generation")]
+        public WorldEncounterData encounterData;
+
         [Header("Encounter Detection")]
         [SerializeField]
         LayerMask encounterLayers;
@@ -126,6 +131,54 @@ namespace Core.Player
             CoreManager.Instance.SetPlayerActive(true);
             loadedScenes.Clear();
             encounterInfo = null;
+        }
+
+        /// <summary>
+        /// Initialize encounter data
+        /// </summary>
+        /// <returns></returns>
+        public async Task InitEncounterData()
+        {
+            if (CheckValidData())
+            {
+                encounterData = await LoadData();
+            }
+            else
+            {
+                encounterData = new WorldEncounterData();
+            }
+        }
+
+        /// <summary>
+        /// Check if there is data the given path
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckValidData()
+        {
+            string checkPath = StaticPaths.SaveToGeneratedEncountersPaths + "/" + Core.CoreManager.Instance.randomManager.Seed + ".txt";
+            Debug.Log("Checking file at path: " + checkPath);
+            //Check if the generation inputted is valid.
+            return File.Exists(checkPath);
+        }
+
+        /// <summary>
+        /// Loading data for a given seed
+        /// </summary>
+        private async Task<WorldEncounterData> LoadData()
+        {
+            WorldEncounterData data = new WorldEncounterData();
+            await data.LoadData();
+            return data;
+        }
+    
+        /// <summary>
+        /// Check if given encounter ID is alreayd in the dict
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool TryGetEncounter(string id, out List<EncounterData> dataList)
+        {
+            return encounterData.TryGetEncounters(id, out dataList);
         }
     }
 

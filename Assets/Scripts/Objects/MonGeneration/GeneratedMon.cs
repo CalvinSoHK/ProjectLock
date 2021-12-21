@@ -88,7 +88,7 @@ namespace Mon.MonGeneration
         public void SaveData()
         {
             Utility.JsonUtility<GeneratedMon> jsonUtility = new Utility.JsonUtility<GeneratedMon>();
-            string path = StaticPaths.SaveToGeneratedPath + "/" + generationID;
+            string path = StaticPaths.SaveToGeneratedMonsPaths + "/" + generationID;
             if (!Directory.Exists(path))
             {
                 Debug.Log("Path not available, will now generate path: " + path);
