@@ -112,6 +112,31 @@ public class RandomManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gives next double from this generator
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="IDString"></param>
+    /// <returns></returns>
+    public double NextDouble(RandomType type, string IDString)
+    {
+        RandomGenerator generator;
+
+        if (generatorDict.TryGetValue(type, out generator))
+        {
+            double value = generator.NextDouble();
+#if DEBUG_ENABLED
+            chosennumbers += "\"" + idNumber + "/" + IDString + "\" :  \"" + value + "\",";
+            idNumber++;
+#endif
+            return value;
+        }
+        else
+        {
+            throw new System.Exception("RandomType: " + type + " not initialized yet.");
+        }
+    }
+
     private void Update()
     {
 #if DEBUG_ENABLED

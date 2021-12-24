@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
-namespace Utility
+namespace Utility.Random
 {
     /// <summary>
     /// Generates random number in a normal/gaussian curve.
@@ -11,31 +12,20 @@ namespace Utility
     /// </summary>
     public class GaussianRandom
     {
-        System.Random rand;
+        private RandomType type;
+        private string IDString;
 
-        private static GaussianRandom instance = null;
-        public static GaussianRandom Instance
-        {
-            get
-            {
-                if(instance == null)
-                {
-                    instance = new GaussianRandom();
-                }
-                return instance;
-            }
-        }
-
-        public GaussianRandom()
+        public GaussianRandom(RandomType _type, string _IDString)
         {
             //Has to be generated or else we will get the same random in the same frame.
-            rand = new System.Random();
+            type = _type;
+            IDString = _IDString;
         }
 
         public double RandomGaussian(float average, float stdDev)
         {
-            double u1 = 1.0 - rand.NextDouble(); //uniform(0,1] random doubles
-            double u2 = 1.0 - rand.NextDouble();
+            double u1 = Core.CoreManager.Instance.randomManager.NextDouble(RandomType.Generation, IDString);
+            double u2 = Core.CoreManager.Instance.randomManager.NextDouble(RandomType.Generation, IDString);
             double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
                          Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
             double randNormal =

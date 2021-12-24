@@ -292,7 +292,7 @@ namespace Mon.MonGeneration
         private MonBaseStats GenerateMaxStats(MonGenFamilyProfileSO familyProfile)
         {
             //Initialize random generator
-            Utility.GaussianRandom random = GaussianRandom.Instance;
+            GaussianRandom random = new GaussianRandom(RandomType.Generation, "GenerateMaxStats");
 
             //Generate stat total
             double statTotal = random.RandomGaussian(familyProfile.statTotalAverage, familyProfile.statTotal_stddev);

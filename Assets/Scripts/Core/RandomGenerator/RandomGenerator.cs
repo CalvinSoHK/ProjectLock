@@ -39,5 +39,14 @@ namespace Utility.Random
             double range = (double)max - (double)min;
             return (float)((randValue * range) + min);
         }
+
+        /// <summary>
+        /// Returns NextDouble. 
+        /// </summary>
+        /// <returns></returns>
+        public double NextDouble()
+        {
+            return random.NextDouble();
+        }
     }
 }
