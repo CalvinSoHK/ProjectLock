@@ -61,7 +61,7 @@ namespace UI.Base
                 ChangeState(UIState.Hiding);
             }
             else if(model.Active && state == UIState.Off)
-            {
+            {            
                 ChangeState(UIState.Printing);
             }
         }

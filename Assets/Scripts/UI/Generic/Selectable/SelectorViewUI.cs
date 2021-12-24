@@ -65,7 +65,13 @@ namespace UI.Selector
             base.UpdateView(_model);
             UpdateIndex();
             UpdateSelect();
-        }     
+        }
+
+        public override void HandlePrintingState()
+        {
+            base.HandlePrintingState();
+            UpdateHover();
+        }
 
         /// <summary>
         /// Selects the given index

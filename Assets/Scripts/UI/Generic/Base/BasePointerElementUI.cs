@@ -54,13 +54,19 @@ namespace UI.Base
         {
             OnPointerDownEvent?.Invoke();
         }
-
+        
+        /// <summary>
+        /// Enables all elements under this element. (Changes to printing state)
+        /// </summary>
         public override void EnableElement()
         {
             SetObjectsActive(true);
             ChangeState(UIState.Printing);
         }
 
+        /// <summary>
+        /// Disables all elements under this element. (Changes to hiding state)
+        /// </summary>
         public override void DisableElement()
         {
             SetObjectsActive(false);

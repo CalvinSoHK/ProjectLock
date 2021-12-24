@@ -39,28 +39,27 @@ namespace UI.Party
             }
         }
 
-        protected override void UpdateView(Model _model)
+        public override void HandlePrintingState()
         {
-            base.UpdateView(_model);
-            if (partyModel.Active == true)
-            {
-                selectorBoundMax = 0;
-                for (int i = 0; i < playerParty.Count; i++)
+            base.HandlePrintingState();
+            selectorBoundMax = 0;
+            for (int i = 0; i < playerParty.Count; i++)
+            {                
+                if (CheckValidMon(i))
                 {
-                    if (CheckValidMon(i))
-                    {
-                        SetElements(i);
-                        selectorBoundMax++;
-                    }
+                    SetElements(i);
+                    selectorBoundMax++;
                 }
             }
-            else
+        }
+
+        public override void HandleHidingState()
+        {
+            base.HandleHidingState();
+            for (int i = 0; i < playerParty.Count; i++)
             {
-                for (int i = 0; i < playerParty.Count; i++)
-                {
-                    playerParty[i].DisableElement();
-                    selectorElementList[i].Dehover();
-                }
+                playerParty[i].DisableElement();
+                selectorElementList[i].Dehover();
             }
         }
 

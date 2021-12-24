@@ -74,10 +74,10 @@ namespace UI.Selector
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
-            if(selectableIndex == 0)
-            {
-                Hover();
-            }
+            //if(selectableIndex == 0)
+            //{
+            //    Hover();
+            //}
             ChangeState(UIState.Displaying);
         }
     }
