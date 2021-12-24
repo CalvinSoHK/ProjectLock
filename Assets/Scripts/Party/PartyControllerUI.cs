@@ -33,10 +33,7 @@ namespace UI.Party
             StartIndexTimer();
             if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
             {
-                for (int i = 0; i < partyModel.playerMon.Length; i++)
-                {
-                    MonInfoOverworld(i);
-                }         
+                Refresh();      
             } 
             base.HandlePrintingState();
         }
@@ -121,9 +118,12 @@ namespace UI.Party
         
         protected override void Refresh()
         {
-            ChangeState(UIState.Printing);
-            partyModel.InvokeModel(key);
-            
+            for (int i = 0; i < partyModel.playerMon.Length; i++)
+            {
+                MonInfoOverworld(i);
+            }
+            partyModel.Refresh();
+            partyModel.InvokeModel(key);            
         }
 
         private void OnReturnKey()

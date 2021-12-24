@@ -49,7 +49,7 @@ namespace UI.Selector
             indexChange = 0;
         }
 
-        public override void Refresh()
+        public override void Reset()
         {
             indexChange = 0;
         }

@@ -56,7 +56,11 @@ namespace UI.Base
         private void UpdateModelState(Model _model)
         {
             SetModel(_model);
-            if (!model.Active && state == UIState.Displaying)
+            if(model.Active && state == UIState.Displaying && model.CheckRefresh())
+            {
+                RefreshUI();
+            }
+            else if (!model.Active && state == UIState.Displaying)
             {
                 ChangeState(UIState.Hiding);
             }

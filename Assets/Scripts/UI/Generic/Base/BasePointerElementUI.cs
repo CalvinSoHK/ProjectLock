@@ -75,7 +75,7 @@ namespace UI.Base
 
         public override void RefreshElement()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }

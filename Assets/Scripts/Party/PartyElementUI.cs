@@ -29,5 +29,22 @@ namespace UI.Party
             base.Select();
             PartySelectFire?.Invoke("Party",selectableIndex);
         }
+
+        /// <summary>
+        /// Sets variable based on MonIndObj
+        /// </summary>
+        /// <param name="monster"></param>
+        public void DisplayInfo(MonIndObj monster)
+        {
+            monName.text = monster.baseMon.name;
+            monHealth.text = $"{monster.battleObj.monStats.hp} / {monster.stats.hp}";
+            monLevel.text = monster.stats.level.ToString();
+            monHealthBar.fillAmount = (float)monster.battleObj.monStats.hp / monster.stats.hp;
+        }
+
+        public override void RefreshElement()
+        {
+            base.RefreshElement();
+        }
     }
 }

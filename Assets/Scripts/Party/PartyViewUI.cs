@@ -42,15 +42,7 @@ namespace UI.Party
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
-            selectorBoundMax = 0;
-            for (int i = 0; i < playerParty.Count; i++)
-            {                
-                if (CheckValidMon(i))
-                {
-                    SetElements(i);
-                    selectorBoundMax++;
-                }
-            }
+            SetElements();
         }
 
         public override void HandleHidingState()
@@ -75,33 +67,35 @@ namespace UI.Party
             }
         }
 
-        /// <summary>
-        /// Sets the element depending on the index
-        /// </summary>
-        /// <param name="monNumber"></param>
-        void SetElements(int monNumber)
-        {
-            DisplayInfo(playerParty[monNumber], partyModel.playerMon[monNumber]);
-            playerParty[monNumber].EnableElement();
-        }
-
-        /// <summary>
-        /// Sets variable based on MonIndObj
-        /// </summary>
-        /// <param name="monster"></param>
-        private void DisplayInfo(PartyElementUI monNumber, MonIndObj monster)
-        {
-            monNumber.monName.text = monster.baseMon.name;
-            monNumber.monHealth.text = $"{monster.battleObj.monStats.hp} / {monster.stats.hp}";
-            monNumber.monLevel.text = monster.stats.level.ToString();
-            monNumber.monHealthBar.fillAmount = (float)monster.battleObj.monStats.hp / monster.stats.hp;
-        }
 
         [ContextMenu("CheckLocked")]
         private void CheckLocked()
         {
             Debug.Log("Active: " + partyModel.Active);
             Debug.Log("Locked: " + partyModel.Locked);
+        }
+
+        /// <summary>
+        /// Sets all element values
+        /// </summary>
+        private void SetElements()
+        {
+            selectorBoundMax = 0;
+            for (int i = 0; i < playerParty.Count; i++)
+            {
+                if (CheckValidMon(i))
+                {
+                    playerParty[i].DisplayInfo(partyModel.playerMon[i]);
+                    playerParty[i].EnableElement();
+                    selectorBoundMax++;
+                }
+            }
+        }
+
+        protected override void RefreshUI()
+        {
+            base.RefreshUI();
+            SetElements();
         }
     }
 }

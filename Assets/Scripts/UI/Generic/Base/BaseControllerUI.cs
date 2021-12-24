@@ -49,6 +49,12 @@ namespace UI.Base
             model.Init();
         }
 
+        public virtual void Reset()
+        {
+            model.Reset();
+            model.InvokeModel(key);
+        }
+
         protected virtual void Refresh()
         {
             model.Refresh();
