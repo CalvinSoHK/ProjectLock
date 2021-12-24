@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 public class EncounterArea : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class EncounterArea : MonoBehaviour
 
     public EncounterData PickEncounter()
     {
-        return encounterData[0];
+        Deck<EncounterData> encounterDeck = new Deck<EncounterData>(Utility.Random.RandomType.Inconsistent, "EncounterDeck", encounterData);
+        encounterDeck.ShuffleDeck();
+        return encounterDeck.DestructiveDraw();
     }
 
     public void AddEncounter(EncounterData data)
