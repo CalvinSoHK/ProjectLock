@@ -3,6 +3,7 @@ using Mon.MonData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 [RequireComponent(typeof(EncounterArea))]
 public class EncounterRandomizer : MonoBehaviour
@@ -57,15 +58,15 @@ public class EncounterRandomizer : MonoBehaviour
         for (int i = 0; i < numEncounters; i++)
         {
 
-            int randID = CoreManager.Instance.randomManager.Range(0, dex.dexLength, "EncounterRandomizer1");
+            int randID = CoreManager.Instance.randomManager.Range(RandomType.Generation, 0, dex.dexLength, "EncounterRandomizer1");
             if (dex.CheckValidID(randID))
             {
                 EncounterData data = new EncounterData(
                     randID,
-                    CoreManager.Instance.randomManager.Range(minLevel, maxLevel, "EncounterRandomizer2"),
-                    CoreManager.Instance.randomManager.Range(0f, 1f, "EncounterRandomizer3"));
+                    CoreManager.Instance.randomManager.Range(RandomType.Generation, minLevel, maxLevel, "EncounterRandomizer2"),
+                    CoreManager.Instance.randomManager.Range(RandomType.Generation, 0f, 1f, "EncounterRandomizer3"));
                 encounterArea.AddEncounter(data);
-                Core.CoreManager.Instance.encounterManager.encounterData.AddEncounter(encounterArea.ID, data);
+                CoreManager.Instance.encounterManager.encounterData.AddEncounter(encounterArea.ID, data);
             }
         }
     }

@@ -2,6 +2,7 @@ using Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 public class BSescape : BSstate
 {
@@ -46,7 +47,7 @@ public class BSescape : BSstate
     void escapeCheck()
     {
         //float odds = ((stateManager.playerCurMonster.stats.speed * 128) / (stateManager.aiCurMonster.stats.speed)) + (30 * attempts)
-        float currentEscape = CoreManager.Instance.randomManager.Range(0, 1f, "EscapeCheck");
+        float currentEscape = CoreManager.Instance.randomManager.Range(RandomType.Inconsistent, 0, 1f, "EscapeCheck");
         float odds = .8f;
 
         if (odds >= currentEscape)

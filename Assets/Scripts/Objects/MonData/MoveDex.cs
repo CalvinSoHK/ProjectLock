@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Utility;
+using Utility.Random;
 
 namespace Mon.Moves
 {
@@ -148,7 +149,7 @@ namespace Mon.Moves
             List<LearnMoveData> learnList = new List<LearnMoveData>();
 
             //Deck to shuffle and pull from
-            Deck<MoveData> moveDeck = new Deck<MoveData>(generatedMon.ID);
+            Deck<MoveData> moveDeck = new Deck<MoveData>(RandomType.Generation, "PickMoveDeck" + generatedMon.ID);
             
             //Adds all related moves to move deck
             foreach(string tag in generatedMon.assignedTags)
@@ -166,6 +167,11 @@ namespace Mon.Moves
             if(moveDeck.Count <= 0)
             {
                 throw new MoveDexException("MoveDex Error: Generated move deck was empty for: " + generatedMon.name);
+            }
+
+            if(numberOfMoves <= 0)
+            {
+                throw new MoveDexException("MoveDex Error: Generated number of moves to add was 0 for: " + generatedMon.name);
             }
 
             //Pull number of moves out of moveDeck and add to generatedMon's learn list.
@@ -191,7 +197,7 @@ namespace Mon.Moves
 
                     if (validMove)
                     {
-                        int level = CoreManager.Instance.randomManager.Range(data.minLevelRange, data.maxLevelRange, "MoveDex1");
+                        int level = CoreManager.Instance.randomManager.Range(RandomType.Generation, data.minLevelRange, data.maxLevelRange, "MoveDex1");
 
                         LearnMoveData learnMove = new LearnMoveData(data, level);
                         learnList.Add(learnMove);

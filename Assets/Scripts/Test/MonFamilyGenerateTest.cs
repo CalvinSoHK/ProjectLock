@@ -32,7 +32,7 @@ public class MonFamilyGenerateTest : MonoBehaviour
 
     private void Start()
     {
-        Core.CoreManager.Instance.randomManager.InitializeSeed();
+        Core.CoreManager.Instance.randomManager.Initialize();
         LoadMon();
         StartCoroutine(WaitForReady());
     }

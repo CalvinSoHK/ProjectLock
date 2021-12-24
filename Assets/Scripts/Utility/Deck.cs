@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 namespace Utility
 {
@@ -11,7 +12,9 @@ namespace Utility
     {
         private List<T> deckList = new List<T>();
 
-        System.Random random;
+        private RandomType type;
+
+        private string deckID;
 
         /// <summary>
         /// Count of cards in deck
@@ -28,17 +31,18 @@ namespace Utility
         /// Constructs deck from list
         /// </summary>
         /// <param name="list"></param>
-        public Deck(int seedModifier = 0, List<T> list = null)
+        public Deck(RandomType _type, string _deckID = "Deck", List<T> list = null)
         {
-            if(list != null)
+            type = _type;
+            deckID = _deckID;
+
+            if (list != null)
             {
                 foreach (T value in list)
                 {
                     deckList.Add(value);
                 }
             }
-
-            random = new System.Random(Core.CoreManager.Instance.randomManager.Seed + seedModifier);
         }
 
         /// <summary>
@@ -113,7 +117,7 @@ namespace Utility
             while(n > 1)
             {
                 n--;
-                int k = random.Next(n + 1);
+                int k = Core.CoreManager.Instance.randomManager.Range(type, 0, n + 1, deckID);
                 T value = deckList[k];
                 deckList[k] = deckList[n];
                 deckList[n] = value;

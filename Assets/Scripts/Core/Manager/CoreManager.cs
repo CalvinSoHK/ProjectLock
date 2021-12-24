@@ -95,7 +95,7 @@ namespace Core
         /// </summary>
         public async Task Initialize()
         {
-            randomManager.InitializeSeed();
+            randomManager.Initialize();
             await dexManager.GenerateDex();
             await encounterManager.InitEncounterData();
             SetPlayerActive(true);

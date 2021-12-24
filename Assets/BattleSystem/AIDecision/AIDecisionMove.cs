@@ -2,6 +2,7 @@ using Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 public class AIDecisionMove : MonoBehaviour
 {
@@ -76,7 +77,7 @@ public class AIDecisionMove : MonoBehaviour
         /// <returns></returns>
         void RandomMoveSelection(int maxMoves)
         {
-            stateManager.aiCurrentMove = CoreManager.Instance.randomManager.Range(0, maxMoves - 1, "AIRandomMove");
+            stateManager.aiCurrentMove = CoreManager.Instance.randomManager.Range(RandomType.Inconsistent, 0, maxMoves - 1, "AIRandomMove");
         }
 
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Utility;
+using Utility.Random;
 using Mon.Enums;
 using Mon.MonData;
 using System.Threading.Tasks;
@@ -127,7 +128,7 @@ namespace Mon.MonGeneration
                 MonGrowthType familyGrowthType = PickGrowthType();
 
                 //Pick at what stage in the family it gains it's secondary typing.
-                int secondTypeGainedStage = CoreManager.Instance.randomManager.Range(1, baseFamilyList.Length, "MonGeneratorSecondType1");
+                int secondTypeGainedStage = CoreManager.Instance.randomManager.Range(RandomType.Generation, 1, baseFamilyList.Length, "MonGeneratorSecondType1");
 
                 //Pick family stats profile
                 MonGenFamilyProfileSO familyProfile = settings.PickRandomFamilyProfile(baseFamilyList.Length);
@@ -179,7 +180,7 @@ namespace Mon.MonGeneration
                     await AddSecondaryTag(familyList[i]);
 
                     //Pick move sets
-                    int numberOfMoves = CoreManager.Instance.randomManager.Range(5, 10, "MonGeneratorMoveSet1");
+                    int numberOfMoves = CoreManager.Instance.randomManager.Range(RandomType.Generation, 5, 10, "MonGeneratorMoveSet1");
                     try
                     {
                         familyList[i].learnableMoves = await moveDex.GenerateLearnMoves(familyList[i], numberOfMoves);
@@ -251,7 +252,7 @@ namespace Mon.MonGeneration
         private MonType PickSecondaryTyping(MonType primaryType)
         {
             // Randomly pick if this pokemon will get a secondary type.
-            if (CoreManager.Instance.randomManager.Range(0f, 1f, "MonGeneratorIfSecondType1") >= settings.monoTypingChance)
+            if (CoreManager.Instance.randomManager.Range(RandomType.Generation, 0f, 1f, "MonGeneratorIfSecondType1") >= settings.monoTypingChance)
             {
                 //If it is getting a second type, randomly pick one that isn't the primary type.
                 PickRandomEnum<MonType> pickRandomEnum = new PickRandomEnum<MonType>();
@@ -260,7 +261,7 @@ namespace Mon.MonGeneration
                 //Keep picking random type until it is not None and it is not the same as the primary type.
                 while (pickedType == MonType.None || pickedType == primaryType)
                 {
-                    pickedType = pickRandomEnum.PickRandom();
+                    pickedType = pickRandomEnum.PickRandom(RandomType.Generation);
                 }
 
                 return pickedType;
@@ -279,7 +280,7 @@ namespace Mon.MonGeneration
         {
             //If it is getting a second type, randomly pick one that isn't the primary type.
             PickRandomEnum<MonGrowthType> pickRandomEnum = new PickRandomEnum<MonGrowthType>();
-            return pickRandomEnum.PickRandom();
+            return pickRandomEnum.PickRandom(RandomType.Generation);
         }
 
         /// <summary>
@@ -361,7 +362,7 @@ namespace Mon.MonGeneration
             }
 
             //Determine if this family will be a 1, 2, or 3 stage family.
-            int familySize = CoreManager.Instance.randomManager.Range(1, 4, "MonGeneratorFamilySize");
+            int familySize = CoreManager.Instance.randomManager.Range(RandomType.Generation, 1, 4, "MonGeneratorFamilySize");
 
             //Create generatedMon list based on familySize
             BaseMon[] familyList = new BaseMon[familySize];
@@ -370,12 +371,12 @@ namespace Mon.MonGeneration
             {
                 //In the case of just 1, pick from any of the three.
                 case 1: 
-                    familyList[0] = fullFamily[CoreManager.Instance.randomManager.Range(0, 3, "MonGeneratorFamilySecond1")];
+                    familyList[0] = fullFamily[CoreManager.Instance.randomManager.Range(RandomType.Generation, 0, 3, "MonGeneratorFamilySecond1")];
                     break;
                 // In the case of 2, we have to pick if it will start from 1 or 2. 
                 // 1 can go to 2 or 3. 2 will only go to 3. So three options.
                 case 2: 
-                    int option = CoreManager.Instance.randomManager.Range(1, 3, "MonGeneratorFamilySecond2");
+                    int option = CoreManager.Instance.randomManager.Range(RandomType.Generation, 1, 3, "MonGeneratorFamilySecond2");
                     switch (option)
                     {
                         case 1:
@@ -416,7 +417,7 @@ namespace Mon.MonGeneration
             List<string> tagList = new List<string>();
 
             //Make deck to shuffle
-            Deck<string> tagDeck = new Deck<string>(baseMon.key);
+            Deck<string> tagDeck = new Deck<string>(RandomType.Generation, "PickTagsDeck" + baseMon.key);
 
             //Add all tags to deck
             foreach(string tag in baseMon.tags)
@@ -430,7 +431,7 @@ namespace Mon.MonGeneration
             }
 
             //Pick number of tags to pull
-            int required_tags = CoreManager.Instance.randomManager.Range(1, tagDeck.Count, "MonGeneratorTags");
+            int required_tags = CoreManager.Instance.randomManager.Range(RandomType.Generation, 1, tagDeck.Count, "MonGeneratorTags");
 
             //Pull random number of tags from list
             for(int i = 0; i < required_tags; i++)

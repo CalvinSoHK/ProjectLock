@@ -76,7 +76,7 @@ public class WorldEncounterData
     public async Task LoadData()
     {
         JsonUtility<WorldEncounterJSON> jsonUtility = new JsonUtility<WorldEncounterJSON>();
-        string loadPath = StaticPaths.LoadFromGeneratedEncountersPaths + "/" + Core.CoreManager.Instance.randomManager.Seed;
+        string loadPath = StaticPaths.LoadFromGeneratedEncountersPaths + "/" + Core.CoreManager.Instance.randomManager.BaseSeed;
         WorldEncounterJSON jsonData = await jsonUtility.LoadJSON(loadPath, JsonUtility<WorldEncounterJSON>.LoadType.Resources);
 
         //Go through each entry

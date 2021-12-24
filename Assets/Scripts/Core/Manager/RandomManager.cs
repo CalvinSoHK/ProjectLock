@@ -1,101 +1,125 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 public class RandomManager : MonoBehaviour
 {
     [SerializeField]
-    private int seed = 0;
+    private int baseSeed = 0;
 
-    public int Seed
+    /// <summary>
+    /// Base seed of current setting
+    /// </summary>
+    public int BaseSeed
     {
         get
         {
-            return seed;
+            return baseSeed;
         }
     }
-
-    [SerializeField]
-    private RandomState state;
-
-    public RandomState State
-    {
-        get
-        {
-            return state;
-        }
-    }
-
-    [SerializeField]
-    private bool debug = false;
 
     private string chosennumbers = "";
 
     private int idNumber = 0;
 
-    public void InitializeSeed()
+    /// <summary>
+    /// Dict of random generators we are running
+    /// </summary>
+    private Dictionary<RandomType, RandomGenerator> generatorDict = new Dictionary<RandomType, RandomGenerator>();
+
+    public void Initialize()
     {
-        if(state == RandomState.NotInitialized)
+        RandomGenerator baseGenerator = new RandomGenerator(baseSeed);
+
+        foreach (int i in Enum.GetValues(typeof(RandomType)))
         {
-            Random.InitState(seed);
-            state = RandomState.Initialized;
+            int seed = 0;
+            RandomGenerator generator;
+            if ((RandomType)i == (RandomType.Inconsistent))
+            {
+                seed = DateTime.Now.Millisecond;
+                generator = new RandomGenerator(seed);
+            }
+            else
+            {
+                seed = baseGenerator.Range(int.MinValue, int.MaxValue);
+                generator = new RandomGenerator(seed);
+            }
+#if DEBUG_ENABLED
+            Debug.Log("RandomManager: " + (RandomType)i + " Seed: " + seed);
+#endif
+            generatorDict.Add((RandomType)i, generator);
         }
-        else
-        {
-            Debug.LogWarning("Random state already initialized.");
-        }
-        
     }
 
-    public int Range(int minInclusive, int maxInclusive, string IDString)
+    /// <summary>
+    /// Generates a random number from generator of type
+    /// Value from MinInclusive to MaxExclusive
+    /// IDString is used for debugging
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="minInclusive"></param>
+    /// <param name="maxExclusive"></param>
+    /// <param name="IDString"></param>
+    /// <returns></returns>
+    public int Range(RandomType type, int minInclusive, int maxExclusive, string IDString)
     {
-        if(state == RandomState.Initialized)
+        RandomGenerator generator;
+
+        if(generatorDict.TryGetValue(type, out generator))
         {
-            int value = Random.Range(minInclusive, maxInclusive);
-            if (debug)
-            {
-                chosennumbers += "\"" + idNumber + "/" + IDString + "\" :  \"" + value + "\",";
-                idNumber++;
-            }
+            int value = generator.Range(minInclusive, maxExclusive);
+#if DEBUG_ENABLED
+            chosennumbers += "\"" + idNumber + "/" + IDString + "\" :  \"" + value + "\",";
+            idNumber++;
+#endif
             return value;
         }
         else
         {
-            throw new System.Exception("Random seed not initialized yet");
+            throw new System.Exception("RandomType: " + type + " not initialized yet.");
         }
-        
     }
 
-    public float Range(float minInclusive, float maxInclusive, string IDString)
+    /// <summary>
+    /// Generates a random number from generator of type
+    /// Value from MinInclusive to MaxExclusive
+    /// IDString is used for debugging
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="minInclusive"></param>
+    /// <param name="maxExclusive"></param>
+    /// <param name="IDString"></param>
+    /// <returns></returns>
+    public float Range(RandomType type, float minInclusive, float maxExclusive, string IDString)
     {
-        if (state == RandomState.Initialized)
+        RandomGenerator generator;
+
+        if (generatorDict.TryGetValue(type, out generator))
         {
-            float value = Random.Range(minInclusive, maxInclusive);
-            if (debug)
-            {
-                chosennumbers += "\"" + idNumber + "/" + IDString + "\" :  \"" + value + "\",";
-                idNumber++;
-            }
+            float value = generator.Range(minInclusive, maxExclusive);
+#if DEBUG_ENABLED
+            chosennumbers += "\"" + idNumber + "/" + IDString + "\" :  \"" + value + "\",";
+            idNumber++;
+#endif
             return value;
         }
         else
         {
-            throw new System.Exception("Random seed not initialized yet");
+            throw new System.Exception("RandomType: " + type + " not initialized yet.");
         }
     }
 
     private void Update()
     {
-        if(debug && Input.GetKeyDown(KeyCode.R))
+#if DEBUG_ENABLED
+        if(Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("{" + chosennumbers + "}");
         }
+#endif
     }
 }
 
-[System.Serializable]
-public enum RandomState
-{
-    NotInitialized = 0,
-    Initialized = 1
-}

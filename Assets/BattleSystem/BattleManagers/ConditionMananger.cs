@@ -2,6 +2,7 @@ using Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 public class ConditionMananger : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class ConditionMananger : MonoBehaviour
     {
         if (isPoisoned)
         {
-            if (CoreManager.Instance.randomManager.Range(0,100, "PoisonCheck") < 50)
+            if (CoreManager.Instance.randomManager.Range(RandomType.Inconsistent,0, 100, "PoisonCheck") < 50)
             {
                 isPoisoned = false;
                 //Debug.Log("No longer poisoned");

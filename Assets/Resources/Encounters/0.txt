@@ -4,14 +4,14 @@
             "id": "demotown_northwest",
             "encounterData": [
                 {
-                    "dexID": 2,
-                    "level": 2,
-                    "chanceWeight": 0.9818333387374878
+                    "dexID": 3,
+                    "level": 4,
+                    "chanceWeight": 0.9582586884498596
                 },
                 {
-                    "dexID": 1,
-                    "level": 4,
-                    "chanceWeight": 0.6588273048400879
+                    "dexID": 5,
+                    "level": 3,
+                    "chanceWeight": 0.5615084767341614
                 }
             ]
         }

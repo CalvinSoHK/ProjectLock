@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 namespace Mon.MonGeneration
 {
@@ -38,7 +39,7 @@ namespace Mon.MonGeneration
                 }
             }
 
-            return pickedProfiles[CoreManager.Instance.randomManager.Range(0, pickedProfiles.Count - 1, "FamilyProfile1")];
+            return pickedProfiles[CoreManager.Instance.randomManager.Range(RandomType.Generation, 0, pickedProfiles.Count - 1, "FamilyProfile1")];
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utility;
+using Utility.Random;
 
 namespace Mon.MonData
 {
@@ -76,7 +77,7 @@ namespace Mon.MonData
         /// </summary>
         private void SetMoveset(int level)
         {
-            Deck<LearnMoveData> possibleMoves = new Deck<LearnMoveData>(baseMon.ID, baseMon.GetLearnableMoves(level));
+            Deck<LearnMoveData> possibleMoves = new Deck<LearnMoveData>(RandomType.Generation, "PickLearnMoveDeck" + baseMon.ID, baseMon.GetLearnableMoves(level));
             possibleMoves.ShuffleDeck();
             while(moveSet.MoveCount < 5)
             {
@@ -98,7 +99,7 @@ namespace Mon.MonData
                     else //If there is no empty index
                     {
                         //Pick a random index
-                        int index = CoreManager.Instance.randomManager.Range(0, MoveSet.MoveMaxCount, "MonIndObj1");
+                        int index = CoreManager.Instance.randomManager.Range(RandomType.Generation, 0, MoveSet.MoveMaxCount, "MonIndObj1");
                         moveSet.LearnMove(learnMove.move, index);
                     }
                 }

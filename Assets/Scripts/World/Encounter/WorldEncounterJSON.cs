@@ -21,7 +21,7 @@ public class WorldEncounterJSON
             Debug.Log("Path not available, will now generate path: " + path);
             Directory.CreateDirectory(path);
         }
-        path += "/" + Core.CoreManager.Instance.randomManager.Seed + ".txt";
+        path += "/" + Core.CoreManager.Instance.randomManager.BaseSeed + ".txt";
 #if DEBUG_ENABLED
         Debug.Log("Writing to path: " + path);
 #endif

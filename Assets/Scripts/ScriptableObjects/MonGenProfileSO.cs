@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mon.Enums;
 using Core;
+using Utility.Random;
 
 namespace Mon.MonGeneration
 {
@@ -88,7 +89,7 @@ namespace Mon.MonGeneration
                     Debug.LogError("Requested stat potentials for invalid stat: " + requestedStat);
                     break;
             }
-            return CoreManager.Instance.randomManager.Range(min, max, "RandomStatPotential1");
+            return CoreManager.Instance.randomManager.Range(RandomType.Generation, min, max, "RandomStatPotential1");
         }
     }
 }

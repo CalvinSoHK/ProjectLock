@@ -17,10 +17,11 @@ MonoBehaviour:
   moveType: 0
   power: 30
   accuracy: 100
+  learnableOnly: 0
+  teachableOnly: 0
   minLevelRange: 1
   maxLevelRange: 15
-  strictTags:
-  - physical
+  strictTags: []
   optionalTags:
   - tailed
   priorityLevel: 0

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Random;
 
 namespace Utility
 {
@@ -15,10 +16,10 @@ namespace Utility
         /// Picks a random enum value of type T
         /// </summary>
         /// <returns></returns>
-        public T PickRandom()
+        public T PickRandom(RandomType type)
         {
             T[] enums = (T[])Enum.GetValues(typeof(T));
-            return enums[CoreManager.Instance.randomManager.Range(0, enums.Length, "PickRandomEnumL21")];
+            return enums[CoreManager.Instance.randomManager.Range(type, 0, enums.Length, "PickRandomEnumL21")];
         }
     }
 }

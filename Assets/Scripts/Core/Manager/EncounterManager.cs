@@ -7,6 +7,7 @@ using World;
 using System.Threading.Tasks;
 using Utility;
 using System.IO;
+using Utility.Random;
 
 namespace Core.Player
 {
@@ -71,7 +72,7 @@ namespace Core.Player
                     curChance = encounterChance;
                 }
 
-                if (CoreManager.Instance.randomManager.Range(0f, 1f, "CheckEncounter1") <= curChance)
+                if (CoreManager.Instance.randomManager.Range(RandomType.Inconsistent, 0f, 1f, "CheckEncounter1") <= curChance)
                 {
                     curEncounter = encounterArea.PickEncounter();
                     curChance = 0f;
@@ -155,7 +156,7 @@ namespace Core.Player
         /// <returns></returns>
         private bool CheckValidData()
         {
-            string checkPath = StaticPaths.SaveToGeneratedEncountersPaths + "/" + Core.CoreManager.Instance.randomManager.Seed + ".txt";
+            string checkPath = StaticPaths.SaveToGeneratedEncountersPaths + "/" + Core.CoreManager.Instance.randomManager.BaseSeed + ".txt";
             Debug.Log("Checking file at path: " + checkPath);
             //Check if the generation inputted is valid.
             return File.Exists(checkPath);
