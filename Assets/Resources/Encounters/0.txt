@@ -6,7 +6,12 @@
                 {
                     "dexID": 2,
                     "level": 3,
-                    "chanceWeight": 0.1935674399137497
+                    "chanceWeight": 0.21214649081230164
+                },
+                {
+                    "dexID": 6,
+                    "level": 4,
+                    "chanceWeight": 0.4927958548069
                 }
             ]
         }

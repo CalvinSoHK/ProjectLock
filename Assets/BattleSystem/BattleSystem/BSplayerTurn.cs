@@ -46,28 +46,30 @@ public class BSplayerTurn : BSstate
         isAction = true;
         stateManager.dialogueText.enableActionSelector(true);
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        ;
+
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Right, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentAction < 3) //max moves - 1
             {
                 ++stateManager.currentAction;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Left, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentAction > 0)
             {
                 --stateManager.currentAction;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Down, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentAction < 2)
             {
                 stateManager.currentAction += 2;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Up, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentAction > 1)
             {
@@ -77,7 +79,7 @@ public class BSplayerTurn : BSstate
 
         stateManager.dialogueText.updateActionSelection(stateManager.currentAction);
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentAction == 0) //Fight
             {
@@ -114,21 +116,21 @@ public class BSplayerTurn : BSstate
     {
         isMove = true;
         stateManager.dialogueText.enableMoveSelector(true);
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Right, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentMove < stateManager.playerCurMonster.moveSet.MoveCount - 1) //max moves - 1
             {
                 ++stateManager.currentMove;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Left, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentMove > 0)
             {
                 --stateManager.currentMove;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Down, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentMove < 1 && stateManager.playerCurMonster.moveSet.MoveCount == 3)
             {
@@ -138,7 +140,7 @@ public class BSplayerTurn : BSstate
                 stateManager.currentMove += 2;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Up, CustomInput.InputEnums.InputAction.Down))
         {
             if (stateManager.currentMove > 1)
             {
@@ -148,7 +150,7 @@ public class BSplayerTurn : BSstate
 
         stateManager.dialogueText.updateMoveSelection(stateManager.currentMove);
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
         {
             {
                 isMove = false;
@@ -156,7 +158,7 @@ public class BSplayerTurn : BSstate
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Return, CustomInput.InputEnums.InputAction.Down))
         {
             {
                 isMove = false;

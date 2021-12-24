@@ -69,7 +69,7 @@ public class BSaiResolve : BSstate
         }
         else if (stateManager.aiHasGone && !stateManager.playerPriority)
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
             {
                 stateManager.ChangeState(new BSplayerResolve(stateManager));
                 return;
@@ -77,7 +77,7 @@ public class BSaiResolve : BSstate
         }
         else if (stateManager.aiHasGone && stateManager.playerPriority) //Both AI and Player has gone --> restart
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
             {
                 //manager.ChangeState(new BSplayerTurn(manager));
                 //manager.dialogueText.enableDialogueText(false);

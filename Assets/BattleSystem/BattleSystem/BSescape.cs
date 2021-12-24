@@ -28,7 +28,7 @@ public class BSescape : BSstate
     void Escape()
     {
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
         {
             if (canEscape)
             {

@@ -89,7 +89,7 @@ public class BSplayerResolve : BSstate
         }
         else if (stateManager.playerHasGone && stateManager.playerPriority) //Player has gone and player goes first --> Ais turn
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
             {
                 stateManager.ChangeState(new BSaiResolve(stateManager));
                 return;
@@ -97,7 +97,7 @@ public class BSplayerResolve : BSstate
         }
         else if (stateManager.playerHasGone && !stateManager.playerPriority) //Player has gone and player goes second --- > restart
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
             {
                 stateManager.ChangeState(new BSpostResolve(stateManager));
                 return;

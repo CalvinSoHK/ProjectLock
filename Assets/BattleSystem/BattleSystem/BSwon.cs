@@ -24,7 +24,7 @@ public class BSwon : BSstate
     {
         //Change scene back to overworld
 
-        if (Input.GetKeyDown(KeyCode.Return) && !firedOnce)
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down) && !firedOnce)
         {
             firedOnce = true;
             Core.CoreManager.Instance.encounterManager.FinishEncounterAsync();

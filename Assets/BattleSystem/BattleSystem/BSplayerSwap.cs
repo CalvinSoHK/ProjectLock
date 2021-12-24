@@ -30,7 +30,7 @@ public class BSplayerSwap : BSstate
     public override void Run()
     {
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Core.CoreManager.Instance.inputMap.GetInput(CustomInput.InputEnums.InputName.Interact, CustomInput.InputEnums.InputAction.Down))
         {
             stateManager.ChangeState(new BSplayerTurn(stateManager));
             stateManager.uiManager.PartyDisable();
