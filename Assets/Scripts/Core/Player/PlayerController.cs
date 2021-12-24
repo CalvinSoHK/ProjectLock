@@ -181,10 +181,10 @@ namespace Core.Player
         }
 
         /// <summary>
-        /// Disable input task
+        /// Disable input physics task
         /// </summary>
         /// <returns></returns>
-        public Task DisableInput()
+        public Task DisableInputMovement()
         {
             SetControllerState(PlayerControllerState.Disabled);
             rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -195,7 +195,7 @@ namespace Core.Player
         /// Enable input task
         /// </summary>
         /// <returns></returns>
-        public Task EnableInput()
+        public Task EnableInputMovement()
         {
             SetControllerState(PlayerControllerState.Idle);
             rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -209,7 +209,7 @@ namespace Core.Player
         /// <returns></returns>
         private async Task DisableInputOnScene(string sceneName)
         {
-            await DisableInput();
+            await DisableInputMovement();
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Core.Player
         /// <returns></returns>
         private async Task EnableInputOnScene(string sceneName)
         {
-            await EnableInput();
+            await EnableInputMovement();
         }
     }
 }

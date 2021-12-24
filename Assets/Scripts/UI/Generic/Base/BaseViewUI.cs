@@ -148,7 +148,7 @@ namespace UI.Base
         public virtual void HandleHidingState()
         {
             SetUIActive(false);
-            ChangeState(UIState.Hiding);
+            ChangeState(UIState.Off);
         }
 
         /// <summary>

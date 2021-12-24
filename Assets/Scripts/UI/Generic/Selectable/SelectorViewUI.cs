@@ -70,6 +70,7 @@ namespace UI.Selector
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
+            selectedIndex = 0;
             UpdateHover();
         }
 

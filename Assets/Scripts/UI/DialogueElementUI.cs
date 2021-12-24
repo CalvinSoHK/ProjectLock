@@ -111,7 +111,7 @@ namespace UI.Dialogue
             Debug.Log("Turning on dialogue");
             ChangeState(UIState.Printing);
             curObj = obj;
-            Core.CoreManager.Instance.player.DisableInput();
+            Core.CoreManager.Instance.player.DisableInputMovement();
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace UI.Dialogue
             ChangeState(UIState.Hiding);
             curObj = null;
             textMesh.text = "";
-            Core.CoreManager.Instance.player.EnableInput();
+            Core.CoreManager.Instance.player.EnableInputMovement();
         }
 
         public override void EnableElement()

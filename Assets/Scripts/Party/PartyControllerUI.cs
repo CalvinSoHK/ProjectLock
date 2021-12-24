@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
 using CustomInput;
-using UI.Selector;
-using UI.Base;
-using UI.Dropdown;
 using Mon.MonData;
+using UI.Base;
+using UI.Selector;
+using UnityEngine;
 
 namespace UI.Party
 {
@@ -26,6 +22,7 @@ namespace UI.Party
                 && Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Party, InputEnums.InputAction.Down)
                 )
             {
+                Core.CoreManager.Instance.player.DisableInputMovement();
                 ChangeState(UIState.Printing);
             }
         }
@@ -42,6 +39,12 @@ namespace UI.Party
                 }         
             } 
             base.HandlePrintingState();
+        }
+
+        public override void HandleHidingState()
+        {
+            base.HandleHidingState();
+            Core.CoreManager.Instance.player.EnableInputMovement();
         }
 
         public override void HandleDisplayState()
