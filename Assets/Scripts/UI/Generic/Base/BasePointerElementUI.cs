@@ -58,8 +58,9 @@ namespace UI.Base
         /// <summary>
         /// Enables all elements under this element. (Changes to printing state)
         /// </summary>
-        public override void EnableElement()
+        public override void EnableElement(string _key)
         {
+            base.EnableElement(_key);
             SetObjectsActive(true);
             ChangeState(UIState.Printing);
         }

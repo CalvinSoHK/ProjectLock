@@ -30,7 +30,8 @@ namespace CustomInput
             Deny,
             Party,
             Return,
-            Navigation
+            Navigation,
+            Inventory
         }
     }
 }

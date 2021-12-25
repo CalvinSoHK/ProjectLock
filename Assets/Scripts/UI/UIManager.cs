@@ -7,6 +7,7 @@ using UI.Nav;
 using UI.Party;
 using UI.Dropdown;
 using Mon.MonData;
+using UI.Inventory.Category;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class UIManager : MonoBehaviour
     PartyControllerUI partyController = new PartyControllerUI();
 
     DropdownControllerUI dropdownController = new DropdownControllerUI();
+
+    CategoryControllerUI categoryController = new CategoryControllerUI();
 
     List<IControllerUI> controllers = new List<IControllerUI>();
 
@@ -59,7 +62,9 @@ public class UIManager : MonoBehaviour
         dropdownController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
         controllers.Add(dropdownController);
 
-
+        categoryController.SetupController("Category");
+        categoryController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
+        controllers.Add(categoryController);
     }
 
     private void Update()

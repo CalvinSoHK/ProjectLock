@@ -38,6 +38,7 @@ namespace UI.Base
             }
         }
 
+        protected string key = "";
 
         private void Start()
         {
@@ -145,9 +146,9 @@ namespace UI.Base
             ChangeState(UIState.Off);
         }
 
-        public virtual void EnableElement()
+        public virtual void EnableElement(string _key)
         {
-
+            key = _key;
         }
 
         public virtual void DisableElement()
@@ -160,15 +161,27 @@ namespace UI.Base
 
         }
 
+        /// <summary>
+        /// Sets all objects to on or off. If we are turning it off ignore the ignore list.
+        /// </summary>
+        /// <param name="state"></param>
         protected void SetObjectsActive(bool state)
         {
             for(int i = 0; i < transform.childCount; i++)
-            {
+            {                
                 GameObject obj = transform.GetChild(i).gameObject;
-                if (!ignoreList.Contains(obj))
+                if (state)
                 {
-                    obj.SetActive(state);
+                    if (!ignoreList.Contains(obj))
+                    {
+                        obj.SetActive(true);
+                    }
                 }
+                else
+                {
+                    obj.SetActive(false);
+                }
+                
             }
         }
     }

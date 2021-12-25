@@ -79,16 +79,13 @@ namespace UI.Base
         {
             foreach(BaseElementUI element in managedList)
             {
-                if (!element.IsExplictlyManaged)
+                if (!element.IsExplictlyManaged && active)
                 {
-                    if (active)
-                    {
-                        element.EnableElement();
-                    }
-                    else
-                    {
-                        element.DisableElement();
-                    }
+                    element.EnableElement(controllerKey);
+                }
+                else
+                {
+                    element.DisableElement();
                 }
             }
         }

@@ -41,10 +41,5 @@ namespace UI.Party
             monLevel.text = monster.stats.level.ToString();
             monHealthBar.fillAmount = (float)monster.battleObj.monStats.hp / monster.stats.hp;
         }
-
-        public override void RefreshElement()
-        {
-            base.RefreshElement();
-        }
     }
 }
