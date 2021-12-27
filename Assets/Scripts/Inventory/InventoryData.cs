@@ -1,3 +1,4 @@
+using Inventory.Enums;
 using Inventory.Items;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -14,84 +15,58 @@ namespace Inventory
     public class InventoryData
     {
         /// <summary>
-        /// Inventory item loader. Uses Addressables to laod items
-        /// </summary>
-        private InventoryItemLoader loader = new InventoryItemLoader();
-
-        /// <summary>
         /// Dictionary of item count
+        /// Key : ItemID
+        /// Value: ItemCount
         /// </summary>
-        private ConcurrentDictionary<string, int> itemDict = new ConcurrentDictionary<string, int>();
+        private ConcurrentDictionary<int, int> itemDict = new ConcurrentDictionary<int, int>();
 
         /// <summary>
-        /// List of items that we have
+        /// Initial inventory. Is preloaded at start and then destroyed.
         /// </summary>
         [SerializeField]
-        private List<string> itemList = new List<string>();
+        private List<ItemStack> initInventory = new List<ItemStack>();
 
         /// <summary>
-        /// List of items that the inventory contains.
-        /// Does not allow changing
-        /// </summary>
-        public List<string> ItemList
-        {
-            get
-            {
-                return itemList;
-            }
-        }
-
-        /// <summary>
-        /// Preloads items into inventory based on serialized list in inspector
+        /// Preloads the inputted data
         /// </summary>
         public void Preload()
         {
-            foreach(string itemName in ItemList)
+            foreach(ItemStack stack in initInventory)
             {
-                AddItem(itemName, 1, true);
+                AddItem(stack.ItemID, stack.ItemCount);
             }
         }
 
         /// <summary>
-        /// Checks that the given name is a valid item.
-        /// Item is not valid if there is no scriptable object in addressable system with it's item name
+        /// Checks to see if a given item name is in inventory
         /// </summary>
         /// <param name="itemName"></param>
         /// <returns></returns>
-        public async Task<bool> ValidItem(string itemName, bool releaseAfter = true)
+        public bool HasItem(int itemID)
         {
-            if(await loader.LoadItem(itemName) != null)
-            {
-                if (releaseAfter)
-                {
-                    loader.UnloadItem(itemName);
-                }
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Checks to see if an given item name is in the inventory
-        /// </summary>
-        /// <param name="itemName"></param>
-        /// <returns></returns>
-        public bool HasItem(string itemName)
-        {
-            return itemList.Contains(itemName);
+            return itemDict.ContainsKey(itemID);
         }
 
         /// <summary>
         /// Returns the item count of a given item
         /// Returns -1 if not valid, though we should use HasItem before this call
         /// </summary>
-        /// <param name="itemName"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
-        public int GetItemCount(string itemName)
+        public int GetItemCount(int itemID)
         {
-            int count = -1;
-            itemDict.TryGetValue(itemName, out count);
-            return count;
+            int count = -0;
+            try
+            {
+                itemDict.TryGetValue(itemID, out count);
+                return count;
+            }
+            catch
+            {
+                //If we fail count is 0
+                return 0;
+            }     
         }
 
         /// <summary>
@@ -99,18 +74,13 @@ namespace Inventory
         /// Defaults to adding 1 but can specify
         /// Will not do anything with itemCount equal to or below 0
         /// </summary>
-        /// <param name="itemName"></param>
+        /// <param name="item"></param>
         /// <param name="itemCount"></param>
-        public void AddItem(string itemName, int itemCount = 1, bool preload = false)
+        public void AddItem(int itemID, int itemCount = 1)
         {
             if(itemCount > 0)
             {
-                itemDict.AddOrUpdate(itemName, itemCount, (key, oldValue) => oldValue + itemCount);
-
-                if (!itemList.Contains(itemName) && !preload)
-                {
-                    itemList.Add(itemName);
-                }
+                itemDict.AddOrUpdate(itemID, itemCount, (key, oldValue) => oldValue + itemCount);
             }         
         }
 
@@ -123,20 +93,19 @@ namespace Inventory
         /// </summary>
         /// <param name="itemName"></param>
         /// <param name="itemCount"></param>
-        public bool RemoveItem(string itemName, int itemCount = 1)
+        public bool RemoveItem(int itemID, int itemCount = 1)
         {
-            int curCount = -1;
-            if(itemDict.TryGetValue(itemName, out curCount))
+            int curCount = 0;
+            if(itemDict.TryGetValue(itemID, out curCount))
             {
                 //If the cur count is greater than item count, update value
                 if (curCount > itemCount)
                 {
-                    return itemDict.TryUpdate(itemName, curCount - itemCount, curCount);
+                    return itemDict.TryUpdate(itemID, curCount - itemCount, curCount);
                 }
                 else //If the cur count is equal to or less than item count, remove it
                 {
-                    itemList.Remove(itemName);
-                    return itemDict.TryRemove(itemName, out curCount);
+                    return itemDict.TryRemove(itemID, out curCount);
                 }
             }
 
@@ -150,17 +119,117 @@ namespace Inventory
         /// </summary>
         /// <param name="itemName"></param>
         /// <returns></returns>
-        public async Task<bool> UseItem(string itemName)
+        public bool UseItem(int itemID)
         {
-            if (HasItem(itemName))
+            if (HasItem(itemID))
             {
-                RemoveItem(itemName, 1);
-                InventoryItem item = await loader.LoadItem(itemName);
+                RemoveItem(itemID, 1);
+                InventoryItem item = Core.CoreManager.Instance.itemMaster.GetItem(itemID);
                 item.OnUse();
-                loader.UnloadItem(itemName);
                 return true;
             }
             return false;          
+        }
+
+        /// <summary>
+        /// Grabs all items that fall under this mask
+        /// </summary>
+        /// <param name="mask"></param>
+        /// <returns></returns>
+        public List<ItemStack> GetItems(ItemMask mask)
+        {
+            List<ItemStack> validItems = new List<ItemStack>();
+            ItemMaskHelper maskHelper = new ItemMaskHelper();
+
+            foreach (int key in itemDict.Keys)
+            {
+                InventoryItem item = Core.CoreManager.Instance.itemMaster.GetItem(key);
+                if (maskHelper.MaskContains(item.ItemMask, mask))
+                {
+                    int count = 0;
+                    itemDict.TryGetValue(key, out count);
+                    validItems.Add(new ItemStack(key, count));
+                }
+            }
+            return validItems;
+        }
+
+        /// <summary>
+        /// Grabs all items that fall under a given category
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public List<ItemStack> GetItems(ItemCategory category)
+        {
+            List<ItemStack> validItems = new List<ItemStack>();
+            ItemMaskHelper maskHelper = new ItemMaskHelper();
+
+            foreach (int key in itemDict.Keys)
+            {
+                InventoryItem item = Core.CoreManager.Instance.itemMaster.GetItem(key);
+                if (item.ItemCategory == category)
+                {
+                    int count = 0;
+                    itemDict.TryGetValue(key, out count);
+                    validItems.Add(new ItemStack(key, count));
+                }
+            }
+            return validItems;
+        }
+
+        /// <summary>
+        /// Grabs all items that match the given category and mask
+        /// </summary>
+        /// <param name="mask"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public List<ItemStack> GetItems(ItemMask mask, ItemCategory category)
+        {
+            List<ItemStack> validItems = new List<ItemStack>();
+            ItemMaskHelper maskHelper = new ItemMaskHelper();
+
+            foreach(int key in itemDict.Keys)
+            {
+                InventoryItem item = Core.CoreManager.Instance.itemMaster.GetItem(key);
+                if (maskHelper.MaskContains(item.ItemMask, mask) && item.ItemCategory == category)
+                {
+                    int count = 0;
+                    itemDict.TryGetValue(key, out count);
+                    validItems.Add(new ItemStack(key, count));
+                }            
+            }
+            return validItems;
+        }
+    }
+
+    /// <summary>
+    /// Item stack includes an itemID and how many of that item are in the stack
+    /// </summary>
+    [System.Serializable]
+    public class ItemStack
+    {
+        [SerializeField]
+        private int itemID, itemCount;
+        public int ItemID
+        {
+            get
+            {
+                return itemID;
+            }
+        }
+
+        public int ItemCount
+        {
+            get
+            {
+                return itemCount;
+            }
+        }
+
+        public ItemStack(int _id, int _count)
+        {
+            itemID = _id;
+            itemCount = _count;
         }
     }
 }

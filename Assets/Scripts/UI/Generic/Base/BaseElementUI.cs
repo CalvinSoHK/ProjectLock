@@ -40,9 +40,14 @@ namespace UI.Base
 
         protected string key = "";
 
+        protected bool initialized = false;
+
         private void Start()
         {
-            Init();
+            if (!initialized)
+            {
+                Init();
+            }
         }
 
         /// <summary>
@@ -121,7 +126,7 @@ namespace UI.Base
 
         public virtual void Init()
         {
-            
+            initialized = true;
         }
 
         public virtual void HandleOffState()
@@ -158,7 +163,10 @@ namespace UI.Base
 
         public virtual void RefreshElement()
         {
-
+            if (!initialized)
+            {
+                Init();
+            }
         }
 
         /// <summary>

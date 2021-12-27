@@ -2,17 +2,16 @@ using CustomInput;
 using System.Collections;
 using System.Collections.Generic;
 using UI.Base;
-using UI.Party;
 using UI.Selector;
 using UnityEngine;
 
-namespace UI.Inventory.Category
+namespace UI.Inventory.Item
 {
-    public class CategoryControllerUI : SelectorControllerUI
+    public class ItemControllerUI : SelectorControllerUI
     {
-        protected CategoryModelUI categoryModel;
+        protected ItemModelUI itemModel;
 
-        public CategoryControllerUI()
+        public ItemControllerUI()
         {
             InventoryControllerUI.InventoryUIState += ChangeState;
         }
@@ -20,7 +19,7 @@ namespace UI.Inventory.Category
         /// <summary>
         /// Finalizer. Called when garbage collector comes along to remove it.
         /// </summary>
-        ~CategoryControllerUI()
+        ~ItemControllerUI()
         {
             InventoryControllerUI.InventoryUIState -= ChangeState;
         }
@@ -35,10 +34,9 @@ namespace UI.Inventory.Category
             }
             base.HandlePrintingState();
         }
-
         public override void HandleDisplayState()
         {
-             IndexControl();
+            IndexControl();
         }
 
         public override void Init()
@@ -48,17 +46,17 @@ namespace UI.Inventory.Category
                 input = Core.CoreManager.Instance.inputMap;
             }
 
-            model = new CategoryModelUI();
+            model = new ItemModelUI();
             selectorModel = (SelectorModelUI)model;
-            categoryModel = (CategoryModelUI)model;
+            itemModel = (ItemModelUI)model;
 
             model.Init();
         }
 
         protected override void Refresh()
         {
-            categoryModel.Refresh();
-            categoryModel.InvokeModel(key);
+            itemModel.Refresh();
+            itemModel.InvokeModel(key);
         }
     }
 }

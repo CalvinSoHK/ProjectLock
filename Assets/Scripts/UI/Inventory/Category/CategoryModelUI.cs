@@ -48,7 +48,7 @@ namespace UI.Inventory.Category
             ModelUpdate?.Invoke(_key, this);
         }
 
-        public void SetCategory(ItemCategory _category)
+        public void SetSelectedCategory(ItemCategory _category)
         {
             selectedCategory = _category;
         }

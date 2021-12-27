@@ -118,13 +118,13 @@ namespace Core.Dialogue
         private async Task UnregisterSceneDialogue(string sceneName)
         {
             SceneDialogueObject sceneDict;
-#if DEBUG_ENABLED
+#if DEBUG_ENABLED && DIALOGUE
             Debug.Log("DialogueManager: Dict contains key: " + dialogueDict.ContainsKey(sceneName));
 #endif
 
             if (dialogueDict.TryGetValue(sceneName, out sceneDict))
             {
-#if DEBUG_ENABLED
+#if DEBUG_ENABLED && DIALOGUE
                 Debug.Log("DialogueManager: Unregistering scene: " + sceneName);
 #endif
                 //Remove that scene's dialogue

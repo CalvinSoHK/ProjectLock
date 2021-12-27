@@ -29,7 +29,7 @@ namespace UI.Base
         /// Changes internal UI state
         /// </summary>
         /// <param name="_state"></param>
-        protected void ChangeState(UIState _state)
+        protected virtual void ChangeState(UIState _state)
         {
             state = _state;
         }

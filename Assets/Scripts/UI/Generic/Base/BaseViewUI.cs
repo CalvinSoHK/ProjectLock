@@ -81,11 +81,11 @@ namespace UI.Base
             {
                 if (!element.IsExplictlyManaged && active)
                 {
-                    element.EnableElement(controllerKey);
+                    EnableElement(element);
                 }
                 else
                 {
-                    element.DisableElement();
+                    DisableElement(element);
                 }
             }
         }
@@ -159,6 +159,32 @@ namespace UI.Base
         protected virtual void SetModel(Model _model)
         {
             model = _model;
+        }
+
+        /// <summary>
+        /// Enables a given element. Turns object on
+        /// </summary>
+        /// <param name="element"></param>
+        protected virtual void EnableElement<T>(T element) where T : BaseElementUI
+        {
+            if (!element.gameObject.activeSelf)
+            {
+                element.gameObject.SetActive(true);
+            }
+            element.EnableElement(controllerKey);
+        }
+
+        /// <summary>
+        /// Disables element. Turns off gameobject.
+        /// </summary>
+        /// <param name="element"></param>
+        protected virtual void DisableElement<T>(T element) where T : BaseElementUI
+        {
+            if (element.gameObject.activeSelf)
+            {
+                element.gameObject.SetActive(false);
+            }
+            element.DisableElement();
         }
     }
 }

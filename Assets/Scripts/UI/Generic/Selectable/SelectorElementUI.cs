@@ -34,7 +34,7 @@ namespace UI.Selector
         public delegate void SelectorSelectEvent(string key, int selectedIndex);
         public static SelectorSelectEvent SelectorSelectFire;
 
-        private PointerColorPicker colorPicker;
+        private PointerColorPicker colorPicker = null;
 
         public override void Init()
         {

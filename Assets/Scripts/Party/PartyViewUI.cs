@@ -86,7 +86,7 @@ namespace UI.Party
                 if (CheckValidMon(i))
                 {
                     playerParty[i].DisplayInfo(partyModel.playerMon[i]);
-                    playerParty[i].EnableElement(controllerKey);
+                    EnableElement(playerParty[i]);
                     selectorBoundMax++;
                 }
             }
