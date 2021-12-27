@@ -57,7 +57,6 @@ namespace UI.Dropdown
             base.UpdateView(_model);
             if (dropdownModel.Active)
             {
-                Debug.Log(dropdownModel.Active);
                 PopulateDropdown(dropdownModel);
             }
             else

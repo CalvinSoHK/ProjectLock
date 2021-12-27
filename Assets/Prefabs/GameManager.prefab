@@ -3231,7 +3231,7 @@ GameObject:
   - component: {fileID: 5558874612243912833}
   - component: {fileID: 1954148344}
   - component: {fileID: 1954148346}
-  - component: {fileID: 8315725361652716266}
+  - component: {fileID: 8358556931241544888}
   m_Layer: 0
   m_Name: NavUI
   m_TagString: Untagged
@@ -3306,7 +3306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &8315725361652716266
+--- !u!114 &8358556931241544888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3315,10 +3315,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4110334734064644051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17327012778ab8d4f84806a842968050, type: 3}
+  m_Script: {fileID: 11500000, guid: 581bfc2d69eaca84c9c834198cd13c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerKey: Dropdown
+  controllerKey: Navigation
   managedList: []
   selectorElementList: []
   lockOnSelect: 1
@@ -3587,7 +3587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1fcebebb5024a4e989df561b7c0cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedIndex: -1
 --- !u!1 &4958809128302750498
 GameObject:
   m_ObjectHideFlags: 0

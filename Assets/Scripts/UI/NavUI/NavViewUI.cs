@@ -8,13 +8,15 @@ namespace UI.Nav
     public class NavViewUI : DropdownViewUI
     {
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             DropdownControllerUI.DropdownOptionFire += OnDropdownPress;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             DropdownControllerUI.DropdownOptionFire -= OnDropdownPress;
         }
 
