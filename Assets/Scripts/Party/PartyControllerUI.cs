@@ -29,12 +29,9 @@ namespace UI.Party
 
         public override void HandlePrintingState()
         {
-            //Setting data in Model
-            StartIndexTimer();
-            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
-            {
-                Refresh();      
-            } 
+            //Refreshes because it needs to grab mon info and display.
+            //Without refresh it will not show.
+            Refresh();
             base.HandlePrintingState();
         }
 

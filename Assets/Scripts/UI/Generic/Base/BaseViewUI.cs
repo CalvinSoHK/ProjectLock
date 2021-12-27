@@ -54,9 +54,11 @@ namespace UI.Base
         /// By default it will adjust to the active state on the model and change states
         /// </summary>
         private void UpdateModelState(Model _model)
-        {
+        {         
             SetModel(_model);
-            if(model.Active && state == UIState.Displaying && model.CheckRefresh())
+            bool refresh = model.CheckRefresh();
+            
+            if (model.Active && state == UIState.Displaying && refresh)
             {
                 RefreshUI();
             }

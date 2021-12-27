@@ -69,13 +69,6 @@ namespace UI.Selector
             }
         }
 
-        protected override void UpdateView(Model _model)
-        {
-            base.UpdateView(_model);
-            UpdateIndex();
-            UpdateSelect();
-        }
-
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
@@ -110,10 +103,33 @@ namespace UI.Selector
                 {
                     selectedIndex = 0;
                 }
-                RefreshUI();
             }            
         }
 
+        
+
+        /// <summary>
+        /// Updates hover states of all selector elements
+        /// Only calls if there was an index change.
+        /// </summary>
+        private void UpdateHover()
+        {
+           foreach(SelectorElementUI element in selectorElementList)
+            {
+                if(element.SelectableIndex == selectedIndex)
+                {
+                    element.Hover();
+                }
+                else
+                {
+                    element.Dehover();
+                }
+            }
+        }
+
+        /// <summary>
+        /// If model is set to select, select the currently selected index
+        /// </summary>
         private void UpdateSelect()
         {
             if (selectorModel.Select)
@@ -136,28 +152,10 @@ namespace UI.Selector
             }
         }
 
-        /// <summary>
-        /// Updates hover states of all selector elements
-        /// Only calls if there was an index change.
-        /// </summary>
-        private void UpdateHover()
-        {
-           foreach(SelectorElementUI element in selectorElementList)
-            {
-                if(element.SelectableIndex == selectedIndex)
-                {
-                    element.Hover();
-                }
-                else
-                {
-                    element.Dehover();
-                }
-            }
-        }
-
         protected override void RefreshUI()
         {
             base.RefreshUI();
+            UpdateIndex();
             UpdateHover();
             UpdateSelect();
         }

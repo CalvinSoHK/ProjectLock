@@ -118,7 +118,7 @@ namespace UI.Selector
         /// Navigates indexes
         /// </summary>
         protected void NavigateIndex()
-        {
+        {          
             if (!selectorModel.Locked)
             {
                 if (input.GetInput(incrementKey, InputEnums.InputAction.Down))
@@ -149,8 +149,6 @@ namespace UI.Selector
                 }
             }
         }
-
-
 
         /// <summary>
         /// Starts the index timer.

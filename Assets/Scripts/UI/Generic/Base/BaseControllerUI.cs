@@ -34,14 +34,36 @@ namespace UI.Base
             state = _state;
         }
 
-        public void EnableState()
+        /// <summary>
+        /// Enables the UI.
+        /// Only works if the UI is off.
+        /// Will return true if successful
+        /// </summary>
+        /// <returns></returns>
+        public bool TryEnableState()
         {
-            ChangeState(UIState.Printing);
+            if (state == UIState.Off)
+            {
+                ChangeState(UIState.Printing);
+                return true;
+            }
+            return false;
         }
 
-        public void DisableState()
+        /// <summary>
+        /// Disables the UI.
+        /// Only works if already displaying. 
+        /// Will return true if successful
+        /// </summary>
+        /// <returns></returns>
+        public bool TryDisableState()
         {
-            ChangeState(UIState.Hiding);
+            if(state == UIState.Displaying)
+            {
+                ChangeState(UIState.Hiding);
+                return true;
+            }
+            return false;
         }
 
         public virtual void Init()

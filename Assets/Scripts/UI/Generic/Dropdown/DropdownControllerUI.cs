@@ -44,6 +44,7 @@ namespace UI.Dropdown
                 dropdownModel.SetDropdownDTO(CreateDefaultOptions(_buttonList));
                 dropdownModel.SetDropdownUpdate(true);
                 dropdownModel.InvokeModel(key);
+                TryEnableState();
             }
         }
 

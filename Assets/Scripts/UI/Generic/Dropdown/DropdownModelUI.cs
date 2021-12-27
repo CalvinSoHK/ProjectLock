@@ -43,6 +43,7 @@ namespace UI.Dropdown
 
         public override void InvokeModel(string _key)
         {
+            Refresh();
             ModelUpdate?.Invoke(_key, this);
         }
     }
