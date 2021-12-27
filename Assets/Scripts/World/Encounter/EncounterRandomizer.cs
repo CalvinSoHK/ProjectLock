@@ -33,7 +33,6 @@ public class EncounterRandomizer : MonoBehaviour
         {
             foreach(EncounterData data in encounterData)
             {
-                Debug.Log(data.dexID + " / " + data.level + " / " + data.chanceWeight);
                 encounterArea.AddEncounter(data);
             }
         }

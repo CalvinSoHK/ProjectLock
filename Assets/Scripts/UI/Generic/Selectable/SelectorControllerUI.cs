@@ -19,7 +19,7 @@ namespace UI.Selector
         /// <summary>
         /// How long there is a delay per input to scroll through selection
         /// </summary>
-        protected float indexDelay = 0.25f;
+        protected float indexDelay = 0.1f;
 
         /// <summary>
         /// Internal timer for processing index changes
@@ -118,7 +118,7 @@ namespace UI.Selector
         /// Navigates indexes
         /// </summary>
         protected void NavigateIndex()
-        {
+        {          
             if (!selectorModel.Locked)
             {
                 if (input.GetInput(incrementKey, InputEnums.InputAction.Down))
@@ -149,8 +149,6 @@ namespace UI.Selector
                 }
             }
         }
-
-
 
         /// <summary>
         /// Starts the index timer.
@@ -193,6 +191,32 @@ namespace UI.Selector
             NavigateIndex();
             SelectIndex();
             ProcessIndexTimer();
+        }
+
+        public override void HandlePrintingState()
+        {
+            base.HandlePrintingState();
+            SelectorElementUI.SelectorSelectFire += UpdateSelected;
+        }
+
+        public override void HandleHidingState()
+        {
+            base.HandleHidingState();
+            SelectorElementUI.SelectorSelectFire -= UpdateSelected;
+        }
+
+        /// <summary>
+        /// Updates model to reflect being selected
+        /// </summary>
+        /// <param name="_key"></param>
+        /// <param name="_selectedIndex"></param>
+        private void UpdateSelected(string _key, int _selectedIndex)
+        {
+            if (key.Equals(_key))
+            {
+                selectorModel.SetSelect(true);
+                selectorModel.InvokeModel(key);
+            }
         }
     }
 }

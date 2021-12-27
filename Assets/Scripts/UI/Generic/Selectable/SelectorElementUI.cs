@@ -31,6 +31,17 @@ namespace UI.Selector
         [SerializeField]
         public UnityEvent OnSelect;
 
+        public delegate void SelectorSelectEvent(string key, int selectedIndex);
+        public static SelectorSelectEvent SelectorSelectFire;
+
+        private PointerColorPicker colorPicker = null;
+
+        public override void Init()
+        {
+            base.Init();
+            colorPicker = GetComponent<PointerColorPicker>();
+        }
+
         /// <summary>
         /// Sets the index of this selectable UI.
         /// </summary>
@@ -59,22 +70,36 @@ namespace UI.Selector
         }
 
         /// <summary>
-        /// Select by clicking
+        /// Selected by controller select
         /// </summary>
         public virtual void Select()
-        {
-            Hover();
-            Debug.Log("Selected: " + gameObject.name);
+        {           
             OnSelect?.Invoke();
+            if(colorPicker != null)
+            {
+                colorPicker.ChangeColor(colorPicker.SelectedColor);
+                colorPicker.SetLock(true);               
+            }
         }
 
         /// <summary>
-        /// OVerride it to ignore the select marker
+        /// Deselects this button.
         /// </summary>
-        public override void HandlePrintingState()
+        public virtual void Deselect()
         {
-            base.HandlePrintingState();
-            ChangeState(UIState.Displaying);
+            if (colorPicker != null)
+            {
+                colorPicker.SetLock(false);
+                colorPicker.ChangeColor(colorPicker.DefaultColor);
+            }
+        }
+
+        /// <summary>
+        /// Click selects. Does not invoke Select or else it would loop
+        /// </summary>
+        public virtual void ClickSelect()
+        {
+            SelectorSelectFire?.Invoke(key, selectableIndex);
         }
     }
 }

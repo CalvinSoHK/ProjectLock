@@ -45,7 +45,7 @@ namespace UI.Dialogue
             SetObjectsActive(false);
         }
 
-        public override void EnableElement()
+        public override void EnableElement(string _key)
         {
             throw new System.NotImplementedException();
         }

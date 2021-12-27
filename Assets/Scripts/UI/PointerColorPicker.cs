@@ -14,19 +14,37 @@ namespace UI.Base
 
         [Tooltip("Default color")]
         [SerializeField]
-        private Color DefaultColor;
+        public Color DefaultColor;
+
+        [Tooltip("If true, will set DefaultColor to what was already set. If false it will use the set DefaultColor.")]
+        [SerializeField]
+        private bool GrabDefault = false;
 
         [SerializeField]
         [Tooltip("Pointer enter color")]
-        private Color PointerEnter;
+        public Color PointerEnter;
 
         [SerializeField]
         [Tooltip("Pointer down color")]
-        private Color PointerDown;
+        public Color PointerDown;
+
+        [SerializeField]
+        [Tooltip("Selected color")]
+        public Color SelectedColor;
+
+        /// <summary>
+        /// Locks the color so it doesnt change no matter what event
+        /// </summary>
+        private bool colorLocked = false;
 
         private void Start()
         {
             BasePointerElementUI pointerUI = GetComponent<BasePointerElementUI>();
+
+            if (GrabDefault)
+            {
+                DefaultColor = targetImg.color;
+            }
 
             pointerUI.OnPointerExitEvent.AddListener(() => ChangeColor(DefaultColor));
             pointerUI.OnPointerEnterEvent.AddListener(() => ChangeColor(PointerEnter));
@@ -34,9 +52,21 @@ namespace UI.Base
             pointerUI.OnPointerUpEvent.AddListener(() => ChangeColor(DefaultColor));
         }
 
-        private void ChangeColor(Color color)
+        public void ChangeColor(Color color)
         {
-            targetImg.color = color;
+            if (!colorLocked)
+            {
+                targetImg.color = color;
+            }          
+        }
+
+        /// <summary>
+        /// Sets color picker lock so it will stop changing colors
+        /// </summary>
+        /// <param name="state"></param>
+        public void SetLock(bool state)
+        {
+            colorLocked = state;
         }
     }
 }

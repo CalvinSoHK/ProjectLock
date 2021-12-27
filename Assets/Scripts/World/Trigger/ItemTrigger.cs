@@ -29,10 +29,10 @@ namespace World.Trigger
             switch (triggerType)
             {
                 case ItemTriggerType.Add:
-                    Core.CoreManager.Instance.playerInventory.Inventory.AddItem(item.ItemName, countChange);
+                    Core.CoreManager.Instance.playerInventory.Inventory.AddItem(item.ItemID, countChange);
                     break;
                 case ItemTriggerType.Remove:
-                    bool value = Core.CoreManager.Instance.playerInventory.Inventory.RemoveItem(item.ItemName, countChange);
+                    bool value = Core.CoreManager.Instance.playerInventory.Inventory.RemoveItem(item.ItemID, countChange);
                     if (!value)
                     {
                         throw new System.Exception("ItemTrigger Error : Attempted to remove an item that the player did not have or not have enough of: " + item.ItemName + " Count: " + countChange);

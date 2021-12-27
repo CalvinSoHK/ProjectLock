@@ -7,13 +7,18 @@ using UI.Nav;
 using UI.Party;
 using UI.Dropdown;
 using Mon.MonData;
+using UI.Inventory.Category;
+using UI.Inventory.Item;
+using UI.Inventory;
 
-public class UIManager : MonoBehaviour
+namespace Core
 {
-    /// <summary>
-    /// Selector Controller
-    /// </summary>
-    public SelectorControllerUI selectorController = new SelectorControllerUI();
+    public class UIManager : MonoBehaviour
+    {
+        /// <summary>
+        /// Selector Controller
+        /// </summary>
+        SelectorControllerUI selectorController = new SelectorControllerUI();
 
     public NavControllerUI navController = new NavControllerUI();
 
@@ -21,7 +26,13 @@ public class UIManager : MonoBehaviour
 
     //public DropdownControllerUI dropdownController = new DropdownControllerUI();
 
-    List<IControllerUI> controllers = new List<IControllerUI>();
+        public CategoryControllerUI categoryController = new CategoryControllerUI();
+
+        public ItemControllerUI itemController = new ItemControllerUI();
+
+        public InventoryControllerUI inventoryController = new InventoryControllerUI();
+
+        List<IControllerUI> controllers = new List<IControllerUI>();
 
     private void OnEnable()
     {
@@ -35,16 +46,16 @@ public class UIManager : MonoBehaviour
         //DropdownControllerUI.DropdownOptionFire -= OnDropdownPress;
     }
 
-    private void Start()
-    {
-        InitControllers();
-    }
+        private void Start()
+        {
+            InitControllers();
+        }
 
-    private void InitControllers()
-    {
-        selectorController.SetupController("Selector");
-        selectorController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
-        controllers.Add(selectorController);
+        private void InitControllers()
+        {
+            selectorController.SetupController("Selector");
+            selectorController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
+            controllers.Add(selectorController);
 
         partyController.SetupController("Party");
         partyController.SetNavigation(UI.SelectableDirEnum.Horizontal);
@@ -54,74 +65,83 @@ public class UIManager : MonoBehaviour
         navController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
         controllers.Add(navController);
 
+            categoryController.SetupController("Category");
+            categoryController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
+            controllers.Add(categoryController);
 
-    }
+            itemController.SetupController("Item");
+            itemController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
+            controllers.Add(itemController);
 
-    private void Update()
-    {
-        HandleControllers();
-    }
-
-    private void HandleControllers()
-    {
-        foreach(IControllerUI controller in controllers)
-        {
-            controller.HandleState();
+            inventoryController.SetupController("Inventory");
+            controllers.Add(inventoryController);
         }
-    }
+
+        private void Update()
+        {
+            HandleControllers();
+        }
+
+        private void HandleControllers()
+        {
+            foreach (IControllerUI controller in controllers)
+            {
+                controller.HandleState();
+            }
+        }
 
     public int selectedIndex = -1;
-/*    private void OnUISelect(string _key, int _selectedIndex)
+    private void OnUISelect(string _key, int _selectedIndex)
     {
         List<string> partyDropdownList = new List<string>();
         //Clean this up     
 
-        switch (_key)
-        {
-            //Enums?
-            case "Party":
-                if (partyController.savedSelectedIndex != -1)
-                {
-                    selectedIndex = _selectedIndex;
-                }
-                if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
-                {
-                    partyDropdownList.Add("Swap");
-                    partyDropdownList.Add("Details");
-                    partyController.SaveIndex(_selectedIndex);
-                    if (partyController.firstIteration)
+            switch (_key)
+            {
+                //Enums?
+                case "Party":
+                    if (partyController.savedSelectedIndex != -1)
                     {
-                        dropdownController.MakeOrReplaceDropdown(partyDropdownList);
-                        dropdownController.EnableState();
-                        partyController.firstIteration = false;
+                        selectedIndex = _selectedIndex;
                     }
-                    else
-                    {
-                        partyController.SwapMonOverworld(partyController.savedSelectedIndex, selectedIndex);
-                    }
-                } 
-                else if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Battle)
-                {
-                    if (partyController.firstIteration)
+                    if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
                     {
                         partyDropdownList.Add("Swap");
-                        partyDropdownList.Add("Item");
                         partyDropdownList.Add("Details");
-                        dropdownController.MakeOrReplaceDropdown(partyDropdownList);
-                        dropdownController.EnableState();
-                        partyController.firstIteration = false;
+                        partyController.SaveIndex(_selectedIndex);
+                        if (partyController.firstIteration)
+                        {
+                            dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+                            dropdownController.EnableState();
+                            partyController.firstIteration = false;
+                        }
+                        else
+                        {
+                            partyController.SwapMonOverworld(partyController.savedSelectedIndex, selectedIndex);
+                        }
                     }
-                }
-                break;
-            default:
-                Debug.Log("Wrong Key specified");
-                break;
-        }
+                    else if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Battle)
+                    {
+                        if (partyController.firstIteration)
+                        {
+                            partyDropdownList.Add("Swap");
+                            partyDropdownList.Add("Item");
+                            partyDropdownList.Add("Details");
+                            dropdownController.MakeOrReplaceDropdown(partyDropdownList);
+                            dropdownController.EnableState();
+                            partyController.firstIteration = false;
+                        }
+                    }
+                    break;
+                default:
+                    Debug.Log("Wrong Key specified");
+                    break;
+            }
 
         //dropdownController should partyController.SetLocked(true) when return key is pressed
         //And hide dropdown
-    }*/
-/*
+    }
+
     private void OnDropdownPress(string _key, string _optionKey)
     {
         //Hide Dropdown Needs change. Button still appears and works despite DisableState()
@@ -140,7 +160,7 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
     // When first is selected, Swap has not been pressed. Return down. Still locked
     public void PartyEnable()
     {

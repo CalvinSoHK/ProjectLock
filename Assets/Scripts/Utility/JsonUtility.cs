@@ -40,7 +40,6 @@ namespace Utility
                 Debug.Log("Attempting load at path: " + path);
                 while (!request.isDone)
                 {
-                    Debug.Log("Progress: " + request.progress);
                     await Task.Delay(100);
                 }
                 TextAsset asset = (TextAsset)request.asset;

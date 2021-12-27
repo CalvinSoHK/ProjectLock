@@ -9,7 +9,7 @@ namespace UI.Base
         /// <summary>
         /// Enables this element
         /// </summary>
-        public abstract void EnableElement();
+        public abstract void EnableElement(string _key);
 
         /// <summary>
         /// Disables this element

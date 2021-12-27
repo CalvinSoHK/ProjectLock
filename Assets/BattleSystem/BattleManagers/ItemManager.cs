@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mon.MonData;
 using Inventory;
+using Inventory.Items;
 
 public class ItemManager : MonoBehaviour
 {
@@ -10,8 +11,6 @@ public class ItemManager : MonoBehaviour
     public BSstatemanager stateManager;
 
     bool healItem = true;
-
-
 
 
     public delegate void healDelegate(MonIndObj monster, int healthValue);
@@ -70,19 +69,19 @@ public class ItemManager : MonoBehaviour
     /// Player uses item
     /// </summary>
     /// <param name="item"></param>
-    public void UserItem(string item)
+    public void UserItem(int itemID)
     {
-        if (Core.CoreManager.Instance.playerInventory.Inventory.HasItem(item))
+        if (Core.CoreManager.Instance.playerInventory.Inventory.HasItem(itemID))
         {
-            Core.CoreManager.Instance.playerInventory.Inventory.UseItem(item);
+            InventoryItem item = Core.CoreManager.Instance.itemMaster.GetItem(itemID);
+            Core.CoreManager.Instance.playerInventory.Inventory.UseItem(itemID);
             
-            if (item == stateManager.captureBall.name)
+            if (item.ItemName == stateManager.captureBall.name)
             {
                 CatchhMon();
                 Debug.Log("Caught Mon");
                 stateManager.ChangeState(new BSwon(stateManager));
                 return;
-
             }
         }
     }

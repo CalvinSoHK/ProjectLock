@@ -14,15 +14,24 @@ namespace UI.Selector
         /// <summary>
         /// List of selector elements
         /// </summary>
+        [SerializeField]
         protected List<SelectorElementUI> selectorElementList = new List<SelectorElementUI>();
 
         protected SelectorModelUI selectorModel = new SelectorModelUI();
 
-        protected int selectorBoundMax; 
+        protected int selectorBoundMax;
+
+        [SerializeField]
+        [Tooltip("When true after selecting it will lock")]
+        protected bool lockOnSelect = true;
+
+        [SerializeField]
+        [Tooltip("When true, it will select the first option by default")]
+        protected bool selectOnStart = false;
 
         protected virtual void OnEnable()
         {
-            SelectorModelUI.ModelUpdate += UpdateModel;
+            SelectorModelUI.ModelUpdate += UpdateModel;          
         }
 
         protected virtual void OnDisable()
@@ -41,9 +50,9 @@ namespace UI.Selector
                 if (selectorElement != null)
                 {
                     selectorElementList.Add(selectorElement);
-                }
+                }               
             }
-
+            selectorBoundMax = selectorElementList.Count;
         }
 
         /// <summary>
@@ -60,18 +69,21 @@ namespace UI.Selector
             }
         }
 
-        protected override void UpdateView(Model _model)
-        {
-            base.UpdateView(_model);
-            UpdateIndex();
-            UpdateSelect();
-        }
-
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
             selectedIndex = 0;
-            UpdateHover();
+            if (selectOnStart)
+            {
+                selectorModel.SetSelect(true);
+            }
+            RefreshUI();
+            SelectorElementUI.SelectorSelectFire += UpdateSelected;
+        }
+        public override void HandleHidingState()
+        {
+            base.HandleHidingState();
+            SelectorElementUI.SelectorSelectFire -= UpdateSelected;
         }
 
         /// <summary>
@@ -91,24 +103,10 @@ namespace UI.Selector
                 {
                     selectedIndex = 0;
                 }
-                UpdateHover();
             }            
         }
 
-        private void UpdateSelect()
-        {
-            if (selectorModel.Select)
-            {
-                foreach (SelectorElementUI element in selectorElementList)
-                {
-                    if (element.SelectableIndex == selectedIndex)
-                    {
-                        selectorModel.SetLocked(true);
-                        element.Select();
-                    }
-                }
-            }
-        }
+        
 
         /// <summary>
         /// Updates hover states of all selector elements
@@ -129,10 +127,53 @@ namespace UI.Selector
             }
         }
 
+        /// <summary>
+        /// If model is set to select, select the currently selected index
+        /// </summary>
+        private void UpdateSelect()
+        {
+            if (selectorModel.Select)
+            {
+                foreach (SelectorElementUI element in selectorElementList)
+                {
+                    if (element.SelectableIndex == selectedIndex)
+                    {
+                        if (lockOnSelect)
+                        {
+                            selectorModel.SetLocked(true);
+                        }
+                        element.Select();
+                    }
+                    else
+                    {
+                        element.Deselect();
+                    }
+                }
+            }
+        }
+
+        protected override void RefreshUI()
+        {
+            base.RefreshUI();
+            UpdateIndex();
+            UpdateHover();
+            UpdateSelect();
+        }
+
         protected override void SetModel(Model _model)
         {
             base.SetModel(_model);
             selectorModel = (SelectorModelUI)_model;
         }
+
+        private void UpdateSelected(string _key, int _selectedIndex)
+        {
+            if (controllerKey.Equals(_key))
+            {
+                selectedIndex = _selectedIndex;
+                RefreshUI();
+            }
+        }
+
     }
 }

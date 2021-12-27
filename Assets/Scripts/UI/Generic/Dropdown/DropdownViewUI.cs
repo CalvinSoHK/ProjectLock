@@ -83,7 +83,7 @@ namespace UI.Dropdown
                 element.OnSelect.AddListener(elementDTO.OnElementSelect);
                 index++;
                 selectorElementList.Add(element);
-                element.EnableElement();
+                EnableElement(element);
                 managedList.Add(element);
             }
             Init();

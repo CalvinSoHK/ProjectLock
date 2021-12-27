@@ -128,7 +128,7 @@ namespace UI.Dialogue
             Core.CoreManager.Instance.player.EnableInputMovement();
         }
 
-        public override void EnableElement()
+        public override void EnableElement(string _key)
         {
             throw new System.NotImplementedException();
         }

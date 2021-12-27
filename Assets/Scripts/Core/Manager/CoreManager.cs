@@ -90,12 +90,16 @@ namespace Core
         [Header("Scriptable Objects")]
         public TypeRelationSO typeRelationSO;
 
+        [Header("Masters")]
+        public ItemMaster itemMaster;
+
         /// <summary>
         /// Initializes game
         /// </summary>
         public async Task Initialize()
         {
             randomManager.Initialize();
+            await itemMaster.Init();
             await dexManager.GenerateDex();
             await encounterManager.InitEncounterData();
             SetPlayerActive(true);

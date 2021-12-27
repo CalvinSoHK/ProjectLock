@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Inventory.Enums;
+using UnityEngine.UI;
 
 namespace Inventory.Items
 {
@@ -11,9 +12,33 @@ namespace Inventory.Items
     public abstract class InventoryItem : ScriptableObject
     {
         [SerializeField]
+        private int itemID;
+
+        /// <summary>
+        /// ItemID for this type of item. 
+        /// Should be unique per type of item
+        /// </summary>
+        public int ItemID
+        {
+            get
+            {
+                return itemID;
+            }
+        }
+
+        [SerializeField]
         private string itemName;
 
         public string ItemName { get { return itemName; } }
+
+        [SerializeField]
+        private string itemDescription;
+
+        public string ItemDescription { get { return itemDescription; } }
+
+        [SerializeField]
+        private Sprite thumbnail;
+        public Sprite ItemThumbnail { get { return thumbnail; } }
 
         [SerializeField]
         private ItemMask itemMask;

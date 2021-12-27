@@ -54,9 +54,11 @@ namespace UI.Base
         /// By default it will adjust to the active state on the model and change states
         /// </summary>
         private void UpdateModelState(Model _model)
-        {
+        {         
             SetModel(_model);
-            if(model.Active && state == UIState.Displaying && model.CheckRefresh())
+            bool refresh = model.CheckRefresh();
+            
+            if (model.Active && state == UIState.Displaying && refresh)
             {
                 RefreshUI();
             }
@@ -79,16 +81,13 @@ namespace UI.Base
         {
             foreach(BaseElementUI element in managedList)
             {
-                if (!element.IsExplictlyManaged)
+                if (!element.IsExplictlyManaged && active)
                 {
-                    if (active)
-                    {
-                        element.EnableElement();
-                    }
-                    else
-                    {
-                        element.DisableElement();
-                    }
+                    EnableElement(element);
+                }
+                else
+                {
+                    DisableElement(element);
                 }
             }
         }
@@ -162,6 +161,32 @@ namespace UI.Base
         protected virtual void SetModel(Model _model)
         {
             model = _model;
+        }
+
+        /// <summary>
+        /// Enables a given element. Turns object on
+        /// </summary>
+        /// <param name="element"></param>
+        protected virtual void EnableElement<T>(T element) where T : BaseElementUI
+        {
+            if (!element.gameObject.activeSelf)
+            {
+                element.gameObject.SetActive(true);
+            }
+            element.EnableElement(controllerKey);
+        }
+
+        /// <summary>
+        /// Disables element. Turns off gameobject.
+        /// </summary>
+        /// <param name="element"></param>
+        protected virtual void DisableElement<T>(T element) where T : BaseElementUI
+        {
+            if (element.gameObject.activeSelf)
+            {
+                element.gameObject.SetActive(false);
+            }
+            element.DisableElement();
         }
     }
 }

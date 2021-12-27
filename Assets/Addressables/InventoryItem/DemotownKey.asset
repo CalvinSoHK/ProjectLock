@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d33620adab8b3f44b22ecc692b66f05, type: 3}
   m_Name: DemotownKey
   m_EditorClassIdentifier: 
+  itemID: 1
   itemName: DemotownKey
+  itemDescription: 
+  thumbnail: {fileID: 0}
   itemMask: 0
   itemCategory: 0
   onUseString: You used the Demotown Key.

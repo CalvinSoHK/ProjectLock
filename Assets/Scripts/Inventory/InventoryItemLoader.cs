@@ -27,6 +27,24 @@ namespace Inventory
                 return CoreManager.Instance.addressablesManager;
             }
         }
+
+        /// <summary>
+        /// Returns a list of all items given tag "Item"
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<InventoryItem>> LoadAllItems()
+        {
+            IList<InventoryItem> itemIList = await addressablesManager.LoadAddressablesByTag<InventoryItem>("ItemData");
+            List<InventoryItem> itemList = new List<InventoryItem>();
+            //Iterate through all loaded moves
+            foreach (InventoryItem item in itemIList)
+            {
+                itemList.Add(item);
+            }
+
+            //Set as ready
+            return itemList;
+        }
         
         /// <summary>
         /// Loads an item from addressables

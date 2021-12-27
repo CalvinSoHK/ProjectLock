@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Mon.MonData;
 using World;
 using Core.Player;
+using Core;
+using Inventory.Items;
 
 public class BSstatemanager : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class BSstatemanager : MonoBehaviour
     public Party playerParty;
     public Party aiParty;
 
-    public ScriptableObject captureBall;
+    public InventoryItem captureBall;
 
     public int currentMove;
     public int currentAction;

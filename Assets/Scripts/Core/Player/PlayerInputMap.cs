@@ -70,7 +70,7 @@ namespace CustomInput
                 case InputEnums.InputAction.Any:
                     return (Input.GetKey(mapping.mainKey) || Input.GetKey(mapping.altKey));
                 case InputEnums.InputAction.Down:
-                    return (Input.GetKeyDown(mapping.mainKey) || Input.GetKey(mapping.altKey));
+                    return (Input.GetKeyDown(mapping.mainKey) || Input.GetKeyDown(mapping.altKey));
                 case InputEnums.InputAction.Up:
                     return (Input.GetKeyUp(mapping.mainKey) || Input.GetKeyUp(mapping.altKey));
                 default:
