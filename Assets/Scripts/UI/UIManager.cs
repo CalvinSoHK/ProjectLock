@@ -13,26 +13,26 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Selector Controller
     /// </summary>
-    SelectorControllerUI selectorController = new SelectorControllerUI();
+    public SelectorControllerUI selectorController = new SelectorControllerUI();
 
-    NavControllerUI navController = new NavControllerUI();
+    public NavControllerUI navController = new NavControllerUI();
 
-    PartyControllerUI partyController = new PartyControllerUI();
+    public PartyControllerUI partyController = new PartyControllerUI();
 
-    DropdownControllerUI dropdownController = new DropdownControllerUI();
+    //public DropdownControllerUI dropdownController = new DropdownControllerUI();
 
     List<IControllerUI> controllers = new List<IControllerUI>();
 
     private void OnEnable()
     {
-        DropdownControllerUI.DropdownOptionFire += OnDropdownPress;
-        PartyElementUI.PartySelectFire += OnUISelect;
+        //DropdownControllerUI.DropdownOptionFire += OnDropdownPress;
+        //PartyElementUI.PartySelectFire += OnUISelect;
     }
 
     private void OnDisable()
     {
-        PartyElementUI.PartySelectFire -= OnUISelect;
-        DropdownControllerUI.DropdownOptionFire -= OnDropdownPress;
+        //PartyElementUI.PartySelectFire -= OnUISelect;
+        //DropdownControllerUI.DropdownOptionFire -= OnDropdownPress;
     }
 
     private void Start()
@@ -46,18 +46,13 @@ public class UIManager : MonoBehaviour
         selectorController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
         controllers.Add(selectorController);
 
-        /*navController.SetupController("Dropdown");
-        navController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
-        //navController
-        controllers.Add(navController);*/
-
         partyController.SetupController("Party");
         partyController.SetNavigation(UI.SelectableDirEnum.Horizontal);
         controllers.Add(partyController);
 
-        dropdownController.SetupController("Dropdown");
-        dropdownController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
-        controllers.Add(dropdownController);
+        navController.SetupController("Navigation");
+        navController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
+        controllers.Add(navController);
 
 
     }
@@ -76,7 +71,7 @@ public class UIManager : MonoBehaviour
     }
 
     public int selectedIndex = -1;
-    private void OnUISelect(string _key, int _selectedIndex)
+/*    private void OnUISelect(string _key, int _selectedIndex)
     {
         List<string> partyDropdownList = new List<string>();
         //Clean this up     
@@ -125,8 +120,8 @@ public class UIManager : MonoBehaviour
 
         //dropdownController should partyController.SetLocked(true) when return key is pressed
         //And hide dropdown
-    }
-
+    }*/
+/*
     private void OnDropdownPress(string _key, string _optionKey)
     {
         //Hide Dropdown Needs change. Button still appears and works despite DisableState()
@@ -145,7 +140,7 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
     // When first is selected, Swap has not been pressed. Return down. Still locked
     public void PartyEnable()
     {

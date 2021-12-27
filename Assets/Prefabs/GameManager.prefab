@@ -1902,7 +1902,7 @@ MonoBehaviour:
   dialogueManager: {fileID: 7888493634771396010}
   addressablesManager: {fileID: 400417292661220324}
   uiManager: {fileID: 8645690798637756243}
-  partyUIManager: {fileID: 719530864180687293}
+  partyUIManager: {fileID: 0}
   worldStateManager: {fileID: 7044197654849051902}
   randomManager: {fileID: 1728475289570886261}
   typeRelationSO: {fileID: 11400000, guid: 957255dd02422504293011313f5bbd8c, type: 2}
@@ -1984,7 +1984,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7197170681319195424}
-  - component: {fileID: 719530864180687293}
   m_Layer: 0
   m_Name: PartyUIManager
   m_TagString: Untagged
@@ -2006,18 +2005,6 @@ Transform:
   m_Father: {fileID: 2391363138880706065}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &719530864180687293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3477393499940165276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5261548b44e39bd40b88294b46d81802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3913865543356569523
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea2ca42ce140504eb30ad77c21a368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
+  baseSeed: 0
 --- !u!1 &4110334734064644051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,7 +2104,7 @@ GameObject:
   - component: {fileID: 5558874612243912833}
   - component: {fileID: 1954148344}
   - component: {fileID: 1954148346}
-  - component: {fileID: 8315725361652716266}
+  - component: {fileID: 5355213626763597291}
   m_Layer: 0
   m_Name: NavUI
   m_TagString: Untagged
@@ -2192,7 +2179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &8315725361652716266
+--- !u!114 &5355213626763597291
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2201,10 +2188,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4110334734064644051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17327012778ab8d4f84806a842968050, type: 3}
+  m_Script: {fileID: 11500000, guid: 581bfc2d69eaca84c9c834198cd13c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerKey: Dropdown
+  controllerKey: Navigation
   managedList: []
   elementPrefab: {fileID: 7991666653244888094, guid: 9a593ed54b534134c882ca39bb60932a,
     type: 3}

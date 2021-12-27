@@ -4,6 +4,8 @@ using UnityEngine;
 using UI.Selector;
 using UI.Base;
 using Mon.MonData;
+using UI.Enums;
+using UI.Nav;
 
 namespace UI.Party
 {
@@ -17,11 +19,13 @@ namespace UI.Party
         protected override void OnEnable()
         {
             PartyModelUI.ModelUpdate += UpdateModel;
+            PartyElementUI.PartySelectFire += OnUISelect; 
         }
 
         protected override void OnDisable()
         {
             PartyModelUI.ModelUpdate -= UpdateModel;
+            PartyElementUI.PartySelectFire -= OnUISelect;
         }
 
 
@@ -67,6 +71,19 @@ namespace UI.Party
             }
         }
 
+        /// <summary>
+        /// When a UI element is selected
+        /// </summary>
+        private void OnUISelect(string key, int selectableKey)
+        {
+            if (key.Equals("Party"))
+            {
+                //Save selectableKey?
+                partyModel.selectedMon = selectableKey;
+                Debug.Log("UI Selected: " + selectableKey);
+                Core.CoreManager.Instance.uiManager.navController.PopulateOverworldDropdown(DropdownTypes.Party);
+            }
+        }
 
         [ContextMenu("CheckLocked")]
         private void CheckLocked()

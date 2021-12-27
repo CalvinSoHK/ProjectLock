@@ -17,6 +17,7 @@ namespace UI.Party
 
         //List determined by PartySize
         //Within each list
+        public int selectedMon = -1;
 
         MonIndObj[] _playerMon = new MonIndObj[Core.CoreManager.Instance.playerParty.party.PartySize];
 

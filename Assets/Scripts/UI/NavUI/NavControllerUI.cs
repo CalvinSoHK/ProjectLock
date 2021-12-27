@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using CustomInput;
 using UI.Dropdown;
 using UI.Base;
+using UI.Enums;
 
 namespace UI.Nav
 {
@@ -17,13 +18,20 @@ namespace UI.Nav
         /// Returns the list of the Overworld UI options
         /// </summary>
         /// <returns></returns>
-        private void PopulateOverworldDropdown()
+        public void PopulateOverworldDropdown(DropdownTypes type)
         {
-            List<string> optionKeys = new List<string>();
-            optionKeys.Add("Party");
-            optionKeys.Add("Inventory");
-            optionKeys.Add("Options");
-            MakeOrReplaceDropdown(optionKeys);
+            switch (type)
+            {
+                case DropdownTypes.Navigation:
+                    PopulateNavigationDropdown();
+                    break;
+                case DropdownTypes.Party:
+                    Debug.Log("Populating party");
+                    PopulatePartyDropdown();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public override void HandleOffState()
@@ -32,9 +40,25 @@ namespace UI.Nav
             //Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld && 
             if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
             {
-                PopulateOverworldDropdown();
+                PopulateOverworldDropdown(DropdownTypes.Navigation);
                 ChangeState(UIState.Printing);
             }
+        }
+
+        private void PopulateNavigationDropdown()
+        {
+            List<string> optionKeys = new List<string>();
+            optionKeys.Add("Party");
+            optionKeys.Add("Inventory");
+            optionKeys.Add("Options");
+            MakeOrReplaceDropdown(optionKeys);
+        }
+        private void PopulatePartyDropdown()
+        {
+            List<string> optionKeys = new List<string>();
+            optionKeys.Add("Party");
+            optionKeys.Add("Details");
+            MakeOrReplaceDropdown(optionKeys);
         }
     }
 }

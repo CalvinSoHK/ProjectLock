@@ -111,6 +111,16 @@ namespace UI.Party
             }
         }
 
+        /// <summary>
+        /// Returns currently selectedMon index
+        /// </summary>
+        /// <returns></returns>
+        public int ReturnCurrentSelected()
+        {
+            return partyModel.selectedMon;
+        }
+
+
         public void SelectorSetSelect(bool setSelect)
         {
             selectorModel.SetSelect(setSelect);
