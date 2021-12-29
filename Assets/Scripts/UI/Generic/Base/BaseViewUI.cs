@@ -46,15 +46,6 @@ namespace UI.Base
         /// </summary>
         protected virtual void UpdateView(Model _model)
         {
-            UpdateModelState(_model);
-        }
-
-        /// <summary>
-        /// Updates the view based on new model
-        /// By default it will adjust to the active state on the model and change states
-        /// </summary>
-        private void UpdateModelState(Model _model)
-        {         
             SetModel(_model);
             bool refresh = model.CheckRefresh();
 
@@ -66,8 +57,8 @@ namespace UI.Base
             {
                 ChangeState(UIState.Hiding);
             }
-            else if(model.Active && state == UIState.Off)
-            {            
+            else if (model.Active && state == UIState.Off)
+            {
                 ChangeState(UIState.Printing);
             }
         }
@@ -187,6 +178,20 @@ namespace UI.Base
                 element.gameObject.SetActive(false);
             }
             element.DisableElement();
+        }
+
+        /// <summary>
+        /// Updates the model. 
+        /// Subscribe to a model's delegate to update to that model's changes
+        /// </summary>
+        /// <param name="_key"></param>
+        /// <param name="_model"></param>
+        protected void UpdateModel(string _key, Model _model)
+        {
+            if (_key.Equals(controllerKey))
+            {
+                UpdateView(_model);
+            }
         }
     }
 }

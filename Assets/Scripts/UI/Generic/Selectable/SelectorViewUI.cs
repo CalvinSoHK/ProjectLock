@@ -62,21 +62,6 @@ namespace UI.Selector
             selectorBoundMax = selectorElementList.Count;
         }
 
-        /// <summary>
-        /// Written per view since the second input is differently typed per view.
-        /// Calls UpdateView which we override
-        /// </summary>
-        /// <param name="_key"></param>
-        /// <param name="_model"></param>
-        private void UpdateModel(string _key, SelectorModelUI _model)
-        {
-            Debug.Log("Key: " + _key);
-            if (_key.Equals(controllerKey))
-            {
-                UpdateView(_model);
-            }
-        }
-
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
@@ -141,6 +126,12 @@ namespace UI.Selector
         /// </summary>
         private void UpdateSelect()
         {
+            //Reset selected index if turned on
+            if (selectorModel.CheckResetSelectIndex())
+            {
+                selectedIndex = 0;
+            }
+
             if (selectorModel.Select)
             {
                 foreach (SelectorElementUI element in selectorElementList)

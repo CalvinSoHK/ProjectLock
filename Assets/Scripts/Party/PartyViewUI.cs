@@ -35,14 +35,6 @@ namespace UI.Party
             partyModel = (PartyModelUI)_model;
         }
 
-        private void UpdateModel(string _key, Model _model)
-        {
-            if (_key.Equals(controllerKey))
-            {
-                UpdateView(_model);
-            }
-        }
-
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
@@ -58,7 +50,6 @@ namespace UI.Party
                 selectorElementList[i].Dehover();
             }
         }
-
         private bool CheckValidMon(int monIndex)
         {
             if (partyModel.playerMon[monIndex] != null)

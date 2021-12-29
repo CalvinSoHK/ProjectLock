@@ -122,7 +122,6 @@ namespace UI.Selector
                 else if (selectorModel.IndexChange != 0) //If the last model we pushed had an index change, change to zero and update.
                 {
                     selectorModel.SetIndexChange(0);
-                    Refresh();
                 }
             }        
         }
@@ -186,6 +185,7 @@ namespace UI.Selector
         public override void HandlePrintingState()
         {
             base.HandlePrintingState();
+            selectorModel.ResetSelectIndex();
             SelectorElementUI.SelectorSelectFire += UpdateSelected;
         }
 

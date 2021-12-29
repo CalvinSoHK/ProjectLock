@@ -9,6 +9,23 @@ namespace UI.Inventory.Item
 {
     public class ItemModelUI : SelectorModelUI
     {
+        private bool update = false;
+        /// <summary>
+        /// Whether or not the dropdown was updated
+        /// </summary>
+        public bool Update
+        {
+            get
+            {
+                return update;
+            }
+        }
+
+        public void SetUpdate(bool _state)
+        {
+            update = _state;
+        }
+
         private List<ItemStack> displayItems;
 
         /// <summary>

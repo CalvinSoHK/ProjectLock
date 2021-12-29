@@ -22,15 +22,22 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
-    m_MainAsset: {fileID: 11400000, guid: f5a6bb15efceeca41a0a4020d2a43378, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: f5a6bb15efceeca41a0a4020d2a43378, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3a60c03a980b4104f8f9394c262063e9
     m_Address: InventoryItem/CaptureBall
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
-    m_MainAsset: {fileID: 11400000, guid: 3a60c03a980b4104f8f9394c262063e9, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 3a60c03a980b4104f8f9394c262063e9, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 679d1a7b5e77290479534f2344ed914b
+    m_Address: Assets/Addressables/InventoryItem/Potion.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    m_MainAsset: {fileID: 11400000, guid: 679d1a7b5e77290479534f2344ed914b, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 679d1a7b5e77290479534f2344ed914b, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9e03d39bbd93a8046bc2171680c75d57, type: 2}
   m_SchemaSet:

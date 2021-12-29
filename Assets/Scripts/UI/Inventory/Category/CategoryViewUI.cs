@@ -25,13 +25,5 @@ namespace UI.Inventory.Category
             base.SetModel(_model);
             categoryModel = (CategoryModelUI)_model;
         }
-
-        private void UpdateModel(string _key, Model _model)
-        {
-            if (_key.Equals(controllerKey))
-            {
-                UpdateView(_model);
-            }
-        }
     }
 }

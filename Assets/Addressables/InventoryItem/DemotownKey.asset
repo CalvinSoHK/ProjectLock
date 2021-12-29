@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 1
   itemName: DemotownKey
-  itemDescription: 
+  itemDescription: Used to trade with a certain key figure.
   thumbnail: {fileID: 0}
-  itemMask: 0
+  itemMask: 22
   itemCategory: 0
   onUseString: You used the Demotown Key.

@@ -57,7 +57,7 @@ namespace Core
             controllers.Add(categoryController);
 
             itemController.SetupController("Item");
-            itemController.SetNavigation(UI.SelectableDirEnum.VerticalFlipped);
+            itemController.SetNavigation(UI.SelectableDirEnum.Horizontal);
             controllers.Add(itemController);
 
             inventoryController.SetupController("Inventory");

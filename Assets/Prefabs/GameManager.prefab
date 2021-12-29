@@ -3690,9 +3690,9 @@ MonoBehaviour:
   selectorElementList: []
   lockOnSelect: 1
   selectOnStart: 0
-  grabSelectorsOnStart: 1
+  grabSelectorsOnStart: 0
   targetTransform: {fileID: 5609141613335447199}
-  itemElement: {fileID: 202453705921655038, guid: 998df32cdb4ed97488fb811d04e60417,
+  itemElement: {fileID: 2633299682519042455, guid: 998df32cdb4ed97488fb811d04e60417,
     type: 3}
   itemDescriptionText: {fileID: 1088569476904798660}
 --- !u!1 &5459144028706461468
@@ -4459,7 +4459,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory:
-    initInventory: []
+    initInventory:
+    - itemID: 0
+      itemCount: 1
+    - itemID: 1
+      itemCount: 1
+    - itemID: 2
+      itemCount: 50
   preload: 1
 --- !u!114 &950751669540049710
 MonoBehaviour:

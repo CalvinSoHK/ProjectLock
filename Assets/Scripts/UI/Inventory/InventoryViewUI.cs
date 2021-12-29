@@ -24,13 +24,5 @@ namespace UI.Inventory
             base.SetModel(_model);
             inventoryModel = (InventoryModelUI)_model;
         }
-
-        private void UpdateModel(string _key, Model _model)
-        {
-            if (_key.Equals(controllerKey))
-            {
-                UpdateView(_model);
-            }
-        }
     }
 }
