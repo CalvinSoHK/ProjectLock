@@ -57,7 +57,7 @@ namespace UI.Base
         {         
             SetModel(_model);
             bool refresh = model.CheckRefresh();
-            
+
             if (model.Active && state == UIState.Displaying && refresh)
             {
                 RefreshUI();

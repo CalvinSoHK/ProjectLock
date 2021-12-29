@@ -29,6 +29,10 @@ namespace UI.Selector
         [Tooltip("When true, it will select the first option by default")]
         protected bool selectOnStart = false;
 
+        [SerializeField]
+        [Tooltip("When true, grabs all selector elements from the managed list. Use it if you aren't spawning at runtime.")]
+        protected bool grabSelectorsOnStart = true;
+
         protected virtual void OnEnable()
         {
             SelectorModelUI.ModelUpdate += UpdateModel;          
@@ -43,14 +47,17 @@ namespace UI.Selector
         {
             base.Init();
 
-            //Grab all selector elements and put in list
-            foreach (BaseElementUI element in managedList)
+            if (grabSelectorsOnStart)
             {
-                SelectorElementUI selectorElement = element.GetComponent<SelectorElementUI>();
-                if (selectorElement != null)
+                //Grab all selector elements and put in list
+                foreach (BaseElementUI element in managedList)
                 {
-                    selectorElementList.Add(selectorElement);
-                }               
+                    SelectorElementUI selectorElement = element.GetComponent<SelectorElementUI>();
+                    if (selectorElement != null)
+                    {
+                        selectorElementList.Add(selectorElement);
+                    }
+                }
             }
             selectorBoundMax = selectorElementList.Count;
         }
@@ -63,6 +70,7 @@ namespace UI.Selector
         /// <param name="_model"></param>
         private void UpdateModel(string _key, SelectorModelUI _model)
         {
+            Debug.Log("Key: " + _key);
             if (_key.Equals(controllerKey))
             {
                 UpdateView(_model);
@@ -77,6 +85,7 @@ namespace UI.Selector
             {
                 selectorModel.SetSelect(true);
             }
+
             RefreshUI();
             SelectorElementUI.SelectorSelectFire += UpdateSelected;
         }
@@ -114,7 +123,7 @@ namespace UI.Selector
         /// </summary>
         private void UpdateHover()
         {
-           foreach(SelectorElementUI element in selectorElementList)
+            foreach(SelectorElementUI element in selectorElementList)
             {
                 if(element.SelectableIndex == selectedIndex)
                 {

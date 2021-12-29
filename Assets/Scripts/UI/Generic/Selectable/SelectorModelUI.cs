@@ -57,9 +57,8 @@ namespace UI.Selector
         public delegate void SelectorModel(string key, SelectorModelUI model);
         public static SelectorModel ModelUpdate;
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
-            Refresh();
             ModelUpdate?.Invoke(_key, this);
         }
     }

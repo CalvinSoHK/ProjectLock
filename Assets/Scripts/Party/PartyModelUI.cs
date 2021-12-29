@@ -33,14 +33,11 @@ namespace UI.Party
             }
         }
 
-
-
         public delegate void PartyModel(string key, PartyModelUI model);
         public static new PartyModel ModelUpdate;
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
-            Refresh();
             ModelUpdate?.Invoke(_key, this);
         }
     }

@@ -79,7 +79,6 @@ namespace UI.Base
 
         protected virtual void Refresh()
         {
-            model.Refresh();
             model.InvokeModel(key);
         }
 
@@ -112,7 +111,7 @@ namespace UI.Base
         public virtual void HandlePrintingState()
         {
             model.SetActive(true);
-            model.InvokeModel(key);
+            Refresh();
             ChangeState(UIState.Displaying);
         }
 
@@ -127,7 +126,7 @@ namespace UI.Base
         public virtual void HandleHidingState()
         {
             model.SetActive(false);
-            model.InvokeModel(key);
+            Refresh();
             ChangeState(UIState.Off);
         }
     }

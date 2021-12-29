@@ -63,7 +63,7 @@ namespace UI.Inventory
             categoryModel.SetSelectedCategory(_category);
         }
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
             categoryModel.InvokeModel(_key);
             itemModel.SetDisplayItems(Core.CoreManager.Instance.playerInventory.Inventory.GetItems(itemMask, SelectedCategory));

@@ -49,16 +49,6 @@ namespace UI.Selector
             model.Init();
         }
 
-        public override void HandleOffState()
-        {
-            base.HandleOffState();
-            //Delete?
-            if(Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
-            {
-                ChangeState(UIState.Printing);
-            }
-        }
-
         /// <summary>
         /// Increments index respecting count
         /// </summary>
@@ -68,7 +58,7 @@ namespace UI.Selector
             {
                 StartIndexTimer();
                 selectorModel.SetIndexChange(1);
-                selectorModel.InvokeModel(key);
+                Refresh();
             }
         }
 
@@ -81,7 +71,7 @@ namespace UI.Selector
             {
                 StartIndexTimer();
                 selectorModel.SetIndexChange(-1);
-                selectorModel.InvokeModel(key);
+                Refresh();
             }
         }
 
@@ -118,7 +108,7 @@ namespace UI.Selector
         /// Navigates indexes
         /// </summary>
         protected void NavigateIndex()
-        {          
+        {
             if (!selectorModel.Locked)
             {
                 if (input.GetInput(incrementKey, InputEnums.InputAction.Down))
@@ -132,7 +122,7 @@ namespace UI.Selector
                 else if (selectorModel.IndexChange != 0) //If the last model we pushed had an index change, change to zero and update.
                 {
                     selectorModel.SetIndexChange(0);
-                    selectorModel.InvokeModel(key);
+                    Refresh();
                 }
             }        
         }
@@ -145,7 +135,7 @@ namespace UI.Selector
                 {
                     StartIndexTimer();
                     selectorModel.SetSelect(true);
-                    selectorModel.InvokeModel(key);
+                    Refresh();
                 }
             }
         }
@@ -215,7 +205,7 @@ namespace UI.Selector
             if (key.Equals(_key))
             {
                 selectorModel.SetSelect(true);
-                selectorModel.InvokeModel(key);
+                Refresh();
             }
         }
     }

@@ -26,8 +26,13 @@ namespace UI.Dropdown
 
         public override void Init()
         {
-            base.Init();
+            if (!input)
+            {
+                input = Core.CoreManager.Instance.inputMap;
+            }
+
             model = new DropdownModelUI();
+            selectorModel = (SelectorModelUI)model;
             dropdownModel = (DropdownModelUI)model;
         }
 
@@ -43,7 +48,7 @@ namespace UI.Dropdown
             {
                 dropdownModel.SetDropdownDTO(CreateDefaultOptions(_buttonList));
                 dropdownModel.SetDropdownUpdate(true);
-                dropdownModel.InvokeModel(key);
+                Refresh();
                 TryEnableState();
             }
         }

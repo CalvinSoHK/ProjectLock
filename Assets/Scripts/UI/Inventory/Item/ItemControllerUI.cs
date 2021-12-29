@@ -52,11 +52,5 @@ namespace UI.Inventory.Item
 
             model.Init();
         }
-
-        protected override void Refresh()
-        {
-            itemModel.Refresh();
-            itemModel.InvokeModel(key);
-        }
     }
 }

@@ -34,7 +34,7 @@ namespace UI.Inventory.Item
         public delegate void ItemModel(string key, ItemModelUI model);
         public new static ItemModel ModelUpdate;
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
             ModelUpdate?.Invoke(_key, this);
         }

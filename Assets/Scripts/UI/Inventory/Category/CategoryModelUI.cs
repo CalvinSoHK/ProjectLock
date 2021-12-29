@@ -43,7 +43,7 @@ namespace UI.Inventory.Category
         public delegate void CategoryModel(string key, CategoryModelUI model);
         public new static CategoryModel ModelUpdate;
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
             ModelUpdate?.Invoke(_key, this);
         }

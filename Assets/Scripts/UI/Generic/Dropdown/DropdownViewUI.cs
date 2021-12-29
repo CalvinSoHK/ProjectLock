@@ -55,11 +55,12 @@ namespace UI.Dropdown
         protected override void UpdateView(Model _model)
         {
             base.UpdateView(_model);
-            if (dropdownModel.Active)
+            if (dropdownModel.Active && dropdownModel.DropdownUpdate)
             {
                 PopulateDropdown(dropdownModel);
+                dropdownModel.SetDropdownUpdate(false);
             }
-            else
+            else if(!dropdownModel.Active)
             {
                 EmptyChildren();
             }

@@ -26,7 +26,6 @@ namespace UI.Nav
                     PopulateNavigationDropdown();
                     break;
                 case DropdownTypes.Party:
-                    Debug.Log("Populating party");
                     PopulatePartyDropdown();
                     break;
                 default:
@@ -40,9 +39,16 @@ namespace UI.Nav
             //Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld && 
             if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Navigation, InputEnums.InputAction.Down))
             {
+                Core.CoreManager.Instance.player.DisableInputMovement();
                 PopulateOverworldDropdown(DropdownTypes.Navigation);
                 ChangeState(UIState.Printing);
             }
+        }
+
+        public override void HandleHidingState()
+        {
+            base.HandleHidingState();
+            Core.CoreManager.Instance.player.EnableInputMovement();
         }
 
         private void PopulateNavigationDropdown()
@@ -56,7 +62,7 @@ namespace UI.Nav
         private void PopulatePartyDropdown()
         {
             List<string> optionKeys = new List<string>();
-            optionKeys.Add("Party");
+            optionKeys.Add("Swap");
             optionKeys.Add("Details");
             MakeOrReplaceDropdown(optionKeys);
         }
