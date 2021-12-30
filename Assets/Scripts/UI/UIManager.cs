@@ -87,7 +87,7 @@ namespace Core
         {
             partyController.SelectorSetSelect(false);
             partyController.model.SetLocked(false);
-            partyController.firstIteration = true;
+            //partyController.firstIteration = true;
             partyController.TryDisableState();
         }
 

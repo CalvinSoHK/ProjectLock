@@ -71,6 +71,9 @@ namespace UI.Party
             }
         }
 
+        public delegate void OnSelectEvent(List<int> selectedMons);
+        public static OnSelectEvent OnSelectFire;
+
         /// <summary>
         /// When a UI element is selected
         /// </summary>
@@ -78,10 +81,37 @@ namespace UI.Party
         {
             if (key.Equals("Party"))
             {
-                //Save selectableKey?
-                partyModel.selectedMon = selectableKey;
-                Debug.Log("UI Selected: " + selectableKey);
-                Core.CoreManager.Instance.uiManager.navController.PopulateOverworldDropdown(DropdownTypes.Party);
+                if (partyModel.selectedMonsList.Contains(selectableKey))
+                {
+                    Debug.Log("Cant swap... already exists: " + selectableKey);
+                    //Should unlock everything
+                    selectorModel.SetSelect(false);
+                    partyModel.SetLocked(false);
+                    return;
+                }
+                if (partyModel.selectedMonsList.Count == 0)
+                {
+                    Core.CoreManager.Instance.uiManager.navController.PopulateOverworldDropdown(DropdownTypes.Party);
+                }
+
+                partyModel.selectedMonsList.Add(selectableKey);
+                //Call delegate
+                //Another script to check whether to populate or swap etc.. 
+
+                //Different types of select? How to differentiate
+                //1.Swap Select
+                //2.Choosing multiple mons for a battle
+                //3.
+
+
+                //Only if Swapping
+                if (Core.CoreManager.Instance.uiManager.partyController.isSwapping)
+                {
+                    //OnSelectFire?.Invoke(partyModel.selectedMonsList);
+                    Core.CoreManager.Instance.uiManager.partyController.SwapMonOverworld(partyModel.selectedMonsList[0], partyModel.selectedMonsList[1]);
+                    Core.CoreManager.Instance.uiManager.partyController.isSwapping = false;
+                    partyModel.selectedMonsList.Clear();
+                }
             }
         }
 

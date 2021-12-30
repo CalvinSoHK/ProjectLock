@@ -11,11 +11,9 @@ namespace UI.Party
     /// </summary>
     public class PartyControllerUI : SelectorControllerUI
     {
-
         private PartyModelUI partyModel;
 
-        public int savedSelectedIndex = -1;
-        public bool firstIteration = true;
+        public bool isSwapping = false;
         public override void HandleOffState()
         {
             if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld
@@ -81,25 +79,16 @@ namespace UI.Party
             partyModel.playerMon[monNumber] = playerMon;
         }
 
-        public void SaveIndex(int _selectedIndex)
-        {
-            if (savedSelectedIndex < 0)
-            {
-                savedSelectedIndex = _selectedIndex;
-            }
-        }
-
         public void SwapMonOverworld(int _selectedIndex, int newMonIndex)
         {
-            if (_selectedIndex != newMonIndex && savedSelectedIndex != -1)
+            if (_selectedIndex != newMonIndex)
             {
                 Debug.Log($"Swapping {_selectedIndex} with {newMonIndex}");
                 Core.CoreManager.Instance.playerParty.party.SwapMembers(_selectedIndex, newMonIndex);
-                savedSelectedIndex = -1;
                 SelectorSetSelect(false);
-                Refresh();
+                Refresh(); //IMPORTANT
                 partyModel.SetLocked(false);
-                firstIteration = true;
+                //firstIteration = true;
             } else
             {
                 Debug.Log($"Not swappable: {_selectedIndex} and {newMonIndex}");
@@ -107,16 +96,6 @@ namespace UI.Party
                 partyModel.SetLocked(false);
             }
         }
-
-        /// <summary>
-        /// Returns currently selectedMon index
-        /// </summary>
-        /// <returns></returns>
-        public int ReturnCurrentSelected()
-        {
-            return partyModel.selectedMon;
-        }
-
 
         public void SelectorSetSelect(bool setSelect)
         {
@@ -137,14 +116,15 @@ namespace UI.Party
         {
             if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
             {
-                if (!firstIteration)
+                if (isSwapping)
                 {
                     //Reopen dropdown?
                     //is Not Locked (Swapped has been pressed already)
                     //Check if dropdown active?
-                    firstIteration = true;
+                    Debug.Log("Yep");
+                    isSwapping = false;
                 }
-                else
+                //else
                 {
                     ChangeState(UIState.Hiding);
                 }

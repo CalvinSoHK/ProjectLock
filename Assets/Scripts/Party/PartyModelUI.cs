@@ -14,11 +14,12 @@ namespace UI.Party
     public class PartyModelUI : SelectorModelUI
     {
         //Be able to reference mons
+        //Within each list
+
+        //Stack<int> selectedMons = new Stack<int>();
+        public List<int> selectedMonsList = new List<int>();
 
         //List determined by PartySize
-        //Within each list
-        public int selectedMon = -1;
-
         MonIndObj[] _playerMon = new MonIndObj[Core.CoreManager.Instance.playerParty.party.PartySize];
 
         public MonIndObj[] playerMon
