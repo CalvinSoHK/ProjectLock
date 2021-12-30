@@ -11,7 +11,7 @@ namespace Core
     /// <summary>
     /// Manages the current MonDex
     /// </summary>
-    public class DexManager : MonoBehaviour
+    public class DexManager
     {
         public MonDex Dex
         {

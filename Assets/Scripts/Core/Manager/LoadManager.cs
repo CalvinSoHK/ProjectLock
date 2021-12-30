@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utility;
 
-public class LoadManager : MonoBehaviour
+public class LoadManager
 {
     public static string LoadSceneName = "LoadingScreen";
     public const int tick = 100;

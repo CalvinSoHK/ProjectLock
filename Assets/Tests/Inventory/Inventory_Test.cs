@@ -20,7 +20,6 @@ public class Inventory_Test
         //Create object with addressables manager and inventory manager
         GameObject obj = new GameObject();
         CoreManager core = obj.AddComponent<CoreManager>();
-        core.addressablesManager = obj.AddComponent<AddressablesManager>();
         core.playerInventory = obj.AddComponent<InventoryManager>();
         core.dialogueManager = obj.AddComponent<DialogueManager>();
         yield return null;

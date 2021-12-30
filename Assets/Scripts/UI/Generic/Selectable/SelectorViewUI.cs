@@ -174,6 +174,5 @@ namespace UI.Selector
                 RefreshUI();
             }
         }
-
     }
 }

@@ -10,7 +10,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.AddressableSystem
 {
-    public class AddressablesManager : MonoBehaviour
+    public class AddressablesManager
     {
         public delegate void AddressableProgressEvent(float progress);
         /// <summary>
