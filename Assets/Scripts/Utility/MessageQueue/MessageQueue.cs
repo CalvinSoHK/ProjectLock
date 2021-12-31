@@ -28,7 +28,7 @@ namespace Core.MessageQueue
             }
         }
 
-        private Queue<string> messageQueue;
+        private Queue<string> messageQueue = new Queue<string>();
 
         public delegate void MessageQueueEvent(string id, string msg);
         public static MessageQueueEvent MessageEvent;

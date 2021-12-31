@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UI.Dropdown;
+using Core.MessageQueue;
 
 namespace UI.Nav
 {
@@ -11,13 +12,33 @@ namespace UI.Nav
         protected override void OnEnable()
         {
             base.OnEnable();
-            DropdownControllerUI.DropdownOptionFire += OnDropdownPress;
+            MessageQueue.MessageEvent += HandleMessage;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            DropdownControllerUI.DropdownOptionFire -= OnDropdownPress;
+            MessageQueue.MessageEvent -= HandleMessage;
+        }
+
+        private void HandleMessage(string _id, string _msg)
+        {
+            if (_id.Equals("UI"))
+            {
+                //Hide Dropdown Needs change. Button still appears and works despite DisableState()
+                //dropdownController.DisableState();
+                if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
+                {
+                    if (_msg.Equals("Swap"))
+                    {
+                        int selectedIndex = Core.CoreManager.Instance.uiManager.partyController.ReturnCurrentSelected();
+                        //Currently Swap with 1
+                        //new index 
+                        int newSelectedIndex = 1;
+                        Core.CoreManager.Instance.uiManager.partyController.SwapMonOverworld(selectedIndex, newSelectedIndex);
+                    }
+                }
+            }
         }
 
         //One delegate from partyViewUI --> populates dropdown in NavViewUI
@@ -29,19 +50,7 @@ namespace UI.Nav
         /// <param name="_optionKey"></param>
         private void OnDropdownPress(string _key, string _optionKey)
         {
-            //Hide Dropdown Needs change. Button still appears and works despite DisableState()
-            //dropdownController.DisableState();
-            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
-            {
-                if (_optionKey == "Swap")
-                {
-                    int selectedIndex = Core.CoreManager.Instance.uiManager.partyController.ReturnCurrentSelected();
-                    //Currently Swap with 1
-                    //new index 
-                    int newSelectedIndex = 1;
-                    Core.CoreManager.Instance.uiManager.partyController.SwapMonOverworld(selectedIndex, newSelectedIndex);
-                }
-            }
+           
         }
     }
 }

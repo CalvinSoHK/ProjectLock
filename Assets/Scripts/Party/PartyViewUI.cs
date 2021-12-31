@@ -71,7 +71,6 @@ namespace UI.Party
             {
                 //Save selectableKey?
                 partyModel.selectedMon = selectableKey;
-                Debug.Log("UI Selected: " + selectableKey);
                 Core.CoreManager.Instance.uiManager.navController.PopulateOverworldDropdown(DropdownTypes.Party);
             }
         }

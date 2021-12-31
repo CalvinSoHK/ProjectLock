@@ -21,9 +21,6 @@ namespace UI.Dropdown
 
         private DropdownModelUI dropdownModel;
 
-        public delegate void DropdownOptionEvent(string selectorKey, string selectableKey);
-        public static DropdownOptionEvent DropdownOptionFire;
-
         public override void Init()
         {
             if (!input)
@@ -66,7 +63,7 @@ namespace UI.Dropdown
             {
                 dropdownList.Add(new DropdownElementDTO(
                     option_key,
-                    new UnityAction(() => DropdownOptionFire?.Invoke(key, option_key))
+                    new UnityAction(() => Core.CoreManager.Instance.messageQueueManager.TryQueueMessage("UI", option_key))
                     ));
             }
             DropdownDTO dto = new DropdownDTO(dropdownList);

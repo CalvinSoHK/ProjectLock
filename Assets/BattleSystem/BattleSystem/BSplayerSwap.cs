@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.Party;
 using UI.Dropdown;
+using Core.MessageQueue;
 
 public class BSplayerSwap : BSstate
 {
@@ -16,7 +17,7 @@ public class BSplayerSwap : BSstate
     public override void Enter()
     {
         PartyElementUI.PartySelectFire += OnSelect;
-        DropdownControllerUI.DropdownOptionFire += OnDropdownPress;
+        MessageQueue.MessageEvent += HandleMessage;
 
         //Set data? from playerParty
         stateManager.swapManager.SaveStats(stateManager.playerParty.GetPartyMember(0));
@@ -25,6 +26,46 @@ public class BSplayerSwap : BSstate
             stateManager.uiManager.PartyBattleCheck(i, stateManager.playerParty.GetPartyMember(i));
         }
         stateManager.uiManager.PartyEnable();
+    }
+
+    private void HandleMessage (string _id, string _msg)
+    {
+        if (_id.Equals("UI"))
+        {
+            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Battle)
+            {
+                if (_msg == "Swap")
+                {
+                    //Change cant swap with self
+                    if (stateManager.healthManager.playerCurHP <= 0) // If new selected and current mon is dead
+                    {
+                        //What happens if died to Condition at end of turn
+                        //Check by hasgone?
+                        Debug.Log("Dead select new mon");
+                        if (SelectMonCheck())
+                        {
+                            //stateManager.swapManager.currentActiveMon = currentSelectedIndex;
+                            stateManager.swapManager.SwapToPlayer(currentSelectedIndex);
+                            stateManager.uiManager.PartyDisable();
+                            //firstIteration = true;
+                            stateManager.ChangeState(new BSpostResolve(stateManager));
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (SelectMonCheck())
+                        {
+                            stateManager.currentSelectedMon = currentSelectedIndex;
+                            stateManager.uiManager.PartyDisable();
+                            //firstIteration = true;
+                            stateManager.ChangeState(new BSaiTurn(stateManager));
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public override void Run()
@@ -41,7 +82,7 @@ public class BSplayerSwap : BSstate
     public override void Leave()
     {
         PartyElementUI.PartySelectFire -= OnSelect;
-        DropdownControllerUI.DropdownOptionFire -= OnDropdownPress;
+        MessageQueue.MessageEvent -= HandleMessage;
     }
 
     /// <summary>
@@ -75,43 +116,6 @@ public class BSplayerSwap : BSstate
             if (_key.Equals("Party"))
             {
                 currentSelectedIndex = selectedMonIndex;
-            }
-        }
-    }
-
-    private void OnDropdownPress(string _key, string _optionKey)
-    {
-        if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Battle)
-        {
-            if (_optionKey == "Swap")
-            {
-                //Change cant swap with self
-                if (stateManager.healthManager.playerCurHP <= 0) // If new selected and current mon is dead
-                {
-                    //What happens if died to Condition at end of turn
-                    //Check by hasgone?
-                    Debug.Log("Dead select new mon");
-                    if (SelectMonCheck())
-                    {
-                        //stateManager.swapManager.currentActiveMon = currentSelectedIndex;
-                        stateManager.swapManager.SwapToPlayer(currentSelectedIndex);
-                        stateManager.uiManager.PartyDisable();
-                        //firstIteration = true;
-                        stateManager.ChangeState(new BSpostResolve(stateManager));
-                        return;
-                    }
-                }
-                else
-                {
-                    if (SelectMonCheck())
-                    {
-                        stateManager.currentSelectedMon = currentSelectedIndex;
-                        stateManager.uiManager.PartyDisable();
-                        //firstIteration = true;
-                        stateManager.ChangeState(new BSaiTurn(stateManager));
-                        return;
-                    }
-                }
             }
         }
     }
