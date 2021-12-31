@@ -24,6 +24,7 @@ namespace UI.Nav
         {
             DropdownControllerUI.DropdownOptionFire -= OnDropdownSelect;
             base.HandleHidingState();
+            Core.CoreManager.Instance.player.EnableInputMovement();
         }
 
         /// <summary>
@@ -56,13 +57,6 @@ namespace UI.Nav
                 ChangeState(UIState.Printing);
             }
         }
-
-        public override void HandleHidingState()
-        {
-            base.HandleHidingState();
-            Core.CoreManager.Instance.player.EnableInputMovement();
-        }
-
 
         private void PopulateNavigationDropdown()
         {
