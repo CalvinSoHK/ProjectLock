@@ -95,7 +95,19 @@ MonoBehaviour:
   selectMarker: {fileID: 7719742142768838235}
   OnSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2775069367340591906}
+        m_TargetAssemblyTypeName: UI.Inventory.Category.CategoryElementUI, ProjectLock
+        m_MethodName: SelectCategory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   category: 1
   label: {fileID: 7696101227758509708}
 --- !u!114 &8694669591670625625

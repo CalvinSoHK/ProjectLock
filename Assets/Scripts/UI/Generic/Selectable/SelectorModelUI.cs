@@ -44,6 +44,30 @@ namespace UI.Selector
             }
         }
 
+        private bool resetSelectIndex = false;
+        
+        /// <summary>
+        /// Resets SelectIndex
+        /// </summary>
+        public void ResetSelectIndex()
+        {
+            resetSelectIndex = true;
+        }
+
+        /// <summary>
+        /// Checks if we wanted to reset select index
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckResetSelectIndex()
+        {
+            if (resetSelectIndex)
+            {
+                resetSelectIndex = false;
+                return true;
+            }
+            return false;
+        }       
+
         public override void Init()
         {
             indexChange = 0;
@@ -57,9 +81,8 @@ namespace UI.Selector
         public delegate void SelectorModel(string key, SelectorModelUI model);
         public static SelectorModel ModelUpdate;
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
-            Refresh();
             ModelUpdate?.Invoke(_key, this);
         }
     }

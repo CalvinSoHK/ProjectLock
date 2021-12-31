@@ -8,6 +8,7 @@ namespace Core
     {
         private WorldState state = WorldState.Off;
 
+        [SerializeField]
         public WorldState State
         {
             get

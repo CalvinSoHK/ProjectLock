@@ -44,26 +44,18 @@ namespace UI.Dropdown
             managedList.Clear();
         }
 
-        private void UpdateModel(string _key, DropdownModelUI _model)
-        {
-            if (_key.Equals(controllerKey))
-            {
-                UpdateView(_model);
-            }
-        }
-
         protected override void UpdateView(Model _model)
         {
             base.UpdateView(_model);
-            if (dropdownModel.Active)
+            if (dropdownModel.Active && dropdownModel.DropdownUpdate)
             {
                 PopulateDropdown(dropdownModel);
+                dropdownModel.SetDropdownUpdate(false);
             }
-            else
+            else if(!dropdownModel.Active)
             {
                 EmptyChildren();
-            }
-            
+            }          
         }
 
         /// <summary>

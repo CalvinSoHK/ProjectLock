@@ -1,4 +1,5 @@
 using CustomInput;
+using Inventory.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UI.Base;
@@ -51,10 +52,35 @@ namespace UI.Inventory
             }
         }
 
+        public override void HandlePrintingState()
+        {
+            CategoryElementUI.CategorySelectEvent += ChangeCategory;
+
+            //Set item mask based on what state we are when we go to printing
+            switch (Core.CoreManager.Instance.worldStateManager.State)
+            {
+                case Core.WorldState.Overworld:
+                    inventoryModel.SetItemMask(ItemMask.UsableInWorld);
+                    break;
+                case Core.WorldState.Battle:
+                    inventoryModel.SetItemMask(ItemMask.UsableInCombat);
+                    break;
+            }
+            base.HandlePrintingState();
+        }
+
         public override void HandleHidingState()
         {
             base.HandleHidingState();
+            CategoryElementUI.CategorySelectEvent -= ChangeCategory;
             Core.CoreManager.Instance.player.EnableInputMovement();
+        }
+
+        private void ChangeCategory(ItemCategory category)
+        {
+            itemController.EnableItemView(inventoryModel.ItemMask, category);
+            inventoryModel.SetSelectedCategory(category);
+            inventoryModel.InvokeModel(key);
         }
     }
 }

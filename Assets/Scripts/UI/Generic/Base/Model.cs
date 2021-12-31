@@ -30,7 +30,7 @@ namespace UI.Base
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        public void Refresh()
+        protected virtual void Refresh()
         {
             refresh = true;
         }
@@ -81,7 +81,14 @@ namespace UI.Base
 
         /// <summary>
         /// Invokes the model event
+        /// Make sure to call refresh in the implementation
         /// </summary>
-        public abstract void InvokeModel(string _key);
+        public void InvokeModel(string _key)
+        {
+            Refresh();
+            InvokeSpecificModel(_key);
+        }
+
+        protected abstract void InvokeSpecificModel(string _key);
     }
 }

@@ -1,3 +1,5 @@
+using Inventory;
+using Inventory.Items;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,7 +19,7 @@ namespace UI.Inventory.Item
 
         [Tooltip("Prefab element that will be used as elements for this view")]
         [SerializeField]
-        GameObject itemElement;
+        ItemElementUI itemElement;
 
         [Tooltip("Text box to put selected item description.")]
         [SerializeField]
@@ -39,11 +41,79 @@ namespace UI.Inventory.Item
             itemModel = (ItemModelUI)_model;
         }
 
-        private void UpdateModel(string _key, Model _model)
+        protected override void UpdateView(Model _model)
         {
-            if (_key.Equals(controllerKey))
+            base.UpdateView(_model);
+            if (!itemModel.Active)
             {
-                UpdateView(_model);
+                EmptyChildren();
+            }
+        }
+
+
+        protected virtual void PopulateDisplayitems()
+        {
+            EmptyChildren();
+            int index = 0;
+            foreach (ItemStack itemStack in itemModel.DisplayItems)
+            {
+                ItemElementUI element = Instantiate(itemElement, targetTransform);
+                element.SetIndex(index);
+                InventoryItem item = Core.CoreManager.Instance.itemMaster.GetItem(itemStack.ItemID);
+                element.SetItemStack(item, itemStack.ItemCount);
+                index++;
+                selectorElementList.Add(element);
+                EnableElement(element);
+                managedList.Add(element);
+            }
+            selectorBoundMax = selectorElementList.Count;
+            Init();
+        }
+
+        /// <summary>
+        /// Empties children so we can repopulate the menu
+        /// </summary>
+        protected virtual void EmptyChildren()
+        {
+            selectedIndex = 0;
+            for (int i = targetTransform.childCount - 1; i > -1; i--)
+            {
+                managedList.Remove(targetTransform.GetChild(i).gameObject.GetComponent<BaseElementUI>());
+                Destroy(targetTransform.GetChild(i).gameObject);
+            }
+            selectorElementList.Clear();        
+        }
+
+        protected override void RefreshUI()
+        {          
+            if (itemModel.Update)
+            {
+                PopulateDisplayitems();
+                itemModel.SetUpdate(false);
+            }
+            UpdateDescription();
+            base.RefreshUI();
+        }
+
+        /// <summary>
+        /// Updates description text
+        /// Only calls if there was an index change.
+        /// </summary>
+        private void UpdateDescription()
+        {
+            bool enabled = false;
+            foreach (ItemElementUI element in selectorElementList)
+            {
+                if (element.SelectableIndex == selectedIndex)
+                {
+                    itemDescriptionText.text = element.DisplayItem.ItemDescription;
+                    enabled = true;
+                }            
+            }
+
+            if (!enabled)
+            {
+                itemDescriptionText.text = "";
             }
         }
     }

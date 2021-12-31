@@ -39,11 +39,10 @@ namespace UI.Inventory
             }
         }
 
-
         public override void Init()
         {
-            categoryModel = new CategoryModelUI();
-            itemModel = new ItemModelUI();
+            itemModel = (ItemModelUI)Core.CoreManager.Instance.uiManager.itemController.model;
+            categoryModel = (CategoryModelUI)Core.CoreManager.Instance.uiManager.categoryController.model;
         }
 
         public override void Reset()
@@ -63,11 +62,9 @@ namespace UI.Inventory
             categoryModel.SetSelectedCategory(_category);
         }
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
-            categoryModel.InvokeModel(_key);
-            itemModel.SetDisplayItems(Core.CoreManager.Instance.playerInventory.Inventory.GetItems(itemMask, SelectedCategory));
-            itemModel.InvokeModel(_key);
+            categoryModel.InvokeModel(_key);          
             ModelUpdate?.Invoke(_key, this);
         }
     }

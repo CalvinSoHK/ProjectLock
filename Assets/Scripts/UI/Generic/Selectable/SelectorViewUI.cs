@@ -29,6 +29,10 @@ namespace UI.Selector
         [Tooltip("When true, it will select the first option by default")]
         protected bool selectOnStart = false;
 
+        [SerializeField]
+        [Tooltip("When true, grabs all selector elements from the managed list. Use it if you aren't spawning at runtime.")]
+        protected bool grabSelectorsOnStart = true;
+
         protected virtual void OnEnable()
         {
             SelectorModelUI.ModelUpdate += UpdateModel;          
@@ -43,30 +47,19 @@ namespace UI.Selector
         {
             base.Init();
 
-            //Grab all selector elements and put in list
-            foreach (BaseElementUI element in managedList)
+            if (grabSelectorsOnStart)
             {
-                SelectorElementUI selectorElement = element.GetComponent<SelectorElementUI>();
-                if (selectorElement != null)
+                //Grab all selector elements and put in list
+                foreach (BaseElementUI element in managedList)
                 {
-                    selectorElementList.Add(selectorElement);
-                }               
+                    SelectorElementUI selectorElement = element.GetComponent<SelectorElementUI>();
+                    if (selectorElement != null)
+                    {
+                        selectorElementList.Add(selectorElement);
+                    }
+                }
             }
             selectorBoundMax = selectorElementList.Count;
-        }
-
-        /// <summary>
-        /// Written per view since the second input is differently typed per view.
-        /// Calls UpdateView which we override
-        /// </summary>
-        /// <param name="_key"></param>
-        /// <param name="_model"></param>
-        private void UpdateModel(string _key, SelectorModelUI _model)
-        {
-            if (_key.Equals(controllerKey))
-            {
-                UpdateView(_model);
-            }
         }
 
         public override void HandlePrintingState()
@@ -77,6 +70,7 @@ namespace UI.Selector
             {
                 selectorModel.SetSelect(true);
             }
+
             RefreshUI();
             SelectorElementUI.SelectorSelectFire += UpdateSelected;
         }
@@ -114,7 +108,7 @@ namespace UI.Selector
         /// </summary>
         private void UpdateHover()
         {
-           foreach(SelectorElementUI element in selectorElementList)
+            foreach(SelectorElementUI element in selectorElementList)
             {
                 if(element.SelectableIndex == selectedIndex)
                 {
@@ -132,6 +126,12 @@ namespace UI.Selector
         /// </summary>
         private void UpdateSelect()
         {
+            //Reset selected index if turned on
+            if (selectorModel.CheckResetSelectIndex())
+            {
+                selectedIndex = 0;
+            }
+
             if (selectorModel.Select)
             {
                 foreach (SelectorElementUI element in selectorElementList)
@@ -174,6 +174,5 @@ namespace UI.Selector
                 RefreshUI();
             }
         }
-
     }
 }

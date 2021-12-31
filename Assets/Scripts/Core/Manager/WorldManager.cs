@@ -14,7 +14,7 @@ namespace Core.World
     /// <summary>
     /// Handles the world, as in loading and unloading scenes
     /// </summary>
-    public class WorldManager : MonoBehaviour
+    public class WorldManager
     {
         /// <summary>
         /// Const for how often to check for async operation completions.

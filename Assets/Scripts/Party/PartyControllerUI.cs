@@ -108,8 +108,7 @@ namespace UI.Party
             {
                 MonInfoOverworld(i);
             }
-            partyModel.Refresh();
-            partyModel.InvokeModel(key);            
+            base.Refresh();
         }
 
         private void OnReturnKey()

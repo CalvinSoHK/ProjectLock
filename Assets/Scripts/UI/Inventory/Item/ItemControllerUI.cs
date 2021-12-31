@@ -1,4 +1,6 @@
 using CustomInput;
+using Inventory;
+using Inventory.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UI.Base;
@@ -28,10 +30,7 @@ namespace UI.Inventory.Item
         {
             //Setting data in Model
             StartIndexTimer();
-            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
-            {
-                Refresh();
-            }
+            Refresh();
             base.HandlePrintingState();
         }
         public override void HandleDisplayState()
@@ -53,9 +52,12 @@ namespace UI.Inventory.Item
             model.Init();
         }
 
-        protected override void Refresh()
+        public void EnableItemView(ItemMask _mask, ItemCategory _category)
         {
-            itemModel.Refresh();
+            itemModel.ResetSelectIndex();
+            itemModel.SetActive(true);
+            itemModel.SetUpdate(true);
+            itemModel.SetDisplayItems(Core.CoreManager.Instance.playerInventory.Inventory.GetItems(_mask, _category));
             itemModel.InvokeModel(key);
         }
     }

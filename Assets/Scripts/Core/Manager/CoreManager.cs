@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Mon.MonData;
 using Inventory;
 using CustomInput;
+using Core.MessageQueue;
 
 namespace Core
 {
@@ -58,22 +59,10 @@ namespace Core
 
         [Header("Managers")]
         [SerializeField]
-        public DexManager dexManager;
-
-        [SerializeField]
         public EncounterManager encounterManager;
 
         [SerializeField]
-        public WorldManager worldManager;
-
-        [SerializeField]
-        public LoadManager loadManager;
-
-        [SerializeField]
         public DialogueManager dialogueManager;
-
-        [SerializeField]
-        public AddressablesManager addressablesManager;
 
         [SerializeField]
         public UIManager uiManager;
@@ -93,16 +82,32 @@ namespace Core
         [Header("Masters")]
         public ItemMaster itemMaster;
 
+        [Header("Non-Mono Managers")]
+        public MessageQueueManager messageQueueManager = new MessageQueueManager();
+
+        public AddressablesManager addressablesManager = new AddressablesManager();
+
+        public DexManager dexManager = new DexManager();
+
+        public LoadManager loadManager = new LoadManager();
+
+        public WorldManager worldManager = new WorldManager();
+
         /// <summary>
         /// Initializes game
         /// </summary>
         public async Task Initialize()
-        {
+        {            
             randomManager.Initialize();
             await itemMaster.Init();
             await dexManager.GenerateDex();
             await encounterManager.InitEncounterData();
             SetPlayerActive(true);
+        }
+
+        private void Update()
+        {
+            messageQueueManager.UpdateMessageQueues();
         }
 
         /// <summary>

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d33620adab8b3f44b22ecc692b66f05, type: 3}
-  m_Name: CaptureBall
+  m_Name: Potion
   m_EditorClassIdentifier: 
-  itemID: 0
-  itemName: CaptureBall
-  itemDescription: Used to capture new members
+  itemID: 2
+  itemName: Potion
+  itemDescription: Heals target member 10 HP.
   thumbnail: {fileID: 0}
-  itemMask: 119
+  itemMask: 59
   itemCategory: 1
-  onUseString: You throw a Capture Ball!
+  onUseString: You used the Potion

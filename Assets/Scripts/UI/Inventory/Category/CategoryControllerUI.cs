@@ -54,11 +54,5 @@ namespace UI.Inventory.Category
 
             model.Init();
         }
-
-        protected override void Refresh()
-        {
-            categoryModel.Refresh();
-            categoryModel.InvokeModel(key);
-        }
     }
 }

@@ -41,9 +41,8 @@ namespace UI.Dropdown
         public delegate void DropdownModel(string key, DropdownModelUI model);
         public static new DropdownModel ModelUpdate;
 
-        public override void InvokeModel(string _key)
+        protected override void InvokeSpecificModel(string _key)
         {
-            Refresh();
             ModelUpdate?.Invoke(_key, this);
         }
     }

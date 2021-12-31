@@ -17,11 +17,19 @@ namespace UI.Inventory.Category
 
         [SerializeField]
         private TextMeshProUGUI label;
+
+        public delegate void CategorySelect(ItemCategory item);
+        public static CategorySelect CategorySelectEvent;
         public override void Init()
         {
             base.Init();
             Prettify prettify = new Prettify();
             label.text = prettify.Pretty(category.ToString(), false);
+        }
+
+        public void SelectCategory()
+        {
+            CategorySelectEvent?.Invoke(category);
         }
     }
 }

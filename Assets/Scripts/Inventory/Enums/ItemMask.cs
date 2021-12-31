@@ -11,12 +11,13 @@ namespace Inventory.Enums
     [Flags]
     public enum ItemMask
     {
-        Unique = 0,
+        None = 0,
         Sellable = 1,
         Buyable = 2,
-        UsableInCombat = 4,
-        UsableInWorld = 8,
-        UsableInWild = 16,
-        ConsumedOnUse = 32
+        Unique = 4,
+        UsableInCombat = 8,
+        UsableInWorld = 16,
+        UsableInWild = 32,
+        ConsumedOnUse = 64
     }
 }
