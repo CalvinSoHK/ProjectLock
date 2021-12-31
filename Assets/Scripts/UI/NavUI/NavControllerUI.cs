@@ -6,6 +6,7 @@ using CustomInput;
 using UI.Dropdown;
 using UI.Base;
 using UI.Enums;
+using Core.MessageQueue;
 
 namespace UI.Nav
 {
@@ -16,13 +17,13 @@ namespace UI.Nav
     {
         public override void HandlePrintingState()
         {
-            DropdownControllerUI.DropdownOptionFire += OnDropdownSelect;
+            MessageQueue.MessageEvent += OnDropdownSelect;
             base.HandlePrintingState();
         }
 
         public override void HandleHidingState()
         {
-            DropdownControllerUI.DropdownOptionFire -= OnDropdownSelect;
+            MessageQueue.MessageEvent -= OnDropdownSelect;
             base.HandleHidingState();
             Core.CoreManager.Instance.player.EnableInputMovement();
         }
@@ -76,18 +77,21 @@ namespace UI.Nav
 
         private void OnDropdownSelect(string key, string optionKey)
         {
-            //Hide Dropdown Needs change. Button still appears and works despite DisableState()
-            //dropdownController.DisableState();
-            if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
+            if (key.Equals("UI"))
             {
-                if (optionKey == "Swap")
+                //Hide Dropdown Needs change. Button still appears and works despite DisableState()
+                //dropdownController.DisableState();
+                if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
                 {
-                    //Unlock everything
-                    //Allow user to change index of party
-                    Core.CoreManager.Instance.uiManager.partyController.model.SetLocked(false);
-                    Core.CoreManager.Instance.uiManager.partyController.SelectorSetSelect(false);
+                    if (optionKey.Equals("Swap"))
+                    {
+                        //Unlock everything
+                        //Allow user to change index of party
+                        Core.CoreManager.Instance.uiManager.partyController.model.SetLocked(false);
+                        Core.CoreManager.Instance.uiManager.partyController.SelectorSetSelect(false);
 
-                    Core.CoreManager.Instance.uiManager.partyController.isSwapping = true;
+                        Core.CoreManager.Instance.uiManager.partyController.isSwapping = true;
+                    }
                 }
             }
         }

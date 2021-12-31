@@ -62,9 +62,6 @@ namespace UI.Party
             }
         }
 
-        public delegate void OnSelectEvent(List<int> selectedMons);
-        public static OnSelectEvent OnSelectFire;
-
         /// <summary>
         /// When a UI element is selected
         /// </summary>
