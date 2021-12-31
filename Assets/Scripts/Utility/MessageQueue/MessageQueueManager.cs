@@ -15,6 +15,14 @@ namespace Core.MessageQueue
         private Dictionary<string,MessageQueue> queueDict = new Dictionary<string,MessageQueue>();
 
         /// <summary>
+        /// Init all the queues we need for sure
+        /// </summary>
+        public void InitQueues()
+        {
+            TryMakeNewQueue("UI");
+        }
+
+        /// <summary>
         /// Tries to make a new queue given string id.
         /// Returns false if there already exists a queue with that id.
         /// True if valid.

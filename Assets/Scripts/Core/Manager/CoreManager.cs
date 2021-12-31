@@ -97,7 +97,8 @@ namespace Core
         /// Initializes game
         /// </summary>
         public async Task Initialize()
-        {            
+        {
+            messageQueueManager.InitQueues();
             randomManager.Initialize();
             await itemMaster.Init();
             await dexManager.GenerateDex();
