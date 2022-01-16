@@ -20,13 +20,24 @@ namespace UI.Base
         public Model model;
 
         protected UIState state = UIState.Off;
+        
+        /// <summary>
+        /// Sets up the controller.
+        /// Custom setup can be included in the overrideable Init
+        /// </summary>
+        /// <param name="_key"></param>
         public void SetupController(string _key)
         {
             key = _key;
             MessageQueue.MessageEvent += HandleMessage;
             Init();
+            model.Init();
         }
 
+        /// <summary>
+        /// Destroys the controller.
+        /// Cleans up anything that needs to be cleaned up on destroying the object managing the controller.
+        /// </summary>
         public virtual void DestroyController()
         {
             MessageQueue.MessageEvent -= HandleMessage;
@@ -73,9 +84,13 @@ namespace UI.Base
             return false;
         }
 
+        /// <summary>
+        /// Initializes the controller.
+        /// NOTE: No need to call model.Init() since it is called after the Init call by default in SetupController
+        /// </summary>
         public virtual void Init()
         {
-            model.Init();
+            
         }
 
         public virtual void Reset()

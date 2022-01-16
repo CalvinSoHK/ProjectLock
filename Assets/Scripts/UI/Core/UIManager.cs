@@ -10,14 +10,14 @@ using Mon.MonData;
 using UI.Inventory.Category;
 using UI.Inventory.Item;
 using UI.Inventory;
+using UI.Page;
 
 namespace Core
 {
     public class UIManager : MonoBehaviour
     {
-        /// <summary>
-        /// Selector Controller
-        /// </summary>
+        public UIPageStack pageStack = new UIPageStack();
+
         SelectorControllerUI selectorController = new SelectorControllerUI();
 
         public NavControllerUI navController = new NavControllerUI();
@@ -32,7 +32,6 @@ namespace Core
 
         List<IControllerUI> controllers = new List<IControllerUI>();
 
-
         private void Start()
         {
             InitControllers();
@@ -44,8 +43,12 @@ namespace Core
             {
                 controller.DestroyController();
             }
-        }
+        }      
 
+        private void Update()
+        {
+            HandleControllers();
+        }
         private void InitControllers()
         {
             selectorController.SetupController("Selector");
@@ -72,11 +75,6 @@ namespace Core
             controllers.Add(inventoryController);
         }
 
-        private void Update()
-        {
-            HandleControllers();
-        }
-
         private void HandleControllers()
         {
             foreach (IControllerUI controller in controllers)
@@ -95,7 +93,6 @@ namespace Core
         {
             partyController.SelectorSetSelect(false);
             partyController.model.SetLocked(false);
-            //partyController.firstIteration = true;
             partyController.TryDisableState();
         }
 

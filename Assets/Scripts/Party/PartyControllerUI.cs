@@ -74,8 +74,6 @@ namespace UI.Party
             model = new PartyModelUI();
             partyModel = (PartyModelUI)model;
             selectorModel = (SelectorModelUI)model;
-
-            model.Init();
         }
 
 

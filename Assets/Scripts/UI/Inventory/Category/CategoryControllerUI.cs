@@ -51,8 +51,6 @@ namespace UI.Inventory.Category
             model = new CategoryModelUI();
             selectorModel = (SelectorModelUI)model;
             categoryModel = (CategoryModelUI)model;
-
-            model.Init();
         }
     }
 }

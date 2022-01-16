@@ -34,9 +34,6 @@ namespace UI.Selector
 
         protected SelectorModelUI selectorModel;
 
-        /// <summary>
-        /// Inits UI elements for this UI
-        /// </summary>
         public override void Init()
         {
             if (!input)
@@ -46,8 +43,6 @@ namespace UI.Selector
 
             model = new SelectorModelUI();
             selectorModel = (SelectorModelUI)model;
-
-            model.Init();
         }
 
         /// <summary>
