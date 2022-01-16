@@ -7,6 +7,8 @@ using UI.Dropdown;
 using UI.Base;
 using UI.Enums;
 using Core.MessageQueue;
+using UI.Handler;
+using UI.Party;
 
 namespace UI.Nav
 {
@@ -15,17 +17,19 @@ namespace UI.Nav
     /// </summary>
     public class NavControllerUI : DropdownControllerUI
     {
+        /// <summary>
+        /// When set to true, we are currently operating.
+        /// If off we are not waiting on selection handler
+        /// </summary>
+        private bool navLocked = false;
         public override void HandlePrintingState()
         {
-            MessageQueue.MessageEvent += OnDropdownSelect;
             base.HandlePrintingState();
         }
 
         public override void HandleHidingState()
         {
-            MessageQueue.MessageEvent -= OnDropdownSelect;
             base.HandleHidingState();
-            Core.CoreManager.Instance.player.EnableInputMovement();
         }
 
         /// <summary>
@@ -36,6 +40,9 @@ namespace UI.Nav
         {
             switch (type)
             {
+                case DropdownTypes.Empty:
+                    EmptyAndHideDropdown();
+                    break;
                 case DropdownTypes.Navigation:
                     PopulateNavigationDropdown();
                     break;
@@ -75,22 +82,24 @@ namespace UI.Nav
             MakeOrReplaceDropdown(optionKeys);
         }
 
-        private void OnDropdownSelect(string key, string optionKey)
+        protected override void HandleMessage(string id, FormattedMessage fMsg)
         {
-            if (key.Equals("UI"))
+            base.HandleMessage(id, fMsg);
+            if (id.Equals("UI"))
             {
-                //Hide Dropdown Needs change. Button still appears and works despite DisableState()
-                //dropdownController.DisableState();
-                if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
+                if (fMsg.key.Equals("Party" + PartyControllerUI.OUTPUTKEY))
                 {
-                    if (optionKey.Equals("Swap"))
+                    PartyControllerMessageObject partyControllerMessage = JsonUtility.FromJson<PartyControllerMessageObject>(fMsg.message);
+                    PopulateOverworldDropdown(partyControllerMessage.dropdownRequest);
+                    navLocked = true;
+                }              
+                else if(fMsg.key.Equals("Party" + SelectionHandler.HANDLERKEY))
+                {
+                    SelectionHandlerMessageObject message = JsonUtility.FromJson<SelectionHandlerMessageObject>(fMsg.message);
+                    if(navLocked && message.state == SelectionState.AllSelected)
                     {
-                        //Unlock everything
-                        //Allow user to change index of party
-                        Core.CoreManager.Instance.uiManager.partyController.model.SetLocked(false);
-                        Core.CoreManager.Instance.uiManager.partyController.SelectorSetSelect(false);
-
-                        Core.CoreManager.Instance.uiManager.partyController.isSwapping = true;
+                        EmptyAndHideDropdown();
+                        navLocked = false;
                     }
                 }
             }

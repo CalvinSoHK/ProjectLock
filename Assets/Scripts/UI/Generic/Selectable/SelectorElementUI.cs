@@ -31,10 +31,9 @@ namespace UI.Selector
         [SerializeField]
         public UnityEvent OnSelect;
 
-        public delegate void SelectorSelectEvent(string key, int selectedIndex);
-        public static SelectorSelectEvent SelectorSelectFire;
-
         private PointerColorPicker colorPicker = null;
+
+        protected bool selected = false;
 
         public override void Init()
         {
@@ -73,12 +72,16 @@ namespace UI.Selector
         /// Selected by controller select
         /// </summary>
         public virtual void Select()
-        {           
-            OnSelect?.Invoke();
-            if(colorPicker != null)
+        {
+            if (!selected)
             {
-                colorPicker.ChangeColor(colorPicker.SelectedColor);
-                colorPicker.SetLock(true);               
+                OnSelect?.Invoke();
+                if (colorPicker != null)
+                {
+                    colorPicker.ChangeColor(colorPicker.SelectedColor);
+                    colorPicker.SetLock(true);
+                }
+                selected = true;
             }
         }
 
@@ -87,10 +90,14 @@ namespace UI.Selector
         /// </summary>
         public virtual void Deselect()
         {
-            if (colorPicker != null)
+            if (selected)
             {
-                colorPicker.SetLock(false);
-                colorPicker.ChangeColor(colorPicker.DefaultColor);
+                if (colorPicker != null)
+                {
+                    colorPicker.SetLock(false);
+                    colorPicker.ChangeColor(colorPicker.DefaultColor);
+                }
+                selected = false;
             }
         }
 
@@ -99,7 +106,7 @@ namespace UI.Selector
         /// </summary>
         public virtual void ClickSelect()
         {
-            SelectorSelectFire?.Invoke(key, selectableIndex);
+            Core.CoreManager.Instance.messageQueueManager.TryQueueMessage("UI", key, JsonUtility.ToJson(new SelectorMessageObject(selectableIndex)));
         }
     }
 }

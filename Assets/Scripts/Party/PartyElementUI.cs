@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mon.MonData;
 using UnityEngine.UI;
-using Core.PartyUI;
 using CustomInput;
 using UI.Base;
 using UI.Selector;
+using Core;
 
 namespace UI.Party
 {
@@ -14,20 +14,30 @@ namespace UI.Party
     {
 
         [Header("Party Slot Elements")]
-        public Text monName;
-        public Text monLevel;
-        public Text monHealth;
-        public Image monHealthBar;
-        public GameObject monSprite;
-
-
-        public delegate void PartySelectEvent(string key, int selectableKey);
-        public static PartySelectEvent PartySelectFire;
+        [SerializeField]
+        private Text monName;
+        [SerializeField]
+        private Text monLevel;
+        [SerializeField]
+        private Text monHealth;
+        [SerializeField]
+        private Image monHealthBar;
+        [SerializeField]
+        private GameObject monSprite;
+        public MonIndObj setMon;
 
         public override void Select()
         {
-            base.Select();
-            PartySelectFire?.Invoke("Party",selectableIndex);
+            if (!selected)
+            {
+                CoreManager.Instance.messageQueueManager.TryQueueMessage("UI", key, JsonUtility.ToJson(new PartyMessageObject(SelectableIndex, setMon)));
+            }
+            base.Select();      
+        }
+
+        public override void Deselect()
+        {
+            base.Deselect();
         }
 
         /// <summary>
@@ -36,10 +46,11 @@ namespace UI.Party
         /// <param name="monster"></param>
         public void DisplayInfo(MonIndObj monster)
         {
-            monName.text = monster.baseMon.name;
-            monHealth.text = $"{monster.battleObj.monStats.hp} / {monster.stats.hp}";
-            monLevel.text = monster.stats.level.ToString();
-            monHealthBar.fillAmount = (float)monster.battleObj.monStats.hp / monster.stats.hp;
+            setMon = monster;
+            monName.text = setMon.baseMon.name;
+            monHealth.text = $"{setMon.battleObj.monStats.hp} / {setMon.stats.hp}";
+            monLevel.text = setMon.stats.level.ToString();
+            monHealthBar.fillAmount = (float)setMon.battleObj.monStats.hp / setMon.stats.hp;
         }
     }
 }

@@ -1,8 +1,12 @@
+using Core.MessageQueue;
 using CustomInput;
 using Mon.MonData;
 using UI.Base;
+using UI.Enums;
 using UI.Selector;
+using UI.Handler;
 using UnityEngine;
+using UI.Dropdown;
 
 namespace UI.Party
 {
@@ -13,7 +17,18 @@ namespace UI.Party
     {
         private PartyModelUI partyModel;
 
-        public bool isSwapping = false;
+        /// <summary>
+        /// Handles selection events and lets us know when it is complete
+        /// </summary>
+        private SelectionHandler handler = null;
+
+        /// <summary>
+        /// The currently selected dropdown action.
+        /// </summary>
+        private string dropdownSelect = "";
+
+        public static string OUTPUTKEY = "/PARTYCONTROLLER";
+
         public override void HandleOffState()
         {
             if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld
@@ -29,6 +44,7 @@ namespace UI.Party
         {
             //Refreshes because it needs to grab mon info and display.
             //Without refresh it will not show.
+            handler = new SelectionHandler("UI", "Party", 1);
             Refresh();
             base.HandlePrintingState();
         }
@@ -59,7 +75,6 @@ namespace UI.Party
             partyModel = (PartyModelUI)model;
             selectorModel = (SelectorModelUI)model;
 
-
             model.Init();
         }
 
@@ -83,13 +98,14 @@ namespace UI.Party
         {
             if (_selectedIndex != newMonIndex)
             {
-                Debug.Log($"Swapping {_selectedIndex} with {newMonIndex}");
+                //Debug.Log($"Swapping {_selectedIndex} with {newMonIndex}");
                 Core.CoreManager.Instance.playerParty.party.SwapMembers(_selectedIndex, newMonIndex);
-                SelectorSetSelect(false);
+                partyModel.SetSelect(false);
                 Refresh(); //IMPORTANT
                 partyModel.SetLocked(false);
                 //firstIteration = true;
-            } else
+            } 
+            else
             {
                 Debug.Log($"Not swappable: {_selectedIndex} and {newMonIndex}");
                 selectorModel.SetSelect(false);
@@ -115,17 +131,109 @@ namespace UI.Party
         {
             if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
             {
-                if (isSwapping)
-                {
-                    //Reopen dropdown?
-                    //is Not Locked (Swapped has been pressed already)
-                    //Check if dropdown active?
-                    Debug.Log("Yep");
-                    isSwapping = false;
-                }
-                //else
+                //Base case: If we have no selected indexes
+                if (handler.selectedIndexes.Count == 0)
                 {
                     ChangeState(UIState.Hiding);
+                }
+                else
+                {
+                    //Remove the latest selected index (we know it is at least 1)
+                    handler.RemoveLatest();
+                    
+                    //If the count is now 0, we are allowing a new selection in the party screen
+                    //We also need to disable the dropdown
+                    //TODO: Handle when we are backing out of a selection in party controller
+                    if(handler.selectedIndexes.Count == 0)
+                    {
+                        //Reset dropdown select  
+                        ResetSelectionHandler();
+                    }
+                    //If the count is now 1 or more, we are still picking for some option
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Resets selection handler to initial settings
+        /// </summary>
+        private void ResetSelectionHandler()
+        {
+            dropdownSelect = "";
+            handler.selectedIndexes.Clear();
+            handler.SetRequired(1);
+        }
+
+        //Resets the selector
+        private void ResetSelector()
+        {
+            model.SetLocked(false);
+            partyModel.SetSelect(false);
+            partyModel.UnselectAll();
+            Refresh();
+        }
+
+        /// <summary>
+        /// When a UI element is selected
+        /// </summary>
+        protected override void HandleMessage(string id, FormattedMessage fMsg)
+        {
+            base.HandleMessage(id, fMsg);  
+            if (id == "UI")
+            {
+                if (fMsg.key.Equals("Navigation"))
+                {
+                    if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
+                    {
+                        Dropdown.DropdownMessageObject message = JsonUtility.FromJson<Dropdown.DropdownMessageObject>(fMsg.message);
+
+                        //Record selected dropdown option
+                        dropdownSelect = message.dropdownKey;
+                        
+                        //If it was swap
+                        if (message.dropdownKey.Equals("Swap"))
+                        {
+                            //Change required amount to 2 and allow a new selection
+                            handler.SetRequired(2);
+                            ResetSelector();
+                        }
+                    }
+                }
+                else if (fMsg.key.Equals(key + SelectionHandler.HANDLERKEY))
+                {
+                    SelectionHandlerMessageObject message = JsonUtility.FromJson<SelectionHandlerMessageObject>(fMsg.message);
+
+                    switch (message.state)
+                    {
+                        case SelectionState.SelectFail:
+                            ResetSelector();
+                            return;
+                        case SelectionState.SelectSuccess:
+                            partyModel.selectedMonsList.Add(message.selectedIndexes[message.selectedIndexes.Count - 1]);
+                            return;
+                        case SelectionState.AllSelected:
+                            //If selection count is 1, we just did the initial select, make the dropdown
+                            if (message.selectedIndexes.Count == 1)
+                            {
+                                Core.CoreManager.Instance.messageQueueManager.TryQueueMessage(
+                                    "UI",
+                                    key + OUTPUTKEY,
+                                    JsonUtility.ToJson(new PartyControllerMessageObject(DropdownTypes.Party))
+                                    );    
+                            }
+                            else if (dropdownSelect.Equals("Swap") && message.selectedIndexes.Count == 2)
+                            {
+                                SwapMonOverworld(message.selectedIndexes[0], message.selectedIndexes[1]);
+                                partyModel.selectedMonsList.Clear();
+                                partyModel.UnselectAll();
+                                ResetSelectionHandler();
+                            }
+                            return;
+                    }
                 }
             }
         }

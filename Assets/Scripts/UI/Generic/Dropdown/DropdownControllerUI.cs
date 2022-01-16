@@ -34,6 +34,17 @@ namespace UI.Dropdown
         }
 
         /// <summary>
+        /// Empties the dropdown options and hides the menu
+        /// </summary>
+        public void EmptyAndHideDropdown()
+        {
+            selectorModel.SetSelect(false);
+            selectorModel.SetLocked(false);
+            dropdownModel.SetDropdownDTO(new DropdownDTO(new List<DropdownElementDTO>()));
+            ChangeState(UIState.Hiding);
+        }
+
+        /// <summary>
         /// Attempts to replace the dropdown menu with a list of buttons.
         /// If the list of buttons is already the one that is showing (order matters),
         /// then it will not do anything.
@@ -59,12 +70,17 @@ namespace UI.Dropdown
         protected DropdownDTO CreateDefaultOptions(List<string> options)
         {           
             List<DropdownElementDTO> dropdownList = new List<DropdownElementDTO>();
+            int counter = 0;
             foreach (string option_key in options)
             {
                 dropdownList.Add(new DropdownElementDTO(
                     option_key,
-                    new UnityAction(() => Core.CoreManager.Instance.messageQueueManager.TryQueueMessage("UI", option_key))
-                    ));
+                    new UnityAction(() => Core.CoreManager.Instance.messageQueueManager.TryQueueMessage(
+                        "UI", 
+                        key, 
+                        JsonUtility.ToJson(new DropdownMessageObject(counter, option_key)))
+                    )));
+                counter++;
             }
             DropdownDTO dto = new DropdownDTO(dropdownList);
             return dto;

@@ -1,3 +1,4 @@
+using Core.MessageQueue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,13 @@ namespace UI.Base
         public void SetupController(string _key)
         {
             key = _key;
+            MessageQueue.MessageEvent += HandleMessage;
             Init();
+        }
+
+        public virtual void DestroyController()
+        {
+            MessageQueue.MessageEvent -= HandleMessage;
         }
 
         /// <summary>
@@ -128,6 +135,11 @@ namespace UI.Base
             model.SetActive(false);
             Refresh();
             ChangeState(UIState.Off);
+        }
+
+        protected virtual void HandleMessage(string id, FormattedMessage fMsg)
+        {
+
         }
     }
 }

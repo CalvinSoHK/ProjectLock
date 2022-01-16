@@ -28,18 +28,18 @@ namespace Core.MessageQueue
             }
         }
 
-        private Queue<string> messageQueue = new Queue<string>();
+        private Queue<FormattedMessage> messageQueue = new Queue<FormattedMessage>();
 
-        public delegate void MessageQueueEvent(string id, string msg);
+        public delegate void MessageQueueEvent(string id, FormattedMessage msg);
         public static MessageQueueEvent MessageEvent;
 
         /// <summary>
         /// Queues a new message on to this queue
         /// </summary>
         /// <param name="message"></param>
-        public void QueueMessage(string message)
+        public void QueueMessage(string key, string message)
         {
-            messageQueue.Enqueue(message);
+            messageQueue.Enqueue(new FormattedMessage(key, message));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Core.MessageQueue
         {
             if(messageQueue.Count > 0)
             {
-                string msg = messageQueue.Dequeue();
+                FormattedMessage msg = messageQueue.Dequeue();
                 MessageEvent?.Invoke(id, msg);
             }         
         }

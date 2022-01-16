@@ -1,7 +1,6 @@
 ﻿using Core.Player;
 using Core.World;
 using Core.Dialogue;
-using Core.PartyUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,9 +65,6 @@ namespace Core
 
         [SerializeField]
         public UIManager uiManager;
-
-        [SerializeField]
-        public PartyUIManager partyUIManager;
 
         [SerializeField]
         public WorldStateManager worldStateManager;

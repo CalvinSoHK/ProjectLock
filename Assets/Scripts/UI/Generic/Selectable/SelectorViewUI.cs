@@ -1,3 +1,4 @@
+using Core.MessageQueue;
 using System.Collections.Generic;
 using UI.Base;
 using UnityEngine;
@@ -72,12 +73,10 @@ namespace UI.Selector
             }
 
             RefreshUI();
-            SelectorElementUI.SelectorSelectFire += UpdateSelected;
         }
         public override void HandleHidingState()
         {
             base.HandleHidingState();
-            SelectorElementUI.SelectorSelectFire -= UpdateSelected;
         }
 
         /// <summary>
@@ -132,6 +131,7 @@ namespace UI.Selector
                 selectedIndex = 0;
             }
 
+            //If we are selecting set everything to deselect except for the current selectedIndex
             if (selectorModel.Select)
             {
                 foreach (SelectorElementUI element in selectorElementList)
@@ -150,8 +150,16 @@ namespace UI.Selector
                     }
                 }
             }
-        }
 
+            //If we want to unselect all but not change index
+            if (selectorModel.CheckUnselectAll())
+            {
+                foreach (SelectorElementUI element in selectorElementList)
+                {
+                    element.Deselect();
+                }
+            }
+        }
         protected override void RefreshUI()
         {
             base.RefreshUI();
@@ -166,12 +174,17 @@ namespace UI.Selector
             selectorModel = (SelectorModelUI)_model;
         }
 
-        private void UpdateSelected(string _key, int _selectedIndex)
+        protected override void HandleMessage(string id, FormattedMessage fMsg)
         {
-            if (controllerKey.Equals(_key))
+            base.HandleMessage(id, fMsg);
+            if (id.Equals("UI"))
             {
-                selectedIndex = _selectedIndex;
-                RefreshUI();
+                if (fMsg.key.Equals(controllerKey))
+                {
+                    SelectorMessageObject message = JsonUtility.FromJson<SelectorMessageObject>(fMsg.message);
+                    selectedIndex = message.index;
+                    RefreshUI();
+                }
             }
         }
     }

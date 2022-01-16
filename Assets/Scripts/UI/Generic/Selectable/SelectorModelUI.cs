@@ -66,7 +66,31 @@ namespace UI.Selector
                 return true;
             }
             return false;
-        }       
+        }
+
+        private bool unselectAll = false;
+
+        /// <summary>
+        /// Resets SelectIndex
+        /// </summary>
+        public void UnselectAll()
+        {
+            unselectAll = true;
+        }
+
+        /// <summary>
+        /// Checks if we wanted to reset select index
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckUnselectAll()
+        {
+            if (unselectAll)
+            {
+                unselectAll = false;
+                return true;
+            }
+            return false;
+        }
 
         public override void Init()
         {

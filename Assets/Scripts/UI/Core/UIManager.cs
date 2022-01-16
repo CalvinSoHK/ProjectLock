@@ -38,6 +38,14 @@ namespace Core
             InitControllers();
         }
 
+        private void OnDestroy()
+        {
+            foreach(IControllerUI controller in controllers)
+            {
+                controller.DestroyController();
+            }
+        }
+
         private void InitControllers()
         {
             selectorController.SetupController("Selector");

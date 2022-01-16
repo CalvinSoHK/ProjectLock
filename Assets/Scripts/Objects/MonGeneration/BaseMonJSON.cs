@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using Core.MessageQueue;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace Mon
 {

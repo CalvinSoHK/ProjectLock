@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UI.Base;
+using Core.MessageQueue;
 
 namespace UI.Selector
 {
@@ -186,26 +187,30 @@ namespace UI.Selector
         {
             base.HandlePrintingState();
             selectorModel.ResetSelectIndex();
-            SelectorElementUI.SelectorSelectFire += UpdateSelected;
         }
 
         public override void HandleHidingState()
         {
             base.HandleHidingState();
-            SelectorElementUI.SelectorSelectFire -= UpdateSelected;
         }
 
         /// <summary>
-        /// Updates model to reflect being selected
+        /// Listens for messages
         /// </summary>
         /// <param name="_key"></param>
         /// <param name="_selectedIndex"></param>
-        private void UpdateSelected(string _key, int _selectedIndex)
+        protected override void HandleMessage(string id, FormattedMessage fMsg)
         {
-            if (key.Equals(_key))
+            base.HandleMessage(id, fMsg);
+            //Listen for UI messages with our key.
+            if (id.Equals("UI"))
             {
-                selectorModel.SetSelect(true);
-                Refresh();
+                if (key.Equals(fMsg.key))
+                {
+                    SelectorMessageObject message = JsonUtility.FromJson<SelectorMessageObject>(fMsg.message);
+                    selectorModel.SetSelect(true);
+                    Refresh();
+                }
             }
         }
     }

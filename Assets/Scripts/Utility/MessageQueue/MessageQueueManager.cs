@@ -47,12 +47,12 @@ namespace Core.MessageQueue
         /// <param name="id"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public bool TryQueueMessage(string id, string msg)
+        public bool TryQueueMessage(string id, string key, string msg)
         {
             MessageQueue queue;
             if (queueDict.TryGetValue(id, out queue))
             {
-                queue.QueueMessage(msg);
+                queue.QueueMessage(key, msg);
                 return true;
             }
             return false;

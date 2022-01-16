@@ -6,6 +6,7 @@ namespace UI.Enums
 {
     public enum DropdownTypes
     {
+        Empty,
         Party,
         Navigation
     }

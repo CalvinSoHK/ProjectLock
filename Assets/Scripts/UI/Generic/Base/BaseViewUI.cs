@@ -1,3 +1,4 @@
+using Core.MessageQueue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,16 @@ namespace UI.Base
         /// The model we are using
         /// </summary>
         protected Model model;
+
+        private void OnEnable()
+        {
+            MessageQueue.MessageEvent += HandleMessage;
+        }
+
+        private void OnDisable()
+        {
+            MessageQueue.MessageEvent -= HandleMessage;
+        }
 
         private void Start()
         {
@@ -192,6 +203,16 @@ namespace UI.Base
             {
                 UpdateView(_model);
             }
+        }
+
+        /// <summary>
+        /// Handles messages that we hear
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="fMsg"></param>
+        protected virtual void HandleMessage(string id, FormattedMessage fMsg)
+        {
+
         }
     }
 }
