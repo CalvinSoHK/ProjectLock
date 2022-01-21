@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UI.Base;
+using Core.MessageQueue;
 
 namespace UI.Selector
 {
@@ -35,9 +36,9 @@ namespace UI.Selector
 
         protected bool selected = false;
 
-        public override void Init()
+        protected override void InitGeneral()
         {
-            base.Init();
+            base.InitGeneral();
             colorPicker = GetComponent<PointerColorPicker>();
         }
 
@@ -106,7 +107,7 @@ namespace UI.Selector
         /// </summary>
         public virtual void ClickSelect()
         {
-            Core.CoreManager.Instance.messageQueueManager.TryQueueMessage("UI", key, JsonUtility.ToJson(new SelectorMessageObject(selectableIndex)));
+            Core.CoreManager.Instance.messageQueueManager.TryQueueMessage(MessageQueueManager.UI_KEY, key, JsonUtility.ToJson(new SelectorMessageObject(selectableIndex)));
         }
     }
 }

@@ -1,6 +1,7 @@
 using Core.MessageQueue;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace UI.Base
@@ -102,9 +103,48 @@ namespace UI.Base
             }
         }
 
-        public virtual void Init()
+        /// <summary>
+        /// Initializes the controller, makes new models.
+        /// If a model is passed in it will use that instead
+        /// NOTE: No need to call model.Init() since it is called after the Init call by default in SetupController
+        /// </summary>
+        public void Init(string _JSONmodel = null)
         {
-            
+            InitGeneral();
+            if (_JSONmodel == null)
+            {
+                InitFresh();
+            }
+            else
+            {
+                InitSet(_JSONmodel);
+            }
+        }
+
+        /// <summary>
+        /// Runs during init for every case, either if we are using new models or if we are setting it to an existing one
+        /// </summary>
+        protected virtual void InitGeneral()
+        {
+
+        }
+
+        /// <summary>
+        /// Inits the controller with fresh models.
+        /// Do not use base for this function. Generally you should make a new model of the right type in each controller.
+        /// </summary>
+        protected virtual void InitFresh()
+        {
+
+        }
+
+        /// <summary>
+        /// Inits the controller with a set model.
+        /// </summary>
+        /// <param name="_model"></param>
+        protected virtual void InitSet(string _JSONmodel)
+        {
+
         }
 
         public virtual void HandleState()

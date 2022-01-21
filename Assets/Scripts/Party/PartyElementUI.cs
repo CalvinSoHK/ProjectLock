@@ -7,6 +7,7 @@ using CustomInput;
 using UI.Base;
 using UI.Selector;
 using Core;
+using Core.MessageQueue;
 
 namespace UI.Party
 {
@@ -30,7 +31,7 @@ namespace UI.Party
         {
             if (!selected)
             {
-                CoreManager.Instance.messageQueueManager.TryQueueMessage("UI", key, JsonUtility.ToJson(new PartyMessageObject(SelectableIndex, setMon)));
+                CoreManager.Instance.messageQueueManager.TryQueueMessage(MessageQueueManager.UI_KEY, key, JsonUtility.ToJson(new PartyMessageObject(SelectableIndex, setMon)));
             }
             base.Select();      
         }

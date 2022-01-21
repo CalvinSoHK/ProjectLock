@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UI.Selector;
 using UI.Base;
 using CustomInput;
+using Core.MessageQueue;
 
 namespace UI.Dropdown
 {
@@ -21,16 +22,21 @@ namespace UI.Dropdown
 
         private DropdownModelUI dropdownModel;
 
-        public override void Init()
+        /// <summary>
+        /// Making a new dropdown model UI and assigning it to the models
+        /// </summary>
+        protected override void InitFresh()
         {
-            if (!input)
-            {
-                input = Core.CoreManager.Instance.inputMap;
-            }
-
             model = new DropdownModelUI();
             selectorModel = (SelectorModelUI)model;
             dropdownModel = (DropdownModelUI)model;
+        }
+
+        protected override void InitSet(string _JSONmodel)
+        {
+            dropdownModel = JsonUtility.FromJson<DropdownModelUI>(_JSONmodel);
+            selectorModel = dropdownModel;
+            model = dropdownModel;
         }
 
         /// <summary>
@@ -76,7 +82,7 @@ namespace UI.Dropdown
                 dropdownList.Add(new DropdownElementDTO(
                     option_key,
                     new UnityAction(() => Core.CoreManager.Instance.messageQueueManager.TryQueueMessage(
-                        "UI", 
+                        MessageQueueManager.UI_KEY, 
                         key, 
                         JsonUtility.ToJson(new DropdownMessageObject(counter, option_key)))
                     )));
@@ -91,15 +97,6 @@ namespace UI.Dropdown
             if (!model.Locked)
             {
                 IndexControl();
-                OnReturnKey();
-            }
-        }
-
-        private void OnReturnKey()
-        {
-            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
-            {
-                ChangeState(UIState.Hiding);
             }
         }
     }

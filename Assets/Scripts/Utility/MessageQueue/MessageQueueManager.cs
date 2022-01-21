@@ -14,12 +14,18 @@ namespace Core.MessageQueue
         /// </summary>
         private Dictionary<string,MessageQueue> queueDict = new Dictionary<string,MessageQueue>();
 
+        public static string UI_KEY = "UI", UI_SAVE_KEY = "UI/Save";
+
         /// <summary>
         /// Init all the queues we need for sure
         /// </summary>
         public void InitQueues()
         {
-            TryMakeNewQueue("UI");
+            //General UI message queue
+            TryMakeNewQueue(UI_KEY);
+
+            //UI Save pages queue. Used for UIPagesManager to receive controller info that needs to be saved as a page
+            TryMakeNewQueue(UI_SAVE_KEY);
         }
 
         /// <summary>
@@ -55,6 +61,25 @@ namespace Core.MessageQueue
                 queue.QueueMessage(key, msg);
                 return true;
             }
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to get a specific queues current length
+        /// Returns true if successful
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public bool TryGetQueueLength(string id, out int count)
+        {
+            MessageQueue queue;
+            if (queueDict.TryGetValue(id, out queue))
+            {
+                count = queue.QueueCount();
+                return true;
+            }
+            count = -1;
             return false;
         }
 

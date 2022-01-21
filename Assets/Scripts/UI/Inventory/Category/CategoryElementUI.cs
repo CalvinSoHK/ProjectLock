@@ -20,9 +20,10 @@ namespace UI.Inventory.Category
 
         public delegate void CategorySelect(ItemCategory item);
         public static CategorySelect CategorySelectEvent;
-        public override void Init()
+
+        protected override void InitGeneral()
         {
-            base.Init();
+            base.InitGeneral();
             Prettify prettify = new Prettify();
             label.text = prettify.Pretty(category.ToString(), false);
         }

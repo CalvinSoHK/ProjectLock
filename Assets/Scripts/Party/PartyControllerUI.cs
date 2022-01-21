@@ -7,6 +7,9 @@ using UI.Selector;
 using UI.Handler;
 using UnityEngine;
 using UI.Dropdown;
+using System.Collections.Generic;
+using UI.Page;
+using System.Threading.Tasks;
 
 namespace UI.Party
 {
@@ -27,6 +30,11 @@ namespace UI.Party
         /// </summary>
         private string dropdownSelect = "";
 
+        /// <summary>
+        /// Whether or not we just completed the first selection
+        /// </summary>
+        private bool firstSelection = false;
+
         public static string OUTPUTKEY = "/PARTYCONTROLLER";
 
         public override void HandleOffState()
@@ -44,7 +52,7 @@ namespace UI.Party
         {
             //Refreshes because it needs to grab mon info and display.
             //Without refresh it will not show.
-            handler = new SelectionHandler("UI", "Party", 1);
+            handler = new SelectionHandler(MessageQueueManager.UI_KEY, "Party", 1);
             Refresh();
             base.HandlePrintingState();
         }
@@ -60,22 +68,29 @@ namespace UI.Party
             if (!model.Locked)
             {
                 IndexControl();
-                OnReturnKey();
             }
         }
 
-        public override void Init()
+        /// <summary>
+        /// Making a new PartyModelUI and setting all the variables
+        /// </summary>
+        protected override void InitFresh()
         {
-            if (!input)
-            {
-                input = Core.CoreManager.Instance.inputMap;
-            }
-
             model = new PartyModelUI();
             partyModel = (PartyModelUI)model;
             selectorModel = (SelectorModelUI)model;
         }
 
+        /// <summary>
+        /// Setting partyModel to the given model
+        /// </summary>
+        /// <param name="_model"></param>
+        protected override void InitSet(string _JSONmodel)
+        {
+            partyModel = JsonUtility.FromJson<PartyModelUI>(_JSONmodel);
+            selectorModel = partyModel;
+            model = partyModel;
+        }
 
         //Maybe move somewhere in future?
         /// <summary>
@@ -102,7 +117,7 @@ namespace UI.Party
                 Refresh(); //IMPORTANT
                 partyModel.SetLocked(false);
                 //firstIteration = true;
-            } 
+            }
             else
             {
                 Debug.Log($"Not swappable: {_selectedIndex} and {newMonIndex}");
@@ -115,7 +130,7 @@ namespace UI.Party
         {
             selectorModel.SetSelect(setSelect);
         }
-        
+
         protected override void Refresh()
         {
             for (int i = 0; i < partyModel.playerMon.Length; i++)
@@ -125,37 +140,38 @@ namespace UI.Party
             base.Refresh();
         }
 
-        private void OnReturnKey()
+        protected override void OnReturnKey()
         {
-            if (Core.CoreManager.Instance.inputMap.GetInput(InputEnums.InputName.Return, InputEnums.InputAction.Down))
+            //Base case: If we have no selected indexes
+            if (handler.selectedIndexes.Count == 0)
             {
-                //Base case: If we have no selected indexes
+                //Call base functionality (changes to hiding state)
+                base.OnReturnKey();
+            }
+            else
+            {
+                //Reset selected
+                selectorModel.UnselectAll();
+
+                //Remove the latest selected index (we know it is at least 1)
+                handler.RemoveLatest();
+
+                //If the count is now 0, we are allowing a new selection in the party screen
+                //We also need to disable the dropdown
+                //TODO: Handle when we are backing out of a selection in party controller
                 if (handler.selectedIndexes.Count == 0)
                 {
-                    ChangeState(UIState.Hiding);
+                    //Reset dropdown select  
+                    ResetSelectionHandler();
                 }
+                //If the count is now 1 or more, we are still picking for some option
                 else
                 {
-                    //Remove the latest selected index (we know it is at least 1)
-                    handler.RemoveLatest();
-                    
-                    //If the count is now 0, we are allowing a new selection in the party screen
-                    //We also need to disable the dropdown
-                    //TODO: Handle when we are backing out of a selection in party controller
-                    if(handler.selectedIndexes.Count == 0)
-                    {
-                        //Reset dropdown select  
-                        ResetSelectionHandler();
-                    }
-                    //If the count is now 1 or more, we are still picking for some option
-                    else
-                    {
 
-                    }
                 }
             }
         }
-        
+
         /// <summary>
         /// Resets selection handler to initial settings
         /// </summary>
@@ -180,18 +196,18 @@ namespace UI.Party
         /// </summary>
         protected override void HandleMessage(string id, FormattedMessage fMsg)
         {
-            base.HandleMessage(id, fMsg);  
-            if (id == "UI")
+            base.HandleMessage(id, fMsg);
+            if (id == MessageQueueManager.UI_KEY)
             {
                 if (fMsg.key.Equals("Navigation"))
                 {
                     if (Core.CoreManager.Instance.worldStateManager.State == Core.WorldState.Overworld)
                     {
-                        Dropdown.DropdownMessageObject message = JsonUtility.FromJson<Dropdown.DropdownMessageObject>(fMsg.message);
+                        DropdownMessageObject message = JsonUtility.FromJson<DropdownMessageObject>(fMsg.message);
 
                         //Record selected dropdown option
                         dropdownSelect = message.dropdownKey;
-                        
+
                         //If it was swap
                         if (message.dropdownKey.Equals("Swap"))
                         {
@@ -217,11 +233,20 @@ namespace UI.Party
                             //If selection count is 1, we just did the initial select, make the dropdown
                             if (message.selectedIndexes.Count == 1)
                             {
-                                Core.CoreManager.Instance.messageQueueManager.TryQueueMessage(
-                                    "UI",
-                                    key + OUTPUTKEY,
-                                    JsonUtility.ToJson(new PartyControllerMessageObject(DropdownTypes.Party))
-                                    );    
+                                firstSelection = true;
+                                //Add ourselves to the ignore list
+                                Core.CoreManager.Instance.uiManager.pagesManager.AddIgnoreController(this);
+
+                                //Before we save the current page turn off select and lock
+                                //This will make the model and returning be in the same position, but be unlocked and functional
+                                selectorModel.SetSelect(false);
+                                selectorModel.SetLocked(false);
+
+                                //Save the current page
+                                Core.CoreManager.Instance.uiManager.pagesManager.SavePage();
+
+                                //Afterwards restore us back to being locked
+                                selectorModel.SetLocked(true);
                             }
                             else if (dropdownSelect.Equals("Swap") && message.selectedIndexes.Count == 2)
                             {
@@ -233,6 +258,25 @@ namespace UI.Party
                             return;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// When save is complete
+        /// </summary>
+        protected override void OnSaveComplete(List<BaseControllerUI> ignoreList)
+        {
+            base.OnSaveComplete(ignoreList);
+
+            if (firstSelection)
+            {
+                //Queue the drop down menu
+                Core.CoreManager.Instance.messageQueueManager.TryQueueMessage(
+                    MessageQueueManager.UI_KEY,
+                    key + OUTPUTKEY,
+                    JsonUtility.ToJson(new PartyControllerMessageObject(DropdownTypes.Party))
+                    );
+                firstSelection = false;
             }
         }
     }

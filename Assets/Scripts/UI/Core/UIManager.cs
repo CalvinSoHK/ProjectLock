@@ -16,7 +16,7 @@ namespace Core
 {
     public class UIManager : MonoBehaviour
     {
-        public UIPageStack pageStack = new UIPageStack();
+        public UIPagesManager pagesManager = new UIPagesManager();
 
         SelectorControllerUI selectorController = new SelectorControllerUI();
 
@@ -48,6 +48,7 @@ namespace Core
         private void Update()
         {
             HandleControllers();
+            pagesManager.Update();
         }
         private void InitControllers()
         {
@@ -83,7 +84,7 @@ namespace Core
             }
         }
 
-        // When first is selected, Swap has not been pressed. Return down. Still locked
+        #region TEMP //This section should be moved somewhere else
         public void PartyEnable()
         {
             partyController.TryEnableState();
@@ -100,5 +101,6 @@ namespace Core
         {
             partyController.MonInfoBattle(monNumber, playerMon);
         }
+        #endregion
     }
 }

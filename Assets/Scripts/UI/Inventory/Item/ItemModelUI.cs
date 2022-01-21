@@ -7,8 +7,10 @@ using Inventory;
 
 namespace UI.Inventory.Item
 {
+    [System.Serializable]
     public class ItemModelUI : SelectorModelUI
     {
+        [SerializeField]
         private bool update = false;
         /// <summary>
         /// Whether or not the dropdown was updated
@@ -26,6 +28,7 @@ namespace UI.Inventory.Item
             update = _state;
         }
 
+        [SerializeField]
         private List<ItemStack> displayItems;
 
         /// <summary>

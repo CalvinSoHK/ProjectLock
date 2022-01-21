@@ -1,32 +1,35 @@
-using System.Collections;
 using System.Collections.Generic;
 using UI.Base;
-using UnityEngine;
 
 namespace UI.Page
 {
     /// <summary>
-    /// Stacks up pages as they are used, allowing us to go back through them
+    /// Stacks up pages as they are used, allowing us to go back through them.
+    /// Can add new ones and pop out old ones.
     /// </summary>
     public class UIPageStack
     {
-        public static string key = "PageInfo";
-
         private Stack<UIPageInfo> pageInfoStack = new Stack<UIPageInfo>();
 
-        public void AddPageInfo(BaseControllerUI controller, Model model)
+        /// <summary>
+        /// How many pages are currently stored.
+        /// </summary>
+        public int StackCount
         {
-            pageInfoStack.Push(new UIPageInfo(controller, model));
+            get
+            {
+                return pageInfoStack.Count;
+            }
         }
 
-        public void PopLastPageInfo()
+        public void AddPageInfo(UIPageInfo pageInfo)
         {
-            UIPageInfo info = pageInfoStack.Pop();
-            Core.CoreManager.Instance.messageQueueManager.TryQueueMessage(
-                "UI", 
-                key, 
-                JsonUtility.ToJson(new UIPageStackMessage(info))
-                );
+            pageInfoStack.Push(pageInfo);
+        }
+
+        public UIPageInfo PopLastPageInfo()
+        {
+            return pageInfoStack.Pop();
         }
     }
 }

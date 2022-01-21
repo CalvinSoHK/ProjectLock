@@ -7,8 +7,10 @@ namespace UI.Base
     /// <summary>
     /// Models represent data in a UI object.
     /// </summary>
-    public abstract class Model
+    [System.Serializable]
+    public class Model
     {
+        [SerializeField]
         private bool active = false;
 
         /// <summary>
@@ -25,6 +27,7 @@ namespace UI.Base
         /// <summary>
         /// Whether or not we need to refresh this model's view
         /// </summary>
+        [SerializeField]
         private bool refresh = false;
 
         /// <summary>
@@ -55,6 +58,7 @@ namespace UI.Base
             active = _state;
         }
 
+        [SerializeField]
         private bool locked = false;
         public bool Locked
         {
@@ -72,12 +76,18 @@ namespace UI.Base
         /// <summary>
         /// Initializes the model data
         /// </summary>
-        public abstract void Init();
+        public virtual void Init()
+        {
+
+        }
 
         /// <summary>
         /// Resets the model data.
         /// </summary>
-        public abstract void Reset();
+        public virtual void Reset()
+        {
+
+        }
 
         /// <summary>
         /// Invokes the model event
@@ -89,6 +99,9 @@ namespace UI.Base
             InvokeSpecificModel(_key);
         }
 
-        protected abstract void InvokeSpecificModel(string _key);
+        protected virtual void InvokeSpecificModel(string _key)
+        {
+
+        }
     }
 }

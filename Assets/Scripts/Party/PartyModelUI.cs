@@ -5,6 +5,7 @@ using UI.Selector;
 using Core.Player;
 using Mon.MonData;
 using UnityEngine.UI;
+using UI.Base;
 
 namespace UI.Party
 {

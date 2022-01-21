@@ -7,9 +7,12 @@ namespace UI.Base
     public interface IUIBase
     {
         /// <summary>
-        /// Inits the UI. Not called anywhere by default
+        /// Inits the UI. 
+        /// Passes in a Model as a json string, but defaults to null. 
+        /// If one is passed in it it should set the model to that model.
+        /// Otherwise it will make a brand new model
         /// </summary>
-        public abstract void Init();
+        public abstract void Init(string _JSONmodel = null);
 
         /// <summary>
         /// Handles states. Calls all the other HandleStates

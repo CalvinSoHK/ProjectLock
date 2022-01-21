@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Core.MessageQueue
@@ -40,6 +41,15 @@ namespace Core.MessageQueue
         public void QueueMessage(string key, string message)
         {
             messageQueue.Enqueue(new FormattedMessage(key, message));
+        }
+
+        /// <summary>
+        /// Gives us the number of messages in this queue
+        /// </summary>
+        /// <returns></returns>
+        public int QueueCount()
+        {
+            return messageQueue.Count;
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace UI.Inventory
 {
+    [System.Serializable]
     public class InventoryModelUI : Model
     {
         public CategoryModelUI categoryModel;
@@ -19,6 +20,7 @@ namespace UI.Inventory
         public delegate void InventoryModel(string key, InventoryModelUI model);
         public static InventoryModel ModelUpdate;
 
+        [SerializeField]
         private ItemMask itemMask;
 
         public ItemMask ItemMask
@@ -29,6 +31,7 @@ namespace UI.Inventory
             }
         }
 
+        [SerializeField]
         private ItemCategory selectedCategory;
 
         public ItemCategory SelectedCategory

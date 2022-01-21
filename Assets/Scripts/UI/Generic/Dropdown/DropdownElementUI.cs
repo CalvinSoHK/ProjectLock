@@ -17,9 +17,9 @@ namespace UI.Dropdown
         [Tooltip("Where to put display text.")]
         private TextMeshProUGUI displayTextObj;
 
-        public override void Init()
+        protected override void InitGeneral()
         {
-            base.Init();
+            base.InitGeneral();
             displayTextObj.text = displayText;
         }
     }

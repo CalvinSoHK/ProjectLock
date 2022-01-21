@@ -6,9 +6,11 @@ using Inventory.Enums;
 
 namespace UI.Inventory.Category
 {
+    [System.Serializable]
     public class CategoryModelUI : SelectorModelUI
     {
-        ItemCategory selectedCategory;
+        [SerializeField]
+        private ItemCategory selectedCategory;
 
         public ItemCategory SelectedCategory
         {
@@ -18,7 +20,8 @@ namespace UI.Inventory.Category
             }
         }
 
-        ItemMask selectedMask = ItemMask.Unique;
+        [SerializeField]
+        private ItemMask selectedMask = ItemMask.Unique;
 
         public ItemMask SelectedMask
         {

@@ -38,18 +38,25 @@ namespace UI.Inventory.Item
             IndexControl();
         }
 
-        public override void Init()
+        /// <summary>
+        /// Makes new item model
+        /// </summary>
+        protected override void InitFresh()
         {
-            if (!input)
-            {
-                input = Core.CoreManager.Instance.inputMap;
-            }
-
             model = new ItemModelUI();
             selectorModel = (SelectorModelUI)model;
             itemModel = (ItemModelUI)model;
+        }
 
-            model.Init();
+        /// <summary>
+        /// Sets selector model
+        /// </summary>
+        /// <param name="_model"></param>
+        protected override void InitSet(string _JSONmodel)
+        {
+            itemModel = JsonUtility.FromJson<ItemModelUI>(_JSONmodel);
+            selectorModel = itemModel;
+            model = itemModel;
         }
 
         public void EnableItemView(ItemMask _mask, ItemCategory _category)

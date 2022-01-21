@@ -19,15 +19,33 @@ namespace UI.Inventory
         public delegate void InventoryUI(UIState state);
         public static InventoryUI InventoryUIState;
 
-        public override void Init()
+        /// <summary>
+        /// Added controller references
+        /// </summary>
+        protected override void InitGeneral()
         {
+            base.InitGeneral();
             itemController = Core.CoreManager.Instance.uiManager.itemController;
             categoryController = Core.CoreManager.Instance.uiManager.categoryController;
+        }
 
+        /// <summary>
+        /// Sets the inventory model
+        /// </summary>
+        protected override void InitFresh()
+        {
             model = new InventoryModelUI();
             inventoryModel = (InventoryModelUI)model;
+        }
 
-            model.Init();
+        /// <summary>
+        /// Sets inventory model
+        /// </summary>
+        /// <param name="_model"></param>
+        protected override void InitSet(string _JSONmodel)
+        {
+            inventoryModel = JsonUtility.FromJson<InventoryModelUI>(_JSONmodel);
+            model = inventoryModel;
         }
 
         /// <summary>

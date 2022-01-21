@@ -9,6 +9,7 @@ using UI.Enums;
 using Core.MessageQueue;
 using UI.Handler;
 using UI.Party;
+using System.Threading.Tasks;
 
 namespace UI.Nav
 {
@@ -85,7 +86,7 @@ namespace UI.Nav
         protected override void HandleMessage(string id, FormattedMessage fMsg)
         {
             base.HandleMessage(id, fMsg);
-            if (id.Equals("UI"))
+            if (id.Equals(MessageQueueManager.UI_KEY))
             {
                 if (fMsg.key.Equals("Party" + PartyControllerUI.OUTPUTKEY))
                 {

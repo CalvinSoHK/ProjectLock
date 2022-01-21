@@ -40,17 +40,18 @@ namespace UI.Inventory.Category
         {
              IndexControl();
         }
-
-        public override void Init()
+        protected override void InitFresh()
         {
-            if (!input)
-            {
-                input = Core.CoreManager.Instance.inputMap;
-            }
-
             model = new CategoryModelUI();
             selectorModel = (SelectorModelUI)model;
             categoryModel = (CategoryModelUI)model;
+        }
+
+        protected override void InitSet(string _JSONmodel)
+        {
+            categoryModel = JsonUtility.FromJson<CategoryModelUI>(_JSONmodel);
+            selectorModel = categoryModel;
+            model = categoryModel;           
         }
     }
 }

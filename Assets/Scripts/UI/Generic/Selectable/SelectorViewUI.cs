@@ -1,5 +1,6 @@
 using Core.MessageQueue;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UI.Base;
 using UnityEngine;
 
@@ -44,10 +45,9 @@ namespace UI.Selector
             SelectorModelUI.ModelUpdate -= UpdateModel;
         }
 
-        public override void Init()
+        protected override void InitGeneral()
         {
-            base.Init();
-
+            base.InitGeneral();
             if (grabSelectorsOnStart)
             {
                 //Grab all selector elements and put in list
@@ -129,10 +129,33 @@ namespace UI.Selector
             if (selectorModel.CheckResetSelectIndex())
             {
                 selectedIndex = 0;
+                //Deselect all elements unless we have select on start active. If so ,then set the first index as selected.
+                foreach (SelectorElementUI element in selectorElementList)
+                {
+                    if (element.SelectableIndex == selectedIndex)
+                    {
+                        if(selectOnStart)
+                        {
+                            if (lockOnSelect)
+                            {
+                                selectorModel.SetLocked(true);
+                            }
+                            element.Select();
+                        }
+                        else
+                        {
+                            element.Deselect();
+                        }
+                    }
+                    else
+                    {
+                        element.Deselect();
+                    }
+                }
             }
 
             //If we are selecting set everything to deselect except for the current selectedIndex
-            if (selectorModel.Select)
+            else if (selectorModel.Select)
             {
                 foreach (SelectorElementUI element in selectorElementList)
                 {
@@ -177,7 +200,7 @@ namespace UI.Selector
         protected override void HandleMessage(string id, FormattedMessage fMsg)
         {
             base.HandleMessage(id, fMsg);
-            if (id.Equals("UI"))
+            if (id.Equals(MessageQueueManager.UI_KEY))
             {
                 if (fMsg.key.Equals(controllerKey))
                 {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.Base;
 using Core.MessageQueue;
+using System.Threading.Tasks;
 
 namespace UI.Selector
 {
@@ -16,7 +17,7 @@ namespace UI.Selector
 
         //Which input name to use for increment and decrement
         protected InputEnums.InputName incrementKey, decrementKey;
-      
+
         /// <summary>
         /// How long there is a delay per input to scroll through selection
         /// </summary>
@@ -34,15 +35,35 @@ namespace UI.Selector
 
         protected SelectorModelUI selectorModel;
 
-        public override void Init()
+        /// <summary>
+        /// Adding the need to grab the input map if it is not set up.
+        /// </summary>
+        protected override void InitGeneral()
         {
+            base.InitGeneral();
             if (!input)
             {
                 input = Core.CoreManager.Instance.inputMap;
             }
+        }
 
+        /// <summary>
+        /// Making a new SelectorModelUI and setting it where it is needed
+        /// </summary>
+        protected override void InitFresh()
+        {
             model = new SelectorModelUI();
             selectorModel = (SelectorModelUI)model;
+        }
+
+        /// <summary>
+        /// Setting the selector model as well
+        /// </summary>
+        /// <param name="_model"></param>
+        protected override void InitSet(string _JSONmodel)
+        {
+            selectorModel = JsonUtility.FromJson<SelectorModelUI>(_JSONmodel);
+            model = (Model)selectorModel;
         }
 
         /// <summary>
@@ -119,7 +140,7 @@ namespace UI.Selector
                 {
                     selectorModel.SetIndexChange(0);
                 }
-            }        
+            }
         }
 
         protected void SelectIndex()
@@ -198,7 +219,7 @@ namespace UI.Selector
         {
             base.HandleMessage(id, fMsg);
             //Listen for UI messages with our key.
-            if (id.Equals("UI"))
+            if (id.Equals(MessageQueueManager.UI_KEY))
             {
                 if (key.Equals(fMsg.key))
                 {
@@ -207,6 +228,15 @@ namespace UI.Selector
                     Refresh();
                 }
             }
+        }
+
+        /// <summary>
+        /// Add to reset selected index on return key
+        /// </summary>
+        protected override void OnReturnKey()
+        {
+            selectorModel.UnselectAll();
+            base.OnReturnKey();
         }
     }
 }

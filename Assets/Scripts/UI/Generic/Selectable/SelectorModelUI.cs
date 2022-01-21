@@ -9,8 +9,10 @@ namespace UI.Selector
     /// <summary>
     /// Model that represents what needs to be shown in the view for Selectors
     /// </summary>
+    [System.Serializable]
     public class SelectorModelUI : Model
     {
+        [SerializeField]
         private int indexChange = -1;
 
         /// <summary>
@@ -29,13 +31,12 @@ namespace UI.Selector
             indexChange = _indexChange;
         }
 
-
+        [SerializeField]
         private bool select = false;
         public void SetSelect(bool _state)
         {
             select = _state;
         }
-
         public bool Select
         {
             get
@@ -44,6 +45,7 @@ namespace UI.Selector
             }
         }
 
+        [SerializeField]
         private bool resetSelectIndex = false;
         
         /// <summary>
@@ -68,6 +70,7 @@ namespace UI.Selector
             return false;
         }
 
+        [SerializeField]
         private bool unselectAll = false;
 
         /// <summary>

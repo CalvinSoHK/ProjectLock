@@ -6,32 +6,53 @@ using UnityEngine;
 namespace UI.Page
 {
     /// <summary>
-    /// Stores info for a particular UI controller and it's respective model so it can be restored if we back to that UI page
+    /// Stores info for a page of UI controllers and models being active
     /// </summary>
     public class UIPageInfo
     {
-        private BaseControllerUI controller;
-        public BaseControllerUI Controller
+        public List<UIControllerInfo> activeControllerInfoList = new List<UIControllerInfo>();
+        
+        public UIPageInfo(List<UIControllerInfo> _activeControllerInfoList)
+        {
+            foreach(UIControllerInfo info in _activeControllerInfoList)
+            {
+                activeControllerInfoList.Add(info);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Contains controller and model for that controller
+    /// </summary>
+    public class UIControllerInfo
+    {
+        private BaseControllerUI activeController;
+        public BaseControllerUI ActiveController
         {
             get
             {
-                return controller;
+                return activeController;
             }
         }
 
-        private Model savedModelState;
-        public Model SavedModelState
+        private string savedModelStateJSON;
+        public string SavedModelStateJSON
         {
             get
             {
-                return savedModelState;
+                return savedModelStateJSON;
             }
         }
-    
-        public UIPageInfo(BaseControllerUI _controller, Model _savedModelState)
+
+        /// <summary>
+        /// Stores the active controller and converts the passed model into a json
+        /// </summary>
+        /// <param name="_activeController"></param>
+        /// <param name="_savedModelState"></param>
+        public UIControllerInfo(BaseControllerUI _activeController, Model _savedModelState)
         {
-            controller = _controller;
-            savedModelState = _savedModelState;
+            activeController = _activeController;
+            savedModelStateJSON = JsonUtility.ToJson(_savedModelState);          
         }
     }
 }
